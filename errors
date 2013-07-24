@@ -1,0 +1,4 @@
+mkdir -p _release/src/ogdf/abacus
+em++   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o _release/src/ogdf/abacus/global.o -c src/ogdf/abacus/global.cpp
+mkdir -p _release/src/ogdf/abacus
+em++   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o _release/src/ogdf/abacus/global.o -c src/ogdf/abacus/global.cpp

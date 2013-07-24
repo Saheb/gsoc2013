@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <script src="test.js"></script>
+  <script>
+	var GA = new Module.GraphAttributes();
+	document.write("hello");
+    var G = new Module.Graph();
+	Module.randomGraph(G,10,20);
+	document.write(G.numberOfNodes());
+	document.write(G.numberOfEdges());
+	document.write(G.empty());	
+  </script>
+</html>

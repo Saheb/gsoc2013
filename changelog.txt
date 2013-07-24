@@ -1,0 +1,553 @@
+***********************************************************
+*         OGDF - The Open Graph Drawing Framework         *
+*                                                         *
+*                       CHANGELOG                         *
+***********************************************************
+
+This document gathers the latest changes. Its purpose is to
+provide the relevant information for creating the changelog on
+ogdf.net. It is not part of the public release!
+
+BUG -> Bug Fix
+NEW -> New Feature
+MOD -> Modified Behavior
+
+
+===============================================================================
+v.2012.?? (???)
+===================
+
+
+
+MOD: Moved functionality of UpwardModule to UpwardPlanarity
+     - UpwardModule has been renamed to UpwardPlanaritySingleSource
+	   (header moved to ogdf/internal/upward/)
+	 - UpwardPlanaritySingleSource contains now the implementation of the
+	   single-source upward planarity test (+embedding & augmentation)
+
+NEW: Added StressMinimization, removed StressMajorizationSimple (was purely experimental)
+     Partial support for 3D in StressMinimization, GraphAttributes, ComponentSplitterLayout
+
+
+NEW: Added some SVG drawing capabilities in GraphIO::drawSVG:
+     - edge labels
+     - edge arrows
+     - node shapes such that only shImage is unsupported
+
+MOD: Logger has a special log-level setting for internal libraries (e.g. abacus)
+
+MOD: OGDF_THROW*-Macros flush the Logger and stdout, before throwing
+
+MOD: PoolMemoryAllocator:
+     - new simplified implementation
+	 - added defrag() method for optimizing global free lists
+
+MOD: EdgeInsertionModule:
+     - added a callEx() method for passing arrays as pointers (0-pointers allowed)
+	 - simplifies usage with SubgraphPlanarizer (no case distinctions required)
+
+MOD: CrossingMinimizationModule:
+     - arrays for costs, forbidden edges, subgraphs are now passed as pointers
+	 - 0-pointers can be used if no special infor is required
+	 - methods for checking if arrays have been passed by the user have been removed
+	   (check for 0-pointer instead)
+
+MOD: CriticalSection (Windows): special implementation for Vista and above using SRW locks
+
+BUG: Fixed a memory leak in Thread on Linux
+     (memory pool was not flushed on thread termination)
+
+NEW: Added function System::realTime()
+     (similar as usedRealTime(), but returns the current time point)
+
+NEW: Added atomic operations for Inc, Dec, Add, Sub, Exchange
+
+MOD: Thread safety: Graph, (Const)CombinatorialEmbedding allow now shared const access
+
+MOD: PlanRep stores connected components info using a Graph::CCsInfo
+     - added initialization methods in Graph, GraphCopy
+
+NEW: Graph::CCsInfo: stores info about connected components
+
+MOD: Configuration (Visual Studio):
+     - select platform toolset
+     - select minimum Windows version
+
+BUG: Fixed usedTime() for Windows.
+     Uses now GetProcessTimes() instead of clock() (which returns wall-clock time)
+
+BUG: Fixed several bugs in PoolMemoryAllocator
+     - corrected chaining of pool vectors in incVectorSlot()
+	 - corrected maintenance of rest lists
+	 - protected access to global resources
+
+MOD: Renamed DinoXmlParser, DinoXmlScanner, DinoLineBuffer, DinoUmlDiagramGraph,
+     DinoUmlModelGraph; now without "Dino"-prefix
+	 Removed DinoTools
+
+NEW: Integrated COIN-OR projects Clp and Symphony
+
+NEW: Integrated Abacus and adapted to OGDF (now: OGDF-ABACUS)
+
+MOD: Changed configuration system to use an auto-generated config file.
+
+MOD: Methods delNode/delEdge in Graph are now virtual, and the delCopy methods in
+     GraphCopy and PlanarRepExpansion are renamed to delNode/delEdge.
+
+BUG: making delNode/delEdge applicable to GraphCopy (see above) resolved a couple of minor
+     hidden bugs throughout the library.
+
+MOD: ClusterGraphAttributes::getGraph() renamed to constGraph()
+
+MOD: GraphAttributes, ClusterGraphAttributes:
+     Improved, more consistent naming scheme for attributes (many methods have been renamed!)
+
+MOD: ClusterGraphAttributes: Removed attribute access by cluster ID
+
+BUG: Fixed a bug in CconnectClusterPlanar::call:
+     Assertion failed because of wrong usage of conversion to graph in assertion.
+
+NEW: Enumeration types and classes for graphical appearance (basic/graphics.h|cpp)
+     - class Color for representing RGBA-colors (replaces usage of strings throughout OGDF)
+	 - enums StrokeType, FillPattern (replace corresponding enums in GraphAttributes)
+	 - enums Shape, EdgeArrow moved from GraphAttributes
+	 - new enums StrokeLineCap, StrokeLineJoin
+	 - structs Stroke and Fill for representing strokes and fills of objects
+
+NEW: GraphIO:
+	 - Re-implementation of reading LEDA graph format
+	 - Writing graphs in LEDA format
+	 - Re-implementation of reading Rome-Lib format
+	 - Writing graphs in Rome-Lib format
+
+MOD: DinoXmlParser/Scanner/LineBuffer/UmlToGraphConverter:
+	 now initialized with istream (instead of filename)
+
+MOD: ClusterGraph: made writeGML methods const
+	 ClusterGraphAttributes: made writeGML, writeOGML methods const
+
+MOD: ClusterGraphAttributes: Removed private method writeCluster() (nowhere used)
+	 Renamed writeGraphwinCluster -> doWriteGMLCluster
+
+MOD: Removed XmlParser, as well as readXML(), writeXML() in GraphAttributes
+
+NEW: GraphAttributes: Added static function colorToString(), which converts RGB-color
+	 values to a string #RRGGBB
+
+MOD: CconnectClusterPlanar: Removed call with non-const graph (does the same as const-version)
+
+MOD: CconnectClusterPlanarEmbed, CconnectClusterPlanar:
+	 Removed call with error message string; error can be queried with errCode()
+
+MOD: Removed class String
+	 replaced ogdf::string by std::string or C-string (const char *)
+	 file names are now always passed as "const char *" to I/O functions
+
+NEW: flag OGDF_HAVE_CPP11 (defined in basic.h) to decide if the compiler has (some)
+	 support for C++0x/C++11 standard
+
+NEW: definition (if necessary) of functions for converting from/to string:
+		to_string(), stoi(), stod() etc. (actually C++11 functions)
+	 include <string> and using std::string provided by basic.h
+
+BUG: Fixed a bug in HashingBase::copyAll:
+	Minimum table size was not initialized,
+	thus copy constructor and assignment operator of HashingBase didn't work properly.
+
+===============================================================================
+v.2012.07 (Sakura)
+===================
+
+MOD: System: CPU features are not queried when building a shared lib on Unix/Linux
+     (due to a crash)
+
+MOD: ClusterPlanarity, ClusterPlanarModule: renamed cPlanarityTest to isClusterPlanar
+
+MOD: Thread: made destructor virtual
+
+NEW: PlanarDrawLayout, PlanarStraightLayout: Added module option for planar embedder
+
+MOD: Changed interface of EmbedderModule: now input is a graph instead of a PlanRep
+
+MOD: PlanarModule removed
+	 use direct functions in extended_graph_alg.h instead
+
+NEW: PlanarityModule as a base class for planarity testing and embedding
+	 BoyerMyrvold and BoothLueker are derived from PlanarityModule
+
+NEW: Simplified calling the planarity tests & embedding routines:
+     extended_graph_alg.h now contains direct calls to planarity testings (via
+     BoyerMyrvold, which is much faster than the old default planarity test
+     BoothLueker). Furthermore, you may call planarEmbed as before, or use
+     the slightly faster planarEmbedPlanarGraph if the given graph is guaranteed
+     to be planar (and thus that the embedding will be successful)
+
+MOD: PlanarModule (the old planarity test following the algorithm by Booth and
+     Lueker) was renamed to BoothLueker. Furthermore, both available planarity
+     tests (BoothLueker and BoyerMyrvold) now inherit from the new PlanarityModule
+     (which is now a proper module). Therefore, the names of the public call
+     functions changed slightly.
+
+BUG: makeConnected() now also works for empty graph (just returns)
+
+BUG: HyperGraph.h now compiles and works on gcc and VC++
+
+MOD: renamed EmbedKey.h -> IndInfo.h
+	 rename indInfo -> IndInfo
+	 removed embedKey and whaKey
+
+MOD: renamed eLabelTyp -> eLabelType
+
+MOD: replaced ogdf's min/max by std::min/std::max
+
+MOD: moved definition of MemElem to MallocMemoryAllocator
+
+MOD: made Array2D::det() method const
+
+BUG: fixed maximum external face embedding of a graph containing 2-cycles
+
+MOD: renamed some graph load functions (for consistent naming):
+     loadRomeGraphStream ->  loadRomeGraph
+	 loadChacoStream -> loadChacoGraph
+	 loadSimpleGraphStream ->  loadSimpleGraph
+	 loadBenchHypergraphStream ->  loadBenchHypergraph
+
+
+===============================================================================
+v.2012.05 (Madrona)
+===================
+
+MOD: KillingTop10Heap always nests a TargetComparer
+
+NEW: generators for cube graphs and grid graphs
+
+NEW: added chooseIterator/chooseElement to List and PureList
+
+NEW: SteinLibParser for reading SteinLib instances
+
+MOD: changeDir() now returns a boolean value (true = successful)
+
+BUG: fixed handling of edge arrow types in GraphAttributes::writeGML
+
+NEW: functions for reading and writing a simple graph format which also allows to specifiy a subgraph.
+
+NEW: Union/Find data structure (class DisjointSets)
+
+NEW: layout module ProcrustesSubLayout
+
+NEW: functions to read and write the GD Challenge file format
+
+NEW: functions to read the Chaco (graph partitioning) file format
+
+NEW: added methods for computing Manhattan distance (maxManhattanEdgeLength(),  manhattanEdgeLength(edge e)) to GridLayout
+
+NEW: MultiEdgeApproxInserter: new multi-edge insertion module
+
+NEW: graph generators planarConnectedGraph(), gridGraph(), petersenGraph()
+
+NEW: FastSimpleHierarchyLayout
+
+NEW: FPPLayout, SchnyderLayout
+
+BUG: 0-pointer exception in GraphListBase::swap() (wrong swap-function was called)
+
+NEW: Added basic classes for constraint handling (PG478 code)
+
+NEW: added search methods for SList and SListPure
+
+BUG: DynamicPlanarSPQRTree.h: fixed include (missing subdir "decomposition")
+
+MOD: renamed ModularMultilevelMixerLayout.h to ModularMultilevelMixer.h (since it defines class ModularMultilevelMixer)
+
+NEW: GreedyInsertHeuristic, GreedySwitchHeuristic, SiftingHeuristic, CoffmanGrahamRanking
+
+BUG: Cluster-Sugiyama: fixed bug ExtendedNestingGraph::tryEdge() (integer overflow)
+     reimplemented computation of "levels" for fast acyclicity testing such that levels are < 2n
+
+MOD: Made ClusterGraphAttributes::readClusterGraphGML() private (cause its not the one you should use!)
+
+MOD: Changed return type of CrossingsMatrix::operator() from double to int
+
+MOD: ScalingLayout, PreprocessorLayout: proper usage of module options
+
+BUG: ModularMultilevelMixer: implemented correct usage of module options; fixes a potential memory leak.
+
+MOD: Moved definitions of constants for pi and e to class Math (renamed euler to e).
+     Also defined constants pi_2, pi_4, and two_pi.
+
+BUG: Fixed bug in GmlParser:
+     Access to uninitialized pointer in destructor if file could not be opened in constructor.
+
+MOD: Removed BuildInfo and Licenser
+     (files ogdf/BuildInfo.h, ogdf/Licenser.h, src/basic/BuildInfo.cpp, src/basic/Licenser.cpp)
+	 These files were not part of the public (GPL) release.
+
+NEW: SpringEmbedderFRExact: Fruchterman/Reingold spring-embedder with exact force calculations
+     also features OpenMP and SSE3 parallelisation
+
+
+
+===============================================================================
+v.2010.10 (Sassafras)
+=====================
+
+MOD: update to readGml (GmlParser) and writeGml of GraphAttributes to support the directed keyword
+
+NEW: Hypergraph implementation including node, edge and adj arrays.
+
+MOD: use everywhere size_t type as hash value
+
+MOD: GEMLayout: Changed default parameters - existing ones didn't make any sense.
+     - Decreased initial temperature  to 10.0
+     - Increased desired length to 5.0
+     - Set gravitational constant to non zero value 1/16 (given in paper)
+
+BUG: use of enum DinoUMLDiagramGraph::UmlDiagramType should not re-declare type
+
+BUG: fixed memory leak (deallocation of 'osi') (LPSolver_coin)
+
+BUG: In a GML file with random node IDs the cluster parser did not find the vertex IDs because it was not mapping them through the (GML-file node id)->(Graph object node) map.
+     Adjusted as follows:
+     - introduced member variable m_mapToNode (instead of working with local variables mapToNode)
+     - cluster read part now uses the same id -> node mapping as the graph read part
+
+BUG: Precision init should change class member, not a local variable.
+
+BUG: fixed void makeConnected(Graph &G, List<edge> &added)
+
+BUG: more flexible compiler condition for systems providing only 15 random bits with rand() function;
+fixes a non-termination bug with FMMMLayout on Solaris/SPARC
+
+NEW: forall_slistiterators macro added
+
+MOD: Completely revised memory management.
+     Pool-memory allocator now supports thread-safe allocation, either using
+     thread local declared variables (if supported by compiler) or pthread_key.
+     Removed memory checking in debug mode.
+     Choice of standard memory allocator is now controlled by flags OGDF_MEMORY_POOL_TS
+     (standard), OGDF_MEMORY_MALLOC_TS, and OGDF_MEMORY_POOL_NTS.
+
+NEW: data types for integers with given bits (8, 16, 32, 64)
+
+BUG: Fixed bug with Hierarchy: memory leaks when using initByNodes()
+
+BUG: Fixed bug with PlanarAugmentation: access to already freed memory
+
+NEW: Added implementation of Prims' algorithm for minimum spanning tree computation.
+
+MOD: ClusterPlanarizationLayout now allows to pass edgeweights that are used to compute a
+     clustered planar subgraph.
+
+MOD: Clarified Comparer interfaces: Rename class Comparer<E> to VComparer<E>, to
+     disencourage its use (it requires virtual functions).
+     Added the macros OGDF_AUGMENT_COMPARER and OGDF_AUGMENT_STATICCOMPARER to
+     allow easy generation of comparers with full interface.
+     StdComparer is now a static comparer.
+     Added TargetComparer.
+
+NEW: Added StdComparer
+
+BUG: Fixed bug with copy constructor of graph arrays (crashed if copied array was
+     not initialized for a graph)
+
+MOD: Compiling under Windows now requiers to link Psapi.lib (also cygwin!)
+
+NEW: Added class System which allows to query various system resources (memory
+     usage, performance counter (Windows only), processor features)
+
+NEW: Added equality / inequality operators for ListPure, List
+
+NEW: OGDF can now be compiled as DLL under Windows; use corresponding project templates
+
+MOD: Compare methods of comparer classes (used with compare templates) are now const
+
+NEW: class NoStdComparerException
+
+MOD: quicksort and binarySeach use now StdComparer<E> instead of compare operators
+
+NEW: class StdComparer<E>; needs to be specialized for types that shall be used
+     with quicksort, binarySeach
+
+MOD: Array::grow() allows now to enlarge an array with empty index set.
+
+NEW: loader for simple graph format as used,e.g., in Petra Mutzel's PhD Thesis
+
+BUG: fixed memory leaks in PlanarAugmentation, PlanarAugmentationFix,
+     EmbedderMaxFace, EmbedderMaxFaceLayers, EmbedderMinDepth,
+     EmbedderMinDepthMaxFace, EmbedderMinDepthMaxFace, EmbedderMinDepthPiTa,
+     PlanarizationLayout
+
+MOD: PlanarizationLayout: changed default planar subgraph to FastPlanarSubgraph
+
+MOD: Changed return type of findPathBCTree to pointer (instead of reference) to reflect the fact that the returned object has been allocated with new.
+
+MOD: Improved performance by replacing recursive with iterative implementation:
+     isConnected(), makeConnected()
+
+MOD: new implementation of list-based stacks
+
+BUG: BoyerMyrvold: Fixed bug with embedding of self-loops
+
+BUG: SugiyamaLayout: corrected setting of number of crossings
+     (several ccs, arrangeCCs = true)
+
+
+
+
+
+
+===============================================================================
+v.2007.11 (Bubinga)
+===================
+
+MOD: ClusterGraph: assignNode(), unassignNode(), and removeNodeAssignment()
+     now private.
+
+MOD: ClusterPlanarizationLayout: removed unused module options (subgraph,
+     inserter), changed type of planarLayouter to LayoutClusterPlanRepModule;
+     removed unsupported call methods.
+     ClusterOrthoLayout: changed base class to LayoutClusterPlanRepModule.
+     ClusterOrthoFormer -> ClusterOrthoShaper
+
+MOD: Includes in ogdf directory do not need headers in src directory anymore.
+
+NEW: DualGraph
+
+BUG: BoundedQueue instantiable on GCC
+
+MOD: Unified Interface for datastructures. This may break old Jacaranda
+     code using MinHeap/Top10Heap and ArrayBuffer (rename: count->size).
+     Array, ArrayBuffer, MinHeap/Top10Heap, BoundedQueue/BoundedStack offer
+     a second (optional) template parameter to select size type (for large
+     64bit stuff)
+
+MOD: Default augmenter for PlanarStraightLayout and PlanarDrawLayout is
+     now PlanarAugmentation.
+
+MOD: UMLOrthoLayout -> OrthoLayout
+     UMLPlanarLayoutModule -> LayoutPlanRepModule
+
+NEW: SugiyamaLayout has a new option arrangeCCs (decides whether components
+     are laid out separately and arranged afterwards) and a new module
+     option packer (for arranging components). Setting arrangeCCs to false
+     and passing ranks directly allows to get a layout which truly
+     respects the layering.
+
+NEW: LongestPathRanking has new option optimizeEdgeLength;
+     setting this option to false results in original longest-path
+     ranking; default is true which is same behavior as before.
+
+BUG: LPSolver::checkFeasibility(): corrected used tolerance values
+
+MOD: GraphStructure -> GraphObserver
+
+MOD: UMLPlanarizationLayout -> PlanarizationLayout
+     setCliqueSize(int) -> minCliqueSize(int)
+     new: minCliqueSize() (to be consistent with setting/getting options)
+     preProcessCliques(bool) -> preprocessCliques(bool)
+     new: preprocessCliques() (to be consistent with setting/getting options)
+
+NEW: PlanarAugmentationFix: Planar 2-connected augmentation with fixed embedding
+
+NEW: PlanarDrawLayout and PlanarStraightLayout implement PlanarGridLayoutModule
+     GridLayoutPlanRepModule derives from PlanarGridLayoutModule
+     MixedModelLayout implements call for fixed embedding
+
+NEW: class PlanarGridLayoutModule
+     (call methods for fixed embedding)
+
+BUG: removed "LPSolver::" in declaration of LPSolver::checkFeasibility
+     (did not compile with some gcc)
+
+NEW: Revised implementation of HashArray2D, different types for first and
+     second index possible
+
+NEW: Passing hashing functions as template parameters to
+       Hashing, HashArray, HashArray2D
+
+MOD: Definition of default hash functions using class DefHashFunc (instead
+     of function hash())
+
+MOD: Various improvements to doxygen documentation
+
+MOD: HashArray2D<I,E>::entry(I,I) -> HashArray2D<I,E>::operator()(I,I)
+     HashIterator2D<I,E> -> HashConstIterator2D<I,E>
+     HashConstIterator2D<I,E>::key(I &,I &) ->
+       HashConstIterator2D<I,E>::key1()
+       HashConstIterator2D<I,E>::key1()
+
+NEW: COIN-support in VisualStudio project files. makeVCProj.py now
+     runs with a project file, as makeMakefile
+
+NEW: support for OGDF_OWN_LPSOLVER in gcc-Makefiles and VisualStudio-Proj.
+
+MOD: Unified naming convention for array classes: Array,
+     Array2D, HashArray, HashArray2D
+
+MOD: usage of "const String &" instead of "const char *"
+       CliqueFinder::writeGraph(Graph &, NodeArray<int> &, const String &)
+       GraphAttributes::readGML(Graph &, const String &)
+       GraphAttributes::writeGML(const String &)
+       GraphAttributes::readXML(Graph &G, const String &fileName)
+       GraphAttributes::writeXML(const String &, const char*, const char*)
+       GraphAttributes::readRudy(Graph &, const String &)
+       GraphAttributes::writeRudy(const String &)
+       String::compare(const String &,const String &)
+
+NEW: String::cstr() returns c-string
+
+MOD: Removed String::operator const char *()
+     (use String::cstr() instead)
+
+MOD: usage of size_t instead of int in
+       BendString::BendString(char,size_t)
+       BendString::operator[](size_t)
+       BendString::size()
+       BendString::set(char,size_t)
+       BendString::init(char,size_t)
+       String::String(size_t,const char *)
+       String::length()
+       String::operator[](size_t)
+
+MOD: Removed OrthoFormerUML
+     Renamed OrthoFormerGENERIC to OrthoShaper
+
+MOD: ClusterPlanarizationLayout does not inherit from UMLLayoutModule anymore
+     (its interface was actually never implemented)
+
+MOD: UMLLayoutModule inherits from LayoutModule
+     UMLPlanarizationLayout now has call(const GraphAttributes&)
+
+MOD: GraphAttributes return default values for type(node) and type(edge)
+     even if the respective arrays are not initialized
+
+MOD: added constructor PlanRepUML(const GraphAttributes&)
+
+MOD: feasibility check for computed solution in LPSolver_coin.cpp
+     only if dlExtendedChecking is set
+
+MOD: the gcc-Makefile-targets are now called "release" and
+     "cleanrelease" (analogous for debug, etc.), instead of
+     "release_all" and "release_clean".
+     Furthermore: new cleanup on maketargets (only debug,
+     saferelease O0, and release O1.
+
+
+
+
+
+===============================================================================
+Hotfix (v.2007.09a)
+===================
+
+BUG: LPSolver (Coin) did not pass correct LP to LP solver.
+     (also affected OptimalHierarchyLayout and
+     OptimalClusterHierarchyLayout)
+
+
+
+===============================================================================
+v.2007.09 (Jacaranda)
+=====================
+
+no changes (first public release)
