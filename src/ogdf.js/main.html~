@@ -23,10 +23,22 @@
 	console.log("Attribute y of node = " + GA.y(node));
 	console.log(GA.x(node));
 	var DAS = new Module.DfsAcyclicSubgraph();
-	var edges = Module.List$edge$;
-	console.log("Size of edges list = " + edges.size());
+	var edges = new Module.List$edge$;
+	console.log("edges list isEmpty = " + edges.empty());
 	DAS.call(G,edges);
 	console.log("Calling DAS.call(G,edges)");
+	console.log("edges list isEmpty = " + edges.empty());
 	console.log("Size of edges list = " + edges.size());
+	console.log("Now lets us check the Color class by coloring edges")
+	var color = new Module.Color(Module.Name.Red);
+	console.log("color var is = " + color.toString());
+	var a = G.newNode();
+	var b = G.newNode();
+	var edge = G.newEdge(a,b);
+	console.log("edge color is = " + GA.strokeColor(edge).toString());
+	GA.setEdgeColor(edge,color);
+	console.log("Caling GA.setEdgeColor(edge,color)");
+	console.log("edge color is = " + GA.strokeColor(edge).toString());
+	console.log("Which is same as we set in above call to setEdgeColor");
   </script>
 </html>
