@@ -698,7 +698,7 @@ EMSCRIPTEN_BINDINGS(graphattributes) {
     class_<ogdf::GraphAttributes>("GraphAttributes")
         .constructor()
 		.constructor<ogdf::Graph&,long>()
-		
+		.smart_ptr<std::shared_ptr<ogdf::GraphAttributes>>()
 		.function("x", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::x),allow_raw_pointers())
 		//.function("x", select_overload<const double&(ogdf::node)>(&ogdf::GraphAttributes::x),allow_raw_pointers())
 		.function("y", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::y),allow_raw_pointers())
