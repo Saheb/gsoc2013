@@ -692,6 +692,10 @@ void setEdgeColor(GraphAttributes& GA,edge e, Color c)
 {
 	GA.strokeColor(e) = c;
 }
+void setNodeColor(GraphAttributes& GA,node n, Color c)
+{
+	GA.fillColor(n) = c;
+}
 //--------------------------------------------------------------------//
 } // end namespace ogdf
 
@@ -704,13 +708,13 @@ EMSCRIPTEN_BINDINGS(graphattributes) {
 		.constructor<ogdf::Graph&,long>()
 		.smart_ptr<std::shared_ptr<ogdf::GraphAttributes>>()
 		.function("x", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::x),allow_raw_pointers())
-		//.function("x", select_overload<const double&(ogdf::node)>(&ogdf::GraphAttributes::x),allow_raw_pointers())
+		//.function("x", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::x))
 		.function("y", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::y),allow_raw_pointers())
-		//.function("y", select_overload<const double&(ogdf::node)>(&ogdf::GraphAttributes::y),allow_raw_pointers())
+		//.function("y", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::y))
 		.function("width", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::width),allow_raw_pointers())
-		//.function("width", select_overload<const double&(ogdf::node)>(&ogdf::GraphAttributes::width),allow_raw_pointers())
+		//.function("width", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::width))
 		.function("height", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::height),allow_raw_pointers())
-		//.function("height", select_overload<const double&(ogdf::node)>(&ogdf::GraphAttributes::height),allow_raw_pointers())
+		//.function("height", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::height))
 		.function("bends", select_overload<ogdf::DPolyline&(ogdf::edge)>(&ogdf::GraphAttributes::bends),allow_raw_pointers())
 		//.function("bends", select_overload<const ogdf::DPolyline&(ogdf::edge)>(&ogdf::GraphAttributes::bends),allow_raw_pointers())
 		.function("strokeColor", select_overload<ogdf::Color&(ogdf::edge)>(&ogdf::GraphAttributes::strokeColor),allow_raw_pointers())
@@ -722,6 +726,7 @@ EMSCRIPTEN_BINDINGS(graphattributes) {
 		.function("setWidth",&ogdf::setWidth,allow_raw_pointers())
 		.function("setHeight",&ogdf::setHeight,allow_raw_pointers())
 		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())		
+		.function("setNodeColor",&ogdf::setEdgeColor,allow_raw_pointers())	
         ;
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
@@ -751,6 +756,7 @@ EMSCRIPTEN_BINDINGS(graphattributes) {
 	enum_<ogdf::Color::Name>("Name")
 		.value("Red",ogdf::Color::Name::Red)
 		.value("Blue",ogdf::Color::Name::Blue)
+		.value("Green",ogdf::Color::Name::Green)
 		;
 	class_<ogdf::DPolyline>("DPolyline")
 		.constructor()
