@@ -714,6 +714,7 @@ EMSCRIPTEN_BINDINGS(graphattributes) {
         ;
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
+		.function("size",&ogdf::List<ogdf::edge>::size)
 		;
 	class_<ogdf::GraphList<ogdf::EdgeElement>>("GraphList<edge>")
 		.constructor()

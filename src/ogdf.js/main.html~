@@ -3,7 +3,7 @@
   <script src="ogdf.js"></script>
   <script>
     var G = new Module.Graph();
-	var GA = new Module.GraphAttributes();
+	var GA = new Module.GraphAttributes(G,0);
 	console.log("isEmpty " + G.empty())
 	Module.randomGraph(G,10,20);
 	console.log("randomGraph method is called on G with 10 nodes and 20 edges")
@@ -22,5 +22,11 @@
 	console.log("Calling GA.setY(node,2.5) to set the y co-ordinate");
 	console.log("Attribute y of node = " + GA.y(node));
 	console.log(GA.x(node));
+	var DAS = new Module.DfsAcyclicSubgraph();
+	var edges = Module.List$edge$;
+	console.log("Size of edges list = " + edges.size());
+	DAS.call(G,edges);
+	console.log("Calling DAS.call(G,edges)");
+	console.log("Size of edges list = " + edges.size());
   </script>
 </html>
