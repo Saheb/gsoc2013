@@ -45,7 +45,6 @@
 #include <ogdf/fileformats/GmlParser.h>
 #include <ogdf/basic/simple_graph_alg.h>
 #include <ogdf/basic/GraphObserver.h>
-#include <emscripten/bind.h>
 
 #define MIN_NODE_TABLE_SIZE (1 << 4)
 #define MIN_EDGE_TABLE_SIZE (1 << 4)
@@ -1509,57 +1508,3 @@ Graph::CCsInfo::CCsInfo(const Graph& G)
 
 
 } // end namespace ogdf
-class StringHolder {
-public:
-    StringHolder(const std::string& s)
-        : str_(s)
-    {}
-
-    void set(const std::string& s) {
-        str_ = s;
-    }
-
-    std::string get() const {
-        return str_;
-    }
-
-    std::string& get_ref() {
-        return str_;
-    }
-
-    const std::string& get_const_ref() const {
-        return str_;
-    }
-
-private:
-    std::string str_;
-};
-using namespace emscripten;
-EMSCRIPTEN_BINDINGS(graph) {
-    class_<ogdf::Graph>("Graph")
-		.constructor()		
-		.function("numberOfNodes",&ogdf::Graph::numberOfNodes)
-		.function("numberOfEdges",&ogdf::Graph::numberOfEdges)
-		.function("maxNodeIndex",&ogdf::Graph::maxNodeIndex)
-		.function("maxEdgeIndex",&ogdf::Graph::maxEdgeIndex)
-		.function("firstNode",&ogdf::Graph::firstNode,allow_raw_pointers())
-		.function("lastNode",&ogdf::Graph::lastNode,allow_raw_pointers())
-		.function("firstEdge",&ogdf::Graph::firstEdge,allow_raw_pointers())
-		.function("lastEdge",&ogdf::Graph::lastEdge,allow_raw_pointers())	
-		.function("chooseNode",&ogdf::Graph::chooseNode,allow_raw_pointers())
-		.function("chooseEdge",&ogdf::Graph::chooseEdge,allow_raw_pointers())	
-		.function("empty",&ogdf::Graph::empty)
-		.function("newNode", select_overload<ogdf::node()>(&ogdf::Graph::newNode),allow_raw_pointers())
-		.function("newNode",select_overload<ogdf::node(int)>(&ogdf::Graph::newNode),allow_raw_pointers())
-		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node,int)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		//.function("newEdge", select_overload<ogdf::edge(ogdf::node)>(&ogdf::Graph::newNode),allow_raw_pointers())
-		//.function("newEdge", select_overload<ogdf::edge()>(&ogdf::Graph::newNode),allow_raw_pointers())
-		;
-	class_<ogdf::NodeElement>("NodeElement")
-		;
-	class_<ogdf::EdgeElement>("EdgeElement")
-		;
-	//register_vector<std::shared_ptr<ogdf::NodeElement>>("NodeElement");
-	//register_vector<std::shared_ptr<ogdf::EdgeElement>>("EdgeElement");
-}		

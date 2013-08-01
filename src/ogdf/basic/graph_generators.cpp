@@ -53,8 +53,6 @@
 #include <ogdf/planarity/PlanarizationGridLayout.h>
 #include <ogdf/planarlayout/SchnyderLayout.h>
 
-#include <emscripten/bind.h>
-
 namespace ogdf {
 
 
@@ -1336,13 +1334,4 @@ void randomSeriesParallelDAG(Graph &G, int edges, double p, double flt)
 }
 
 } // end namespace ogdf
-using namespace emscripten;
-EMSCRIPTEN_BINDINGS()
-{
-    function("randomGraph", &ogdf::randomGraph);
-	function("randomSimpleGraph", &ogdf::randomSimpleGraph);
-	function("completeGraph", &ogdf::completeGraph);
-	function("completeBipartiteGraph", &ogdf::completeBipartiteGraph);
-	function("planarConnectedGraph",&ogdf::planarConnectedGraph);
-}
 

@@ -47,7 +47,6 @@
 #include <ogdf/fileformats/OgmlParser.h>
 #include <sstream>
 #include <map>
-#include <emscripten/bind.h>
 
 // we use these data structures from the stdlib
 using std::map;
@@ -1487,15 +1486,3 @@ bool GraphIO::drawSVG(const ClusterGraphAttributes &A, const string &filename, c
 
 
 } // end namespace ogdf
-using namespace emscripten;
-
-EMSCRIPTEN_BINDINGS(graphio) {
-    class_<ogdf::GraphIO>("GraphIO")
-        .constructor()
-		.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
-		.class_function("readGML", select_overload<bool(ogdf::Graph&,const string&)>(&ogdf::GraphIO::readGML))
-		//.function("readGML", select_overload<bool(ogdf::Graph&,std::istream)>(&ogdf::GraphIO::readGML))
-		.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
-		.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
-		;	
-}

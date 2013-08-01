@@ -348,16 +348,3 @@ void GreedyCycleRemoval::call (const Graph &G, List<edge> &arcSet)
 
 
 } // end namespace ogdf
-using namespace emscripten;
-EMSCRIPTEN_BINDINGS(dfs){
-		class_<ogdf::DfsAcyclicSubgraph, base<ogdf::AcyclicSubgraphModule>>("DfsAcyclicSubgraph")
-		.smart_ptr<std::shared_ptr<ogdf::DfsAcyclicSubgraph>>()
-		.constructor()
-		.function("call",&ogdf::DfsAcyclicSubgraph::call)
-		;
-		//class_<ogdf::AcyclicSubgraphModule>("AcyclicSubgraphModule")
-		//.smart_ptr<std::shared_ptr<ogdf::AcyclicSubgraphModule>>()
-		//.function("callAndReverse",select_overload<void(ogdf::Graph&)>(&ogdf::AcyclicSubgraphModule::callAndReverse))
-		//.function("callAndReverse",select_overload<void(ogdf::Graph&)>(&ogdf::AcyclicSubgraphModule::callAndReverse))
-		;
-}

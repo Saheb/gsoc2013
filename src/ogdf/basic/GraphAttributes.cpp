@@ -46,7 +46,6 @@
 
 #include <ogdf/basic/GraphAttributes.h>
 #include <ogdf/fileformats/GmlParser.h>
-#include <emscripten/bind.h>
 
 namespace ogdf {
 
@@ -666,100 +665,6 @@ void GraphAttributes::addNodeCenter2Bends(int mode)
 //
 //	os << "</svg>\n";
 //}
-
-//--------------------------Functions for JS--------------------------//
-
-void setX(GraphAttributes& GA,node n, double val)
-{
-	GA.x(n) = val;
-}
-void setY(GraphAttributes& GA,node n, double val)
-{
-	GA.y(n) = val;
-}
-
-void setWidth(GraphAttributes& GA,node n, double val)
-{
-	GA.width(n) = val;
-}
-
-void setHeight(GraphAttributes& GA,node n, double val)
-{
-	GA.height(n) = val;
-}
-
-void setEdgeColor(GraphAttributes& GA,edge e, Color c)
-{
-	GA.strokeColor(e) = c;
-}
-void setNodeColor(GraphAttributes& GA,node n, Color c)
-{
-	GA.fillColor(n) = c;
-}
 //--------------------------------------------------------------------//
 } // end namespace ogdf
-
-
-using namespace emscripten;
-
-EMSCRIPTEN_BINDINGS(graphattributes) {
-    class_<ogdf::GraphAttributes>("GraphAttributes")
-        .constructor()
-		.constructor<ogdf::Graph&,long>()
-		.smart_ptr<std::shared_ptr<ogdf::GraphAttributes>>()
-		.function("x", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::x),allow_raw_pointers())
-		//.function("x", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::x))
-		.function("y", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::y),allow_raw_pointers())
-		//.function("y", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::y))
-		.function("width", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::width),allow_raw_pointers())
-		//.function("width", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::width))
-		.function("height", select_overload<double&(ogdf::node)>(&ogdf::GraphAttributes::height),allow_raw_pointers())
-		//.function("height", select_overload<double(ogdf::node)>(&ogdf::GraphAttributes::height))
-		.function("bends", select_overload<ogdf::DPolyline&(ogdf::edge)>(&ogdf::GraphAttributes::bends),allow_raw_pointers())
-		//.function("bends", select_overload<const ogdf::DPolyline&(ogdf::edge)>(&ogdf::GraphAttributes::bends),allow_raw_pointers())
-		.function("strokeColor", select_overload<ogdf::Color&(ogdf::edge)>(&ogdf::GraphAttributes::strokeColor),allow_raw_pointers())
-		//.function("strokeColor", select_overload<const ogdf::Color&(ogdf::edge)>(&ogdf::GraphAttributes::strokeColor),allow_raw_pointers())
-		.function("fillColor", select_overload<ogdf::Color&(ogdf::node)>(&ogdf::GraphAttributes::fillColor),allow_raw_pointers())
-		//.function("fillColor", select_overload<const ogdf::Color&(ogdf::node)>(&ogdf::GraphAttributes::fillColor),allow_raw_pointers())
-		.function("setX",&ogdf::setX,allow_raw_pointers())
-		.function("setY",&ogdf::setY,allow_raw_pointers())
-		.function("setWidth",&ogdf::setWidth,allow_raw_pointers())
-		.function("setHeight",&ogdf::setHeight,allow_raw_pointers())
-		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())		
-		.function("setNodeColor",&ogdf::setEdgeColor,allow_raw_pointers())	
-        ;
-	class_<ogdf::List<ogdf::edge>>("List<edge>")
-		.constructor()
-		.function("size",&ogdf::List<ogdf::edge>::size)
-		.function("empty",&ogdf::List<ogdf::edge>::empty)
-		;
-	class_<ogdf::List<ogdf::node>>("List<node>")
-		.constructor()
-		.function("size",&ogdf::List<ogdf::node>::size)
-		.function("empty",&ogdf::List<ogdf::node>::empty)
-		;
-	class_<ogdf::GraphList<ogdf::EdgeElement>>("GraphList<edge>")
-		.constructor()
-		.function("size",&ogdf::GraphList<ogdf::EdgeElement>::size)
-		.function("empty",&ogdf::GraphList<ogdf::EdgeElement>::empty)
-		;
-	class_<ogdf::GraphList<ogdf::NodeElement>>("GraphList<node>")
-		.constructor()
-		.function("size",&ogdf::GraphList<ogdf::NodeElement>::size)
-		.function("empty",&ogdf::GraphList<ogdf::NodeElement>::empty)
-		;
-	class_<ogdf::Color>("Color")
-		.constructor()
-		.constructor<ogdf::Color::Name>()
-		.function("toString",&ogdf::Color::toString)
-		;
-	enum_<ogdf::Color::Name>("Name")
-		.value("Red",ogdf::Color::Name::Red)
-		.value("Blue",ogdf::Color::Name::Blue)
-		.value("Green",ogdf::Color::Name::Green)
-		;
-	class_<ogdf::DPolyline>("DPolyline")
-		.constructor()
-		;
-}
 		
