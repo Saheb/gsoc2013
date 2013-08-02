@@ -680,6 +680,8 @@ bool GraphIO::drawSVG(const GraphAttributes &A, ostream &os, const SVGSettings &
 	return true;
 }
 
+
+
 bool GraphIO::drawSVG(const ClusterGraphAttributes &A, ostream &os, const SVGSettings &settings)
 {
 	double xmin, ymin, xmax, ymax;

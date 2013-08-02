@@ -111,7 +111,7 @@ char* GraphIO::writeGML(const Graph &G, const string &filename)
 	//if(!os.is_open()) return false;
 	writeGML(G, os);
 	char* str = new char[100];
-	os.write(str,10);
+	os.write(str,100);
 	return str;
 }
 

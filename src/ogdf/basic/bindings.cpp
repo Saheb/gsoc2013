@@ -32,6 +32,14 @@
 #include <sstream>
 #include <map>
 
+#include <ogdf/fileformats/GraphIO.h>
+#include <ogdf/basic/Queue.h>
+
+#include <ogdf/basic/GridLayout.h>
+#include <ogdf/cluster/ClusterGraphAttributes.h>
+#include <ogdf/internal/steinertree/EdgeWeightedGraph.h>
+#include <sstream>
+
 #include <emscripten/bind.h>
 
 namespace ogdf{
@@ -63,6 +71,15 @@ void setEdgeColor(GraphAttributes& GA,edge e, Color c)
 void setNodeColor(GraphAttributes& GA,node n, Color c)
 {
 	GA.fillColor(n) = c;
+}
+
+std::string getSVG(const GraphAttributes &A)
+{
+	std::stringstream os;
+	ogdf::GraphIO::drawSVG(A,os);
+	std::string str;
+	str = os.str();
+	return str;
 }
 //--------------------------------------------------------------------//
 }
@@ -179,5 +196,6 @@ EMSCRIPTEN_BINDINGS(graph) {
 		//.function("readGML", select_overload<bool(ogdf::Graph&,std::istream)>(&ogdf::GraphIO::readGML))
 		.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
 		.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
+		.class_function("getSVG",(&ogdf::getSVG))
 		;	
 }		
