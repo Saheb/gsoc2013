@@ -669,9 +669,11 @@ bool GraphIO::drawSVG(const GraphAttributes &A, ostream &os, const SVGSettings &
 	double xmin, ymin, xmax, ymax;
 	compute_bounding_box(A, xmin, ymin, xmax, ymax);
 
+	xmax=500;
+	ymax=500;
 	double m = settings.margin();
-	xmin -= m;
-	ymin -= m;
+	xmin = 100;
+	ymin = 100;
 	write_svg_header(os, xmin, ymin, xmax+m, ymax+m);
 
 	write_svg_node_edges(A, xmin, ymin, os, settings);

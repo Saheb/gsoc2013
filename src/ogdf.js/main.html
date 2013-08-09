@@ -1,9 +1,12 @@
 <html>
 <meta charset="UTF-8"> 
   <script src="ogdf.js"></script>
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
   <script>
-        var G = new Module.Graph();
-	var GA = new Module.GraphAttributes(G,0);
+    var G = new Module.Graph();
+	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
 	console.log("isEmpty " + G.empty())
 	Module.randomGraph(G,10,20);
 	console.log("randomGraph method is called on G with 10 nodes and 20 edges")
@@ -18,6 +21,9 @@
 	console.log("Calling GA.setX(node,4.5) to set the x co-ordinate");
 	console.log("Attribute x of node = " + GA.x(node));
 	GA.setY(node,2.5);
+	GA.setHeight(node,10);
+	GA.setWidth(node,20);
+	//GA.setNodeColor(node,Module.Name.Red);
 	console.log("Calling GA.setY(node,2.5) to set the y co-ordinate");
 	console.log("Attribute y of node = " + GA.y(node));
 	var DAS = new Module.DfsAcyclicSubgraph();
@@ -32,11 +38,30 @@
 	console.log("color var is = " + color.toString());
 	var a = G.newNode();
 	var b = G.newNode();
+	GA.setX(a,10);
+	GA.setY(a,10);
+	GA.setHeight(a,10);
+	GA.setWidth(a,10);
+	GA.setX(b,15);
+	GA.setY(b,15);
+	GA.setHeight(b,10);
+	GA.setWidth(b,10);
 	var edge = G.newEdge(a,b);
+	GA.setStrokeWidth(edge,10);
 	console.log("edge color is = " + GA.strokeColor(edge).toString());
 	GA.setEdgeColor(edge,color);
 	console.log("Caling GA.setEdgeColor(edge,color)");
 	console.log("edge color is = " + GA.strokeColor(edge).toString());
 	console.log("Which is same as the color we set in above call to setEdgeColor");
+	var svg = Module.GraphIO.getSVG(GA);
+	console.log("SVG for GA method drawSVG is = " + svg);
   </script>
+  <body>
+  	<canvas id="canvas" width="1000px" height="600px"></canvas>
+  </body>
+  <script>
+  	var c = document.getElementById('canvas');
+	var ctx = c.getContext('2d');
+	ctx.drawSvg(svg, 0, 0, 1000, 600);
+	</script>
 </html>

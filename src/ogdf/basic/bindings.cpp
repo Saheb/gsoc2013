@@ -72,6 +72,10 @@ void setNodeColor(GraphAttributes& GA,node n, Color c)
 {
 	GA.fillColor(n) = c;
 }
+void setStrokeWidth(GraphAttributes &GA,edge e, float f)
+{
+	GA.strokeWidth(e) = f;
+}
 
 std::string getSVG(const GraphAttributes &A)
 {
@@ -81,7 +85,8 @@ std::string getSVG(const GraphAttributes &A)
 	str = os.str();
 	return str;
 }
-//--------------------------------------------------------------------//
+//--------------------------------------------------------------//
+
 }
 using namespace emscripten;
 
@@ -113,7 +118,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		;
 	//register_vector<std::shared_ptr<ogdf::NodeElement>>("NodeElement");
 	//register_vector<std::shared_ptr<ogdf::EdgeElement>>("EdgeElement");
-		class_<ogdf::GraphAttributes>("GraphAttributes")
+	class_<ogdf::GraphAttributes>("GraphAttributes")
         .constructor()
 		.constructor<ogdf::Graph&,long>()
 		.smart_ptr<std::shared_ptr<ogdf::GraphAttributes>>()
@@ -135,9 +140,15 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("setY",&ogdf::setY,allow_raw_pointers())
 		.function("setWidth",&ogdf::setWidth,allow_raw_pointers())
 		.function("setHeight",&ogdf::setHeight,allow_raw_pointers())
-		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())		
+		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())
 		.function("setNodeColor",&ogdf::setEdgeColor,allow_raw_pointers())	
-        ;
+		.function("setStrokeWidth",&ogdf::setStrokeWidth,allow_raw_pointers())
+		;
+		constant("nodeGraphics",0x00001);
+		constant("edgeGraphcis",0x00002);
+		constant("nodeStyle",0x00800);
+		constant("edgeStyle",0x00400);
+
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::edge>::size)
@@ -168,6 +179,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.value("Blue",ogdf::Color::Name::Blue)
 		.value("Green",ogdf::Color::Name::Green)
 		;
+
 	class_<ogdf::DPolyline>("DPolyline")
 		.constructor()
 		;

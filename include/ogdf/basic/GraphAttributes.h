@@ -123,7 +123,7 @@ protected:
 
 public:
 	//! Bits for specifying attributes.
-	enum {
+	enum{
 		nodeGraphics     = 0x00001, //!< node attributes m_x, m_y, m_width, m_height, m_nodeShape
 		edgeGraphics     = 0x00002, //!< edge attribute  m_bends
 		edgeIntWeight    = 0x00004, //!< edge attribute  m_intWeight
