@@ -1,0 +1,1 @@
+emcc --bind -o src/ogdf.js/ogdf.js src/ogdf/basic/Graph.cpp src/ogdf/basic/PoolMemoryAllocator.cpp src/ogdf/basic/graph_generators.cpp src/ogdf/basic/graphics.cpp src/ogdf/basic/GraphAttributes.cpp src/ogdf/fileformats/GraphIO.cpp src/ogdf/fileformats/GraphIO_svg.cpp src/ogdf/layered/acyclic_subgraph.cpp src/ogdf/basic/simple_graph_alg.cpp src/ogdf.js/bindings.cpp -Iinclude
