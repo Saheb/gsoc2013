@@ -40,6 +40,8 @@
 #include <ogdf/internal/steinertree/EdgeWeightedGraph.h>
 #include <sstream>
 
+#include <ogdf/basic/graphics.h>
+
 #include <emscripten/bind.h>
 
 namespace ogdf{
@@ -136,6 +138,14 @@ EMSCRIPTEN_BINDINGS(graph) {
 		//.function("strokeColor", select_overload<const ogdf::Color&(ogdf::edge)>(&ogdf::GraphAttributes::strokeColor),allow_raw_pointers())
 		.function("fillColor", select_overload<ogdf::Color&(ogdf::node)>(&ogdf::GraphAttributes::fillColor),allow_raw_pointers())
 		//.function("fillColor", select_overload<const ogdf::Color&(ogdf::node)>(&ogdf::GraphAttributes::fillColor),allow_raw_pointers())
+		.function("strokeWidth", select_overload<float&(ogdf::edge)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
+		//.function("strokeWidth", select_overload<float(ogdf::edge)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
+		.function("strokeWidth", select_overload<float&(ogdf::node)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
+		//.function("strokeWidth", select_overload<float(ogdf::edge)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
+		.function("setStrokeType", select_overload<void(ogdf::edge,ogdf::StrokeType)>(&ogdf::GraphAttributes::setStrokeType),allow_raw_pointers())
+		.function("setStrokeType", select_overload<void(ogdf::node,ogdf::StrokeType)>(&ogdf::GraphAttributes::setStrokeType),allow_raw_pointers())
+		//.function("strokeType", select_overload<ogdf::StrokeType (ogdf::edge)>(const &ogdf::GraphAttributes::strokeType ))
+		//.function("strokeType", select_overload<ogdf::StrokeType (ogdf::edge)>(const &ogdf::GraphAttributes::strokeType ))
 		.function("setX",&ogdf::setX,allow_raw_pointers())
 		.function("setY",&ogdf::setY,allow_raw_pointers())
 		.function("setWidth",&ogdf::setWidth,allow_raw_pointers())
@@ -173,6 +183,11 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor()
 		.constructor<ogdf::Color::Name>()
 		.function("toString",&ogdf::Color::toString)
+		;
+	enum_<ogdf::StrokeType>("StrokeType")
+		.value("stNone",ogdf::StrokeType::stNone)
+		.value("stSolid",ogdf::StrokeType::stSolid)
+		.value("stDash",ogdf::StrokeType::stDash)
 		;
 	enum_<ogdf::Color::Name>("Name")
 		.value("Red",ogdf::Color::Name::Red)
