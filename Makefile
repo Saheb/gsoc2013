@@ -26,8 +26,19 @@ clean-doc:
 ## END Makefile.header
 ##############################################################################
 
+CC = em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand
+CXXFLAGS =  -fPIC
+OGDFFLAGS = -I./include  -DOGDF_INSTALL
+COINFLAGS = $(COIN_INSTALL_DEFINES) -I./include/coin 
+RANLIB = emranlib
+RM = rm -rf
+AR = emar
+LD = em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand
+MKDIR = mkdir -p
 debug = _debug
+CXXFLAGS_debug = -g3 -O0 -DOGDF_DEBUG
 release = _release
+CXXFLAGS_release = -O2
 
 $(debug)/src/ogdf/abacus/aba_constraint.o: src/ogdf/abacus/aba_constraint.cpp \
   include/ogdf/abacus/constraint.h include/ogdf/abacus/convar.h \
@@ -54,8 +65,8 @@ $(debug)/src/ogdf/abacus/aba_constraint.o: src/ogdf/abacus/aba_constraint.cpp \
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/row.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/aba_constraint.o -c src/ogdf/abacus/aba_constraint.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/aba_constraint.cpp
 
 $(release)/src/ogdf/abacus/aba_constraint.o: src/ogdf/abacus/aba_constraint.cpp \
   include/ogdf/abacus/constraint.h include/ogdf/abacus/convar.h \
@@ -82,8 +93,8 @@ $(release)/src/ogdf/abacus/aba_constraint.o: src/ogdf/abacus/aba_constraint.cpp 
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/row.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/aba_constraint.o -c src/ogdf/abacus/aba_constraint.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/aba_constraint.cpp
 
 $(debug)/src/ogdf/abacus/abacusroot.o: src/ogdf/abacus/abacusroot.cpp \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -95,8 +106,8 @@ $(debug)/src/ogdf/abacus/abacusroot.o: src/ogdf/abacus/abacusroot.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/abacusroot.o -c src/ogdf/abacus/abacusroot.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/abacusroot.cpp
 
 $(release)/src/ogdf/abacus/abacusroot.o: src/ogdf/abacus/abacusroot.cpp \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -108,8 +119,8 @@ $(release)/src/ogdf/abacus/abacusroot.o: src/ogdf/abacus/abacusroot.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/abacusroot.o -c src/ogdf/abacus/abacusroot.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/abacusroot.cpp
 
 $(debug)/src/ogdf/abacus/branchrule.o: src/ogdf/abacus/branchrule.cpp \
   include/ogdf/abacus/branchrule.h include/ogdf/abacus/abacusroot.h \
@@ -125,8 +136,8 @@ $(debug)/src/ogdf/abacus/branchrule.o: src/ogdf/abacus/branchrule.cpp \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/branchrule.o -c src/ogdf/abacus/branchrule.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/branchrule.cpp
 
 $(release)/src/ogdf/abacus/branchrule.o: src/ogdf/abacus/branchrule.cpp \
   include/ogdf/abacus/branchrule.h include/ogdf/abacus/abacusroot.h \
@@ -142,8 +153,8 @@ $(release)/src/ogdf/abacus/branchrule.o: src/ogdf/abacus/branchrule.cpp \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/branchrule.o -c src/ogdf/abacus/branchrule.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/branchrule.cpp
 
 $(debug)/src/ogdf/abacus/column.o: src/ogdf/abacus/column.cpp include/ogdf/abacus/column.h \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/global.h \
@@ -157,8 +168,8 @@ $(debug)/src/ogdf/abacus/column.o: src/ogdf/abacus/column.cpp include/ogdf/abacu
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/column.o -c src/ogdf/abacus/column.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/column.cpp
 
 $(release)/src/ogdf/abacus/column.o: src/ogdf/abacus/column.cpp include/ogdf/abacus/column.h \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/global.h \
@@ -172,8 +183,8 @@ $(release)/src/ogdf/abacus/column.o: src/ogdf/abacus/column.cpp include/ogdf/aba
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/column.o -c src/ogdf/abacus/column.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/column.cpp
 
 $(debug)/src/ogdf/abacus/conbranchrule.o: src/ogdf/abacus/conbranchrule.cpp \
   include/ogdf/abacus/conbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -201,8 +212,8 @@ $(debug)/src/ogdf/abacus/conbranchrule.o: src/ogdf/abacus/conbranchrule.cpp \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h \
   include/ogdf/abacus/poolslot.inc include/ogdf/abacus/pool.h \
   include/ogdf/abacus/poolslotref.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/conbranchrule.o -c src/ogdf/abacus/conbranchrule.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/conbranchrule.cpp
 
 $(release)/src/ogdf/abacus/conbranchrule.o: src/ogdf/abacus/conbranchrule.cpp \
   include/ogdf/abacus/conbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -230,8 +241,8 @@ $(release)/src/ogdf/abacus/conbranchrule.o: src/ogdf/abacus/conbranchrule.cpp \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h \
   include/ogdf/abacus/poolslot.inc include/ogdf/abacus/pool.h \
   include/ogdf/abacus/poolslotref.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/conbranchrule.o -c src/ogdf/abacus/conbranchrule.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/conbranchrule.cpp
 
 $(debug)/src/ogdf/abacus/conclass.o: src/ogdf/abacus/conclass.cpp include/ogdf/abacus/conclass.h \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -246,8 +257,8 @@ $(debug)/src/ogdf/abacus/conclass.o: src/ogdf/abacus/conclass.cpp include/ogdf/a
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/conclass.o -c src/ogdf/abacus/conclass.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/conclass.cpp
 
 $(release)/src/ogdf/abacus/conclass.o: src/ogdf/abacus/conclass.cpp include/ogdf/abacus/conclass.h \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -262,8 +273,8 @@ $(release)/src/ogdf/abacus/conclass.o: src/ogdf/abacus/conclass.cpp include/ogdf
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/conclass.o -c src/ogdf/abacus/conclass.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/conclass.cpp
 
 $(debug)/src/ogdf/abacus/convar.o: src/ogdf/abacus/convar.cpp include/ogdf/abacus/convar.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -278,8 +289,8 @@ $(debug)/src/ogdf/abacus/convar.o: src/ogdf/abacus/convar.cpp include/ogdf/abacu
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/convar.o -c src/ogdf/abacus/convar.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/convar.cpp
 
 $(release)/src/ogdf/abacus/convar.o: src/ogdf/abacus/convar.cpp include/ogdf/abacus/convar.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -294,8 +305,8 @@ $(release)/src/ogdf/abacus/convar.o: src/ogdf/abacus/convar.cpp include/ogdf/aba
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/convar.o -c src/ogdf/abacus/convar.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/convar.cpp
 
 $(debug)/src/ogdf/abacus/csense.o: src/ogdf/abacus/csense.cpp include/ogdf/abacus/csense.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -309,8 +320,8 @@ $(debug)/src/ogdf/abacus/csense.o: src/ogdf/abacus/csense.cpp include/ogdf/abacu
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/csense.o -c src/ogdf/abacus/csense.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/csense.cpp
 
 $(release)/src/ogdf/abacus/csense.o: src/ogdf/abacus/csense.cpp include/ogdf/abacus/csense.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -324,8 +335,8 @@ $(release)/src/ogdf/abacus/csense.o: src/ogdf/abacus/csense.cpp include/ogdf/aba
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/csense.o -c src/ogdf/abacus/csense.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/csense.cpp
 
 $(debug)/src/ogdf/abacus/fixcand.o: src/ogdf/abacus/fixcand.cpp include/ogdf/abacus/fixcand.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -352,8 +363,8 @@ $(debug)/src/ogdf/abacus/fixcand.o: src/ogdf/abacus/fixcand.cpp include/ogdf/aba
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/fixcand.o -c src/ogdf/abacus/fixcand.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/fixcand.cpp
 
 $(release)/src/ogdf/abacus/fixcand.o: src/ogdf/abacus/fixcand.cpp include/ogdf/abacus/fixcand.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -380,8 +391,8 @@ $(release)/src/ogdf/abacus/fixcand.o: src/ogdf/abacus/fixcand.cpp include/ogdf/a
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/fixcand.o -c src/ogdf/abacus/fixcand.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/fixcand.cpp
 
 $(debug)/src/ogdf/abacus/fsvarstat.o: src/ogdf/abacus/fsvarstat.cpp \
   include/ogdf/abacus/fsvarstat.h include/ogdf/abacus/abacusroot.h \
@@ -396,8 +407,8 @@ $(debug)/src/ogdf/abacus/fsvarstat.o: src/ogdf/abacus/fsvarstat.cpp \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/fsvarstat.o -c src/ogdf/abacus/fsvarstat.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/fsvarstat.cpp
 
 $(release)/src/ogdf/abacus/fsvarstat.o: src/ogdf/abacus/fsvarstat.cpp \
   include/ogdf/abacus/fsvarstat.h include/ogdf/abacus/abacusroot.h \
@@ -412,8 +423,8 @@ $(release)/src/ogdf/abacus/fsvarstat.o: src/ogdf/abacus/fsvarstat.cpp \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/fsvarstat.o -c src/ogdf/abacus/fsvarstat.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/fsvarstat.cpp
 
 $(debug)/src/ogdf/abacus/global.o: src/ogdf/abacus/global.cpp include/ogdf/abacus/global.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -426,8 +437,8 @@ $(debug)/src/ogdf/abacus/global.o: src/ogdf/abacus/global.cpp include/ogdf/abacu
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/global.o -c src/ogdf/abacus/global.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/global.cpp
 
 $(release)/src/ogdf/abacus/global.o: src/ogdf/abacus/global.cpp include/ogdf/abacus/global.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -440,8 +451,8 @@ $(release)/src/ogdf/abacus/global.o: src/ogdf/abacus/global.cpp include/ogdf/aba
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/global.o -c src/ogdf/abacus/global.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/global.cpp
 
 $(debug)/src/ogdf/abacus/history.o: src/ogdf/abacus/history.cpp include/ogdf/abacus/history.h \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -456,8 +467,8 @@ $(debug)/src/ogdf/abacus/history.o: src/ogdf/abacus/history.cpp include/ogdf/aba
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/history.o -c src/ogdf/abacus/history.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/history.cpp
 
 $(release)/src/ogdf/abacus/history.o: src/ogdf/abacus/history.cpp include/ogdf/abacus/history.h \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -472,8 +483,8 @@ $(release)/src/ogdf/abacus/history.o: src/ogdf/abacus/history.cpp include/ogdf/a
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/optsense.h include/ogdf/basic/Stopwatch.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/history.o -c src/ogdf/abacus/history.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/history.cpp
 
 $(debug)/src/ogdf/abacus/infeascon.o: src/ogdf/abacus/infeascon.cpp \
   include/ogdf/abacus/infeascon.h include/ogdf/abacus/abacusroot.h \
@@ -500,8 +511,8 @@ $(debug)/src/ogdf/abacus/infeascon.o: src/ogdf/abacus/infeascon.cpp \
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/cutbuffer.h \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/infeascon.o -c src/ogdf/abacus/infeascon.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/infeascon.cpp
 
 $(release)/src/ogdf/abacus/infeascon.o: src/ogdf/abacus/infeascon.cpp \
   include/ogdf/abacus/infeascon.h include/ogdf/abacus/abacusroot.h \
@@ -528,8 +539,8 @@ $(release)/src/ogdf/abacus/infeascon.o: src/ogdf/abacus/infeascon.cpp \
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/cutbuffer.h \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/infeascon.o -c src/ogdf/abacus/infeascon.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/infeascon.cpp
 
 $(debug)/src/ogdf/abacus/lp.o: src/ogdf/abacus/lp.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -548,8 +559,8 @@ $(debug)/src/ogdf/abacus/lp.o: src/ogdf/abacus/lp.cpp include/ogdf/abacus/master
   include/ogdf/abacus/slackstat.h include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/row.h include/ogdf/abacus/csense.h \
   include/ogdf/abacus/column.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/lp.o -c src/ogdf/abacus/lp.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/lp.cpp
 
 $(release)/src/ogdf/abacus/lp.o: src/ogdf/abacus/lp.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -568,8 +579,8 @@ $(release)/src/ogdf/abacus/lp.o: src/ogdf/abacus/lp.cpp include/ogdf/abacus/mast
   include/ogdf/abacus/slackstat.h include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/row.h include/ogdf/abacus/csense.h \
   include/ogdf/abacus/column.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/lp.o -c src/ogdf/abacus/lp.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/lp.cpp
 
 $(debug)/src/ogdf/abacus/lpif.o: src/ogdf/abacus/lpif.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -620,8 +631,8 @@ $(debug)/src/ogdf/abacus/lpif.o: src/ogdf/abacus/lpif.cpp include/ogdf/abacus/ma
   include/coin/OsiSymSolverInterface.hpp \
   include/coin/OsiSymSolverParameters.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinPackedVector.hpp include/coin/CoinBuild.hpp
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/lpif.o -c src/ogdf/abacus/lpif.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/lpif.cpp
 
 $(release)/src/ogdf/abacus/lpif.o: src/ogdf/abacus/lpif.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -672,8 +683,8 @@ $(release)/src/ogdf/abacus/lpif.o: src/ogdf/abacus/lpif.cpp include/ogdf/abacus/
   include/coin/OsiSymSolverInterface.hpp \
   include/coin/OsiSymSolverParameters.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinPackedVector.hpp include/coin/CoinBuild.hpp
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/lpif.o -c src/ogdf/abacus/lpif.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/lpif.cpp
 
 $(debug)/src/ogdf/abacus/lpmasterosi.o: src/ogdf/abacus/lpmasterosi.cpp \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -714,8 +725,8 @@ $(debug)/src/ogdf/abacus/lpmasterosi.o: src/ogdf/abacus/lpmasterosi.cpp \
   include/coin/OsiSymSolverInterface.hpp \
   include/coin/OsiSymSolverParameters.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinPackedVector.hpp include/coin/CoinBuild.hpp
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/lpmasterosi.o -c src/ogdf/abacus/lpmasterosi.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/lpmasterosi.cpp
 
 $(release)/src/ogdf/abacus/lpmasterosi.o: src/ogdf/abacus/lpmasterosi.cpp \
   include/ogdf/abacus/master.h include/ogdf/abacus/global.h \
@@ -756,8 +767,8 @@ $(release)/src/ogdf/abacus/lpmasterosi.o: src/ogdf/abacus/lpmasterosi.cpp \
   include/coin/OsiSymSolverInterface.hpp \
   include/coin/OsiSymSolverParameters.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinPackedVector.hpp include/coin/CoinBuild.hpp
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/lpmasterosi.o -c src/ogdf/abacus/lpmasterosi.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/lpmasterosi.cpp
 
 $(debug)/src/ogdf/abacus/lpsub.o: src/ogdf/abacus/lpsub.cpp include/ogdf/abacus/lpsub.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -784,8 +795,8 @@ $(debug)/src/ogdf/abacus/lpsub.o: src/ogdf/abacus/lpsub.cpp include/ogdf/abacus/
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/row.h include/ogdf/abacus/column.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/lpsub.o -c src/ogdf/abacus/lpsub.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/lpsub.cpp
 
 $(release)/src/ogdf/abacus/lpsub.o: src/ogdf/abacus/lpsub.cpp include/ogdf/abacus/lpsub.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -812,8 +823,8 @@ $(release)/src/ogdf/abacus/lpsub.o: src/ogdf/abacus/lpsub.cpp include/ogdf/abacu
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/row.h include/ogdf/abacus/column.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/lpsub.o -c src/ogdf/abacus/lpsub.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/lpsub.cpp
 
 $(debug)/src/ogdf/abacus/lpvarstat.o: src/ogdf/abacus/lpvarstat.cpp \
   include/ogdf/abacus/lpvarstat.h include/ogdf/abacus/abacusroot.h \
@@ -828,8 +839,8 @@ $(debug)/src/ogdf/abacus/lpvarstat.o: src/ogdf/abacus/lpvarstat.cpp \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/lpvarstat.o -c src/ogdf/abacus/lpvarstat.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/lpvarstat.cpp
 
 $(release)/src/ogdf/abacus/lpvarstat.o: src/ogdf/abacus/lpvarstat.cpp \
   include/ogdf/abacus/lpvarstat.h include/ogdf/abacus/abacusroot.h \
@@ -844,8 +855,8 @@ $(release)/src/ogdf/abacus/lpvarstat.o: src/ogdf/abacus/lpvarstat.cpp \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/lpvarstat.o -c src/ogdf/abacus/lpvarstat.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/lpvarstat.cpp
 
 $(debug)/src/ogdf/abacus/master.o: src/ogdf/abacus/master.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -878,8 +889,8 @@ $(debug)/src/ogdf/abacus/master.o: src/ogdf/abacus/master.cpp include/ogdf/abacu
   include/ogdf/abacus/branchrule.h include/ogdf/abacus/standardpool.h \
   include/ogdf/basic/SList.h include/ogdf/abacus/standardpool.inc \
   include/ogdf/abacus/bheap.h include/ogdf/abacus/bheap.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/master.o -c src/ogdf/abacus/master.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/master.cpp
 
 $(release)/src/ogdf/abacus/master.o: src/ogdf/abacus/master.cpp include/ogdf/abacus/master.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -912,8 +923,8 @@ $(release)/src/ogdf/abacus/master.o: src/ogdf/abacus/master.cpp include/ogdf/aba
   include/ogdf/abacus/branchrule.h include/ogdf/abacus/standardpool.h \
   include/ogdf/basic/SList.h include/ogdf/abacus/standardpool.inc \
   include/ogdf/abacus/bheap.h include/ogdf/abacus/bheap.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/master.o -c src/ogdf/abacus/master.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/master.cpp
 
 $(debug)/src/ogdf/abacus/opensub.o: src/ogdf/abacus/opensub.cpp include/ogdf/abacus/opensub.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -941,8 +952,8 @@ $(debug)/src/ogdf/abacus/opensub.o: src/ogdf/abacus/opensub.cpp include/ogdf/aba
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/cutbuffer.h \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/opensub.o -c src/ogdf/abacus/opensub.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/opensub.cpp
 
 $(release)/src/ogdf/abacus/opensub.o: src/ogdf/abacus/opensub.cpp include/ogdf/abacus/opensub.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -970,8 +981,8 @@ $(release)/src/ogdf/abacus/opensub.o: src/ogdf/abacus/opensub.cpp include/ogdf/a
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/cutbuffer.h \
   include/ogdf/abacus/cutbuffer.inc include/ogdf/abacus/lpsub.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/opensub.o -c src/ogdf/abacus/opensub.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/opensub.cpp
 
 $(debug)/src/ogdf/abacus/optsense.o: src/ogdf/abacus/optsense.cpp include/ogdf/abacus/optsense.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -983,8 +994,8 @@ $(debug)/src/ogdf/abacus/optsense.o: src/ogdf/abacus/optsense.cpp include/ogdf/a
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/optsense.o -c src/ogdf/abacus/optsense.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/optsense.cpp
 
 $(release)/src/ogdf/abacus/optsense.o: src/ogdf/abacus/optsense.cpp include/ogdf/abacus/optsense.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -996,8 +1007,8 @@ $(release)/src/ogdf/abacus/optsense.o: src/ogdf/abacus/optsense.cpp include/ogdf
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/optsense.o -c src/ogdf/abacus/optsense.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/optsense.cpp
 
 $(debug)/src/ogdf/abacus/osiif.o: src/ogdf/abacus/osiif.cpp include/ogdf/abacus/osiif.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -1049,8 +1060,8 @@ $(debug)/src/ogdf/abacus/osiif.o: src/ogdf/abacus/osiif.cpp include/ogdf/abacus/
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/column.h include/ogdf/abacus/row.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/osiif.o -c src/ogdf/abacus/osiif.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/osiif.cpp
 
 $(release)/src/ogdf/abacus/osiif.o: src/ogdf/abacus/osiif.cpp include/ogdf/abacus/osiif.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -1102,8 +1113,8 @@ $(release)/src/ogdf/abacus/osiif.o: src/ogdf/abacus/osiif.cpp include/ogdf/abacu
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/column.h include/ogdf/abacus/row.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/osiif.o -c src/ogdf/abacus/osiif.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/osiif.cpp
 
 $(debug)/src/ogdf/abacus/row.o: src/ogdf/abacus/row.cpp include/ogdf/abacus/row.h \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/global.h \
@@ -1118,8 +1129,8 @@ $(debug)/src/ogdf/abacus/row.o: src/ogdf/abacus/row.cpp include/ogdf/abacus/row.
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/csense.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/row.o -c src/ogdf/abacus/row.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/row.cpp
 
 $(release)/src/ogdf/abacus/row.o: src/ogdf/abacus/row.cpp include/ogdf/abacus/row.h \
   include/ogdf/abacus/sparvec.h include/ogdf/abacus/global.h \
@@ -1134,8 +1145,8 @@ $(release)/src/ogdf/abacus/row.o: src/ogdf/abacus/row.cpp include/ogdf/abacus/ro
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc \
   include/ogdf/abacus/csense.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/row.o -c src/ogdf/abacus/row.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/row.cpp
 
 $(debug)/src/ogdf/abacus/setbranchrule.o: src/ogdf/abacus/setbranchrule.cpp \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -1163,8 +1174,8 @@ $(debug)/src/ogdf/abacus/setbranchrule.o: src/ogdf/abacus/setbranchrule.cpp \
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/setbranchrule.o -c src/ogdf/abacus/setbranchrule.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/setbranchrule.cpp
 
 $(release)/src/ogdf/abacus/setbranchrule.o: src/ogdf/abacus/setbranchrule.cpp \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -1192,8 +1203,8 @@ $(release)/src/ogdf/abacus/setbranchrule.o: src/ogdf/abacus/setbranchrule.cpp \
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/setbranchrule.o -c src/ogdf/abacus/setbranchrule.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/setbranchrule.cpp
 
 $(debug)/src/ogdf/abacus/slackstat.o: src/ogdf/abacus/slackstat.cpp \
   include/ogdf/abacus/slackstat.h include/ogdf/abacus/abacusroot.h \
@@ -1206,8 +1217,8 @@ $(debug)/src/ogdf/abacus/slackstat.o: src/ogdf/abacus/slackstat.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/slackstat.o -c src/ogdf/abacus/slackstat.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/slackstat.cpp
 
 $(release)/src/ogdf/abacus/slackstat.o: src/ogdf/abacus/slackstat.cpp \
   include/ogdf/abacus/slackstat.h include/ogdf/abacus/abacusroot.h \
@@ -1220,8 +1231,8 @@ $(release)/src/ogdf/abacus/slackstat.o: src/ogdf/abacus/slackstat.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/slackstat.o -c src/ogdf/abacus/slackstat.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/slackstat.cpp
 
 $(debug)/src/ogdf/abacus/sparvec.o: src/ogdf/abacus/sparvec.cpp include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -1235,8 +1246,8 @@ $(debug)/src/ogdf/abacus/sparvec.o: src/ogdf/abacus/sparvec.cpp include/ogdf/aba
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/sparvec.o -c src/ogdf/abacus/sparvec.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/sparvec.cpp
 
 $(release)/src/ogdf/abacus/sparvec.o: src/ogdf/abacus/sparvec.cpp include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/global.h include/ogdf/abacus/abacusroot.h \
@@ -1250,8 +1261,8 @@ $(release)/src/ogdf/abacus/sparvec.o: src/ogdf/abacus/sparvec.cpp include/ogdf/a
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/abacus/hash.h include/ogdf/abacus/hash.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/sparvec.o -c src/ogdf/abacus/sparvec.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/sparvec.cpp
 
 $(debug)/src/ogdf/abacus/srowcon.o: src/ogdf/abacus/srowcon.cpp include/ogdf/abacus/srowcon.h \
   include/ogdf/abacus/rowcon.h include/ogdf/abacus/row.h \
@@ -1279,8 +1290,8 @@ $(debug)/src/ogdf/abacus/srowcon.o: src/ogdf/abacus/srowcon.cpp include/ogdf/aba
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/numvar.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/srowcon.o -c src/ogdf/abacus/srowcon.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/srowcon.cpp
 
 $(release)/src/ogdf/abacus/srowcon.o: src/ogdf/abacus/srowcon.cpp include/ogdf/abacus/srowcon.h \
   include/ogdf/abacus/rowcon.h include/ogdf/abacus/row.h \
@@ -1308,8 +1319,8 @@ $(release)/src/ogdf/abacus/srowcon.o: src/ogdf/abacus/srowcon.cpp include/ogdf/a
   include/ogdf/abacus/pool.h include/ogdf/abacus/poolslotref.inc \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/numvar.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/srowcon.o -c src/ogdf/abacus/srowcon.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/srowcon.cpp
 
 $(debug)/src/ogdf/abacus/sub.o: src/ogdf/abacus/sub.cpp include/ogdf/abacus/sub.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -1345,8 +1356,8 @@ $(debug)/src/ogdf/abacus/sub.o: src/ogdf/abacus/sub.cpp include/ogdf/abacus/sub.
   include/ogdf/abacus/boundbranchrule.h \
   include/ogdf/abacus/standardpool.h include/ogdf/basic/SList.h \
   include/ogdf/abacus/standardpool.inc
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/sub.o -c src/ogdf/abacus/sub.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/sub.cpp
 
 $(release)/src/ogdf/abacus/sub.o: src/ogdf/abacus/sub.cpp include/ogdf/abacus/sub.h \
   include/ogdf/abacus/lp.h include/ogdf/abacus/optsense.h \
@@ -1382,8 +1393,8 @@ $(release)/src/ogdf/abacus/sub.o: src/ogdf/abacus/sub.cpp include/ogdf/abacus/su
   include/ogdf/abacus/boundbranchrule.h \
   include/ogdf/abacus/standardpool.h include/ogdf/basic/SList.h \
   include/ogdf/abacus/standardpool.inc
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/sub.o -c src/ogdf/abacus/sub.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/sub.cpp
 
 $(debug)/src/ogdf/abacus/tailoff.o: src/ogdf/abacus/tailoff.cpp include/ogdf/abacus/tailoff.h \
   include/ogdf/abacus/ring.h include/ogdf/abacus/abacusroot.h \
@@ -1400,8 +1411,8 @@ $(debug)/src/ogdf/abacus/tailoff.o: src/ogdf/abacus/tailoff.cpp include/ogdf/aba
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc include/ogdf/abacus/optsense.h \
   include/ogdf/basic/Stopwatch.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/tailoff.o -c src/ogdf/abacus/tailoff.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/tailoff.cpp
 
 $(release)/src/ogdf/abacus/tailoff.o: src/ogdf/abacus/tailoff.cpp include/ogdf/abacus/tailoff.h \
   include/ogdf/abacus/ring.h include/ogdf/abacus/abacusroot.h \
@@ -1418,8 +1429,8 @@ $(release)/src/ogdf/abacus/tailoff.o: src/ogdf/abacus/tailoff.cpp include/ogdf/a
   include/ogdf/abacus/global.h include/ogdf/abacus/hash.h \
   include/ogdf/abacus/hash.inc include/ogdf/abacus/optsense.h \
   include/ogdf/basic/Stopwatch.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/tailoff.o -c src/ogdf/abacus/tailoff.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/tailoff.cpp
 
 $(debug)/src/ogdf/abacus/valbranchrule.o: src/ogdf/abacus/valbranchrule.cpp \
   include/ogdf/abacus/valbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -1447,8 +1458,8 @@ $(debug)/src/ogdf/abacus/valbranchrule.o: src/ogdf/abacus/valbranchrule.cpp \
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/valbranchrule.o -c src/ogdf/abacus/valbranchrule.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/valbranchrule.cpp
 
 $(release)/src/ogdf/abacus/valbranchrule.o: src/ogdf/abacus/valbranchrule.cpp \
   include/ogdf/abacus/valbranchrule.h include/ogdf/abacus/branchrule.h \
@@ -1476,8 +1487,8 @@ $(release)/src/ogdf/abacus/valbranchrule.o: src/ogdf/abacus/valbranchrule.cpp \
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/valbranchrule.o -c src/ogdf/abacus/valbranchrule.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/valbranchrule.cpp
 
 $(debug)/src/ogdf/abacus/variable.o: src/ogdf/abacus/variable.cpp include/ogdf/abacus/variable.h \
   include/ogdf/abacus/convar.h include/ogdf/abacus/abacusroot.h \
@@ -1504,8 +1515,8 @@ $(debug)/src/ogdf/abacus/variable.o: src/ogdf/abacus/variable.cpp include/ogdf/a
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/column.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/variable.o -c src/ogdf/abacus/variable.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/variable.cpp
 
 $(release)/src/ogdf/abacus/variable.o: src/ogdf/abacus/variable.cpp include/ogdf/abacus/variable.h \
   include/ogdf/abacus/convar.h include/ogdf/abacus/abacusroot.h \
@@ -1532,8 +1543,8 @@ $(release)/src/ogdf/abacus/variable.o: src/ogdf/abacus/variable.cpp include/ogdf
   include/ogdf/abacus/poolslotref.inc include/ogdf/abacus/sparvec.h \
   include/ogdf/abacus/cutbuffer.h include/ogdf/abacus/cutbuffer.inc \
   include/ogdf/abacus/lpsub.h include/ogdf/abacus/column.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/variable.o -c src/ogdf/abacus/variable.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/variable.cpp
 
 $(debug)/src/ogdf/abacus/vartype.o: src/ogdf/abacus/vartype.cpp include/ogdf/abacus/vartype.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -1545,8 +1556,8 @@ $(debug)/src/ogdf/abacus/vartype.o: src/ogdf/abacus/vartype.cpp include/ogdf/aba
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(debug)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/abacus/vartype.o -c src/ogdf/abacus/vartype.cpp
+	$(MKDIR) $(debug)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/abacus/vartype.cpp
 
 $(release)/src/ogdf/abacus/vartype.o: src/ogdf/abacus/vartype.cpp include/ogdf/abacus/vartype.h \
   include/ogdf/abacus/abacusroot.h include/ogdf/basic/Logger.h \
@@ -1558,8 +1569,8 @@ $(release)/src/ogdf/abacus/vartype.o: src/ogdf/abacus/vartype.cpp include/ogdf/a
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(release)/src/ogdf/abacus
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/abacus/vartype.o -c src/ogdf/abacus/vartype.cpp
+	$(MKDIR) $(release)/src/ogdf/abacus
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/abacus/vartype.cpp
 
 $(debug)/src/ogdf/augmentation/DfsMakeBiconnected.o: src/ogdf/augmentation/DfsMakeBiconnected.cpp \
   include/ogdf/augmentation/DfsMakeBiconnected.h \
@@ -1578,8 +1589,8 @@ $(debug)/src/ogdf/augmentation/DfsMakeBiconnected.o: src/ogdf/augmentation/DfsMa
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/SList.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/augmentation/DfsMakeBiconnected.o -c src/ogdf/augmentation/DfsMakeBiconnected.cpp
+	$(MKDIR) $(debug)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/augmentation/DfsMakeBiconnected.cpp
 
 $(release)/src/ogdf/augmentation/DfsMakeBiconnected.o: src/ogdf/augmentation/DfsMakeBiconnected.cpp \
   include/ogdf/augmentation/DfsMakeBiconnected.h \
@@ -1598,8 +1609,8 @@ $(release)/src/ogdf/augmentation/DfsMakeBiconnected.o: src/ogdf/augmentation/Dfs
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/SList.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/augmentation/DfsMakeBiconnected.o -c src/ogdf/augmentation/DfsMakeBiconnected.cpp
+	$(MKDIR) $(release)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/augmentation/DfsMakeBiconnected.cpp
 
 $(debug)/src/ogdf/augmentation/PlanarAugmentation.o: src/ogdf/augmentation/PlanarAugmentation.cpp \
   include/ogdf/augmentation/PlanarAugmentation.h \
@@ -1634,8 +1645,8 @@ $(debug)/src/ogdf/augmentation/PlanarAugmentation.o: src/ogdf/augmentation/Plana
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h
-	mkdir -p $(debug)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/augmentation/PlanarAugmentation.o -c src/ogdf/augmentation/PlanarAugmentation.cpp
+	$(MKDIR) $(debug)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/augmentation/PlanarAugmentation.cpp
 
 $(release)/src/ogdf/augmentation/PlanarAugmentation.o: src/ogdf/augmentation/PlanarAugmentation.cpp \
   include/ogdf/augmentation/PlanarAugmentation.h \
@@ -1670,8 +1681,8 @@ $(release)/src/ogdf/augmentation/PlanarAugmentation.o: src/ogdf/augmentation/Pla
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h
-	mkdir -p $(release)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/augmentation/PlanarAugmentation.o -c src/ogdf/augmentation/PlanarAugmentation.cpp
+	$(MKDIR) $(release)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/augmentation/PlanarAugmentation.cpp
 
 $(debug)/src/ogdf/augmentation/PlanarAugmentationFix.o: src/ogdf/augmentation/PlanarAugmentationFix.cpp \
   include/ogdf/augmentation/PlanarAugmentationFix.h \
@@ -1705,8 +1716,8 @@ $(debug)/src/ogdf/augmentation/PlanarAugmentationFix.o: src/ogdf/augmentation/Pl
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h
-	mkdir -p $(debug)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/augmentation/PlanarAugmentationFix.o -c src/ogdf/augmentation/PlanarAugmentationFix.cpp
+	$(MKDIR) $(debug)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/augmentation/PlanarAugmentationFix.cpp
 
 $(release)/src/ogdf/augmentation/PlanarAugmentationFix.o: src/ogdf/augmentation/PlanarAugmentationFix.cpp \
   include/ogdf/augmentation/PlanarAugmentationFix.h \
@@ -1740,8 +1751,8 @@ $(release)/src/ogdf/augmentation/PlanarAugmentationFix.o: src/ogdf/augmentation/
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h
-	mkdir -p $(release)/src/ogdf/augmentation
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/augmentation/PlanarAugmentationFix.o -c src/ogdf/augmentation/PlanarAugmentationFix.cpp
+	$(MKDIR) $(release)/src/ogdf/augmentation
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/augmentation/PlanarAugmentationFix.cpp
 
 $(debug)/src/ogdf/basic/CombinatorialEmbedding.o: src/ogdf/basic/CombinatorialEmbedding.cpp \
   include/ogdf/basic/CombinatorialEmbedding.h \
@@ -1759,8 +1770,8 @@ $(debug)/src/ogdf/basic/CombinatorialEmbedding.o: src/ogdf/basic/CombinatorialEm
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/CombinatorialEmbedding.o -c src/ogdf/basic/CombinatorialEmbedding.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/CombinatorialEmbedding.cpp
 
 $(release)/src/ogdf/basic/CombinatorialEmbedding.o: src/ogdf/basic/CombinatorialEmbedding.cpp \
   include/ogdf/basic/CombinatorialEmbedding.h \
@@ -1778,8 +1789,8 @@ $(release)/src/ogdf/basic/CombinatorialEmbedding.o: src/ogdf/basic/Combinatorial
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/CombinatorialEmbedding.o -c src/ogdf/basic/CombinatorialEmbedding.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/CombinatorialEmbedding.cpp
 
 $(debug)/src/ogdf/basic/Constraint.o: src/ogdf/basic/Constraint.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -1801,8 +1812,8 @@ $(debug)/src/ogdf/basic/Constraint.o: src/ogdf/basic/Constraint.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h include/ogdf/fileformats/Ogml.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Constraint.o -c src/ogdf/basic/Constraint.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Constraint.cpp
 
 $(release)/src/ogdf/basic/Constraint.o: src/ogdf/basic/Constraint.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -1824,8 +1835,8 @@ $(release)/src/ogdf/basic/Constraint.o: src/ogdf/basic/Constraint.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h include/ogdf/fileformats/Ogml.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Constraint.o -c src/ogdf/basic/Constraint.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Constraint.cpp
 
 $(debug)/src/ogdf/basic/ConstraintManager.o: src/ogdf/basic/ConstraintManager.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -1842,8 +1853,8 @@ $(debug)/src/ogdf/basic/ConstraintManager.o: src/ogdf/basic/ConstraintManager.cp
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/ConstraintManager.o -c src/ogdf/basic/ConstraintManager.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/ConstraintManager.cpp
 
 $(release)/src/ogdf/basic/ConstraintManager.o: src/ogdf/basic/ConstraintManager.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -1860,18 +1871,18 @@ $(release)/src/ogdf/basic/ConstraintManager.o: src/ogdf/basic/ConstraintManager.
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/ConstraintManager.o -c src/ogdf/basic/ConstraintManager.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/ConstraintManager.cpp
 
 $(debug)/src/ogdf/basic/DisjointSets.o: src/ogdf/basic/DisjointSets.cpp \
   include/ogdf/basic/DisjointSets.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/DisjointSets.o -c src/ogdf/basic/DisjointSets.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/DisjointSets.cpp
 
 $(release)/src/ogdf/basic/DisjointSets.o: src/ogdf/basic/DisjointSets.cpp \
   include/ogdf/basic/DisjointSets.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/DisjointSets.o -c src/ogdf/basic/DisjointSets.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/DisjointSets.cpp
 
 $(debug)/src/ogdf/basic/DualGraph.o: src/ogdf/basic/DualGraph.cpp include/ogdf/basic/DualGraph.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
@@ -1889,8 +1900,8 @@ $(debug)/src/ogdf/basic/DualGraph.o: src/ogdf/basic/DualGraph.cpp include/ogdf/b
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/DualGraph.o -c src/ogdf/basic/DualGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/DualGraph.cpp
 
 $(release)/src/ogdf/basic/DualGraph.o: src/ogdf/basic/DualGraph.cpp include/ogdf/basic/DualGraph.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
@@ -1908,8 +1919,8 @@ $(release)/src/ogdf/basic/DualGraph.o: src/ogdf/basic/DualGraph.cpp include/ogdf
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/DualGraph.o -c src/ogdf/basic/DualGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/DualGraph.cpp
 
 $(debug)/src/ogdf/basic/EdgeComparer.o: src/ogdf/basic/EdgeComparer.cpp \
   include/ogdf/basic/EdgeComparer.h include/ogdf/planarity/PlanRep.h \
@@ -1936,8 +1947,8 @@ $(debug)/src/ogdf/basic/EdgeComparer.o: src/ogdf/basic/EdgeComparer.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/EdgeComparer.o -c src/ogdf/basic/EdgeComparer.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/EdgeComparer.cpp
 
 $(release)/src/ogdf/basic/EdgeComparer.o: src/ogdf/basic/EdgeComparer.cpp \
   include/ogdf/basic/EdgeComparer.h include/ogdf/planarity/PlanRep.h \
@@ -1964,8 +1975,8 @@ $(release)/src/ogdf/basic/EdgeComparer.o: src/ogdf/basic/EdgeComparer.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/EdgeComparer.o -c src/ogdf/basic/EdgeComparer.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/EdgeComparer.cpp
 
 $(debug)/src/ogdf/basic/EdgeComparerSimple.o: src/ogdf/basic/EdgeComparerSimple.cpp \
   include/ogdf/basic/EdgeComparerSimple.h \
@@ -1992,8 +2003,8 @@ $(debug)/src/ogdf/basic/EdgeComparerSimple.o: src/ogdf/basic/EdgeComparerSimple.
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/EdgeComparerSimple.o -c src/ogdf/basic/EdgeComparerSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/EdgeComparerSimple.cpp
 
 $(release)/src/ogdf/basic/EdgeComparerSimple.o: src/ogdf/basic/EdgeComparerSimple.cpp \
   include/ogdf/basic/EdgeComparerSimple.h \
@@ -2020,8 +2031,8 @@ $(release)/src/ogdf/basic/EdgeComparerSimple.o: src/ogdf/basic/EdgeComparerSimpl
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/EdgeComparerSimple.o -c src/ogdf/basic/EdgeComparerSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/EdgeComparerSimple.cpp
 
 $(debug)/src/ogdf/basic/Graph.o: src/ogdf/basic/Graph.cpp include/ogdf/basic/Array.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2045,8 +2056,8 @@ $(debug)/src/ogdf/basic/Graph.o: src/ogdf/basic/Graph.cpp include/ogdf/basic/Arr
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Graph.o -c src/ogdf/basic/Graph.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Graph.cpp
 
 $(release)/src/ogdf/basic/Graph.o: src/ogdf/basic/Graph.cpp include/ogdf/basic/Array.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2070,8 +2081,8 @@ $(release)/src/ogdf/basic/Graph.o: src/ogdf/basic/Graph.cpp include/ogdf/basic/A
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Graph.o -c src/ogdf/basic/Graph.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Graph.cpp
 
 $(debug)/src/ogdf/basic/GraphAttributes.o: src/ogdf/basic/GraphAttributes.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -2094,8 +2105,8 @@ $(debug)/src/ogdf/basic/GraphAttributes.o: src/ogdf/basic/GraphAttributes.cpp \
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/GraphAttributes.o -c src/ogdf/basic/GraphAttributes.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/GraphAttributes.cpp
 
 $(release)/src/ogdf/basic/GraphAttributes.o: src/ogdf/basic/GraphAttributes.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -2118,8 +2129,8 @@ $(release)/src/ogdf/basic/GraphAttributes.o: src/ogdf/basic/GraphAttributes.cpp 
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/GraphAttributes.o -c src/ogdf/basic/GraphAttributes.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/GraphAttributes.cpp
 
 $(debug)/src/ogdf/basic/GraphConstraints.o: src/ogdf/basic/GraphConstraints.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -2136,8 +2147,8 @@ $(debug)/src/ogdf/basic/GraphConstraints.o: src/ogdf/basic/GraphConstraints.cpp 
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/GraphConstraints.o -c src/ogdf/basic/GraphConstraints.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/GraphConstraints.cpp
 
 $(release)/src/ogdf/basic/GraphConstraints.o: src/ogdf/basic/GraphConstraints.cpp \
   include/ogdf/basic/Constraints.h include/ogdf/basic/Graph.h \
@@ -2154,8 +2165,8 @@ $(release)/src/ogdf/basic/GraphConstraints.o: src/ogdf/basic/GraphConstraints.cp
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/GraphConstraints.o -c src/ogdf/basic/GraphConstraints.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/GraphConstraints.cpp
 
 $(debug)/src/ogdf/basic/GraphCopy.o: src/ogdf/basic/GraphCopy.cpp include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
@@ -2182,8 +2193,8 @@ $(debug)/src/ogdf/basic/GraphCopy.o: src/ogdf/basic/GraphCopy.cpp include/ogdf/b
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/GraphCopy.o -c src/ogdf/basic/GraphCopy.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/GraphCopy.cpp
 
 $(release)/src/ogdf/basic/GraphCopy.o: src/ogdf/basic/GraphCopy.cpp include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
@@ -2210,8 +2221,8 @@ $(release)/src/ogdf/basic/GraphCopy.o: src/ogdf/basic/GraphCopy.cpp include/ogdf
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/GraphCopy.o -c src/ogdf/basic/GraphCopy.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/GraphCopy.cpp
 
 $(debug)/src/ogdf/basic/GridLayout.o: src/ogdf/basic/GridLayout.cpp \
   include/ogdf/basic/GridLayoutMapped.h include/ogdf/basic/GridLayout.h \
@@ -2239,8 +2250,8 @@ $(debug)/src/ogdf/basic/GridLayout.o: src/ogdf/basic/GridLayout.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/HashArray.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/GridLayout.o -c src/ogdf/basic/GridLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/GridLayout.cpp
 
 $(release)/src/ogdf/basic/GridLayout.o: src/ogdf/basic/GridLayout.cpp \
   include/ogdf/basic/GridLayoutMapped.h include/ogdf/basic/GridLayout.h \
@@ -2268,8 +2279,8 @@ $(release)/src/ogdf/basic/GridLayout.o: src/ogdf/basic/GridLayout.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/HashArray.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/GridLayout.o -c src/ogdf/basic/GridLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/GridLayout.cpp
 
 $(debug)/src/ogdf/basic/GridLayoutModule.o: src/ogdf/basic/GridLayoutModule.cpp \
   include/ogdf/module/GridLayoutModule.h \
@@ -2299,8 +2310,8 @@ $(debug)/src/ogdf/basic/GridLayoutModule.o: src/ogdf/basic/GridLayoutModule.cpp 
   include/ogdf/planarity/NodeTypePatterns.h include/ogdf/basic/Layout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/GridLayoutModule.o -c src/ogdf/basic/GridLayoutModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/GridLayoutModule.cpp
 
 $(release)/src/ogdf/basic/GridLayoutModule.o: src/ogdf/basic/GridLayoutModule.cpp \
   include/ogdf/module/GridLayoutModule.h \
@@ -2330,8 +2341,8 @@ $(release)/src/ogdf/basic/GridLayoutModule.o: src/ogdf/basic/GridLayoutModule.cp
   include/ogdf/planarity/NodeTypePatterns.h include/ogdf/basic/Layout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/GridLayoutModule.o -c src/ogdf/basic/GridLayoutModule.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/GridLayoutModule.cpp
 
 $(debug)/src/ogdf/basic/Hashing.o: src/ogdf/basic/Hashing.cpp include/ogdf/basic/Hashing.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2342,8 +2353,8 @@ $(debug)/src/ogdf/basic/Hashing.o: src/ogdf/basic/Hashing.cpp include/ogdf/basic
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Hashing.o -c src/ogdf/basic/Hashing.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Hashing.cpp
 
 $(release)/src/ogdf/basic/Hashing.o: src/ogdf/basic/Hashing.cpp include/ogdf/basic/Hashing.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2354,8 +2365,8 @@ $(release)/src/ogdf/basic/Hashing.o: src/ogdf/basic/Hashing.cpp include/ogdf/bas
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Hashing.o -c src/ogdf/basic/Hashing.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Hashing.cpp
 
 $(debug)/src/ogdf/basic/LayoutStandards.o: src/ogdf/basic/LayoutStandards.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
@@ -2367,8 +2378,8 @@ $(debug)/src/ogdf/basic/LayoutStandards.o: src/ogdf/basic/LayoutStandards.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/LayoutStandards.o -c src/ogdf/basic/LayoutStandards.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/LayoutStandards.cpp
 
 $(release)/src/ogdf/basic/LayoutStandards.o: src/ogdf/basic/LayoutStandards.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
@@ -2380,20 +2391,20 @@ $(release)/src/ogdf/basic/LayoutStandards.o: src/ogdf/basic/LayoutStandards.cpp 
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/LayoutStandards.o -c src/ogdf/basic/LayoutStandards.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/LayoutStandards.cpp
 
 $(debug)/src/ogdf/basic/Logger.o: src/ogdf/basic/Logger.cpp include/ogdf/basic/Logger.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
   include/ogdf/internal/config_autogen.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Logger.o -c src/ogdf/basic/Logger.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Logger.cpp
 
 $(release)/src/ogdf/basic/Logger.o: src/ogdf/basic/Logger.cpp include/ogdf/basic/Logger.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
   include/ogdf/internal/config_autogen.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Logger.o -c src/ogdf/basic/Logger.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Logger.cpp
 
 $(debug)/src/ogdf/basic/Math.o: src/ogdf/basic/Math.cpp include/ogdf/basic/Math.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2404,8 +2415,8 @@ $(debug)/src/ogdf/basic/Math.o: src/ogdf/basic/Math.cpp include/ogdf/basic/Math.
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Math.o -c src/ogdf/basic/Math.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Math.cpp
 
 $(release)/src/ogdf/basic/Math.o: src/ogdf/basic/Math.cpp include/ogdf/basic/Math.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2416,8 +2427,8 @@ $(release)/src/ogdf/basic/Math.o: src/ogdf/basic/Math.cpp include/ogdf/basic/Mat
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Math.o -c src/ogdf/basic/Math.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Math.cpp
 
 $(debug)/src/ogdf/basic/NearestRectangleFinder.o: src/ogdf/basic/NearestRectangleFinder.cpp \
   include/ogdf/basic/NearestRectangleFinder.h include/ogdf/basic/Array.h \
@@ -2432,8 +2443,8 @@ $(debug)/src/ogdf/basic/NearestRectangleFinder.o: src/ogdf/basic/NearestRectangl
   include/ogdf/basic/geometry.h include/ogdf/basic/List.h \
   include/ogdf/internal/basic/list_templates.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/NearestRectangleFinder.o -c src/ogdf/basic/NearestRectangleFinder.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/NearestRectangleFinder.cpp
 
 $(release)/src/ogdf/basic/NearestRectangleFinder.o: src/ogdf/basic/NearestRectangleFinder.cpp \
   include/ogdf/basic/NearestRectangleFinder.h include/ogdf/basic/Array.h \
@@ -2448,8 +2459,8 @@ $(release)/src/ogdf/basic/NearestRectangleFinder.o: src/ogdf/basic/NearestRectan
   include/ogdf/basic/geometry.h include/ogdf/basic/List.h \
   include/ogdf/internal/basic/list_templates.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/NearestRectangleFinder.o -c src/ogdf/basic/NearestRectangleFinder.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/NearestRectangleFinder.cpp
 
 $(debug)/src/ogdf/basic/PoolMemoryAllocator.o: src/ogdf/basic/PoolMemoryAllocator.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2460,8 +2471,8 @@ $(debug)/src/ogdf/basic/PoolMemoryAllocator.o: src/ogdf/basic/PoolMemoryAllocato
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/PoolMemoryAllocator.o -c src/ogdf/basic/PoolMemoryAllocator.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/PoolMemoryAllocator.cpp
 
 $(release)/src/ogdf/basic/PoolMemoryAllocator.o: src/ogdf/basic/PoolMemoryAllocator.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2472,8 +2483,8 @@ $(release)/src/ogdf/basic/PoolMemoryAllocator.o: src/ogdf/basic/PoolMemoryAlloca
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/PoolMemoryAllocator.o -c src/ogdf/basic/PoolMemoryAllocator.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/PoolMemoryAllocator.cpp
 
 $(debug)/src/ogdf/basic/PreprocessorLayout.o: src/ogdf/basic/PreprocessorLayout.cpp \
   include/ogdf/basic/PreprocessorLayout.h \
@@ -2497,8 +2508,8 @@ $(debug)/src/ogdf/basic/PreprocessorLayout.o: src/ogdf/basic/PreprocessorLayout.
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/PreprocessorLayout.o -c src/ogdf/basic/PreprocessorLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/PreprocessorLayout.cpp
 
 $(release)/src/ogdf/basic/PreprocessorLayout.o: src/ogdf/basic/PreprocessorLayout.cpp \
   include/ogdf/basic/PreprocessorLayout.h \
@@ -2522,8 +2533,8 @@ $(release)/src/ogdf/basic/PreprocessorLayout.o: src/ogdf/basic/PreprocessorLayou
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/PreprocessorLayout.o -c src/ogdf/basic/PreprocessorLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/PreprocessorLayout.cpp
 
 $(debug)/src/ogdf/basic/Stopwatch.o: src/ogdf/basic/Stopwatch.cpp include/ogdf/basic/Stopwatch.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2534,8 +2545,8 @@ $(debug)/src/ogdf/basic/Stopwatch.o: src/ogdf/basic/Stopwatch.cpp include/ogdf/b
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Stopwatch.o -c src/ogdf/basic/Stopwatch.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Stopwatch.cpp
 
 $(release)/src/ogdf/basic/Stopwatch.o: src/ogdf/basic/Stopwatch.cpp include/ogdf/basic/Stopwatch.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2546,8 +2557,8 @@ $(release)/src/ogdf/basic/Stopwatch.o: src/ogdf/basic/Stopwatch.cpp include/ogdf
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Stopwatch.o -c src/ogdf/basic/Stopwatch.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Stopwatch.cpp
 
 $(debug)/src/ogdf/basic/System.o: src/ogdf/basic/System.cpp include/ogdf/basic/basic.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -2558,8 +2569,8 @@ $(debug)/src/ogdf/basic/System.o: src/ogdf/basic/System.cpp include/ogdf/basic/b
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/System.o -c src/ogdf/basic/System.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/System.cpp
 
 $(release)/src/ogdf/basic/System.o: src/ogdf/basic/System.cpp include/ogdf/basic/basic.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -2570,8 +2581,8 @@ $(release)/src/ogdf/basic/System.o: src/ogdf/basic/System.cpp include/ogdf/basic
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/System.o -c src/ogdf/basic/System.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/System.cpp
 
 $(debug)/src/ogdf/basic/Thread.o: src/ogdf/basic/Thread.cpp include/ogdf/basic/Thread.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2582,8 +2593,8 @@ $(debug)/src/ogdf/basic/Thread.o: src/ogdf/basic/Thread.cpp include/ogdf/basic/T
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/Thread.o -c src/ogdf/basic/Thread.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/Thread.cpp
 
 $(release)/src/ogdf/basic/Thread.o: src/ogdf/basic/Thread.cpp include/ogdf/basic/Thread.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2594,8 +2605,8 @@ $(release)/src/ogdf/basic/Thread.o: src/ogdf/basic/Thread.cpp include/ogdf/basic
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/Thread.o -c src/ogdf/basic/Thread.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/Thread.cpp
 
 $(debug)/src/ogdf/basic/basic.o: src/ogdf/basic/basic.cpp include/ogdf/basic/Thread.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2608,8 +2619,8 @@ $(debug)/src/ogdf/basic/basic.o: src/ogdf/basic/basic.cpp include/ogdf/basic/Thr
   include/ogdf/basic/comparer.h include/ogdf/basic/List.h \
   include/ogdf/internal/basic/list_templates.h \
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/basic.o -c src/ogdf/basic/basic.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/basic.cpp
 
 $(release)/src/ogdf/basic/basic.o: src/ogdf/basic/basic.cpp include/ogdf/basic/Thread.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2622,18 +2633,18 @@ $(release)/src/ogdf/basic/basic.o: src/ogdf/basic/basic.cpp include/ogdf/basic/T
   include/ogdf/basic/comparer.h include/ogdf/basic/List.h \
   include/ogdf/internal/basic/list_templates.h \
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/basic.o -c src/ogdf/basic/basic.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/basic.cpp
 
 $(debug)/src/ogdf/basic/config.o: src/ogdf/basic/config.cpp include/ogdf/internal/basic/config.h \
   include/ogdf/internal/version.h include/ogdf/internal/config_autogen.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/config.o -c src/ogdf/basic/config.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/config.cpp
 
 $(release)/src/ogdf/basic/config.o: src/ogdf/basic/config.cpp include/ogdf/internal/basic/config.h \
   include/ogdf/internal/version.h include/ogdf/internal/config_autogen.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/config.o -c src/ogdf/basic/config.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/config.cpp
 
 $(debug)/src/ogdf/basic/extended_graph_alg.o: src/ogdf/basic/extended_graph_alg.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -2663,8 +2674,8 @@ $(debug)/src/ogdf/basic/extended_graph_alg.o: src/ogdf/basic/extended_graph_alg.
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/extended_graph_alg.o -c src/ogdf/basic/extended_graph_alg.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/extended_graph_alg.cpp
 
 $(release)/src/ogdf/basic/extended_graph_alg.o: src/ogdf/basic/extended_graph_alg.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -2694,8 +2705,8 @@ $(release)/src/ogdf/basic/extended_graph_alg.o: src/ogdf/basic/extended_graph_al
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/extended_graph_alg.o -c src/ogdf/basic/extended_graph_alg.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/extended_graph_alg.cpp
 
 $(debug)/src/ogdf/basic/geometry.o: src/ogdf/basic/geometry.cpp include/ogdf/basic/geometry.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -2722,8 +2733,8 @@ $(debug)/src/ogdf/basic/geometry.o: src/ogdf/basic/geometry.cpp include/ogdf/bas
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/geometry.o -c src/ogdf/basic/geometry.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/geometry.cpp
 
 $(release)/src/ogdf/basic/geometry.o: src/ogdf/basic/geometry.cpp include/ogdf/basic/geometry.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -2750,8 +2761,8 @@ $(release)/src/ogdf/basic/geometry.o: src/ogdf/basic/geometry.cpp include/ogdf/b
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/geometry.o -c src/ogdf/basic/geometry.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/geometry.cpp
 
 $(debug)/src/ogdf/basic/graph_generators.o: src/ogdf/basic/graph_generators.cpp \
   include/ogdf/basic/graph_generators.h include/ogdf/basic/Graph.h \
@@ -2798,8 +2809,8 @@ $(debug)/src/ogdf/basic/graph_generators.o: src/ogdf/basic/graph_generators.cpp 
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/module/CCLayoutPackModule.h \
   include/ogdf/planarlayout/SchnyderLayout.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/graph_generators.o -c src/ogdf/basic/graph_generators.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/graph_generators.cpp
 
 $(release)/src/ogdf/basic/graph_generators.o: src/ogdf/basic/graph_generators.cpp \
   include/ogdf/basic/graph_generators.h include/ogdf/basic/Graph.h \
@@ -2846,8 +2857,8 @@ $(release)/src/ogdf/basic/graph_generators.o: src/ogdf/basic/graph_generators.cp
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/module/CCLayoutPackModule.h \
   include/ogdf/planarlayout/SchnyderLayout.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/graph_generators.o -c src/ogdf/basic/graph_generators.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/graph_generators.cpp
 
 $(debug)/src/ogdf/basic/graphics.o: src/ogdf/basic/graphics.cpp include/ogdf/basic/graphics.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2858,8 +2869,8 @@ $(debug)/src/ogdf/basic/graphics.o: src/ogdf/basic/graphics.cpp include/ogdf/bas
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/graphics.o -c src/ogdf/basic/graphics.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/graphics.cpp
 
 $(release)/src/ogdf/basic/graphics.o: src/ogdf/basic/graphics.cpp include/ogdf/basic/graphics.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -2870,8 +2881,8 @@ $(release)/src/ogdf/basic/graphics.o: src/ogdf/basic/graphics.cpp include/ogdf/b
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/graphics.o -c src/ogdf/basic/graphics.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/graphics.cpp
 
 $(debug)/src/ogdf/basic/modules.o: src/ogdf/basic/modules.cpp include/ogdf/module/LayoutModule.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -2892,8 +2903,8 @@ $(debug)/src/ogdf/basic/modules.o: src/ogdf/basic/modules.cpp include/ogdf/modul
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/module/AcyclicSubgraphModule.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/modules.o -c src/ogdf/basic/modules.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/modules.cpp
 
 $(release)/src/ogdf/basic/modules.o: src/ogdf/basic/modules.cpp include/ogdf/module/LayoutModule.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -2914,8 +2925,8 @@ $(release)/src/ogdf/basic/modules.o: src/ogdf/basic/modules.cpp include/ogdf/mod
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/module/AcyclicSubgraphModule.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/modules.o -c src/ogdf/basic/modules.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/modules.cpp
 
 $(debug)/src/ogdf/basic/random_hierarchy.o: src/ogdf/basic/random_hierarchy.cpp \
   include/ogdf/basic/graph_generators.h include/ogdf/basic/Graph.h \
@@ -2933,8 +2944,8 @@ $(debug)/src/ogdf/basic/random_hierarchy.o: src/ogdf/basic/random_hierarchy.cpp 
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/random_hierarchy.o -c src/ogdf/basic/random_hierarchy.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/random_hierarchy.cpp
 
 $(release)/src/ogdf/basic/random_hierarchy.o: src/ogdf/basic/random_hierarchy.cpp \
   include/ogdf/basic/graph_generators.h include/ogdf/basic/Graph.h \
@@ -2952,8 +2963,8 @@ $(release)/src/ogdf/basic/random_hierarchy.o: src/ogdf/basic/random_hierarchy.cp
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/random_hierarchy.o -c src/ogdf/basic/random_hierarchy.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/random_hierarchy.cpp
 
 $(debug)/src/ogdf/basic/simple_graph_alg.o: src/ogdf/basic/simple_graph_alg.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -2974,8 +2985,8 @@ $(debug)/src/ogdf/basic/simple_graph_alg.o: src/ogdf/basic/simple_graph_alg.cpp 
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/simple_graph_alg.o -c src/ogdf/basic/simple_graph_alg.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/simple_graph_alg.cpp
 
 $(release)/src/ogdf/basic/simple_graph_alg.o: src/ogdf/basic/simple_graph_alg.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -2996,8 +3007,8 @@ $(release)/src/ogdf/basic/simple_graph_alg.o: src/ogdf/basic/simple_graph_alg.cp
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/simple_graph_alg.o -c src/ogdf/basic/simple_graph_alg.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/simple_graph_alg.cpp
 
 $(debug)/src/ogdf/basic/stNumber.o: src/ogdf/basic/stNumber.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -3015,8 +3026,8 @@ $(debug)/src/ogdf/basic/stNumber.o: src/ogdf/basic/stNumber.cpp \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/basic/stNumber.o -c src/ogdf/basic/stNumber.cpp
+	$(MKDIR) $(debug)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/basic/stNumber.cpp
 
 $(release)/src/ogdf/basic/stNumber.o: src/ogdf/basic/stNumber.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -3034,8 +3045,8 @@ $(release)/src/ogdf/basic/stNumber.o: src/ogdf/basic/stNumber.cpp \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/basic
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/basic/stNumber.o -c src/ogdf/basic/stNumber.cpp
+	$(MKDIR) $(release)/src/ogdf/basic
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/basic/stNumber.cpp
 
 $(debug)/src/ogdf/cluster/CP_MasterBase.o: src/ogdf/cluster/CP_MasterBase.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3093,8 +3104,8 @@ $(debug)/src/ogdf/cluster/CP_MasterBase.o: src/ogdf/cluster/CP_MasterBase.cpp \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CP_MasterBase.o -c src/ogdf/cluster/CP_MasterBase.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CP_MasterBase.cpp
 
 $(release)/src/ogdf/cluster/CP_MasterBase.o: src/ogdf/cluster/CP_MasterBase.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3152,8 +3163,8 @@ $(release)/src/ogdf/cluster/CP_MasterBase.o: src/ogdf/cluster/CP_MasterBase.cpp 
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CP_MasterBase.o -c src/ogdf/cluster/CP_MasterBase.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CP_MasterBase.cpp
 
 $(debug)/src/ogdf/cluster/CPlanarEdgeInserter.o: src/ogdf/cluster/CPlanarEdgeInserter.cpp \
   include/ogdf/cluster/CPlanarEdgeInserter.h \
@@ -3184,8 +3195,8 @@ $(debug)/src/ogdf/cluster/CPlanarEdgeInserter.o: src/ogdf/cluster/CPlanarEdgeIns
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/basic/HashArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CPlanarEdgeInserter.o -c src/ogdf/cluster/CPlanarEdgeInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CPlanarEdgeInserter.cpp
 
 $(release)/src/ogdf/cluster/CPlanarEdgeInserter.o: src/ogdf/cluster/CPlanarEdgeInserter.cpp \
   include/ogdf/cluster/CPlanarEdgeInserter.h \
@@ -3216,8 +3227,8 @@ $(release)/src/ogdf/cluster/CPlanarEdgeInserter.o: src/ogdf/cluster/CPlanarEdgeI
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/basic/HashArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CPlanarEdgeInserter.o -c src/ogdf/cluster/CPlanarEdgeInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CPlanarEdgeInserter.cpp
 
 $(debug)/src/ogdf/cluster/CPlanarSubCLusteredST.o: src/ogdf/cluster/CPlanarSubCLusteredST.cpp \
   include/ogdf/internal/cluster/CPlanarSubClusteredST.h \
@@ -3249,8 +3260,8 @@ $(debug)/src/ogdf/cluster/CPlanarSubCLusteredST.o: src/ogdf/cluster/CPlanarSubCL
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CPlanarSubCLusteredST.o -c src/ogdf/cluster/CPlanarSubCLusteredST.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CPlanarSubCLusteredST.cpp
 
 $(release)/src/ogdf/cluster/CPlanarSubCLusteredST.o: src/ogdf/cluster/CPlanarSubCLusteredST.cpp \
   include/ogdf/internal/cluster/CPlanarSubClusteredST.h \
@@ -3282,8 +3293,8 @@ $(release)/src/ogdf/cluster/CPlanarSubCLusteredST.o: src/ogdf/cluster/CPlanarSub
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CPlanarSubCLusteredST.o -c src/ogdf/cluster/CPlanarSubCLusteredST.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CPlanarSubCLusteredST.cpp
 
 $(debug)/src/ogdf/cluster/CPlanarSubClusteredGraph.o: src/ogdf/cluster/CPlanarSubClusteredGraph.cpp \
   include/ogdf/cluster/CPlanarSubClusteredGraph.h \
@@ -3329,8 +3340,8 @@ $(debug)/src/ogdf/cluster/CPlanarSubClusteredGraph.o: src/ogdf/cluster/CPlanarSu
   include/ogdf/internal/planarity/PQNodeKey.h \
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CPlanarSubClusteredGraph.o -c src/ogdf/cluster/CPlanarSubClusteredGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CPlanarSubClusteredGraph.cpp
 
 $(release)/src/ogdf/cluster/CPlanarSubClusteredGraph.o: src/ogdf/cluster/CPlanarSubClusteredGraph.cpp \
   include/ogdf/cluster/CPlanarSubClusteredGraph.h \
@@ -3376,8 +3387,8 @@ $(release)/src/ogdf/cluster/CPlanarSubClusteredGraph.o: src/ogdf/cluster/CPlanar
   include/ogdf/internal/planarity/PQNodeKey.h \
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CPlanarSubClusteredGraph.o -c src/ogdf/cluster/CPlanarSubClusteredGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CPlanarSubClusteredGraph.cpp
 
 $(debug)/src/ogdf/cluster/CPlanarity_Master.o: src/ogdf/cluster/CPlanarity_Master.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3440,8 +3451,8 @@ $(debug)/src/ogdf/cluster/CPlanarity_Master.o: src/ogdf/cluster/CPlanarity_Maste
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CPlanarity_Master.o -c src/ogdf/cluster/CPlanarity_Master.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CPlanarity_Master.cpp
 
 $(release)/src/ogdf/cluster/CPlanarity_Master.o: src/ogdf/cluster/CPlanarity_Master.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3504,8 +3515,8 @@ $(release)/src/ogdf/cluster/CPlanarity_Master.o: src/ogdf/cluster/CPlanarity_Mas
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CPlanarity_Master.o -c src/ogdf/cluster/CPlanarity_Master.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CPlanarity_Master.cpp
 
 $(debug)/src/ogdf/cluster/CPlanarity_Sub.o: src/ogdf/cluster/CPlanarity_Sub.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3585,8 +3596,8 @@ $(debug)/src/ogdf/cluster/CPlanarity_Sub.o: src/ogdf/cluster/CPlanarity_Sub.cpp 
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CPlanarity_Sub.o -c src/ogdf/cluster/CPlanarity_Sub.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CPlanarity_Sub.cpp
 
 $(release)/src/ogdf/cluster/CPlanarity_Sub.o: src/ogdf/cluster/CPlanarity_Sub.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -3666,8 +3677,8 @@ $(release)/src/ogdf/cluster/CPlanarity_Sub.o: src/ogdf/cluster/CPlanarity_Sub.cp
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CPlanarity_Sub.o -c src/ogdf/cluster/CPlanarity_Sub.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CPlanarity_Sub.cpp
 
 $(debug)/src/ogdf/cluster/CconnectClusterPlanar.o: src/ogdf/cluster/CconnectClusterPlanar.cpp \
   include/ogdf/cluster/CconnectClusterPlanar.h \
@@ -3713,8 +3724,8 @@ $(debug)/src/ogdf/cluster/CconnectClusterPlanar.o: src/ogdf/cluster/CconnectClus
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CconnectClusterPlanar.o -c src/ogdf/cluster/CconnectClusterPlanar.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CconnectClusterPlanar.cpp
 
 $(release)/src/ogdf/cluster/CconnectClusterPlanar.o: src/ogdf/cluster/CconnectClusterPlanar.cpp \
   include/ogdf/cluster/CconnectClusterPlanar.h \
@@ -3760,8 +3771,8 @@ $(release)/src/ogdf/cluster/CconnectClusterPlanar.o: src/ogdf/cluster/CconnectCl
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CconnectClusterPlanar.o -c src/ogdf/cluster/CconnectClusterPlanar.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CconnectClusterPlanar.cpp
 
 $(debug)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o: \
   src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp \
@@ -3816,8 +3827,8 @@ $(debug)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o: \
   include/ogdf/basic/GraphAttributes.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o -c src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp
 
 $(release)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o: \
   src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp \
@@ -3872,8 +3883,8 @@ $(release)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o: \
   include/ogdf/basic/GraphAttributes.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o -c src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/CconnectClusterPlanarEmbed.cpp
 
 $(debug)/src/ogdf/cluster/ClusterAnalysis.o: src/ogdf/cluster/ClusterAnalysis.cpp \
   include/ogdf/cluster/ClusterAnalysis.h \
@@ -3895,8 +3906,8 @@ $(debug)/src/ogdf/cluster/ClusterAnalysis.o: src/ogdf/cluster/ClusterAnalysis.cp
   include/ogdf/basic/HashArray.h include/ogdf/basic/Hashing.h \
   include/ogdf/cluster/ClusterArray.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/DisjointSets.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/ClusterAnalysis.o -c src/ogdf/cluster/ClusterAnalysis.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/ClusterAnalysis.cpp
 
 $(release)/src/ogdf/cluster/ClusterAnalysis.o: src/ogdf/cluster/ClusterAnalysis.cpp \
   include/ogdf/cluster/ClusterAnalysis.h \
@@ -3918,8 +3929,8 @@ $(release)/src/ogdf/cluster/ClusterAnalysis.o: src/ogdf/cluster/ClusterAnalysis.
   include/ogdf/basic/HashArray.h include/ogdf/basic/Hashing.h \
   include/ogdf/cluster/ClusterArray.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/DisjointSets.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/ClusterAnalysis.o -c src/ogdf/cluster/ClusterAnalysis.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/ClusterAnalysis.cpp
 
 $(debug)/src/ogdf/cluster/ClusterGraph.o: src/ogdf/cluster/ClusterGraph.cpp \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/NodeArray.h \
@@ -3939,8 +3950,8 @@ $(debug)/src/ogdf/cluster/ClusterGraph.o: src/ogdf/cluster/ClusterGraph.cpp \
   include/ogdf/basic/GraphObserver.h include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraphObserver.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/ClusterGraph.o -c src/ogdf/cluster/ClusterGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/ClusterGraph.cpp
 
 $(release)/src/ogdf/cluster/ClusterGraph.o: src/ogdf/cluster/ClusterGraph.cpp \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/NodeArray.h \
@@ -3960,8 +3971,8 @@ $(release)/src/ogdf/cluster/ClusterGraph.o: src/ogdf/cluster/ClusterGraph.cpp \
   include/ogdf/basic/GraphObserver.h include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraphObserver.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/ClusterGraph.o -c src/ogdf/cluster/ClusterGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/ClusterGraph.cpp
 
 $(debug)/src/ogdf/cluster/ClusterGraphAttributes.o: src/ogdf/cluster/ClusterGraphAttributes.cpp \
   include/ogdf/cluster/ClusterGraphAttributes.h \
@@ -3983,8 +3994,8 @@ $(debug)/src/ogdf/cluster/ClusterGraphAttributes.o: src/ogdf/cluster/ClusterGrap
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/ClusterGraphAttributes.o -c src/ogdf/cluster/ClusterGraphAttributes.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/ClusterGraphAttributes.cpp
 
 $(release)/src/ogdf/cluster/ClusterGraphAttributes.o: src/ogdf/cluster/ClusterGraphAttributes.cpp \
   include/ogdf/cluster/ClusterGraphAttributes.h \
@@ -4006,8 +4017,8 @@ $(release)/src/ogdf/cluster/ClusterGraphAttributes.o: src/ogdf/cluster/ClusterGr
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/ClusterGraphAttributes.o -c src/ogdf/cluster/ClusterGraphAttributes.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/ClusterGraphAttributes.cpp
 
 $(debug)/src/ogdf/cluster/ClusterPlanarity.o: src/ogdf/cluster/ClusterPlanarity.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4085,8 +4096,8 @@ $(debug)/src/ogdf/cluster/ClusterPlanarity.o: src/ogdf/cluster/ClusterPlanarity.
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/ClusterPlanarity.o -c src/ogdf/cluster/ClusterPlanarity.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/ClusterPlanarity.cpp
 
 $(release)/src/ogdf/cluster/ClusterPlanarity.o: src/ogdf/cluster/ClusterPlanarity.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4164,8 +4175,8 @@ $(release)/src/ogdf/cluster/ClusterPlanarity.o: src/ogdf/cluster/ClusterPlanarit
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/ClusterPlanarity.o -c src/ogdf/cluster/ClusterPlanarity.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/ClusterPlanarity.cpp
 
 $(debug)/src/ogdf/cluster/ClusterPlanarizationLayout.o: \
   src/ogdf/cluster/ClusterPlanarizationLayout.cpp \
@@ -4229,8 +4240,8 @@ $(debug)/src/ogdf/cluster/ClusterPlanarizationLayout.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/ClusterPlanarizationLayout.o -c src/ogdf/cluster/ClusterPlanarizationLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/ClusterPlanarizationLayout.cpp
 
 $(release)/src/ogdf/cluster/ClusterPlanarizationLayout.o: \
   src/ogdf/cluster/ClusterPlanarizationLayout.cpp \
@@ -4294,8 +4305,8 @@ $(release)/src/ogdf/cluster/ClusterPlanarizationLayout.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/ClusterPlanarizationLayout.o -c src/ogdf/cluster/ClusterPlanarizationLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/ClusterPlanarizationLayout.cpp
 
 $(debug)/src/ogdf/cluster/Cluster_ChunkConnection.o: src/ogdf/cluster/Cluster_ChunkConnection.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4335,8 +4346,8 @@ $(debug)/src/ogdf/cluster/Cluster_ChunkConnection.o: src/ogdf/cluster/Cluster_Ch
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/Cluster_ChunkConnection.o -c src/ogdf/cluster/Cluster_ChunkConnection.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/Cluster_ChunkConnection.cpp
 
 $(release)/src/ogdf/cluster/Cluster_ChunkConnection.o: src/ogdf/cluster/Cluster_ChunkConnection.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4376,8 +4387,8 @@ $(release)/src/ogdf/cluster/Cluster_ChunkConnection.o: src/ogdf/cluster/Cluster_
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/Cluster_ChunkConnection.o -c src/ogdf/cluster/Cluster_ChunkConnection.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/Cluster_ChunkConnection.cpp
 
 $(debug)/src/ogdf/cluster/Cluster_CutConstraint.o: src/ogdf/cluster/Cluster_CutConstraint.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4417,8 +4428,8 @@ $(debug)/src/ogdf/cluster/Cluster_CutConstraint.o: src/ogdf/cluster/Cluster_CutC
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/Cluster_CutConstraint.o -c src/ogdf/cluster/Cluster_CutConstraint.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/Cluster_CutConstraint.cpp
 
 $(release)/src/ogdf/cluster/Cluster_CutConstraint.o: src/ogdf/cluster/Cluster_CutConstraint.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4458,8 +4469,8 @@ $(release)/src/ogdf/cluster/Cluster_CutConstraint.o: src/ogdf/cluster/Cluster_Cu
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/Cluster_CutConstraint.o -c src/ogdf/cluster/Cluster_CutConstraint.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/Cluster_CutConstraint.cpp
 
 $(debug)/src/ogdf/cluster/Cluster_EdgeVar.o: src/ogdf/cluster/Cluster_EdgeVar.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4501,8 +4512,8 @@ $(debug)/src/ogdf/cluster/Cluster_EdgeVar.o: src/ogdf/cluster/Cluster_EdgeVar.cp
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/Cluster_EdgeVar.o -c src/ogdf/cluster/Cluster_EdgeVar.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/Cluster_EdgeVar.cpp
 
 $(release)/src/ogdf/cluster/Cluster_EdgeVar.o: src/ogdf/cluster/Cluster_EdgeVar.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4544,8 +4555,8 @@ $(release)/src/ogdf/cluster/Cluster_EdgeVar.o: src/ogdf/cluster/Cluster_EdgeVar.
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/Cluster_EdgeVar.o -c src/ogdf/cluster/Cluster_EdgeVar.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/Cluster_EdgeVar.cpp
 
 $(debug)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o: src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4585,8 +4596,8 @@ $(debug)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o: src/ogdf/cluster/Cluster_Max
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o -c src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp
 
 $(release)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o: src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4626,8 +4637,8 @@ $(release)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o: src/ogdf/cluster/Cluster_M
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o -c src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/Cluster_MaxPlanarEdges.cpp
 
 $(debug)/src/ogdf/cluster/Clusterer.o: src/ogdf/cluster/Clusterer.cpp \
   include/ogdf/graphalg/Clusterer.h \
@@ -4650,8 +4661,8 @@ $(debug)/src/ogdf/cluster/Clusterer.o: src/ogdf/cluster/Clusterer.cpp \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/Clusterer.o -c src/ogdf/cluster/Clusterer.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/Clusterer.cpp
 
 $(release)/src/ogdf/cluster/Clusterer.o: src/ogdf/cluster/Clusterer.cpp \
   include/ogdf/graphalg/Clusterer.h \
@@ -4674,8 +4685,8 @@ $(release)/src/ogdf/cluster/Clusterer.o: src/ogdf/cluster/Clusterer.cpp \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/Clusterer.o -c src/ogdf/cluster/Clusterer.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/Clusterer.cpp
 
 $(debug)/src/ogdf/cluster/KuratowskiConstraint.o: src/ogdf/cluster/KuratowskiConstraint.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4723,8 +4734,8 @@ $(debug)/src/ogdf/cluster/KuratowskiConstraint.o: src/ogdf/cluster/KuratowskiCon
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/KuratowskiConstraint.o -c src/ogdf/cluster/KuratowskiConstraint.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/KuratowskiConstraint.cpp
 
 $(release)/src/ogdf/cluster/KuratowskiConstraint.o: src/ogdf/cluster/KuratowskiConstraint.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4772,8 +4783,8 @@ $(release)/src/ogdf/cluster/KuratowskiConstraint.o: src/ogdf/cluster/KuratowskiC
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/KuratowskiConstraint.o -c src/ogdf/cluster/KuratowskiConstraint.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/KuratowskiConstraint.cpp
 
 $(debug)/src/ogdf/cluster/MaxCPlanar_Master.o: src/ogdf/cluster/MaxCPlanar_Master.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4837,8 +4848,8 @@ $(debug)/src/ogdf/cluster/MaxCPlanar_Master.o: src/ogdf/cluster/MaxCPlanar_Maste
   include/ogdf/planarity/MaximalPlanarSubgraphSimple.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/MaxCPlanar_Master.o -c src/ogdf/cluster/MaxCPlanar_Master.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/MaxCPlanar_Master.cpp
 
 $(release)/src/ogdf/cluster/MaxCPlanar_Master.o: src/ogdf/cluster/MaxCPlanar_Master.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -4902,8 +4913,8 @@ $(release)/src/ogdf/cluster/MaxCPlanar_Master.o: src/ogdf/cluster/MaxCPlanar_Mas
   include/ogdf/planarity/MaximalPlanarSubgraphSimple.h \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/MaxCPlanar_Master.o -c src/ogdf/cluster/MaxCPlanar_Master.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/MaxCPlanar_Master.cpp
 
 $(debug)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o: \
   src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp \
@@ -4947,8 +4958,8 @@ $(debug)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o -c src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp
 
 $(release)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o: \
   src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp \
@@ -4992,8 +5003,8 @@ $(release)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o -c src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.cpp
 
 $(debug)/src/ogdf/cluster/MaxCPlanar_Sub.o: src/ogdf/cluster/MaxCPlanar_Sub.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -5071,8 +5082,8 @@ $(debug)/src/ogdf/cluster/MaxCPlanar_Sub.o: src/ogdf/cluster/MaxCPlanar_Sub.cpp 
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/MaxCPlanar_Sub.o -c src/ogdf/cluster/MaxCPlanar_Sub.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/MaxCPlanar_Sub.cpp
 
 $(release)/src/ogdf/cluster/MaxCPlanar_Sub.o: src/ogdf/cluster/MaxCPlanar_Sub.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -5150,8 +5161,8 @@ $(release)/src/ogdf/cluster/MaxCPlanar_Sub.o: src/ogdf/cluster/MaxCPlanar_Sub.cp
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/abacus/setbranchrule.h include/ogdf/abacus/branchrule.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/MaxCPlanar_Sub.o -c src/ogdf/cluster/MaxCPlanar_Sub.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/MaxCPlanar_Sub.cpp
 
 $(debug)/src/ogdf/cluster/MaximumCPlanarSubgraph.o: src/ogdf/cluster/MaximumCPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -5220,8 +5231,8 @@ $(debug)/src/ogdf/cluster/MaximumCPlanarSubgraph.o: src/ogdf/cluster/MaximumCPla
   include/ogdf/basic/BoundedStack.h include/ogdf/fileformats/GraphIO.h \
   include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/cluster/MaximumCPlanarSubgraph.o -c src/ogdf/cluster/MaximumCPlanarSubgraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/cluster/MaximumCPlanarSubgraph.cpp
 
 $(release)/src/ogdf/cluster/MaximumCPlanarSubgraph.o: src/ogdf/cluster/MaximumCPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -5290,8 +5301,8 @@ $(release)/src/ogdf/cluster/MaximumCPlanarSubgraph.o: src/ogdf/cluster/MaximumCP
   include/ogdf/basic/BoundedStack.h include/ogdf/fileformats/GraphIO.h \
   include/ogdf/basic/GridLayout.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/cluster
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/cluster/MaximumCPlanarSubgraph.o -c src/ogdf/cluster/MaximumCPlanarSubgraph.cpp
+	$(MKDIR) $(release)/src/ogdf/cluster
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/cluster/MaximumCPlanarSubgraph.cpp
 
 $(debug)/src/ogdf/decomposition/BCTree.o: src/ogdf/decomposition/BCTree.cpp \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
@@ -5308,8 +5319,8 @@ $(debug)/src/ogdf/decomposition/BCTree.o: src/ogdf/decomposition/BCTree.cpp \
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/BCTree.o -c src/ogdf/decomposition/BCTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/BCTree.cpp
 
 $(release)/src/ogdf/decomposition/BCTree.o: src/ogdf/decomposition/BCTree.cpp \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
@@ -5326,8 +5337,8 @@ $(release)/src/ogdf/decomposition/BCTree.o: src/ogdf/decomposition/BCTree.cpp \
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/BCTree.o -c src/ogdf/decomposition/BCTree.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/BCTree.cpp
 
 $(debug)/src/ogdf/decomposition/DynamicBCTree.o: src/ogdf/decomposition/DynamicBCTree.cpp \
   include/ogdf/decomposition/DynamicBCTree.h \
@@ -5345,8 +5356,8 @@ $(debug)/src/ogdf/decomposition/DynamicBCTree.o: src/ogdf/decomposition/DynamicB
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/DynamicBCTree.o -c src/ogdf/decomposition/DynamicBCTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/DynamicBCTree.cpp
 
 $(release)/src/ogdf/decomposition/DynamicBCTree.o: src/ogdf/decomposition/DynamicBCTree.cpp \
   include/ogdf/decomposition/DynamicBCTree.h \
@@ -5364,8 +5375,8 @@ $(release)/src/ogdf/decomposition/DynamicBCTree.o: src/ogdf/decomposition/Dynami
   include/ogdf/basic/Array.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/DynamicBCTree.o -c src/ogdf/decomposition/DynamicBCTree.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/DynamicBCTree.cpp
 
 $(debug)/src/ogdf/decomposition/DynamicSPQRForest.o: src/ogdf/decomposition/DynamicSPQRForest.cpp \
   include/ogdf/decomposition/DynamicSPQRForest.h \
@@ -5389,8 +5400,8 @@ $(debug)/src/ogdf/decomposition/DynamicSPQRForest.o: src/ogdf/decomposition/Dyna
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h src/ogdf/decomposition/TricComp.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/DynamicSPQRForest.o -c src/ogdf/decomposition/DynamicSPQRForest.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/DynamicSPQRForest.cpp
 
 $(release)/src/ogdf/decomposition/DynamicSPQRForest.o: src/ogdf/decomposition/DynamicSPQRForest.cpp \
   include/ogdf/decomposition/DynamicSPQRForest.h \
@@ -5414,8 +5425,8 @@ $(release)/src/ogdf/decomposition/DynamicSPQRForest.o: src/ogdf/decomposition/Dy
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h src/ogdf/decomposition/TricComp.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/DynamicSPQRForest.o -c src/ogdf/decomposition/DynamicSPQRForest.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/DynamicSPQRForest.cpp
 
 $(debug)/src/ogdf/decomposition/DynamicSPQRTree.o: src/ogdf/decomposition/DynamicSPQRTree.cpp \
   include/ogdf/decomposition/DynamicSPQRTree.h \
@@ -5438,8 +5449,8 @@ $(debug)/src/ogdf/decomposition/DynamicSPQRTree.o: src/ogdf/decomposition/Dynami
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/decomposition/DynamicSkeleton.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/DynamicSPQRTree.o -c src/ogdf/decomposition/DynamicSPQRTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/DynamicSPQRTree.cpp
 
 $(release)/src/ogdf/decomposition/DynamicSPQRTree.o: src/ogdf/decomposition/DynamicSPQRTree.cpp \
   include/ogdf/decomposition/DynamicSPQRTree.h \
@@ -5462,8 +5473,8 @@ $(release)/src/ogdf/decomposition/DynamicSPQRTree.o: src/ogdf/decomposition/Dyna
   include/ogdf/decomposition/DynamicBCTree.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/decomposition/DynamicSkeleton.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/DynamicSPQRTree.o -c src/ogdf/decomposition/DynamicSPQRTree.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/DynamicSPQRTree.cpp
 
 $(debug)/src/ogdf/decomposition/NonPlanarCore.o: src/ogdf/decomposition/NonPlanarCore.cpp \
   include/ogdf/planarity/NonPlanarCore.h include/ogdf/basic/Graph.h \
@@ -5497,8 +5508,8 @@ $(debug)/src/ogdf/decomposition/NonPlanarCore.o: src/ogdf/decomposition/NonPlana
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/Queue.h include/ogdf/basic/FaceArray.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/NonPlanarCore.o -c src/ogdf/decomposition/NonPlanarCore.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/NonPlanarCore.cpp
 
 $(release)/src/ogdf/decomposition/NonPlanarCore.o: src/ogdf/decomposition/NonPlanarCore.cpp \
   include/ogdf/planarity/NonPlanarCore.h include/ogdf/basic/Graph.h \
@@ -5532,8 +5543,8 @@ $(release)/src/ogdf/decomposition/NonPlanarCore.o: src/ogdf/decomposition/NonPla
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/Queue.h include/ogdf/basic/FaceArray.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/NonPlanarCore.o -c src/ogdf/decomposition/NonPlanarCore.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/NonPlanarCore.cpp
 
 $(debug)/src/ogdf/decomposition/PlanarSPQRTree.o: src/ogdf/decomposition/PlanarSPQRTree.cpp \
   include/ogdf/decomposition/PlanarSPQRTree.h \
@@ -5564,8 +5575,8 @@ $(debug)/src/ogdf/decomposition/PlanarSPQRTree.o: src/ogdf/decomposition/PlanarS
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/PlanarSPQRTree.o -c src/ogdf/decomposition/PlanarSPQRTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/PlanarSPQRTree.cpp
 
 $(release)/src/ogdf/decomposition/PlanarSPQRTree.o: src/ogdf/decomposition/PlanarSPQRTree.cpp \
   include/ogdf/decomposition/PlanarSPQRTree.h \
@@ -5596,8 +5607,8 @@ $(release)/src/ogdf/decomposition/PlanarSPQRTree.o: src/ogdf/decomposition/Plana
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/PlanarSPQRTree.o -c src/ogdf/decomposition/PlanarSPQRTree.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/PlanarSPQRTree.cpp
 
 $(debug)/src/ogdf/decomposition/StaticSPQRTree.o: src/ogdf/decomposition/StaticSPQRTree.cpp \
   include/ogdf/decomposition/StaticSPQRTree.h \
@@ -5621,8 +5632,8 @@ $(debug)/src/ogdf/decomposition/StaticSPQRTree.o: src/ogdf/decomposition/StaticS
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h src/ogdf/decomposition/TricComp.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/StaticSPQRTree.o -c src/ogdf/decomposition/StaticSPQRTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/StaticSPQRTree.cpp
 
 $(release)/src/ogdf/decomposition/StaticSPQRTree.o: src/ogdf/decomposition/StaticSPQRTree.cpp \
   include/ogdf/decomposition/StaticSPQRTree.h \
@@ -5646,8 +5657,8 @@ $(release)/src/ogdf/decomposition/StaticSPQRTree.o: src/ogdf/decomposition/Stati
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h src/ogdf/decomposition/TricComp.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/StaticSPQRTree.o -c src/ogdf/decomposition/StaticSPQRTree.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/StaticSPQRTree.cpp
 
 $(debug)/src/ogdf/decomposition/TricComp.o: src/ogdf/decomposition/TricComp.cpp \
   src/ogdf/decomposition/TricComp.h include/ogdf/basic/NodeArray.h \
@@ -5667,8 +5678,8 @@ $(debug)/src/ogdf/decomposition/TricComp.o: src/ogdf/decomposition/TricComp.cpp 
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/NodeSet.h
-	mkdir -p $(debug)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/decomposition/TricComp.o -c src/ogdf/decomposition/TricComp.cpp
+	$(MKDIR) $(debug)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/decomposition/TricComp.cpp
 
 $(release)/src/ogdf/decomposition/TricComp.o: src/ogdf/decomposition/TricComp.cpp \
   src/ogdf/decomposition/TricComp.h include/ogdf/basic/NodeArray.h \
@@ -5688,8 +5699,8 @@ $(release)/src/ogdf/decomposition/TricComp.o: src/ogdf/decomposition/TricComp.cp
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/NodeSet.h
-	mkdir -p $(release)/src/ogdf/decomposition
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/decomposition/TricComp.o -c src/ogdf/decomposition/TricComp.cpp
+	$(MKDIR) $(release)/src/ogdf/decomposition
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/decomposition/TricComp.cpp
 
 $(debug)/src/ogdf/energybased/AdjacencyOracle.o: src/ogdf/energybased/AdjacencyOracle.cpp \
   include/ogdf/internal/energybased/AdjacencyOracle.h \
@@ -5710,8 +5721,8 @@ $(debug)/src/ogdf/energybased/AdjacencyOracle.o: src/ogdf/energybased/AdjacencyO
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/AdjacencyOracle.o -c src/ogdf/energybased/AdjacencyOracle.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/AdjacencyOracle.cpp
 
 $(release)/src/ogdf/energybased/AdjacencyOracle.o: src/ogdf/energybased/AdjacencyOracle.cpp \
   include/ogdf/internal/energybased/AdjacencyOracle.h \
@@ -5732,8 +5743,8 @@ $(release)/src/ogdf/energybased/AdjacencyOracle.o: src/ogdf/energybased/Adjacenc
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/AdjacencyOracle.o -c src/ogdf/energybased/AdjacencyOracle.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/AdjacencyOracle.cpp
 
 $(debug)/src/ogdf/energybased/ArrayGraph.o: src/ogdf/energybased/ArrayGraph.cpp \
   src/ogdf/energybased/ArrayGraph.h include/ogdf/basic/GraphAttributes.h \
@@ -5753,8 +5764,8 @@ $(debug)/src/ogdf/energybased/ArrayGraph.o: src/ogdf/energybased/ArrayGraph.cpp 
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FastUtils.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/ArrayGraph.o -c src/ogdf/energybased/ArrayGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/ArrayGraph.cpp
 
 $(release)/src/ogdf/energybased/ArrayGraph.o: src/ogdf/energybased/ArrayGraph.cpp \
   src/ogdf/energybased/ArrayGraph.h include/ogdf/basic/GraphAttributes.h \
@@ -5774,8 +5785,8 @@ $(release)/src/ogdf/energybased/ArrayGraph.o: src/ogdf/energybased/ArrayGraph.cp
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FastUtils.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/ArrayGraph.o -c src/ogdf/energybased/ArrayGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/ArrayGraph.cpp
 
 $(debug)/src/ogdf/energybased/Attraction.o: src/ogdf/energybased/Attraction.cpp \
   include/ogdf/internal/energybased/Attraction.h \
@@ -5799,8 +5810,8 @@ $(debug)/src/ogdf/energybased/Attraction.o: src/ogdf/energybased/Attraction.cpp 
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Attraction.o -c src/ogdf/energybased/Attraction.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Attraction.cpp
 
 $(release)/src/ogdf/energybased/Attraction.o: src/ogdf/energybased/Attraction.cpp \
   include/ogdf/internal/energybased/Attraction.h \
@@ -5824,8 +5835,8 @@ $(release)/src/ogdf/energybased/Attraction.o: src/ogdf/energybased/Attraction.cp
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Attraction.o -c src/ogdf/energybased/Attraction.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Attraction.cpp
 
 $(debug)/src/ogdf/energybased/DavidsonHarel.o: src/ogdf/energybased/DavidsonHarel.cpp \
   include/ogdf/energybased/DavidsonHarel.h \
@@ -5846,8 +5857,8 @@ $(debug)/src/ogdf/energybased/DavidsonHarel.o: src/ogdf/energybased/DavidsonHare
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/DavidsonHarel.o -c src/ogdf/energybased/DavidsonHarel.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/DavidsonHarel.cpp
 
 $(release)/src/ogdf/energybased/DavidsonHarel.o: src/ogdf/energybased/DavidsonHarel.cpp \
   include/ogdf/energybased/DavidsonHarel.h \
@@ -5868,8 +5879,8 @@ $(release)/src/ogdf/energybased/DavidsonHarel.o: src/ogdf/energybased/DavidsonHa
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/DavidsonHarel.o -c src/ogdf/energybased/DavidsonHarel.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/DavidsonHarel.cpp
 
 $(debug)/src/ogdf/energybased/DavidsonHarelLayout.o: src/ogdf/energybased/DavidsonHarelLayout.cpp \
   include/ogdf/energybased/DavidsonHarelLayout.h \
@@ -5906,8 +5917,8 @@ $(debug)/src/ogdf/energybased/DavidsonHarelLayout.o: src/ogdf/energybased/Davids
   include/ogdf/basic/SList.h include/ogdf/basic/HashArray2D.h \
   include/ogdf/basic/HashArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/HashIterator2D.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/DavidsonHarelLayout.o -c src/ogdf/energybased/DavidsonHarelLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/DavidsonHarelLayout.cpp
 
 $(release)/src/ogdf/energybased/DavidsonHarelLayout.o: src/ogdf/energybased/DavidsonHarelLayout.cpp \
   include/ogdf/energybased/DavidsonHarelLayout.h \
@@ -5944,8 +5955,8 @@ $(release)/src/ogdf/energybased/DavidsonHarelLayout.o: src/ogdf/energybased/Davi
   include/ogdf/basic/SList.h include/ogdf/basic/HashArray2D.h \
   include/ogdf/basic/HashArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/HashIterator2D.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/DavidsonHarelLayout.o -c src/ogdf/energybased/DavidsonHarelLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/DavidsonHarelLayout.cpp
 
 $(debug)/src/ogdf/energybased/EdgeAttributes.o: src/ogdf/energybased/EdgeAttributes.cpp \
   include/ogdf/internal/energybased/EdgeAttributes.h \
@@ -5963,8 +5974,8 @@ $(debug)/src/ogdf/energybased/EdgeAttributes.o: src/ogdf/energybased/EdgeAttribu
   include/ogdf/basic/Hashing.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/EdgeAttributes.o -c src/ogdf/energybased/EdgeAttributes.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/EdgeAttributes.cpp
 
 $(release)/src/ogdf/energybased/EdgeAttributes.o: src/ogdf/energybased/EdgeAttributes.cpp \
   include/ogdf/internal/energybased/EdgeAttributes.h \
@@ -5982,8 +5993,8 @@ $(release)/src/ogdf/energybased/EdgeAttributes.o: src/ogdf/energybased/EdgeAttri
   include/ogdf/basic/Hashing.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/EdgeAttributes.o -c src/ogdf/energybased/EdgeAttributes.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/EdgeAttributes.cpp
 
 $(debug)/src/ogdf/energybased/EnergyFunction.o: src/ogdf/energybased/EnergyFunction.cpp \
   include/ogdf/internal/energybased/EnergyFunction.h \
@@ -6002,8 +6013,8 @@ $(debug)/src/ogdf/energybased/EnergyFunction.o: src/ogdf/energybased/EnergyFunct
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/EnergyFunction.o -c src/ogdf/energybased/EnergyFunction.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/EnergyFunction.cpp
 
 $(release)/src/ogdf/energybased/EnergyFunction.o: src/ogdf/energybased/EnergyFunction.cpp \
   include/ogdf/internal/energybased/EnergyFunction.h \
@@ -6022,8 +6033,8 @@ $(release)/src/ogdf/energybased/EnergyFunction.o: src/ogdf/energybased/EnergyFun
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/EnergyFunction.o -c src/ogdf/energybased/EnergyFunction.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/EnergyFunction.cpp
 
 $(debug)/src/ogdf/energybased/FMEKernel.o: src/ogdf/energybased/FMEKernel.cpp \
   src/ogdf/energybased/FMEKernel.h include/ogdf/basic/basic.h \
@@ -6045,8 +6056,8 @@ $(debug)/src/ogdf/energybased/FMEKernel.o: src/ogdf/energybased/FMEKernel.cpp \
   src/ogdf/energybased/ArrayGraph.h src/ogdf/energybased/FMEThread.h \
   include/ogdf/basic/Thread.h include/ogdf/basic/Barrier.h \
   src/ogdf/energybased/ComplexDouble.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FMEKernel.o -c src/ogdf/energybased/FMEKernel.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FMEKernel.cpp
 
 $(release)/src/ogdf/energybased/FMEKernel.o: src/ogdf/energybased/FMEKernel.cpp \
   src/ogdf/energybased/FMEKernel.h include/ogdf/basic/basic.h \
@@ -6068,8 +6079,8 @@ $(release)/src/ogdf/energybased/FMEKernel.o: src/ogdf/energybased/FMEKernel.cpp 
   src/ogdf/energybased/ArrayGraph.h src/ogdf/energybased/FMEThread.h \
   include/ogdf/basic/Thread.h include/ogdf/basic/Barrier.h \
   src/ogdf/energybased/ComplexDouble.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FMEKernel.o -c src/ogdf/energybased/FMEKernel.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FMEKernel.cpp
 
 $(debug)/src/ogdf/energybased/FMEMultipoleKernel.o: src/ogdf/energybased/FMEMultipoleKernel.cpp \
   src/ogdf/energybased/FMEMultipoleKernel.h \
@@ -6096,8 +6107,8 @@ $(debug)/src/ogdf/energybased/FMEMultipoleKernel.o: src/ogdf/energybased/FMEMult
   src/ogdf/energybased/LinearQuadtreeExpansion.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h \
   src/ogdf/energybased/WSPD.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FMEMultipoleKernel.o -c src/ogdf/energybased/FMEMultipoleKernel.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FMEMultipoleKernel.cpp
 
 $(release)/src/ogdf/energybased/FMEMultipoleKernel.o: src/ogdf/energybased/FMEMultipoleKernel.cpp \
   src/ogdf/energybased/FMEMultipoleKernel.h \
@@ -6124,8 +6135,8 @@ $(release)/src/ogdf/energybased/FMEMultipoleKernel.o: src/ogdf/energybased/FMEMu
   src/ogdf/energybased/LinearQuadtreeExpansion.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h \
   src/ogdf/energybased/WSPD.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FMEMultipoleKernel.o -c src/ogdf/energybased/FMEMultipoleKernel.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FMEMultipoleKernel.cpp
 
 $(debug)/src/ogdf/energybased/FMEThread.o: src/ogdf/energybased/FMEThread.cpp \
   src/ogdf/energybased/FMEThread.h include/ogdf/basic/Thread.h \
@@ -6145,8 +6156,8 @@ $(debug)/src/ogdf/energybased/FMEThread.o: src/ogdf/energybased/FMEThread.cpp \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FMEThread.o -c src/ogdf/energybased/FMEThread.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FMEThread.cpp
 
 $(release)/src/ogdf/energybased/FMEThread.o: src/ogdf/energybased/FMEThread.cpp \
   src/ogdf/energybased/FMEThread.h include/ogdf/basic/Thread.h \
@@ -6166,8 +6177,8 @@ $(release)/src/ogdf/energybased/FMEThread.o: src/ogdf/energybased/FMEThread.cpp 
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FMEThread.o -c src/ogdf/energybased/FMEThread.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FMEThread.cpp
 
 $(debug)/src/ogdf/energybased/FMMMLayout.o: src/ogdf/energybased/FMMMLayout.cpp \
   include/ogdf/energybased/FMMMLayout.h include/ogdf/basic/Graph.h \
@@ -6205,8 +6216,8 @@ $(debug)/src/ogdf/energybased/FMMMLayout.o: src/ogdf/energybased/FMMMLayout.cpp 
   src/ogdf/energybased/Multilevel.h src/ogdf/energybased/Edge.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FMMMLayout.o -c src/ogdf/energybased/FMMMLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FMMMLayout.cpp
 
 $(release)/src/ogdf/energybased/FMMMLayout.o: src/ogdf/energybased/FMMMLayout.cpp \
   include/ogdf/energybased/FMMMLayout.h include/ogdf/basic/Graph.h \
@@ -6244,8 +6255,8 @@ $(release)/src/ogdf/energybased/FMMMLayout.o: src/ogdf/energybased/FMMMLayout.cp
   src/ogdf/energybased/Multilevel.h src/ogdf/energybased/Edge.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FMMMLayout.o -c src/ogdf/energybased/FMMMLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FMMMLayout.cpp
 
 $(debug)/src/ogdf/energybased/FastMultipoleEmbedder.o: src/ogdf/energybased/FastMultipoleEmbedder.cpp \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
@@ -6288,8 +6299,8 @@ $(debug)/src/ogdf/energybased/FastMultipoleEmbedder.o: src/ogdf/energybased/Fast
   src/ogdf/energybased/FMEKernel.h src/ogdf/energybased/FMEFunc.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h \
   src/ogdf/energybased/WSPD.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FastMultipoleEmbedder.o -c src/ogdf/energybased/FastMultipoleEmbedder.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FastMultipoleEmbedder.cpp
 
 $(release)/src/ogdf/energybased/FastMultipoleEmbedder.o: src/ogdf/energybased/FastMultipoleEmbedder.cpp \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
@@ -6332,8 +6343,8 @@ $(release)/src/ogdf/energybased/FastMultipoleEmbedder.o: src/ogdf/energybased/Fa
   src/ogdf/energybased/FMEKernel.h src/ogdf/energybased/FMEFunc.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h \
   src/ogdf/energybased/WSPD.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FastMultipoleEmbedder.o -c src/ogdf/energybased/FastMultipoleEmbedder.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FastMultipoleEmbedder.cpp
 
 $(debug)/src/ogdf/energybased/FruchtermanReingold.o: src/ogdf/energybased/FruchtermanReingold.cpp \
   include/ogdf/internal/energybased/FruchtermanReingold.h \
@@ -6354,8 +6365,8 @@ $(debug)/src/ogdf/energybased/FruchtermanReingold.o: src/ogdf/energybased/Frucht
   include/ogdf/internal/energybased/NodeAttributes.h \
   include/ogdf/internal/energybased/EdgeAttributes.h \
   src/ogdf/energybased/numexcept.h include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/FruchtermanReingold.o -c src/ogdf/energybased/FruchtermanReingold.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/FruchtermanReingold.cpp
 
 $(release)/src/ogdf/energybased/FruchtermanReingold.o: src/ogdf/energybased/FruchtermanReingold.cpp \
   include/ogdf/internal/energybased/FruchtermanReingold.h \
@@ -6376,8 +6387,8 @@ $(release)/src/ogdf/energybased/FruchtermanReingold.o: src/ogdf/energybased/Fruc
   include/ogdf/internal/energybased/NodeAttributes.h \
   include/ogdf/internal/energybased/EdgeAttributes.h \
   src/ogdf/energybased/numexcept.h include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/FruchtermanReingold.o -c src/ogdf/energybased/FruchtermanReingold.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/FruchtermanReingold.cpp
 
 $(debug)/src/ogdf/energybased/GEMLayout.o: src/ogdf/energybased/GEMLayout.cpp \
   include/ogdf/energybased/GEMLayout.h \
@@ -6407,8 +6418,8 @@ $(debug)/src/ogdf/energybased/GEMLayout.o: src/ogdf/energybased/GEMLayout.cpp \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/GEMLayout.o -c src/ogdf/energybased/GEMLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/GEMLayout.cpp
 
 $(release)/src/ogdf/energybased/GEMLayout.o: src/ogdf/energybased/GEMLayout.cpp \
   include/ogdf/energybased/GEMLayout.h \
@@ -6438,8 +6449,8 @@ $(release)/src/ogdf/energybased/GEMLayout.o: src/ogdf/energybased/GEMLayout.cpp 
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/GEMLayout.o -c src/ogdf/energybased/GEMLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/GEMLayout.cpp
 
 $(debug)/src/ogdf/energybased/GalaxyMultilevel.o: src/ogdf/energybased/GalaxyMultilevel.cpp \
   src/ogdf/energybased/GalaxyMultilevel.h \
@@ -6461,8 +6472,8 @@ $(debug)/src/ogdf/energybased/GalaxyMultilevel.o: src/ogdf/energybased/GalaxyMul
   include/ogdf/basic/tuples.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/SList.h include/ogdf/basic/BoundedStack.h \
   src/ogdf/energybased/ArrayGraph.h src/ogdf/energybased/FastUtils.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/GalaxyMultilevel.o -c src/ogdf/energybased/GalaxyMultilevel.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/GalaxyMultilevel.cpp
 
 $(release)/src/ogdf/energybased/GalaxyMultilevel.o: src/ogdf/energybased/GalaxyMultilevel.cpp \
   src/ogdf/energybased/GalaxyMultilevel.h \
@@ -6484,8 +6495,8 @@ $(release)/src/ogdf/energybased/GalaxyMultilevel.o: src/ogdf/energybased/GalaxyM
   include/ogdf/basic/tuples.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/SList.h include/ogdf/basic/BoundedStack.h \
   src/ogdf/energybased/ArrayGraph.h src/ogdf/energybased/FastUtils.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/GalaxyMultilevel.o -c src/ogdf/energybased/GalaxyMultilevel.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/GalaxyMultilevel.cpp
 
 $(debug)/src/ogdf/energybased/IntersectionRectangle.o: src/ogdf/energybased/IntersectionRectangle.cpp \
   include/ogdf/internal/energybased/IntersectionRectangle.h \
@@ -6501,8 +6512,8 @@ $(debug)/src/ogdf/energybased/IntersectionRectangle.o: src/ogdf/energybased/Inte
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/IntersectionRectangle.o -c src/ogdf/energybased/IntersectionRectangle.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/IntersectionRectangle.cpp
 
 $(release)/src/ogdf/energybased/IntersectionRectangle.o: src/ogdf/energybased/IntersectionRectangle.cpp \
   include/ogdf/internal/energybased/IntersectionRectangle.h \
@@ -6518,8 +6529,8 @@ $(release)/src/ogdf/energybased/IntersectionRectangle.o: src/ogdf/energybased/In
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/IntersectionRectangle.o -c src/ogdf/energybased/IntersectionRectangle.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/IntersectionRectangle.cpp
 
 $(debug)/src/ogdf/energybased/LinearQuadtree.o: src/ogdf/energybased/LinearQuadtree.cpp \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -6539,8 +6550,8 @@ $(debug)/src/ogdf/energybased/LinearQuadtree.o: src/ogdf/energybased/LinearQuadt
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h src/ogdf/energybased/WSPD.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/LinearQuadtree.o -c src/ogdf/energybased/LinearQuadtree.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/LinearQuadtree.cpp
 
 $(release)/src/ogdf/energybased/LinearQuadtree.o: src/ogdf/energybased/LinearQuadtree.cpp \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -6560,8 +6571,8 @@ $(release)/src/ogdf/energybased/LinearQuadtree.o: src/ogdf/energybased/LinearQua
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h src/ogdf/energybased/WSPD.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/LinearQuadtree.o -c src/ogdf/energybased/LinearQuadtree.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/LinearQuadtree.cpp
 
 $(debug)/src/ogdf/energybased/LinearQuadtreeBuilder.o: src/ogdf/energybased/LinearQuadtreeBuilder.cpp \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -6582,8 +6593,8 @@ $(debug)/src/ogdf/energybased/LinearQuadtreeBuilder.o: src/ogdf/energybased/Line
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/LinearQuadtreeBuilder.o -c src/ogdf/energybased/LinearQuadtreeBuilder.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/LinearQuadtreeBuilder.cpp
 
 $(release)/src/ogdf/energybased/LinearQuadtreeBuilder.o: src/ogdf/energybased/LinearQuadtreeBuilder.cpp \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -6604,8 +6615,8 @@ $(release)/src/ogdf/energybased/LinearQuadtreeBuilder.o: src/ogdf/energybased/Li
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h \
   src/ogdf/energybased/LinearQuadtreeBuilder.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/LinearQuadtreeBuilder.o -c src/ogdf/energybased/LinearQuadtreeBuilder.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/LinearQuadtreeBuilder.cpp
 
 $(debug)/src/ogdf/energybased/LinearQuadtreeExpansion.o: \
   src/ogdf/energybased/LinearQuadtreeExpansion.cpp \
@@ -6628,8 +6639,8 @@ $(debug)/src/ogdf/energybased/LinearQuadtreeExpansion.o: \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h \
   src/ogdf/energybased/ComplexDouble.h src/ogdf/energybased/WSPD.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/LinearQuadtreeExpansion.o -c src/ogdf/energybased/LinearQuadtreeExpansion.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/LinearQuadtreeExpansion.cpp
 
 $(release)/src/ogdf/energybased/LinearQuadtreeExpansion.o: \
   src/ogdf/energybased/LinearQuadtreeExpansion.cpp \
@@ -6652,8 +6663,8 @@ $(release)/src/ogdf/energybased/LinearQuadtreeExpansion.o: \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h \
   src/ogdf/energybased/ComplexDouble.h src/ogdf/energybased/WSPD.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/LinearQuadtreeExpansion.o -c src/ogdf/energybased/LinearQuadtreeExpansion.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/LinearQuadtreeExpansion.cpp
 
 $(debug)/src/ogdf/energybased/MAARPacking.o: src/ogdf/energybased/MAARPacking.cpp \
   src/ogdf/energybased/MAARPacking.h \
@@ -6690,8 +6701,8 @@ $(debug)/src/ogdf/energybased/MAARPacking.o: src/ogdf/energybased/MAARPacking.cp
   include/ogdf/internal/energybased/QuadTreeNM.h \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/MAARPacking.o -c src/ogdf/energybased/MAARPacking.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/MAARPacking.cpp
 
 $(release)/src/ogdf/energybased/MAARPacking.o: src/ogdf/energybased/MAARPacking.cpp \
   src/ogdf/energybased/MAARPacking.h \
@@ -6728,8 +6739,8 @@ $(release)/src/ogdf/energybased/MAARPacking.o: src/ogdf/energybased/MAARPacking.
   include/ogdf/internal/energybased/QuadTreeNM.h \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/MAARPacking.o -c src/ogdf/energybased/MAARPacking.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/MAARPacking.cpp
 
 $(debug)/src/ogdf/energybased/Multilevel.o: src/ogdf/energybased/Multilevel.cpp \
   src/ogdf/energybased/Multilevel.h include/ogdf/basic/Graph.h \
@@ -6766,8 +6777,8 @@ $(debug)/src/ogdf/energybased/Multilevel.o: src/ogdf/energybased/Multilevel.cpp 
   include/ogdf/internal/energybased/QuadTreeNM.h \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Multilevel.o -c src/ogdf/energybased/Multilevel.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Multilevel.cpp
 
 $(release)/src/ogdf/energybased/Multilevel.o: src/ogdf/energybased/Multilevel.cpp \
   src/ogdf/energybased/Multilevel.h include/ogdf/basic/Graph.h \
@@ -6804,8 +6815,8 @@ $(release)/src/ogdf/energybased/Multilevel.o: src/ogdf/energybased/Multilevel.cp
   include/ogdf/internal/energybased/QuadTreeNM.h \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Multilevel.o -c src/ogdf/energybased/Multilevel.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Multilevel.cpp
 
 $(debug)/src/ogdf/energybased/MultilevelGraph.o: src/ogdf/energybased/MultilevelGraph.cpp \
   include/ogdf/internal/energybased/MultilevelGraph.h \
@@ -6835,8 +6846,8 @@ $(debug)/src/ogdf/energybased/MultilevelGraph.o: src/ogdf/energybased/Multilevel
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/MultilevelGraph.o -c src/ogdf/energybased/MultilevelGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/MultilevelGraph.cpp
 
 $(release)/src/ogdf/energybased/MultilevelGraph.o: src/ogdf/energybased/MultilevelGraph.cpp \
   include/ogdf/internal/energybased/MultilevelGraph.h \
@@ -6866,8 +6877,8 @@ $(release)/src/ogdf/energybased/MultilevelGraph.o: src/ogdf/energybased/Multilev
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/MultilevelGraph.o -c src/ogdf/energybased/MultilevelGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/MultilevelGraph.cpp
 
 $(debug)/src/ogdf/energybased/MultilevelLayout.o: src/ogdf/energybased/MultilevelLayout.cpp \
   include/ogdf/energybased/MultilevelLayout.h \
@@ -6900,8 +6911,8 @@ $(debug)/src/ogdf/energybased/MultilevelLayout.o: src/ogdf/energybased/Multileve
   include/ogdf/basic/PreprocessorLayout.h \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/MultilevelLayout.o -c src/ogdf/energybased/MultilevelLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/MultilevelLayout.cpp
 
 $(release)/src/ogdf/energybased/MultilevelLayout.o: src/ogdf/energybased/MultilevelLayout.cpp \
   include/ogdf/energybased/MultilevelLayout.h \
@@ -6934,8 +6945,8 @@ $(release)/src/ogdf/energybased/MultilevelLayout.o: src/ogdf/energybased/Multile
   include/ogdf/basic/PreprocessorLayout.h \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/MultilevelLayout.o -c src/ogdf/energybased/MultilevelLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/MultilevelLayout.cpp
 
 $(debug)/src/ogdf/energybased/NMM.o: src/ogdf/energybased/NMM.cpp \
   include/ogdf/internal/energybased/NMM.h include/ogdf/basic/Graph.h \
@@ -6969,8 +6980,8 @@ $(debug)/src/ogdf/energybased/NMM.o: src/ogdf/energybased/NMM.cpp \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/basic/Math.h src/ogdf/energybased/numexcept.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/NMM.o -c src/ogdf/energybased/NMM.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/NMM.cpp
 
 $(release)/src/ogdf/energybased/NMM.o: src/ogdf/energybased/NMM.cpp \
   include/ogdf/internal/energybased/NMM.h include/ogdf/basic/Graph.h \
@@ -7004,8 +7015,8 @@ $(release)/src/ogdf/energybased/NMM.o: src/ogdf/energybased/NMM.cpp \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/basic/Math.h src/ogdf/energybased/numexcept.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/NMM.o -c src/ogdf/energybased/NMM.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/NMM.cpp
 
 $(debug)/src/ogdf/energybased/NodeAttributes.o: src/ogdf/energybased/NodeAttributes.cpp \
   include/ogdf/internal/energybased/NodeAttributes.h \
@@ -7023,8 +7034,8 @@ $(debug)/src/ogdf/energybased/NodeAttributes.o: src/ogdf/energybased/NodeAttribu
   include/ogdf/basic/Hashing.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/NodeAttributes.o -c src/ogdf/energybased/NodeAttributes.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/NodeAttributes.cpp
 
 $(release)/src/ogdf/energybased/NodeAttributes.o: src/ogdf/energybased/NodeAttributes.cpp \
   include/ogdf/internal/energybased/NodeAttributes.h \
@@ -7042,8 +7053,8 @@ $(release)/src/ogdf/energybased/NodeAttributes.o: src/ogdf/energybased/NodeAttri
   include/ogdf/basic/Hashing.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/NodeAttributes.o -c src/ogdf/energybased/NodeAttributes.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/NodeAttributes.cpp
 
 $(debug)/src/ogdf/energybased/NodePairEnergy.o: src/ogdf/energybased/NodePairEnergy.cpp \
   include/ogdf/internal/energybased/NodePairEnergy.h \
@@ -7066,8 +7077,8 @@ $(debug)/src/ogdf/energybased/NodePairEnergy.o: src/ogdf/energybased/NodePairEne
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/NodePairEnergy.o -c src/ogdf/energybased/NodePairEnergy.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/NodePairEnergy.cpp
 
 $(release)/src/ogdf/energybased/NodePairEnergy.o: src/ogdf/energybased/NodePairEnergy.cpp \
   include/ogdf/internal/energybased/NodePairEnergy.h \
@@ -7090,8 +7101,8 @@ $(release)/src/ogdf/energybased/NodePairEnergy.o: src/ogdf/energybased/NodePairE
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/NodePairEnergy.o -c src/ogdf/energybased/NodePairEnergy.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/NodePairEnergy.cpp
 
 $(debug)/src/ogdf/energybased/Overlap.o: src/ogdf/energybased/Overlap.cpp \
   include/ogdf/internal/energybased/Overlap.h \
@@ -7115,8 +7126,8 @@ $(debug)/src/ogdf/energybased/Overlap.o: src/ogdf/energybased/Overlap.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Overlap.o -c src/ogdf/energybased/Overlap.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Overlap.cpp
 
 $(release)/src/ogdf/energybased/Overlap.o: src/ogdf/energybased/Overlap.cpp \
   include/ogdf/internal/energybased/Overlap.h \
@@ -7140,8 +7151,8 @@ $(release)/src/ogdf/energybased/Overlap.o: src/ogdf/energybased/Overlap.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Overlap.o -c src/ogdf/energybased/Overlap.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Overlap.cpp
 
 $(debug)/src/ogdf/energybased/PivotMDS.o: src/ogdf/energybased/PivotMDS.cpp \
   include/ogdf/energybased/PivotMDS.h \
@@ -7168,8 +7179,8 @@ $(debug)/src/ogdf/energybased/PivotMDS.o: src/ogdf/energybased/PivotMDS.cpp \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/module/LayoutModule.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/PivotMDS.o -c src/ogdf/energybased/PivotMDS.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/PivotMDS.cpp
 
 $(release)/src/ogdf/energybased/PivotMDS.o: src/ogdf/energybased/PivotMDS.cpp \
   include/ogdf/energybased/PivotMDS.h \
@@ -7196,8 +7207,8 @@ $(release)/src/ogdf/energybased/PivotMDS.o: src/ogdf/energybased/PivotMDS.cpp \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/module/LayoutModule.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/PivotMDS.o -c src/ogdf/energybased/PivotMDS.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/PivotMDS.cpp
 
 $(debug)/src/ogdf/energybased/Planarity.o: src/ogdf/energybased/Planarity.cpp \
   include/ogdf/internal/energybased/Planarity.h \
@@ -7218,8 +7229,8 @@ $(debug)/src/ogdf/energybased/Planarity.o: src/ogdf/energybased/Planarity.cpp \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Planarity.o -c src/ogdf/energybased/Planarity.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Planarity.cpp
 
 $(release)/src/ogdf/energybased/Planarity.o: src/ogdf/energybased/Planarity.cpp \
   include/ogdf/internal/energybased/Planarity.h \
@@ -7240,8 +7251,8 @@ $(release)/src/ogdf/energybased/Planarity.o: src/ogdf/energybased/Planarity.cpp 
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Planarity.o -c src/ogdf/energybased/Planarity.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Planarity.cpp
 
 $(debug)/src/ogdf/energybased/PlanarityGrid.o: src/ogdf/energybased/PlanarityGrid.cpp \
   include/ogdf/internal/energybased/PlanarityGrid.h \
@@ -7266,8 +7277,8 @@ $(debug)/src/ogdf/energybased/PlanarityGrid.o: src/ogdf/energybased/PlanarityGri
   include/ogdf/basic/HashArray2D.h include/ogdf/basic/HashArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/HashIterator2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/PlanarityGrid.o -c src/ogdf/energybased/PlanarityGrid.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/PlanarityGrid.cpp
 
 $(release)/src/ogdf/energybased/PlanarityGrid.o: src/ogdf/energybased/PlanarityGrid.cpp \
   include/ogdf/internal/energybased/PlanarityGrid.h \
@@ -7292,8 +7303,8 @@ $(release)/src/ogdf/energybased/PlanarityGrid.o: src/ogdf/energybased/PlanarityG
   include/ogdf/basic/HashArray2D.h include/ogdf/basic/HashArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/HashIterator2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/PlanarityGrid.o -c src/ogdf/energybased/PlanarityGrid.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/PlanarityGrid.cpp
 
 $(debug)/src/ogdf/energybased/QuadTreeNM.o: src/ogdf/energybased/QuadTreeNM.cpp \
   include/ogdf/internal/energybased/QuadTreeNM.h \
@@ -7313,8 +7324,8 @@ $(debug)/src/ogdf/energybased/QuadTreeNM.o: src/ogdf/energybased/QuadTreeNM.cpp 
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/QuadTreeNM.o -c src/ogdf/energybased/QuadTreeNM.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/QuadTreeNM.cpp
 
 $(release)/src/ogdf/energybased/QuadTreeNM.o: src/ogdf/energybased/QuadTreeNM.cpp \
   include/ogdf/internal/energybased/QuadTreeNM.h \
@@ -7334,8 +7345,8 @@ $(release)/src/ogdf/energybased/QuadTreeNM.o: src/ogdf/energybased/QuadTreeNM.cp
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/QuadTreeNM.o -c src/ogdf/energybased/QuadTreeNM.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/QuadTreeNM.cpp
 
 $(debug)/src/ogdf/energybased/QuadTreeNodeNM.o: src/ogdf/energybased/QuadTreeNodeNM.cpp \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
@@ -7354,8 +7365,8 @@ $(debug)/src/ogdf/energybased/QuadTreeNodeNM.o: src/ogdf/energybased/QuadTreeNod
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/QuadTreeNodeNM.o -c src/ogdf/energybased/QuadTreeNodeNM.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/QuadTreeNodeNM.cpp
 
 $(release)/src/ogdf/energybased/QuadTreeNodeNM.o: src/ogdf/energybased/QuadTreeNodeNM.cpp \
   include/ogdf/internal/energybased/QuadTreeNodeNM.h \
@@ -7374,8 +7385,8 @@ $(release)/src/ogdf/energybased/QuadTreeNodeNM.o: src/ogdf/energybased/QuadTreeN
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/internal/energybased/ParticleInfo.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/QuadTreeNodeNM.o -c src/ogdf/energybased/QuadTreeNodeNM.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/QuadTreeNodeNM.cpp
 
 $(debug)/src/ogdf/energybased/Repulsion.o: src/ogdf/energybased/Repulsion.cpp \
   include/ogdf/internal/energybased/Repulsion.h \
@@ -7399,8 +7410,8 @@ $(debug)/src/ogdf/energybased/Repulsion.o: src/ogdf/energybased/Repulsion.cpp \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Repulsion.o -c src/ogdf/energybased/Repulsion.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Repulsion.cpp
 
 $(release)/src/ogdf/energybased/Repulsion.o: src/ogdf/energybased/Repulsion.cpp \
   include/ogdf/internal/energybased/Repulsion.h \
@@ -7424,8 +7435,8 @@ $(release)/src/ogdf/energybased/Repulsion.o: src/ogdf/energybased/Repulsion.cpp 
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Repulsion.o -c src/ogdf/energybased/Repulsion.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Repulsion.cpp
 
 $(debug)/src/ogdf/energybased/Set.o: src/ogdf/energybased/Set.cpp src/ogdf/energybased/Set.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -7443,8 +7454,8 @@ $(debug)/src/ogdf/energybased/Set.o: src/ogdf/energybased/Set.cpp src/ogdf/energ
   include/ogdf/basic/EdgeArray.h \
   include/ogdf/internal/energybased/NodeAttributes.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/Set.o -c src/ogdf/energybased/Set.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/Set.cpp
 
 $(release)/src/ogdf/energybased/Set.o: src/ogdf/energybased/Set.cpp src/ogdf/energybased/Set.h \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -7462,8 +7473,8 @@ $(release)/src/ogdf/energybased/Set.o: src/ogdf/energybased/Set.cpp src/ogdf/ene
   include/ogdf/basic/EdgeArray.h \
   include/ogdf/internal/energybased/NodeAttributes.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/Set.o -c src/ogdf/energybased/Set.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/Set.cpp
 
 $(debug)/src/ogdf/energybased/SpringEmbedderFR.o: src/ogdf/energybased/SpringEmbedderFR.cpp \
   include/ogdf/energybased/SpringEmbedderFR.h \
@@ -7493,8 +7504,8 @@ $(debug)/src/ogdf/energybased/SpringEmbedderFR.o: src/ogdf/energybased/SpringEmb
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/SpringEmbedderFR.o -c src/ogdf/energybased/SpringEmbedderFR.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/SpringEmbedderFR.cpp
 
 $(release)/src/ogdf/energybased/SpringEmbedderFR.o: src/ogdf/energybased/SpringEmbedderFR.cpp \
   include/ogdf/energybased/SpringEmbedderFR.h \
@@ -7524,8 +7535,8 @@ $(release)/src/ogdf/energybased/SpringEmbedderFR.o: src/ogdf/energybased/SpringE
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/SpringEmbedderFR.o -c src/ogdf/energybased/SpringEmbedderFR.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/SpringEmbedderFR.cpp
 
 $(debug)/src/ogdf/energybased/SpringEmbedderFRExact.o: src/ogdf/energybased/SpringEmbedderFRExact.cpp \
   include/ogdf/energybased/SpringEmbedderFRExact.h \
@@ -7555,8 +7566,8 @@ $(debug)/src/ogdf/energybased/SpringEmbedderFRExact.o: src/ogdf/energybased/Spri
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/SpringEmbedderFRExact.o -c src/ogdf/energybased/SpringEmbedderFRExact.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/SpringEmbedderFRExact.cpp
 
 $(release)/src/ogdf/energybased/SpringEmbedderFRExact.o: src/ogdf/energybased/SpringEmbedderFRExact.cpp \
   include/ogdf/energybased/SpringEmbedderFRExact.h \
@@ -7586,8 +7597,8 @@ $(release)/src/ogdf/energybased/SpringEmbedderFRExact.o: src/ogdf/energybased/Sp
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/SpringEmbedderFRExact.o -c src/ogdf/energybased/SpringEmbedderFRExact.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/SpringEmbedderFRExact.cpp
 
 $(debug)/src/ogdf/energybased/SpringEmbedderKK.o: src/ogdf/energybased/SpringEmbedderKK.cpp \
   include/ogdf/energybased/SpringEmbedderKK.h \
@@ -7611,8 +7622,8 @@ $(debug)/src/ogdf/energybased/SpringEmbedderKK.o: src/ogdf/energybased/SpringEmb
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/basic/Array2D.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/SpringEmbedderKK.o -c src/ogdf/energybased/SpringEmbedderKK.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/SpringEmbedderKK.cpp
 
 $(release)/src/ogdf/energybased/SpringEmbedderKK.o: src/ogdf/energybased/SpringEmbedderKK.cpp \
   include/ogdf/energybased/SpringEmbedderKK.h \
@@ -7636,8 +7647,8 @@ $(release)/src/ogdf/energybased/SpringEmbedderKK.o: src/ogdf/energybased/SpringE
   include/ogdf/internal/energybased/MultilevelGraph.h \
   include/ogdf/basic/Array2D.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/SpringEmbedderKK.o -c src/ogdf/energybased/SpringEmbedderKK.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/SpringEmbedderKK.cpp
 
 $(debug)/src/ogdf/energybased/StressMinimization.o: src/ogdf/energybased/StressMinimization.cpp \
   include/ogdf/energybased/StressMinimization.h \
@@ -7670,8 +7681,8 @@ $(debug)/src/ogdf/energybased/StressMinimization.o: src/ogdf/energybased/StressM
   include/ogdf/packing/ComponentSplitterLayout.h \
   include/ogdf/basic/ModuleOption.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/StressMinimization.o -c src/ogdf/energybased/StressMinimization.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/StressMinimization.cpp
 
 $(release)/src/ogdf/energybased/StressMinimization.o: src/ogdf/energybased/StressMinimization.cpp \
   include/ogdf/energybased/StressMinimization.h \
@@ -7704,8 +7715,8 @@ $(release)/src/ogdf/energybased/StressMinimization.o: src/ogdf/energybased/Stres
   include/ogdf/packing/ComponentSplitterLayout.h \
   include/ogdf/basic/ModuleOption.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/StressMinimization.o -c src/ogdf/energybased/StressMinimization.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/StressMinimization.cpp
 
 $(debug)/src/ogdf/energybased/TutteLayout.o: src/ogdf/energybased/TutteLayout.cpp \
   include/ogdf/energybased/TutteLayout.h \
@@ -7749,8 +7760,8 @@ $(debug)/src/ogdf/energybased/TutteLayout.o: src/ogdf/energybased/TutteLayout.cp
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/TutteLayout.o -c src/ogdf/energybased/TutteLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/TutteLayout.cpp
 
 $(release)/src/ogdf/energybased/TutteLayout.o: src/ogdf/energybased/TutteLayout.cpp \
   include/ogdf/energybased/TutteLayout.h \
@@ -7794,8 +7805,8 @@ $(release)/src/ogdf/energybased/TutteLayout.o: src/ogdf/energybased/TutteLayout.
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/TutteLayout.o -c src/ogdf/energybased/TutteLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/TutteLayout.cpp
 
 $(debug)/src/ogdf/energybased/UniformGrid.o: src/ogdf/energybased/UniformGrid.cpp \
   include/ogdf/internal/energybased/UniformGrid.h \
@@ -7819,8 +7830,8 @@ $(debug)/src/ogdf/energybased/UniformGrid.o: src/ogdf/energybased/UniformGrid.cp
   include/ogdf/basic/HashArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/HashIterator2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/UniformGrid.o -c src/ogdf/energybased/UniformGrid.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/UniformGrid.cpp
 
 $(release)/src/ogdf/energybased/UniformGrid.o: src/ogdf/energybased/UniformGrid.cpp \
   include/ogdf/internal/energybased/UniformGrid.h \
@@ -7844,8 +7855,8 @@ $(release)/src/ogdf/energybased/UniformGrid.o: src/ogdf/energybased/UniformGrid.
   include/ogdf/basic/HashArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/HashIterator2D.h \
   include/ogdf/internal/energybased/IntersectionRectangle.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/UniformGrid.o -c src/ogdf/energybased/UniformGrid.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/UniformGrid.cpp
 
 $(debug)/src/ogdf/energybased/WSPD.o: src/ogdf/energybased/WSPD.cpp src/ogdf/energybased/WSPD.h \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -7865,8 +7876,8 @@ $(debug)/src/ogdf/energybased/WSPD.o: src/ogdf/energybased/WSPD.cpp src/ogdf/ene
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/WSPD.o -c src/ogdf/energybased/WSPD.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/WSPD.cpp
 
 $(release)/src/ogdf/energybased/WSPD.o: src/ogdf/energybased/WSPD.cpp src/ogdf/energybased/WSPD.h \
   src/ogdf/energybased/LinearQuadtree.h src/ogdf/energybased/FastUtils.h \
@@ -7886,8 +7897,8 @@ $(release)/src/ogdf/energybased/WSPD.o: src/ogdf/energybased/WSPD.cpp src/ogdf/e
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   src/ogdf/energybased/FMEFunctional.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/WSPD.o -c src/ogdf/energybased/WSPD.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/WSPD.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o: \
   src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp \
@@ -7910,8 +7921,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o -c src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o: \
   src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp \
@@ -7934,8 +7945,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o -c src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o: \
   src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp \
@@ -7958,8 +7969,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o -c src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o: \
   src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp \
@@ -7982,8 +7993,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o -c src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/BarycenterPlacer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o: src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp \
   include/ogdf/basic/Math.h include/ogdf/basic/basic.h \
@@ -8007,8 +8018,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o: src/ogdf/energybas
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o -c src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o: src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp \
   include/ogdf/basic/Math.h include/ogdf/basic/basic.h \
@@ -8032,8 +8043,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o: src/ogdf/energyb
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o -c src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/CirclePlacer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o: \
   src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp \
@@ -8056,8 +8067,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o -c src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o: \
   src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp \
@@ -8080,8 +8091,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o -c src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o: \
   src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp \
@@ -8104,8 +8115,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o -c src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o: \
   src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp \
@@ -8128,8 +8139,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o: \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o -c src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/IndependentSetMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o: \
   src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp \
@@ -8154,8 +8165,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o: \
   include/ogdf/basic/graphics.h include/ogdf/basic/HashArray.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o -c src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o: \
   src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp \
@@ -8180,8 +8191,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o: \
   include/ogdf/basic/graphics.h include/ogdf/basic/HashArray.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o -c src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp \
@@ -8216,8 +8227,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/multilevelmixer/SolarMerger.h \
   include/ogdf/energybased/multilevelmixer/SolarPlacer.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp \
@@ -8252,8 +8263,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/multilevelmixer/SolarMerger.h \
   include/ogdf/energybased/multilevelmixer/SolarPlacer.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp \
@@ -8288,8 +8299,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/multilevelmixer/EdgeCoverMerger.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp \
@@ -8324,8 +8335,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/multilevelmixer/EdgeCoverMerger.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp \
@@ -8361,8 +8372,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o: \
   include/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.h \
   include/ogdf/basic/HashArray.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o: \
   src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp \
@@ -8398,8 +8409,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o: \
   include/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.h \
   include/ogdf/basic/HashArray.h \
   include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o -c src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o: src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp \
   include/ogdf/energybased/multilevelmixer/MatchingMerger.h \
@@ -8421,8 +8432,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o: src/ogdf/energyb
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o -c src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o: src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp \
   include/ogdf/energybased/multilevelmixer/MatchingMerger.h \
@@ -8444,8 +8455,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o: src/ogdf/energ
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o -c src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MatchingMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o: src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/MedianPlacer.h \
@@ -8467,8 +8478,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o: src/ogdf/energybas
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o -c src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o: src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/MedianPlacer.h \
@@ -8490,8 +8501,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o: src/ogdf/energyb
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o -c src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MedianPlacer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o: \
   src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp \
@@ -8517,8 +8528,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o: \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/energybased/FastMultipoleEmbedder.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o -c src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o: \
   src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp \
@@ -8544,8 +8555,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o: \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h \
   include/ogdf/energybased/FastMultipoleEmbedder.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o -c src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/MixedForceLayout.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o: \
   src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp \
@@ -8575,8 +8586,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o -c src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o: \
   src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp \
@@ -8606,8 +8617,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o: \
   include/ogdf/energybased/FastMultipoleEmbedder.h \
   include/ogdf/energybased/SpringEmbedderFR.h \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o -c src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/RandomMerger.o: src/ogdf/energybased/multilevelmixer/RandomMerger.cpp \
   include/ogdf/energybased/multilevelmixer/RandomMerger.h \
@@ -8629,8 +8640,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/RandomMerger.o: src/ogdf/energybas
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/RandomMerger.o -c src/ogdf/energybased/multilevelmixer/RandomMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/RandomMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/RandomMerger.o: src/ogdf/energybased/multilevelmixer/RandomMerger.cpp \
   include/ogdf/energybased/multilevelmixer/RandomMerger.h \
@@ -8652,8 +8663,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/RandomMerger.o: src/ogdf/energyb
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/RandomMerger.o -c src/ogdf/energybased/multilevelmixer/RandomMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/RandomMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o: src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp \
   include/ogdf/basic/Math.h include/ogdf/basic/basic.h \
@@ -8676,8 +8687,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o: src/ogdf/energybas
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o -c src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o: src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp \
   include/ogdf/basic/Math.h include/ogdf/basic/basic.h \
@@ -8700,8 +8711,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o: src/ogdf/energyb
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o -c src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/RandomPlacer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o: src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp \
   include/ogdf/energybased/multilevelmixer/ScalingLayout.h \
@@ -8728,8 +8739,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o: src/ogdf/energyba
   include/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.h \
   include/ogdf/energybased/multilevelmixer/MultilevelBuilder.h \
   include/ogdf/energybased/multilevelmixer/InitialPlacer.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o -c src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o: src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp \
   include/ogdf/energybased/multilevelmixer/ScalingLayout.h \
@@ -8756,8 +8767,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o: src/ogdf/energy
   include/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.h \
   include/ogdf/energybased/multilevelmixer/MultilevelBuilder.h \
   include/ogdf/energybased/multilevelmixer/InitialPlacer.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o -c src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/ScalingLayout.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/SolarMerger.o: src/ogdf/energybased/multilevelmixer/SolarMerger.cpp \
   include/ogdf/energybased/multilevelmixer/SolarMerger.h \
@@ -8779,8 +8790,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/SolarMerger.o: src/ogdf/energybase
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/SolarMerger.o -c src/ogdf/energybased/multilevelmixer/SolarMerger.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/SolarMerger.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/SolarMerger.o: src/ogdf/energybased/multilevelmixer/SolarMerger.cpp \
   include/ogdf/energybased/multilevelmixer/SolarMerger.h \
@@ -8802,8 +8813,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/SolarMerger.o: src/ogdf/energyba
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/SolarMerger.o -c src/ogdf/energybased/multilevelmixer/SolarMerger.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/SolarMerger.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o: src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/SolarPlacer.h \
@@ -8825,8 +8836,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o: src/ogdf/energybase
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o -c src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o: src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/SolarPlacer.h \
@@ -8848,8 +8859,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o: src/ogdf/energyba
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o -c src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/SolarPlacer.cpp
 
 $(debug)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o: src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/ZeroPlacer.h \
@@ -8871,8 +8882,8 @@ $(debug)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o: src/ogdf/energybased
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o -c src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp
 
 $(release)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o: src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp \
   include/ogdf/energybased/multilevelmixer/ZeroPlacer.h \
@@ -8894,8 +8905,8 @@ $(release)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o: src/ogdf/energybas
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/Hashing.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/energybased/multilevelmixer
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o -c src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased/multilevelmixer
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/multilevelmixer/ZeroPlacer.cpp
 
 $(debug)/src/ogdf/energybased/numexcept.o: src/ogdf/energybased/numexcept.cpp \
   src/ogdf/energybased/numexcept.h include/ogdf/basic/geometry.h \
@@ -8910,8 +8921,8 @@ $(debug)/src/ogdf/energybased/numexcept.o: src/ogdf/energybased/numexcept.cpp \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/energybased/numexcept.o -c src/ogdf/energybased/numexcept.cpp
+	$(MKDIR) $(debug)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/energybased/numexcept.cpp
 
 $(release)/src/ogdf/energybased/numexcept.o: src/ogdf/energybased/numexcept.cpp \
   src/ogdf/energybased/numexcept.h include/ogdf/basic/geometry.h \
@@ -8926,8 +8937,8 @@ $(release)/src/ogdf/energybased/numexcept.o: src/ogdf/energybased/numexcept.cpp 
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/energybased
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/energybased/numexcept.o -c src/ogdf/energybased/numexcept.cpp
+	$(MKDIR) $(release)/src/ogdf/energybased
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/energybased/numexcept.cpp
 
 $(debug)/src/ogdf/external/coin.o: src/ogdf/external/coin.cpp include/ogdf/basic/basic.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -8959,8 +8970,8 @@ $(debug)/src/ogdf/external/coin.o: src/ogdf/external/coin.cpp include/ogdf/basic
   include/coin/CoinWarmStartBasis.hpp include/coin/CoinWarmStart.hpp \
   include/coin/ClpEventHandler.hpp include/coin/ClpNode.hpp \
   include/coin/CoinIndexedVector.hpp
-	mkdir -p $(debug)/src/ogdf/external
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/external/coin.o -c src/ogdf/external/coin.cpp
+	$(MKDIR) $(debug)/src/ogdf/external
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/external/coin.cpp
 
 $(release)/src/ogdf/external/coin.o: src/ogdf/external/coin.cpp include/ogdf/basic/basic.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -8992,8 +9003,8 @@ $(release)/src/ogdf/external/coin.o: src/ogdf/external/coin.cpp include/ogdf/bas
   include/coin/CoinWarmStartBasis.hpp include/coin/CoinWarmStart.hpp \
   include/coin/ClpEventHandler.hpp include/coin/ClpNode.hpp \
   include/coin/CoinIndexedVector.hpp
-	mkdir -p $(release)/src/ogdf/external
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/external/coin.o -c src/ogdf/external/coin.cpp
+	$(MKDIR) $(release)/src/ogdf/external
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/external/coin.cpp
 
 $(debug)/src/ogdf/fileformats/GmlParser.o: src/ogdf/fileformats/GmlParser.cpp \
   include/ogdf/fileformats/GmlParser.h include/ogdf/basic/Hashing.h \
@@ -9016,8 +9027,8 @@ $(debug)/src/ogdf/fileformats/GmlParser.o: src/ogdf/fileformats/GmlParser.cpp \
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h include/ogdf/basic/HashArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GmlParser.o -c src/ogdf/fileformats/GmlParser.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GmlParser.cpp
 
 $(release)/src/ogdf/fileformats/GmlParser.o: src/ogdf/fileformats/GmlParser.cpp \
   include/ogdf/fileformats/GmlParser.h include/ogdf/basic/Hashing.h \
@@ -9040,8 +9051,8 @@ $(release)/src/ogdf/fileformats/GmlParser.o: src/ogdf/fileformats/GmlParser.cpp 
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h include/ogdf/basic/HashArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GmlParser.o -c src/ogdf/fileformats/GmlParser.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GmlParser.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO.o: src/ogdf/fileformats/GraphIO.cpp include/ogdf/basic/Logger.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -9074,8 +9085,8 @@ $(debug)/src/ogdf/fileformats/GraphIO.o: src/ogdf/fileformats/GraphIO.cpp includ
   include/ogdf/fileformats/XmlParser.h \
   include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO.o -c src/ogdf/fileformats/GraphIO.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO.o: src/ogdf/fileformats/GraphIO.cpp include/ogdf/basic/Logger.h \
   include/ogdf/internal/basic/config.h include/ogdf/internal/version.h \
@@ -9108,8 +9119,8 @@ $(release)/src/ogdf/fileformats/GraphIO.o: src/ogdf/fileformats/GraphIO.cpp incl
   include/ogdf/fileformats/XmlParser.h \
   include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO.o -c src/ogdf/fileformats/GraphIO.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO_gml.o: src/ogdf/fileformats/GraphIO_gml.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9137,8 +9148,8 @@ $(debug)/src/ogdf/fileformats/GraphIO_gml.o: src/ogdf/fileformats/GraphIO_gml.cp
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO_gml.o -c src/ogdf/fileformats/GraphIO_gml.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO_gml.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO_gml.o: src/ogdf/fileformats/GraphIO_gml.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9166,8 +9177,8 @@ $(release)/src/ogdf/fileformats/GraphIO_gml.o: src/ogdf/fileformats/GraphIO_gml.
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO_gml.o -c src/ogdf/fileformats/GraphIO_gml.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO_gml.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO_hyper.o: src/ogdf/fileformats/GraphIO_hyper.cpp \
   include/ogdf/basic/Logger.h include/ogdf/internal/basic/config.h \
@@ -9195,8 +9206,8 @@ $(debug)/src/ogdf/fileformats/GraphIO_hyper.o: src/ogdf/fileformats/GraphIO_hype
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/HashArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO_hyper.o -c src/ogdf/fileformats/GraphIO_hyper.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO_hyper.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO_hyper.o: src/ogdf/fileformats/GraphIO_hyper.cpp \
   include/ogdf/basic/Logger.h include/ogdf/internal/basic/config.h \
@@ -9224,8 +9235,8 @@ $(release)/src/ogdf/fileformats/GraphIO_hyper.o: src/ogdf/fileformats/GraphIO_hy
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/HashArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO_hyper.o -c src/ogdf/fileformats/GraphIO_hyper.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO_hyper.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO_leda.o: src/ogdf/fileformats/GraphIO_leda.cpp \
   include/ogdf/basic/Logger.h include/ogdf/internal/basic/config.h \
@@ -9253,8 +9264,8 @@ $(debug)/src/ogdf/fileformats/GraphIO_leda.o: src/ogdf/fileformats/GraphIO_leda.
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO_leda.o -c src/ogdf/fileformats/GraphIO_leda.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO_leda.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO_leda.o: src/ogdf/fileformats/GraphIO_leda.cpp \
   include/ogdf/basic/Logger.h include/ogdf/internal/basic/config.h \
@@ -9282,8 +9293,8 @@ $(release)/src/ogdf/fileformats/GraphIO_leda.o: src/ogdf/fileformats/GraphIO_led
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO_leda.o -c src/ogdf/fileformats/GraphIO_leda.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO_leda.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO_ogml.o: src/ogdf/fileformats/GraphIO_ogml.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9311,8 +9322,8 @@ $(debug)/src/ogdf/fileformats/GraphIO_ogml.o: src/ogdf/fileformats/GraphIO_ogml.
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO_ogml.o -c src/ogdf/fileformats/GraphIO_ogml.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO_ogml.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO_ogml.o: src/ogdf/fileformats/GraphIO_ogml.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9340,8 +9351,8 @@ $(release)/src/ogdf/fileformats/GraphIO_ogml.o: src/ogdf/fileformats/GraphIO_ogm
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO_ogml.o -c src/ogdf/fileformats/GraphIO_ogml.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO_ogml.cpp
 
 $(debug)/src/ogdf/fileformats/GraphIO_svg.o: src/ogdf/fileformats/GraphIO_svg.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9369,8 +9380,8 @@ $(debug)/src/ogdf/fileformats/GraphIO_svg.o: src/ogdf/fileformats/GraphIO_svg.cp
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/GraphIO_svg.o -c src/ogdf/fileformats/GraphIO_svg.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/GraphIO_svg.cpp
 
 $(release)/src/ogdf/fileformats/GraphIO_svg.o: src/ogdf/fileformats/GraphIO_svg.cpp \
   include/ogdf/fileformats/GraphIO.h include/ogdf/basic/GridLayout.h \
@@ -9398,8 +9409,8 @@ $(release)/src/ogdf/fileformats/GraphIO_svg.o: src/ogdf/fileformats/GraphIO_svg.
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/GraphIO_svg.o -c src/ogdf/fileformats/GraphIO_svg.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/GraphIO_svg.cpp
 
 $(debug)/src/ogdf/fileformats/LineBuffer.o: src/ogdf/fileformats/LineBuffer.cpp \
   include/ogdf/fileformats/LineBuffer.h include/ogdf/basic/basic.h \
@@ -9411,8 +9422,8 @@ $(debug)/src/ogdf/fileformats/LineBuffer.o: src/ogdf/fileformats/LineBuffer.cpp 
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/LineBuffer.o -c src/ogdf/fileformats/LineBuffer.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/LineBuffer.cpp
 
 $(release)/src/ogdf/fileformats/LineBuffer.o: src/ogdf/fileformats/LineBuffer.cpp \
   include/ogdf/fileformats/LineBuffer.h include/ogdf/basic/basic.h \
@@ -9424,8 +9435,8 @@ $(release)/src/ogdf/fileformats/LineBuffer.o: src/ogdf/fileformats/LineBuffer.cp
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/LineBuffer.o -c src/ogdf/fileformats/LineBuffer.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/LineBuffer.cpp
 
 $(debug)/src/ogdf/fileformats/Ogml.o: src/ogdf/fileformats/Ogml.cpp include/ogdf/fileformats/Ogml.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -9436,8 +9447,8 @@ $(debug)/src/ogdf/fileformats/Ogml.o: src/ogdf/fileformats/Ogml.cpp include/ogdf
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/Ogml.o -c src/ogdf/fileformats/Ogml.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/Ogml.cpp
 
 $(release)/src/ogdf/fileformats/Ogml.o: src/ogdf/fileformats/Ogml.cpp include/ogdf/fileformats/Ogml.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -9448,8 +9459,8 @@ $(release)/src/ogdf/fileformats/Ogml.o: src/ogdf/fileformats/Ogml.cpp include/og
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/Ogml.o -c src/ogdf/fileformats/Ogml.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/Ogml.cpp
 
 $(debug)/src/ogdf/fileformats/OgmlParser.o: src/ogdf/fileformats/OgmlParser.cpp \
   include/ogdf/fileformats/OgmlParser.h include/ogdf/fileformats/Ogml.h \
@@ -9474,8 +9485,8 @@ $(debug)/src/ogdf/fileformats/OgmlParser.o: src/ogdf/fileformats/OgmlParser.cpp 
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/OgmlParser.o -c src/ogdf/fileformats/OgmlParser.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/OgmlParser.cpp
 
 $(release)/src/ogdf/fileformats/OgmlParser.o: src/ogdf/fileformats/OgmlParser.cpp \
   include/ogdf/fileformats/OgmlParser.h include/ogdf/fileformats/Ogml.h \
@@ -9500,8 +9511,8 @@ $(release)/src/ogdf/fileformats/OgmlParser.o: src/ogdf/fileformats/OgmlParser.cp
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/OgmlParser.o -c src/ogdf/fileformats/OgmlParser.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/OgmlParser.cpp
 
 $(debug)/src/ogdf/fileformats/UmlDiagramGraph.o: src/ogdf/fileformats/UmlDiagramGraph.cpp \
   include/ogdf/fileformats/UmlDiagramGraph.h \
@@ -9520,8 +9531,8 @@ $(debug)/src/ogdf/fileformats/UmlDiagramGraph.o: src/ogdf/fileformats/UmlDiagram
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/UmlDiagramGraph.o -c src/ogdf/fileformats/UmlDiagramGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/UmlDiagramGraph.cpp
 
 $(release)/src/ogdf/fileformats/UmlDiagramGraph.o: src/ogdf/fileformats/UmlDiagramGraph.cpp \
   include/ogdf/fileformats/UmlDiagramGraph.h \
@@ -9540,8 +9551,8 @@ $(release)/src/ogdf/fileformats/UmlDiagramGraph.o: src/ogdf/fileformats/UmlDiagr
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/UmlDiagramGraph.o -c src/ogdf/fileformats/UmlDiagramGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/UmlDiagramGraph.cpp
 
 $(debug)/src/ogdf/fileformats/UmlModelGraph.o: src/ogdf/fileformats/UmlModelGraph.cpp \
   include/ogdf/fileformats/UmlModelGraph.h \
@@ -9558,8 +9569,8 @@ $(debug)/src/ogdf/fileformats/UmlModelGraph.o: src/ogdf/fileformats/UmlModelGrap
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/UmlModelGraph.o -c src/ogdf/fileformats/UmlModelGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/UmlModelGraph.cpp
 
 $(release)/src/ogdf/fileformats/UmlModelGraph.o: src/ogdf/fileformats/UmlModelGraph.cpp \
   include/ogdf/fileformats/UmlModelGraph.h \
@@ -9576,8 +9587,8 @@ $(release)/src/ogdf/fileformats/UmlModelGraph.o: src/ogdf/fileformats/UmlModelGr
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/UmlModelGraph.o -c src/ogdf/fileformats/UmlModelGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/UmlModelGraph.cpp
 
 $(debug)/src/ogdf/fileformats/UmlToGraphConverter.o: src/ogdf/fileformats/UmlToGraphConverter.cpp \
   include/ogdf/fileformats/UmlToGraphConverter.h \
@@ -9603,8 +9614,8 @@ $(debug)/src/ogdf/fileformats/UmlToGraphConverter.o: src/ogdf/fileformats/UmlToG
   include/ogdf/fileformats/UmlModelGraph.h \
   include/ogdf/fileformats/UmlDiagramGraph.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/UmlToGraphConverter.o -c src/ogdf/fileformats/UmlToGraphConverter.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/UmlToGraphConverter.cpp
 
 $(release)/src/ogdf/fileformats/UmlToGraphConverter.o: src/ogdf/fileformats/UmlToGraphConverter.cpp \
   include/ogdf/fileformats/UmlToGraphConverter.h \
@@ -9630,8 +9641,8 @@ $(release)/src/ogdf/fileformats/UmlToGraphConverter.o: src/ogdf/fileformats/UmlT
   include/ogdf/fileformats/UmlModelGraph.h \
   include/ogdf/fileformats/UmlDiagramGraph.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/UmlToGraphConverter.o -c src/ogdf/fileformats/UmlToGraphConverter.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/UmlToGraphConverter.cpp
 
 $(debug)/src/ogdf/fileformats/XmlParser.o: src/ogdf/fileformats/XmlParser.cpp \
   include/ogdf/fileformats/XmlParser.h include/ogdf/basic/Stack.h \
@@ -9653,8 +9664,8 @@ $(debug)/src/ogdf/fileformats/XmlParser.o: src/ogdf/fileformats/XmlParser.cpp \
   include/ogdf/basic/geometry.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/XmlParser.o -c src/ogdf/fileformats/XmlParser.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/XmlParser.cpp
 
 $(release)/src/ogdf/fileformats/XmlParser.o: src/ogdf/fileformats/XmlParser.cpp \
   include/ogdf/fileformats/XmlParser.h include/ogdf/basic/Stack.h \
@@ -9676,8 +9687,8 @@ $(release)/src/ogdf/fileformats/XmlParser.o: src/ogdf/fileformats/XmlParser.cpp 
   include/ogdf/basic/geometry.h include/ogdf/basic/LayoutStandards.h \
   include/ogdf/basic/graphics.h include/ogdf/fileformats/XmlScanner.h \
   include/ogdf/fileformats/LineBuffer.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/XmlParser.o -c src/ogdf/fileformats/XmlParser.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/XmlParser.cpp
 
 $(debug)/src/ogdf/fileformats/XmlScanner.o: src/ogdf/fileformats/XmlScanner.cpp \
   include/ogdf/fileformats/XmlScanner.h \
@@ -9690,8 +9701,8 @@ $(debug)/src/ogdf/fileformats/XmlScanner.o: src/ogdf/fileformats/XmlScanner.cpp 
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/fileformats/XmlScanner.o -c src/ogdf/fileformats/XmlScanner.cpp
+	$(MKDIR) $(debug)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/fileformats/XmlScanner.cpp
 
 $(release)/src/ogdf/fileformats/XmlScanner.o: src/ogdf/fileformats/XmlScanner.cpp \
   include/ogdf/fileformats/XmlScanner.h \
@@ -9704,8 +9715,8 @@ $(release)/src/ogdf/fileformats/XmlScanner.o: src/ogdf/fileformats/XmlScanner.cp
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/fileformats
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/fileformats/XmlScanner.o -c src/ogdf/fileformats/XmlScanner.cpp
+	$(MKDIR) $(release)/src/ogdf/fileformats
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/fileformats/XmlScanner.cpp
 
 $(debug)/src/ogdf/graphalg/CliqueFinder.o: src/ogdf/graphalg/CliqueFinder.cpp \
   include/ogdf/graphalg/CliqueFinder.h include/ogdf/basic/NodeArray.h \
@@ -9732,8 +9743,8 @@ $(debug)/src/ogdf/graphalg/CliqueFinder.o: src/ogdf/graphalg/CliqueFinder.cpp \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/NodeComparer.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/CliqueFinder.o -c src/ogdf/graphalg/CliqueFinder.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/CliqueFinder.cpp
 
 $(release)/src/ogdf/graphalg/CliqueFinder.o: src/ogdf/graphalg/CliqueFinder.cpp \
   include/ogdf/graphalg/CliqueFinder.h include/ogdf/basic/NodeArray.h \
@@ -9760,8 +9771,8 @@ $(release)/src/ogdf/graphalg/CliqueFinder.o: src/ogdf/graphalg/CliqueFinder.cpp 
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/NodeComparer.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/CliqueFinder.o -c src/ogdf/graphalg/CliqueFinder.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/CliqueFinder.cpp
 
 $(debug)/src/ogdf/graphalg/ConvexHull.o: src/ogdf/graphalg/ConvexHull.cpp \
   include/ogdf/graphalg/ConvexHull.h \
@@ -9781,8 +9792,8 @@ $(debug)/src/ogdf/graphalg/ConvexHull.o: src/ogdf/graphalg/ConvexHull.cpp \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/ConvexHull.o -c src/ogdf/graphalg/ConvexHull.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/ConvexHull.cpp
 
 $(release)/src/ogdf/graphalg/ConvexHull.o: src/ogdf/graphalg/ConvexHull.cpp \
   include/ogdf/graphalg/ConvexHull.h \
@@ -9802,8 +9813,8 @@ $(release)/src/ogdf/graphalg/ConvexHull.o: src/ogdf/graphalg/ConvexHull.cpp \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/ConvexHull.o -c src/ogdf/graphalg/ConvexHull.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/ConvexHull.cpp
 
 $(debug)/src/ogdf/graphalg/MinCostFlowModule.o: src/ogdf/graphalg/MinCostFlowModule.cpp \
   include/ogdf/module/MinCostFlowModule.h include/ogdf/basic/Graph.h \
@@ -9824,8 +9835,8 @@ $(debug)/src/ogdf/graphalg/MinCostFlowModule.o: src/ogdf/graphalg/MinCostFlowMod
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/MinCostFlowModule.o -c src/ogdf/graphalg/MinCostFlowModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/MinCostFlowModule.cpp
 
 $(release)/src/ogdf/graphalg/MinCostFlowModule.o: src/ogdf/graphalg/MinCostFlowModule.cpp \
   include/ogdf/module/MinCostFlowModule.h include/ogdf/basic/Graph.h \
@@ -9846,8 +9857,8 @@ $(release)/src/ogdf/graphalg/MinCostFlowModule.o: src/ogdf/graphalg/MinCostFlowM
   include/ogdf/basic/SList.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/MinCostFlowModule.o -c src/ogdf/graphalg/MinCostFlowModule.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/MinCostFlowModule.cpp
 
 $(debug)/src/ogdf/graphalg/MinCostFlowReinelt.o: src/ogdf/graphalg/MinCostFlowReinelt.cpp \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
@@ -9864,8 +9875,8 @@ $(debug)/src/ogdf/graphalg/MinCostFlowReinelt.o: src/ogdf/graphalg/MinCostFlowRe
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/MinCostFlowReinelt.o -c src/ogdf/graphalg/MinCostFlowReinelt.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/MinCostFlowReinelt.cpp
 
 $(release)/src/ogdf/graphalg/MinCostFlowReinelt.o: src/ogdf/graphalg/MinCostFlowReinelt.cpp \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
@@ -9882,8 +9893,8 @@ $(release)/src/ogdf/graphalg/MinCostFlowReinelt.o: src/ogdf/graphalg/MinCostFlow
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/MinCostFlowReinelt.o -c src/ogdf/graphalg/MinCostFlowReinelt.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/MinCostFlowReinelt.cpp
 
 $(debug)/src/ogdf/graphalg/MinimumCut.o: src/ogdf/graphalg/MinimumCut.cpp \
   include/ogdf/basic/BinaryHeap.h include/ogdf/basic/Array.h \
@@ -9904,8 +9915,8 @@ $(debug)/src/ogdf/graphalg/MinimumCut.o: src/ogdf/graphalg/MinimumCut.cpp \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/MinimumCut.o -c src/ogdf/graphalg/MinimumCut.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/MinimumCut.cpp
 
 $(release)/src/ogdf/graphalg/MinimumCut.o: src/ogdf/graphalg/MinimumCut.cpp \
   include/ogdf/basic/BinaryHeap.h include/ogdf/basic/Array.h \
@@ -9926,8 +9937,8 @@ $(release)/src/ogdf/graphalg/MinimumCut.o: src/ogdf/graphalg/MinimumCut.cpp \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/MinimumCut.o -c src/ogdf/graphalg/MinimumCut.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/MinimumCut.cpp
 
 $(debug)/src/ogdf/graphalg/PageRank.o: src/ogdf/graphalg/PageRank.cpp \
   include/ogdf/graphalg/PageRank.h include/ogdf/basic/NodeArray.h \
@@ -9943,8 +9954,8 @@ $(debug)/src/ogdf/graphalg/PageRank.o: src/ogdf/graphalg/PageRank.cpp \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/PageRank.o -c src/ogdf/graphalg/PageRank.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/PageRank.cpp
 
 $(release)/src/ogdf/graphalg/PageRank.o: src/ogdf/graphalg/PageRank.cpp \
   include/ogdf/graphalg/PageRank.h include/ogdf/basic/NodeArray.h \
@@ -9960,8 +9971,8 @@ $(release)/src/ogdf/graphalg/PageRank.o: src/ogdf/graphalg/PageRank.cpp \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/PageRank.o -c src/ogdf/graphalg/PageRank.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/PageRank.cpp
 
 $(debug)/src/ogdf/graphalg/ShortestPathAlgorithms.o: src/ogdf/graphalg/ShortestPathAlgorithms.cpp \
   include/ogdf/graphalg/ShortestPathAlgorithms.h \
@@ -9985,8 +9996,8 @@ $(debug)/src/ogdf/graphalg/ShortestPathAlgorithms.o: src/ogdf/graphalg/ShortestP
   include/ogdf/basic/HeapBase.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/graphalg/Dijkstra.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/ShortestPathAlgorithms.o -c src/ogdf/graphalg/ShortestPathAlgorithms.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/ShortestPathAlgorithms.cpp
 
 $(release)/src/ogdf/graphalg/ShortestPathAlgorithms.o: src/ogdf/graphalg/ShortestPathAlgorithms.cpp \
   include/ogdf/graphalg/ShortestPathAlgorithms.h \
@@ -10010,8 +10021,8 @@ $(release)/src/ogdf/graphalg/ShortestPathAlgorithms.o: src/ogdf/graphalg/Shortes
   include/ogdf/basic/HeapBase.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/graphalg/Dijkstra.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/ShortestPathAlgorithms.o -c src/ogdf/graphalg/ShortestPathAlgorithms.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/ShortestPathAlgorithms.cpp
 
 $(debug)/src/ogdf/graphalg/ShortestPathsWithBFM.o: src/ogdf/graphalg/ShortestPathsWithBFM.cpp \
   include/ogdf/graphalg/ShortestPathWithBFM.h \
@@ -10028,8 +10039,8 @@ $(debug)/src/ogdf/graphalg/ShortestPathsWithBFM.o: src/ogdf/graphalg/ShortestPat
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/ShortestPathsWithBFM.o -c src/ogdf/graphalg/ShortestPathsWithBFM.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/ShortestPathsWithBFM.cpp
 
 $(release)/src/ogdf/graphalg/ShortestPathsWithBFM.o: src/ogdf/graphalg/ShortestPathsWithBFM.cpp \
   include/ogdf/graphalg/ShortestPathWithBFM.h \
@@ -10046,8 +10057,8 @@ $(release)/src/ogdf/graphalg/ShortestPathsWithBFM.o: src/ogdf/graphalg/ShortestP
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/ShortestPathsWithBFM.o -c src/ogdf/graphalg/ShortestPathsWithBFM.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/ShortestPathsWithBFM.cpp
 
 $(debug)/src/ogdf/graphalg/mcf_front_reinelt.o: src/ogdf/graphalg/mcf_front_reinelt.cpp \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
@@ -10064,8 +10075,8 @@ $(debug)/src/ogdf/graphalg/mcf_front_reinelt.o: src/ogdf/graphalg/mcf_front_rein
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/graphalg/mcf_front_reinelt.o -c src/ogdf/graphalg/mcf_front_reinelt.cpp
+	$(MKDIR) $(debug)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/graphalg/mcf_front_reinelt.cpp
 
 $(release)/src/ogdf/graphalg/mcf_front_reinelt.o: src/ogdf/graphalg/mcf_front_reinelt.cpp \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
@@ -10082,8 +10093,8 @@ $(release)/src/ogdf/graphalg/mcf_front_reinelt.o: src/ogdf/graphalg/mcf_front_re
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/graphalg
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/graphalg/mcf_front_reinelt.o -c src/ogdf/graphalg/mcf_front_reinelt.cpp
+	$(MKDIR) $(release)/src/ogdf/graphalg
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/graphalg/mcf_front_reinelt.cpp
 
 $(debug)/src/ogdf/hypergraph/EdgeStandardRep.o: src/ogdf/hypergraph/EdgeStandardRep.cpp \
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/List.h \
@@ -10103,8 +10114,8 @@ $(debug)/src/ogdf/hypergraph/EdgeStandardRep.o: src/ogdf/hypergraph/EdgeStandard
   include/ogdf/basic/EdgeArray.h \
   include/ogdf/hypergraph/HypergraphArray.h \
   include/ogdf/hypergraph/HypergraphObserver.h
-	mkdir -p $(debug)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/hypergraph/EdgeStandardRep.o -c src/ogdf/hypergraph/EdgeStandardRep.cpp
+	$(MKDIR) $(debug)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/hypergraph/EdgeStandardRep.cpp
 
 $(release)/src/ogdf/hypergraph/EdgeStandardRep.o: src/ogdf/hypergraph/EdgeStandardRep.cpp \
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/List.h \
@@ -10124,8 +10135,8 @@ $(release)/src/ogdf/hypergraph/EdgeStandardRep.o: src/ogdf/hypergraph/EdgeStanda
   include/ogdf/basic/EdgeArray.h \
   include/ogdf/hypergraph/HypergraphArray.h \
   include/ogdf/hypergraph/HypergraphObserver.h
-	mkdir -p $(release)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/hypergraph/EdgeStandardRep.o -c src/ogdf/hypergraph/EdgeStandardRep.cpp
+	$(MKDIR) $(release)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/hypergraph/EdgeStandardRep.cpp
 
 $(debug)/src/ogdf/hypergraph/Hypergraph.o: src/ogdf/hypergraph/Hypergraph.cpp \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -10142,8 +10153,8 @@ $(debug)/src/ogdf/hypergraph/Hypergraph.o: src/ogdf/hypergraph/Hypergraph.cpp \
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/GraphList.h \
   include/ogdf/hypergraph/HypergraphArray.h \
   include/ogdf/hypergraph/HypergraphObserver.h
-	mkdir -p $(debug)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/hypergraph/Hypergraph.o -c src/ogdf/hypergraph/Hypergraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/hypergraph/Hypergraph.cpp
 
 $(release)/src/ogdf/hypergraph/Hypergraph.o: src/ogdf/hypergraph/Hypergraph.cpp \
   include/ogdf/basic/List.h include/ogdf/internal/basic/list_templates.h \
@@ -10160,8 +10171,8 @@ $(release)/src/ogdf/hypergraph/Hypergraph.o: src/ogdf/hypergraph/Hypergraph.cpp 
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/GraphList.h \
   include/ogdf/hypergraph/HypergraphArray.h \
   include/ogdf/hypergraph/HypergraphObserver.h
-	mkdir -p $(release)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/hypergraph/Hypergraph.o -c src/ogdf/hypergraph/Hypergraph.cpp
+	$(MKDIR) $(release)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/hypergraph/Hypergraph.cpp
 
 $(debug)/src/ogdf/hypergraph/HypergraphLayout.o: src/ogdf/hypergraph/HypergraphLayout.cpp \
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/List.h \
@@ -10223,8 +10234,8 @@ $(debug)/src/ogdf/hypergraph/HypergraphLayout.o: src/ogdf/hypergraph/HypergraphL
   include/ogdf/module/GridLayoutModule.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/hypergraph/HypergraphLayout.o -c src/ogdf/hypergraph/HypergraphLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/hypergraph/HypergraphLayout.cpp
 
 $(release)/src/ogdf/hypergraph/HypergraphLayout.o: src/ogdf/hypergraph/HypergraphLayout.cpp \
   include/ogdf/hypergraph/Hypergraph.h include/ogdf/basic/List.h \
@@ -10286,8 +10297,8 @@ $(release)/src/ogdf/hypergraph/HypergraphLayout.o: src/ogdf/hypergraph/Hypergrap
   include/ogdf/module/GridLayoutModule.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/hypergraph
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/hypergraph/HypergraphLayout.o -c src/ogdf/hypergraph/HypergraphLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/hypergraph
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/hypergraph/HypergraphLayout.cpp
 
 $(debug)/src/ogdf/incremental/SimpleIncNodeInserter.o: src/ogdf/incremental/SimpleIncNodeInserter.cpp \
   include/ogdf/planarity/SimpleIncNodeInserter.h \
@@ -10317,8 +10328,8 @@ $(debug)/src/ogdf/incremental/SimpleIncNodeInserter.o: src/ogdf/incremental/Simp
   include/ogdf/uml/PlanRepUML.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/GraphObserver.h include/ogdf/basic/Array2D.h \
   include/ogdf/basic/IncNodeInserter.h include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/incremental
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/incremental/SimpleIncNodeInserter.o -c src/ogdf/incremental/SimpleIncNodeInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/incremental
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/incremental/SimpleIncNodeInserter.cpp
 
 $(release)/src/ogdf/incremental/SimpleIncNodeInserter.o: src/ogdf/incremental/SimpleIncNodeInserter.cpp \
   include/ogdf/planarity/SimpleIncNodeInserter.h \
@@ -10348,8 +10359,8 @@ $(release)/src/ogdf/incremental/SimpleIncNodeInserter.o: src/ogdf/incremental/Si
   include/ogdf/uml/PlanRepUML.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/GraphObserver.h include/ogdf/basic/Array2D.h \
   include/ogdf/basic/IncNodeInserter.h include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/incremental
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/incremental/SimpleIncNodeInserter.o -c src/ogdf/incremental/SimpleIncNodeInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/incremental
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/incremental/SimpleIncNodeInserter.cpp
 
 $(debug)/src/ogdf/labeling/ELabelPosSimple.o: src/ogdf/labeling/ELabelPosSimple.cpp \
   include/ogdf/labeling/ELabelPosSimple.h \
@@ -10379,8 +10390,8 @@ $(debug)/src/ogdf/labeling/ELabelPosSimple.o: src/ogdf/labeling/ELabelPosSimple.
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h
-	mkdir -p $(debug)/src/ogdf/labeling
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/labeling/ELabelPosSimple.o -c src/ogdf/labeling/ELabelPosSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/labeling
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/labeling/ELabelPosSimple.cpp
 
 $(release)/src/ogdf/labeling/ELabelPosSimple.o: src/ogdf/labeling/ELabelPosSimple.cpp \
   include/ogdf/labeling/ELabelPosSimple.h \
@@ -10410,8 +10421,8 @@ $(release)/src/ogdf/labeling/ELabelPosSimple.o: src/ogdf/labeling/ELabelPosSimpl
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h
-	mkdir -p $(release)/src/ogdf/labeling
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/labeling/ELabelPosSimple.o -c src/ogdf/labeling/ELabelPosSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/labeling
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/labeling/ELabelPosSimple.cpp
 
 $(debug)/src/ogdf/layered/CoffmanGrahamRanking.o: src/ogdf/layered/CoffmanGrahamRanking.cpp \
   include/ogdf/layered/CoffmanGrahamRanking.h \
@@ -10435,8 +10446,8 @@ $(debug)/src/ogdf/layered/CoffmanGrahamRanking.o: src/ogdf/layered/CoffmanGraham
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/CoffmanGrahamRanking.o -c src/ogdf/layered/CoffmanGrahamRanking.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/CoffmanGrahamRanking.cpp
 
 $(release)/src/ogdf/layered/CoffmanGrahamRanking.o: src/ogdf/layered/CoffmanGrahamRanking.cpp \
   include/ogdf/layered/CoffmanGrahamRanking.h \
@@ -10460,8 +10471,8 @@ $(release)/src/ogdf/layered/CoffmanGrahamRanking.o: src/ogdf/layered/CoffmanGrah
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/CoffmanGrahamRanking.o -c src/ogdf/layered/CoffmanGrahamRanking.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/CoffmanGrahamRanking.cpp
 
 $(debug)/src/ogdf/layered/CrossingsMatrix.o: src/ogdf/layered/CrossingsMatrix.cpp \
   include/ogdf/layered/CrossingsMatrix.h include/ogdf/basic/EdgeArray.h \
@@ -10483,8 +10494,8 @@ $(debug)/src/ogdf/layered/CrossingsMatrix.o: src/ogdf/layered/CrossingsMatrix.cp
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/CrossingsMatrix.o -c src/ogdf/layered/CrossingsMatrix.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/CrossingsMatrix.cpp
 
 $(release)/src/ogdf/layered/CrossingsMatrix.o: src/ogdf/layered/CrossingsMatrix.cpp \
   include/ogdf/layered/CrossingsMatrix.h include/ogdf/basic/EdgeArray.h \
@@ -10506,8 +10517,8 @@ $(release)/src/ogdf/layered/CrossingsMatrix.o: src/ogdf/layered/CrossingsMatrix.
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/CrossingsMatrix.o -c src/ogdf/layered/CrossingsMatrix.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/CrossingsMatrix.cpp
 
 $(debug)/src/ogdf/layered/FastHierarchyLayout.o: src/ogdf/layered/FastHierarchyLayout.cpp \
   include/ogdf/layered/FastHierarchyLayout.h \
@@ -10533,8 +10544,8 @@ $(debug)/src/ogdf/layered/FastHierarchyLayout.o: src/ogdf/layered/FastHierarchyL
   include/ogdf/basic/GraphCopyAttributes.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/FastHierarchyLayout.o -c src/ogdf/layered/FastHierarchyLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/FastHierarchyLayout.cpp
 
 $(release)/src/ogdf/layered/FastHierarchyLayout.o: src/ogdf/layered/FastHierarchyLayout.cpp \
   include/ogdf/layered/FastHierarchyLayout.h \
@@ -10560,8 +10571,8 @@ $(release)/src/ogdf/layered/FastHierarchyLayout.o: src/ogdf/layered/FastHierarch
   include/ogdf/basic/GraphCopyAttributes.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/FastHierarchyLayout.o -c src/ogdf/layered/FastHierarchyLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/FastHierarchyLayout.cpp
 
 $(debug)/src/ogdf/layered/FastSimpleHierarchyLayout.o: \
   src/ogdf/layered/FastSimpleHierarchyLayout.cpp \
@@ -10588,8 +10599,8 @@ $(debug)/src/ogdf/layered/FastSimpleHierarchyLayout.o: \
   include/ogdf/basic/GraphCopyAttributes.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/FastSimpleHierarchyLayout.o -c src/ogdf/layered/FastSimpleHierarchyLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/FastSimpleHierarchyLayout.cpp
 
 $(release)/src/ogdf/layered/FastSimpleHierarchyLayout.o: \
   src/ogdf/layered/FastSimpleHierarchyLayout.cpp \
@@ -10616,8 +10627,8 @@ $(release)/src/ogdf/layered/FastSimpleHierarchyLayout.o: \
   include/ogdf/basic/GraphCopyAttributes.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/FastSimpleHierarchyLayout.o -c src/ogdf/layered/FastSimpleHierarchyLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/FastSimpleHierarchyLayout.cpp
 
 $(debug)/src/ogdf/layered/HierarchyLayoutModule.o: src/ogdf/layered/HierarchyLayoutModule.cpp \
   include/ogdf/module/HierarchyLayoutModule.h \
@@ -10643,8 +10654,8 @@ $(debug)/src/ogdf/layered/HierarchyLayoutModule.o: src/ogdf/layered/HierarchyLay
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/HierarchyLayoutModule.o -c src/ogdf/layered/HierarchyLayoutModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/HierarchyLayoutModule.cpp
 
 $(release)/src/ogdf/layered/HierarchyLayoutModule.o: src/ogdf/layered/HierarchyLayoutModule.cpp \
   include/ogdf/module/HierarchyLayoutModule.h \
@@ -10670,8 +10681,8 @@ $(release)/src/ogdf/layered/HierarchyLayoutModule.o: src/ogdf/layered/HierarchyL
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/HierarchyLayoutModule.o -c src/ogdf/layered/HierarchyLayoutModule.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/HierarchyLayoutModule.cpp
 
 $(debug)/src/ogdf/layered/OptimalHierarchyClusterLayout.o: \
   src/ogdf/layered/OptimalHierarchyClusterLayout.cpp \
@@ -10708,8 +10719,8 @@ $(debug)/src/ogdf/layered/OptimalHierarchyClusterLayout.o: \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/OptimalHierarchyClusterLayout.o -c src/ogdf/layered/OptimalHierarchyClusterLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/OptimalHierarchyClusterLayout.cpp
 
 $(release)/src/ogdf/layered/OptimalHierarchyClusterLayout.o: \
   src/ogdf/layered/OptimalHierarchyClusterLayout.cpp \
@@ -10746,8 +10757,8 @@ $(release)/src/ogdf/layered/OptimalHierarchyClusterLayout.o: \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp \
   include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/OptimalHierarchyClusterLayout.o -c src/ogdf/layered/OptimalHierarchyClusterLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/OptimalHierarchyClusterLayout.cpp
 
 $(debug)/src/ogdf/layered/OptimalHierarchyLayout.o: src/ogdf/layered/OptimalHierarchyLayout.cpp \
   include/ogdf/layered/OptimalHierarchyLayout.h \
@@ -10782,8 +10793,8 @@ $(debug)/src/ogdf/layered/OptimalHierarchyLayout.o: src/ogdf/layered/OptimalHier
   include/coin/CoinTypes.hpp include/coin/OsiCollections.hpp \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/OptimalHierarchyLayout.o -c src/ogdf/layered/OptimalHierarchyLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/OptimalHierarchyLayout.cpp
 
 $(release)/src/ogdf/layered/OptimalHierarchyLayout.o: src/ogdf/layered/OptimalHierarchyLayout.cpp \
   include/ogdf/layered/OptimalHierarchyLayout.h \
@@ -10818,8 +10829,8 @@ $(release)/src/ogdf/layered/OptimalHierarchyLayout.o: src/ogdf/layered/OptimalHi
   include/coin/CoinTypes.hpp include/coin/OsiCollections.hpp \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/OptimalHierarchyLayout.o -c src/ogdf/layered/OptimalHierarchyLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/OptimalHierarchyLayout.cpp
 
 $(debug)/src/ogdf/layered/OptimalRanking.o: src/ogdf/layered/OptimalRanking.cpp \
   include/ogdf/layered/OptimalRanking.h \
@@ -10845,8 +10856,8 @@ $(debug)/src/ogdf/layered/OptimalRanking.o: src/ogdf/layered/OptimalRanking.cpp 
   include/ogdf/module/MinCostFlowModule.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/OptimalRanking.o -c src/ogdf/layered/OptimalRanking.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/OptimalRanking.cpp
 
 $(release)/src/ogdf/layered/OptimalRanking.o: src/ogdf/layered/OptimalRanking.cpp \
   include/ogdf/layered/OptimalRanking.h \
@@ -10872,8 +10883,8 @@ $(release)/src/ogdf/layered/OptimalRanking.o: src/ogdf/layered/OptimalRanking.cp
   include/ogdf/module/MinCostFlowModule.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/OptimalRanking.o -c src/ogdf/layered/OptimalRanking.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/OptimalRanking.cpp
 
 $(debug)/src/ogdf/layered/SplitHeuristic.o: src/ogdf/layered/SplitHeuristic.cpp \
   include/ogdf/layered/SplitHeuristic.h include/ogdf/basic/EdgeArray.h \
@@ -10897,8 +10908,8 @@ $(debug)/src/ogdf/layered/SplitHeuristic.o: src/ogdf/layered/SplitHeuristic.cpp 
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/simultaneous/TwoLayerCrossMinSimDraw.h \
   include/ogdf/module/TwoLayerCrossMin.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/SplitHeuristic.o -c src/ogdf/layered/SplitHeuristic.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/SplitHeuristic.cpp
 
 $(release)/src/ogdf/layered/SplitHeuristic.o: src/ogdf/layered/SplitHeuristic.cpp \
   include/ogdf/layered/SplitHeuristic.h include/ogdf/basic/EdgeArray.h \
@@ -10922,8 +10933,8 @@ $(release)/src/ogdf/layered/SplitHeuristic.o: src/ogdf/layered/SplitHeuristic.cp
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/simultaneous/TwoLayerCrossMinSimDraw.h \
   include/ogdf/module/TwoLayerCrossMin.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/SplitHeuristic.o -c src/ogdf/layered/SplitHeuristic.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/SplitHeuristic.cpp
 
 $(debug)/src/ogdf/layered/SugiyamaLayoutMC.o: src/ogdf/layered/SugiyamaLayoutMC.cpp \
   include/ogdf/layered/SugiyamaLayoutMC.h \
@@ -10967,8 +10978,8 @@ $(debug)/src/ogdf/layered/SugiyamaLayoutMC.o: src/ogdf/layered/SugiyamaLayoutMC.
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/SugiyamaLayoutMC.o -c src/ogdf/layered/SugiyamaLayoutMC.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/SugiyamaLayoutMC.cpp
 
 $(release)/src/ogdf/layered/SugiyamaLayoutMC.o: src/ogdf/layered/SugiyamaLayoutMC.cpp \
   include/ogdf/layered/SugiyamaLayoutMC.h \
@@ -11012,8 +11023,8 @@ $(release)/src/ogdf/layered/SugiyamaLayoutMC.o: src/ogdf/layered/SugiyamaLayoutM
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/SugiyamaLayoutMC.o -c src/ogdf/layered/SugiyamaLayoutMC.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/SugiyamaLayoutMC.cpp
 
 $(debug)/src/ogdf/layered/acyclic_subgraph.o: src/ogdf/layered/acyclic_subgraph.cpp \
   include/ogdf/layered/DfsAcyclicSubgraph.h \
@@ -11036,8 +11047,8 @@ $(debug)/src/ogdf/layered/acyclic_subgraph.o: src/ogdf/layered/acyclic_subgraph.
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/acyclic_subgraph.o -c src/ogdf/layered/acyclic_subgraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/acyclic_subgraph.cpp
 
 $(release)/src/ogdf/layered/acyclic_subgraph.o: src/ogdf/layered/acyclic_subgraph.cpp \
   include/ogdf/layered/DfsAcyclicSubgraph.h \
@@ -11060,8 +11071,8 @@ $(release)/src/ogdf/layered/acyclic_subgraph.o: src/ogdf/layered/acyclic_subgrap
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/acyclic_subgraph.o -c src/ogdf/layered/acyclic_subgraph.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/acyclic_subgraph.cpp
 
 $(debug)/src/ogdf/layered/heuristics.o: src/ogdf/layered/heuristics.cpp \
   include/ogdf/layered/BarycenterHeuristic.h \
@@ -11089,8 +11100,8 @@ $(debug)/src/ogdf/layered/heuristics.o: src/ogdf/layered/heuristics.cpp \
   include/ogdf/layered/CrossingsMatrix.h include/ogdf/basic/Array2D.h \
   include/ogdf/layered/GreedySwitchHeuristic.h \
   include/ogdf/layered/SiftingHeuristic.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/heuristics.o -c src/ogdf/layered/heuristics.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/heuristics.cpp
 
 $(release)/src/ogdf/layered/heuristics.o: src/ogdf/layered/heuristics.cpp \
   include/ogdf/layered/BarycenterHeuristic.h \
@@ -11118,8 +11129,8 @@ $(release)/src/ogdf/layered/heuristics.o: src/ogdf/layered/heuristics.cpp \
   include/ogdf/layered/CrossingsMatrix.h include/ogdf/basic/Array2D.h \
   include/ogdf/layered/GreedySwitchHeuristic.h \
   include/ogdf/layered/SiftingHeuristic.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/heuristics.o -c src/ogdf/layered/heuristics.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/heuristics.cpp
 
 $(debug)/src/ogdf/layered/ranking.o: src/ogdf/layered/ranking.cpp \
   include/ogdf/layered/LongestPathRanking.h \
@@ -11146,8 +11157,8 @@ $(debug)/src/ogdf/layered/ranking.o: src/ogdf/layered/ranking.cpp \
   include/ogdf/basic/graphics.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/ranking.o -c src/ogdf/layered/ranking.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/ranking.cpp
 
 $(release)/src/ogdf/layered/ranking.o: src/ogdf/layered/ranking.cpp \
   include/ogdf/layered/LongestPathRanking.h \
@@ -11174,8 +11185,8 @@ $(release)/src/ogdf/layered/ranking.o: src/ogdf/layered/ranking.cpp \
   include/ogdf/basic/graphics.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/ranking.o -c src/ogdf/layered/ranking.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/ranking.cpp
 
 $(debug)/src/ogdf/layered/sugiyama-cluster.o: src/ogdf/layered/sugiyama-cluster.cpp \
   include/ogdf/layered/SugiyamaLayout.h \
@@ -11220,8 +11231,8 @@ $(debug)/src/ogdf/layered/sugiyama-cluster.o: src/ogdf/layered/sugiyama-cluster.
   include/ogdf/layered/OptimalRanking.h \
   include/ogdf/module/AcyclicSubgraphModule.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Array2D.h include/ogdf/cluster/ClusterSet.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/sugiyama-cluster.o -c src/ogdf/layered/sugiyama-cluster.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/sugiyama-cluster.cpp
 
 $(release)/src/ogdf/layered/sugiyama-cluster.o: src/ogdf/layered/sugiyama-cluster.cpp \
   include/ogdf/layered/SugiyamaLayout.h \
@@ -11266,8 +11277,8 @@ $(release)/src/ogdf/layered/sugiyama-cluster.o: src/ogdf/layered/sugiyama-cluste
   include/ogdf/layered/OptimalRanking.h \
   include/ogdf/module/AcyclicSubgraphModule.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Array2D.h include/ogdf/cluster/ClusterSet.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/sugiyama-cluster.o -c src/ogdf/layered/sugiyama-cluster.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/sugiyama-cluster.cpp
 
 $(debug)/src/ogdf/layered/sugiyama.o: src/ogdf/layered/sugiyama.cpp \
   include/ogdf/layered/Hierarchy.h include/ogdf/basic/EdgeArray.h \
@@ -11317,8 +11328,8 @@ $(debug)/src/ogdf/layered/sugiyama.o: src/ogdf/layered/sugiyama.cpp \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Thread.h
-	mkdir -p $(debug)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/layered/sugiyama.o -c src/ogdf/layered/sugiyama.cpp
+	$(MKDIR) $(debug)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/layered/sugiyama.cpp
 
 $(release)/src/ogdf/layered/sugiyama.o: src/ogdf/layered/sugiyama.cpp \
   include/ogdf/layered/Hierarchy.h include/ogdf/basic/EdgeArray.h \
@@ -11368,8 +11379,8 @@ $(release)/src/ogdf/layered/sugiyama.o: src/ogdf/layered/sugiyama.cpp \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Thread.h
-	mkdir -p $(release)/src/ogdf/layered
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/layered/sugiyama.o -c src/ogdf/layered/sugiyama.cpp
+	$(MKDIR) $(release)/src/ogdf/layered
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/layered/sugiyama.cpp
 
 $(debug)/src/ogdf/lpsolver/LPSolver_coin.o: src/ogdf/lpsolver/LPSolver_coin.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -11389,8 +11400,8 @@ $(debug)/src/ogdf/lpsolver/LPSolver_coin.o: src/ogdf/lpsolver/LPSolver_coin.cpp 
   include/coin/CoinTypes.hpp include/coin/OsiCollections.hpp \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp
-	mkdir -p $(debug)/src/ogdf/lpsolver
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/lpsolver/LPSolver_coin.o -c src/ogdf/lpsolver/LPSolver_coin.cpp
+	$(MKDIR) $(debug)/src/ogdf/lpsolver
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/lpsolver/LPSolver_coin.cpp
 
 $(release)/src/ogdf/lpsolver/LPSolver_coin.o: src/ogdf/lpsolver/LPSolver_coin.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -11410,8 +11421,8 @@ $(release)/src/ogdf/lpsolver/LPSolver_coin.o: src/ogdf/lpsolver/LPSolver_coin.cp
   include/coin/CoinTypes.hpp include/coin/OsiCollections.hpp \
   include/coin/OsiSolverParameters.hpp include/coin/CoinPackedVector.hpp \
   include/coin/CoinSort.hpp include/coin/CoinDistance.hpp
-	mkdir -p $(release)/src/ogdf/lpsolver
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/lpsolver/LPSolver_coin.o -c src/ogdf/lpsolver/LPSolver_coin.cpp
+	$(MKDIR) $(release)/src/ogdf/lpsolver
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/lpsolver/LPSolver_coin.cpp
 
 $(debug)/src/ogdf/minisat/Minisat.o: src/ogdf/minisat/Minisat.cpp include/ogdf/minisat/Minisat.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -11428,8 +11439,8 @@ $(debug)/src/ogdf/minisat/Minisat.o: src/ogdf/minisat/Minisat.cpp include/ogdf/m
   include/ogdf/minisat/utils/ParseUtils.h \
   include/ogdf/minisat/core/SolverTypes.h include/ogdf/minisat/mtl/Map.h \
   include/ogdf/minisat/mtl/Alloc.h
-	mkdir -p $(debug)/src/ogdf/minisat
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/minisat/Minisat.o -c src/ogdf/minisat/Minisat.cpp
+	$(MKDIR) $(debug)/src/ogdf/minisat
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/minisat/Minisat.cpp
 
 $(release)/src/ogdf/minisat/Minisat.o: src/ogdf/minisat/Minisat.cpp include/ogdf/minisat/Minisat.h \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -11446,8 +11457,8 @@ $(release)/src/ogdf/minisat/Minisat.o: src/ogdf/minisat/Minisat.cpp include/ogdf
   include/ogdf/minisat/utils/ParseUtils.h \
   include/ogdf/minisat/core/SolverTypes.h include/ogdf/minisat/mtl/Map.h \
   include/ogdf/minisat/mtl/Alloc.h
-	mkdir -p $(release)/src/ogdf/minisat
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/minisat/Minisat.o -c src/ogdf/minisat/Minisat.cpp
+	$(MKDIR) $(release)/src/ogdf/minisat
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/minisat/Minisat.cpp
 
 $(debug)/src/ogdf/minisat/core/Solver.o: src/ogdf/minisat/core/Solver.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
@@ -11465,8 +11476,8 @@ $(debug)/src/ogdf/minisat/core/Solver.o: src/ogdf/minisat/core/Solver.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/minisat/core
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/minisat/core/Solver.o -c src/ogdf/minisat/core/Solver.cpp
+	$(MKDIR) $(debug)/src/ogdf/minisat/core
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/minisat/core/Solver.cpp
 
 $(release)/src/ogdf/minisat/core/Solver.o: src/ogdf/minisat/core/Solver.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
@@ -11484,8 +11495,8 @@ $(release)/src/ogdf/minisat/core/Solver.o: src/ogdf/minisat/core/Solver.cpp \
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/minisat/core
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/minisat/core/Solver.o -c src/ogdf/minisat/core/Solver.cpp
+	$(MKDIR) $(release)/src/ogdf/minisat/core
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/minisat/core/Solver.cpp
 
 $(debug)/src/ogdf/minisat/simp/SimpSolver.o: src/ogdf/minisat/simp/SimpSolver.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
@@ -11505,8 +11516,8 @@ $(debug)/src/ogdf/minisat/simp/SimpSolver.o: src/ogdf/minisat/simp/SimpSolver.cp
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/minisat/simp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/minisat/simp/SimpSolver.o -c src/ogdf/minisat/simp/SimpSolver.cpp
+	$(MKDIR) $(debug)/src/ogdf/minisat/simp
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/minisat/simp/SimpSolver.cpp
 
 $(release)/src/ogdf/minisat/simp/SimpSolver.o: src/ogdf/minisat/simp/SimpSolver.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
@@ -11526,24 +11537,24 @@ $(release)/src/ogdf/minisat/simp/SimpSolver.o: src/ogdf/minisat/simp/SimpSolver.
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/minisat/simp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/minisat/simp/SimpSolver.o -c src/ogdf/minisat/simp/SimpSolver.cpp
+	$(MKDIR) $(release)/src/ogdf/minisat/simp
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/minisat/simp/SimpSolver.cpp
 
 $(debug)/src/ogdf/minisat/utils/Options.o: src/ogdf/minisat/utils/Options.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
   include/ogdf/minisat/mtl/IntTypes.h include/ogdf/minisat/mtl/XAlloc.h \
   include/ogdf/minisat/utils/Options.h \
   include/ogdf/minisat/utils/ParseUtils.h
-	mkdir -p $(debug)/src/ogdf/minisat/utils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/minisat/utils/Options.o -c src/ogdf/minisat/utils/Options.cpp
+	$(MKDIR) $(debug)/src/ogdf/minisat/utils
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/minisat/utils/Options.cpp
 
 $(release)/src/ogdf/minisat/utils/Options.o: src/ogdf/minisat/utils/Options.cpp \
   include/ogdf/minisat/mtl/Sort.h include/ogdf/minisat/mtl/Vec.h \
   include/ogdf/minisat/mtl/IntTypes.h include/ogdf/minisat/mtl/XAlloc.h \
   include/ogdf/minisat/utils/Options.h \
   include/ogdf/minisat/utils/ParseUtils.h
-	mkdir -p $(release)/src/ogdf/minisat/utils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/minisat/utils/Options.o -c src/ogdf/minisat/utils/Options.cpp
+	$(MKDIR) $(release)/src/ogdf/minisat/utils
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/minisat/utils/Options.cpp
 
 $(debug)/src/ogdf/misclayout/BalloonLayout.o: src/ogdf/misclayout/BalloonLayout.cpp \
   include/ogdf/misclayout/BalloonLayout.h \
@@ -11568,8 +11579,8 @@ $(debug)/src/ogdf/misclayout/BalloonLayout.o: src/ogdf/misclayout/BalloonLayout.
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/SList.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/misclayout/BalloonLayout.o -c src/ogdf/misclayout/BalloonLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/misclayout/BalloonLayout.cpp
 
 $(release)/src/ogdf/misclayout/BalloonLayout.o: src/ogdf/misclayout/BalloonLayout.cpp \
   include/ogdf/misclayout/BalloonLayout.h \
@@ -11594,8 +11605,8 @@ $(release)/src/ogdf/misclayout/BalloonLayout.o: src/ogdf/misclayout/BalloonLayou
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/SList.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/misclayout/BalloonLayout.o -c src/ogdf/misclayout/BalloonLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/misclayout/BalloonLayout.cpp
 
 $(debug)/src/ogdf/misclayout/BertaultLayout.o: src/ogdf/misclayout/BertaultLayout.cpp \
   include/ogdf/misclayout/BertaultLayout.h \
@@ -11631,8 +11642,8 @@ $(debug)/src/ogdf/misclayout/BertaultLayout.o: src/ogdf/misclayout/BertaultLayou
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/misclayout/BertaultLayout.o -c src/ogdf/misclayout/BertaultLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/misclayout/BertaultLayout.cpp
 
 $(release)/src/ogdf/misclayout/BertaultLayout.o: src/ogdf/misclayout/BertaultLayout.cpp \
   include/ogdf/misclayout/BertaultLayout.h \
@@ -11668,16 +11679,16 @@ $(release)/src/ogdf/misclayout/BertaultLayout.o: src/ogdf/misclayout/BertaultLay
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/misclayout/BertaultLayout.o -c src/ogdf/misclayout/BertaultLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/misclayout/BertaultLayout.cpp
 
 $(debug)/src/ogdf/misclayout/CircularExactLayout.o: src/ogdf/misclayout/CircularExactLayout.cpp
-	mkdir -p $(debug)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/misclayout/CircularExactLayout.o -c src/ogdf/misclayout/CircularExactLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/misclayout/CircularExactLayout.cpp
 
 $(release)/src/ogdf/misclayout/CircularExactLayout.o: src/ogdf/misclayout/CircularExactLayout.cpp
-	mkdir -p $(release)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/misclayout/CircularExactLayout.o -c src/ogdf/misclayout/CircularExactLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/misclayout/CircularExactLayout.cpp
 
 $(debug)/src/ogdf/misclayout/CircularLayout.o: src/ogdf/misclayout/CircularLayout.cpp \
   include/ogdf/misclayout/CircularLayout.h \
@@ -11707,8 +11718,8 @@ $(debug)/src/ogdf/misclayout/CircularLayout.o: src/ogdf/misclayout/CircularLayou
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Math.h \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(debug)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/misclayout/CircularLayout.o -c src/ogdf/misclayout/CircularLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/misclayout/CircularLayout.cpp
 
 $(release)/src/ogdf/misclayout/CircularLayout.o: src/ogdf/misclayout/CircularLayout.cpp \
   include/ogdf/misclayout/CircularLayout.h \
@@ -11738,8 +11749,8 @@ $(release)/src/ogdf/misclayout/CircularLayout.o: src/ogdf/misclayout/CircularLay
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Math.h \
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/module/CCLayoutPackModule.h
-	mkdir -p $(release)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/misclayout/CircularLayout.o -c src/ogdf/misclayout/CircularLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/misclayout/CircularLayout.cpp
 
 $(debug)/src/ogdf/misclayout/ProcrustesSubLayout.o: src/ogdf/misclayout/ProcrustesSubLayout.cpp \
   include/ogdf/misclayout/ProcrustesSubLayout.h \
@@ -11761,8 +11772,8 @@ $(debug)/src/ogdf/misclayout/ProcrustesSubLayout.o: src/ogdf/misclayout/Procrust
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/misclayout/ProcrustesSubLayout.o -c src/ogdf/misclayout/ProcrustesSubLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/misclayout/ProcrustesSubLayout.cpp
 
 $(release)/src/ogdf/misclayout/ProcrustesSubLayout.o: src/ogdf/misclayout/ProcrustesSubLayout.cpp \
   include/ogdf/misclayout/ProcrustesSubLayout.h \
@@ -11784,8 +11795,8 @@ $(release)/src/ogdf/misclayout/ProcrustesSubLayout.o: src/ogdf/misclayout/Procru
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/misclayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/misclayout/ProcrustesSubLayout.o -c src/ogdf/misclayout/ProcrustesSubLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/misclayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/misclayout/ProcrustesSubLayout.cpp
 
 $(debug)/src/ogdf/orthogonal/ClusterOrthoLayout.o: src/ogdf/orthogonal/ClusterOrthoLayout.cpp \
   include/ogdf/cluster/ClusterOrthoLayout.h \
@@ -11842,8 +11853,8 @@ $(debug)/src/ogdf/orthogonal/ClusterOrthoLayout.o: src/ogdf/orthogonal/ClusterOr
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/cluster/ClusterOrthoShaper.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/ClusterOrthoLayout.o -c src/ogdf/orthogonal/ClusterOrthoLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/ClusterOrthoLayout.cpp
 
 $(release)/src/ogdf/orthogonal/ClusterOrthoLayout.o: src/ogdf/orthogonal/ClusterOrthoLayout.cpp \
   include/ogdf/cluster/ClusterOrthoLayout.h \
@@ -11900,8 +11911,8 @@ $(release)/src/ogdf/orthogonal/ClusterOrthoLayout.o: src/ogdf/orthogonal/Cluster
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/cluster/ClusterOrthoShaper.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/ClusterOrthoLayout.o -c src/ogdf/orthogonal/ClusterOrthoLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/ClusterOrthoLayout.cpp
 
 $(debug)/src/ogdf/orthogonal/ClusterOrthoShaper.o: src/ogdf/orthogonal/ClusterOrthoShaper.cpp \
   include/ogdf/cluster/ClusterOrthoShaper.h \
@@ -11935,8 +11946,8 @@ $(debug)/src/ogdf/orthogonal/ClusterOrthoShaper.o: src/ogdf/orthogonal/ClusterOr
   include/ogdf/basic/HashArray.h \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
   include/ogdf/module/MinCostFlowModule.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/ClusterOrthoShaper.o -c src/ogdf/orthogonal/ClusterOrthoShaper.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/ClusterOrthoShaper.cpp
 
 $(release)/src/ogdf/orthogonal/ClusterOrthoShaper.o: src/ogdf/orthogonal/ClusterOrthoShaper.cpp \
   include/ogdf/cluster/ClusterOrthoShaper.h \
@@ -11970,8 +11981,8 @@ $(release)/src/ogdf/orthogonal/ClusterOrthoShaper.o: src/ogdf/orthogonal/Cluster
   include/ogdf/basic/HashArray.h \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
   include/ogdf/module/MinCostFlowModule.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/ClusterOrthoShaper.o -c src/ogdf/orthogonal/ClusterOrthoShaper.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/ClusterOrthoShaper.cpp
 
 $(debug)/src/ogdf/orthogonal/CompactionConstraintGraph.o: \
   src/ogdf/orthogonal/CompactionConstraintGraph.cpp \
@@ -12012,8 +12023,8 @@ $(debug)/src/ogdf/orthogonal/CompactionConstraintGraph.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/CompactionConstraintGraph.o -c src/ogdf/orthogonal/CompactionConstraintGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/CompactionConstraintGraph.cpp
 
 $(release)/src/ogdf/orthogonal/CompactionConstraintGraph.o: \
   src/ogdf/orthogonal/CompactionConstraintGraph.cpp \
@@ -12054,8 +12065,8 @@ $(release)/src/ogdf/orthogonal/CompactionConstraintGraph.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/CompactionConstraintGraph.o -c src/ogdf/orthogonal/CompactionConstraintGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/CompactionConstraintGraph.cpp
 
 $(debug)/src/ogdf/orthogonal/EdgeRouter.o: src/ogdf/orthogonal/EdgeRouter.cpp \
   include/ogdf/orthogonal/EdgeRouter.h \
@@ -12086,8 +12097,8 @@ $(debug)/src/ogdf/orthogonal/EdgeRouter.o: src/ogdf/orthogonal/EdgeRouter.cpp \
   include/ogdf/planarity/EdgeTypePatterns.h \
   include/ogdf/planarity/NodeTypePatterns.h \
   include/ogdf/internal/orthogonal/NodeInfo.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/EdgeRouter.o -c src/ogdf/orthogonal/EdgeRouter.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/EdgeRouter.cpp
 
 $(release)/src/ogdf/orthogonal/EdgeRouter.o: src/ogdf/orthogonal/EdgeRouter.cpp \
   include/ogdf/orthogonal/EdgeRouter.h \
@@ -12118,8 +12129,8 @@ $(release)/src/ogdf/orthogonal/EdgeRouter.o: src/ogdf/orthogonal/EdgeRouter.cpp 
   include/ogdf/planarity/EdgeTypePatterns.h \
   include/ogdf/planarity/NodeTypePatterns.h \
   include/ogdf/internal/orthogonal/NodeInfo.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/EdgeRouter.o -c src/ogdf/orthogonal/EdgeRouter.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/EdgeRouter.cpp
 
 $(debug)/src/ogdf/orthogonal/FlowCompaction.o: src/ogdf/orthogonal/FlowCompaction.cpp \
   include/ogdf/orthogonal/FlowCompaction.h \
@@ -12154,8 +12165,8 @@ $(debug)/src/ogdf/orthogonal/FlowCompaction.o: src/ogdf/orthogonal/FlowCompactio
   include/ogdf/module/MinCostFlowModule.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/FlowCompaction.o -c src/ogdf/orthogonal/FlowCompaction.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/FlowCompaction.cpp
 
 $(release)/src/ogdf/orthogonal/FlowCompaction.o: src/ogdf/orthogonal/FlowCompaction.cpp \
   include/ogdf/orthogonal/FlowCompaction.h \
@@ -12190,8 +12201,8 @@ $(release)/src/ogdf/orthogonal/FlowCompaction.o: src/ogdf/orthogonal/FlowCompact
   include/ogdf/module/MinCostFlowModule.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/FlowCompaction.o -c src/ogdf/orthogonal/FlowCompaction.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/FlowCompaction.cpp
 
 $(debug)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o: \
   src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp \
@@ -12232,8 +12243,8 @@ $(debug)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o -c src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp
 
 $(release)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o: \
   src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp \
@@ -12274,8 +12285,8 @@ $(release)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o -c src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/GridCompactionConstraintGraph.cpp
 
 $(debug)/src/ogdf/orthogonal/GridFlowCompaction.o: src/ogdf/orthogonal/GridFlowCompaction.cpp \
   include/ogdf/orthogonal/GridFlowCompaction.h \
@@ -12312,8 +12323,8 @@ $(debug)/src/ogdf/orthogonal/GridFlowCompaction.o: src/ogdf/orthogonal/GridFlowC
   include/ogdf/module/MinCostFlowModule.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/GridFlowCompaction.o -c src/ogdf/orthogonal/GridFlowCompaction.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/GridFlowCompaction.cpp
 
 $(release)/src/ogdf/orthogonal/GridFlowCompaction.o: src/ogdf/orthogonal/GridFlowCompaction.cpp \
   include/ogdf/orthogonal/GridFlowCompaction.h \
@@ -12350,8 +12361,8 @@ $(release)/src/ogdf/orthogonal/GridFlowCompaction.o: src/ogdf/orthogonal/GridFlo
   include/ogdf/module/MinCostFlowModule.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/GridFlowCompaction.o -c src/ogdf/orthogonal/GridFlowCompaction.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/GridFlowCompaction.cpp
 
 $(debug)/src/ogdf/orthogonal/KandinskyLayout.o: src/ogdf/orthogonal/KandinskyLayout.cpp \
   include/ogdf/orthogonal/KandinskyLayout.h include/ogdf/basic/Graph_d.h \
@@ -12402,8 +12413,8 @@ $(debug)/src/ogdf/orthogonal/KandinskyLayout.o: src/ogdf/orthogonal/KandinskyLay
   include/coin/OsiSymSolverInterface.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinWarmStart.hpp include/coin/CoinPackedMatrix.hpp \
   include/coin/CoinShallowPackedVector.hpp
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/KandinskyLayout.o -c src/ogdf/orthogonal/KandinskyLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/KandinskyLayout.cpp
 
 $(release)/src/ogdf/orthogonal/KandinskyLayout.o: src/ogdf/orthogonal/KandinskyLayout.cpp \
   include/ogdf/orthogonal/KandinskyLayout.h include/ogdf/basic/Graph_d.h \
@@ -12454,8 +12465,8 @@ $(release)/src/ogdf/orthogonal/KandinskyLayout.o: src/ogdf/orthogonal/KandinskyL
   include/coin/OsiSymSolverInterface.hpp include/coin/SymWarmStart.hpp \
   include/coin/CoinWarmStart.hpp include/coin/CoinPackedMatrix.hpp \
   include/coin/CoinShallowPackedVector.hpp
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/KandinskyLayout.o -c src/ogdf/orthogonal/KandinskyLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/KandinskyLayout.cpp
 
 $(debug)/src/ogdf/orthogonal/LongestPathCompaction.o: src/ogdf/orthogonal/LongestPathCompaction.cpp \
   include/ogdf/orthogonal/LongestPathCompaction.h \
@@ -12486,8 +12497,8 @@ $(debug)/src/ogdf/orthogonal/LongestPathCompaction.o: src/ogdf/orthogonal/Longes
   include/ogdf/basic/GridLayoutMapped.h \
   include/ogdf/orthogonal/CompactionConstraintGraph.h \
   include/ogdf/orthogonal/MinimumEdgeDistances.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/LongestPathCompaction.o -c src/ogdf/orthogonal/LongestPathCompaction.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/LongestPathCompaction.cpp
 
 $(release)/src/ogdf/orthogonal/LongestPathCompaction.o: src/ogdf/orthogonal/LongestPathCompaction.cpp \
   include/ogdf/orthogonal/LongestPathCompaction.h \
@@ -12518,8 +12529,8 @@ $(release)/src/ogdf/orthogonal/LongestPathCompaction.o: src/ogdf/orthogonal/Long
   include/ogdf/basic/GridLayoutMapped.h \
   include/ogdf/orthogonal/CompactionConstraintGraph.h \
   include/ogdf/orthogonal/MinimumEdgeDistances.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/LongestPathCompaction.o -c src/ogdf/orthogonal/LongestPathCompaction.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/LongestPathCompaction.cpp
 
 $(debug)/src/ogdf/orthogonal/NodeInfo.o: src/ogdf/orthogonal/NodeInfo.cpp \
   include/ogdf/internal/orthogonal/NodeInfo.h \
@@ -12549,8 +12560,8 @@ $(debug)/src/ogdf/orthogonal/NodeInfo.o: src/ogdf/orthogonal/NodeInfo.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/GridLayout.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/NodeInfo.o -c src/ogdf/orthogonal/NodeInfo.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/NodeInfo.cpp
 
 $(release)/src/ogdf/orthogonal/NodeInfo.o: src/ogdf/orthogonal/NodeInfo.cpp \
   include/ogdf/internal/orthogonal/NodeInfo.h \
@@ -12580,8 +12591,8 @@ $(release)/src/ogdf/orthogonal/NodeInfo.o: src/ogdf/orthogonal/NodeInfo.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/GridLayout.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/NodeInfo.o -c src/ogdf/orthogonal/NodeInfo.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/NodeInfo.cpp
 
 $(debug)/src/ogdf/orthogonal/OrthoGridLayout.o: src/ogdf/orthogonal/OrthoGridLayout.cpp \
   include/ogdf/orthogonal/OrthoGridLayout.h \
@@ -12633,8 +12644,8 @@ $(debug)/src/ogdf/orthogonal/OrthoGridLayout.o: src/ogdf/orthogonal/OrthoGridLay
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/OrthoGridLayout.o -c src/ogdf/orthogonal/OrthoGridLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/OrthoGridLayout.cpp
 
 $(release)/src/ogdf/orthogonal/OrthoGridLayout.o: src/ogdf/orthogonal/OrthoGridLayout.cpp \
   include/ogdf/orthogonal/OrthoGridLayout.h \
@@ -12686,8 +12697,8 @@ $(release)/src/ogdf/orthogonal/OrthoGridLayout.o: src/ogdf/orthogonal/OrthoGridL
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/OrthoGridLayout.o -c src/ogdf/orthogonal/OrthoGridLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/OrthoGridLayout.cpp
 
 $(debug)/src/ogdf/orthogonal/OrthoLayout.o: src/ogdf/orthogonal/OrthoLayout.cpp \
   include/ogdf/orthogonal/OrthoLayout.h \
@@ -12722,8 +12733,8 @@ $(debug)/src/ogdf/orthogonal/OrthoLayout.o: src/ogdf/orthogonal/OrthoLayout.cpp 
   include/ogdf/basic/GridLayoutMapped.h \
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/OrthoLayout.o -c src/ogdf/orthogonal/OrthoLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/OrthoLayout.cpp
 
 $(release)/src/ogdf/orthogonal/OrthoLayout.o: src/ogdf/orthogonal/OrthoLayout.cpp \
   include/ogdf/orthogonal/OrthoLayout.h \
@@ -12758,8 +12769,8 @@ $(release)/src/ogdf/orthogonal/OrthoLayout.o: src/ogdf/orthogonal/OrthoLayout.cp
   include/ogdf/basic/GridLayoutMapped.h \
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/OrthoLayout.o -c src/ogdf/orthogonal/OrthoLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/OrthoLayout.cpp
 
 $(debug)/src/ogdf/orthogonal/OrthoRep.o: src/ogdf/orthogonal/OrthoRep.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/GraphCopy.h \
@@ -12785,8 +12796,8 @@ $(debug)/src/ogdf/orthogonal/OrthoRep.o: src/ogdf/orthogonal/OrthoRep.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/GridLayout.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/OrthoRep.o -c src/ogdf/orthogonal/OrthoRep.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/OrthoRep.cpp
 
 $(release)/src/ogdf/orthogonal/OrthoRep.o: src/ogdf/orthogonal/OrthoRep.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/GraphCopy.h \
@@ -12812,8 +12823,8 @@ $(release)/src/ogdf/orthogonal/OrthoRep.o: src/ogdf/orthogonal/OrthoRep.cpp \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/geometry.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/GridLayout.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/OrthoRep.o -c src/ogdf/orthogonal/OrthoRep.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/OrthoRep.cpp
 
 $(debug)/src/ogdf/orthogonal/OrthoShaper.o: src/ogdf/orthogonal/OrthoShaper.cpp \
   include/ogdf/orthogonal/OrthoShaper.h \
@@ -12843,8 +12854,8 @@ $(debug)/src/ogdf/orthogonal/OrthoShaper.o: src/ogdf/orthogonal/OrthoShaper.cpp 
   include/ogdf/basic/GridLayout.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
   include/ogdf/module/MinCostFlowModule.h
-	mkdir -p $(debug)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/orthogonal/OrthoShaper.o -c src/ogdf/orthogonal/OrthoShaper.cpp
+	$(MKDIR) $(debug)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/orthogonal/OrthoShaper.cpp
 
 $(release)/src/ogdf/orthogonal/OrthoShaper.o: src/ogdf/orthogonal/OrthoShaper.cpp \
   include/ogdf/orthogonal/OrthoShaper.h \
@@ -12874,8 +12885,8 @@ $(release)/src/ogdf/orthogonal/OrthoShaper.o: src/ogdf/orthogonal/OrthoShaper.cp
   include/ogdf/basic/GridLayout.h include/ogdf/uml/UMLGraph.h \
   include/ogdf/graphalg/MinCostFlowReinelt.h \
   include/ogdf/module/MinCostFlowModule.h
-	mkdir -p $(release)/src/ogdf/orthogonal
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/orthogonal/OrthoShaper.o -c src/ogdf/orthogonal/OrthoShaper.cpp
+	$(MKDIR) $(release)/src/ogdf/orthogonal
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/orthogonal/OrthoShaper.cpp
 
 $(debug)/src/ogdf/packing/CCLayoutPackModule.o: src/ogdf/packing/CCLayoutPackModule.cpp \
   include/ogdf/module/CCLayoutPackModule.h \
@@ -12894,8 +12905,8 @@ $(debug)/src/ogdf/packing/CCLayoutPackModule.o: src/ogdf/packing/CCLayoutPackMod
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(debug)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/packing/CCLayoutPackModule.o -c src/ogdf/packing/CCLayoutPackModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/packing/CCLayoutPackModule.cpp
 
 $(release)/src/ogdf/packing/CCLayoutPackModule.o: src/ogdf/packing/CCLayoutPackModule.cpp \
   include/ogdf/module/CCLayoutPackModule.h \
@@ -12914,8 +12925,8 @@ $(release)/src/ogdf/packing/CCLayoutPackModule.o: src/ogdf/packing/CCLayoutPackM
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h
-	mkdir -p $(release)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/packing/CCLayoutPackModule.o -c src/ogdf/packing/CCLayoutPackModule.cpp
+	$(MKDIR) $(release)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/packing/CCLayoutPackModule.cpp
 
 $(debug)/src/ogdf/packing/ComponentSplitterLayout.o: src/ogdf/packing/ComponentSplitterLayout.cpp \
   include/ogdf/packing/ComponentSplitterLayout.h \
@@ -12944,8 +12955,8 @@ $(debug)/src/ogdf/packing/ComponentSplitterLayout.o: src/ogdf/packing/ComponentS
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/packing/ComponentSplitterLayout.o -c src/ogdf/packing/ComponentSplitterLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/packing/ComponentSplitterLayout.cpp
 
 $(release)/src/ogdf/packing/ComponentSplitterLayout.o: src/ogdf/packing/ComponentSplitterLayout.cpp \
   include/ogdf/packing/ComponentSplitterLayout.h \
@@ -12974,8 +12985,8 @@ $(release)/src/ogdf/packing/ComponentSplitterLayout.o: src/ogdf/packing/Componen
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/GraphCopy.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/packing/ComponentSplitterLayout.o -c src/ogdf/packing/ComponentSplitterLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/packing/ComponentSplitterLayout.cpp
 
 $(debug)/src/ogdf/packing/TileToRowsCCPacker.o: src/ogdf/packing/TileToRowsCCPacker.cpp \
   include/ogdf/packing/TileToRowsCCPacker.h \
@@ -12996,8 +13007,8 @@ $(debug)/src/ogdf/packing/TileToRowsCCPacker.o: src/ogdf/packing/TileToRowsCCPac
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/packing/TileToRowsCCPacker.o -c src/ogdf/packing/TileToRowsCCPacker.cpp
+	$(MKDIR) $(debug)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/packing/TileToRowsCCPacker.cpp
 
 $(release)/src/ogdf/packing/TileToRowsCCPacker.o: src/ogdf/packing/TileToRowsCCPacker.cpp \
   include/ogdf/packing/TileToRowsCCPacker.h \
@@ -13018,8 +13029,8 @@ $(release)/src/ogdf/packing/TileToRowsCCPacker.o: src/ogdf/packing/TileToRowsCCP
   include/ogdf/basic/geometry.h include/ogdf/basic/Hashing.h \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/packing
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/packing/TileToRowsCCPacker.o -c src/ogdf/packing/TileToRowsCCPacker.cpp
+	$(MKDIR) $(release)/src/ogdf/packing
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/packing/TileToRowsCCPacker.cpp
 
 $(debug)/src/ogdf/planarity/BoothLueker.o: src/ogdf/planarity/BoothLueker.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -13064,8 +13075,8 @@ $(debug)/src/ogdf/planarity/BoothLueker.o: src/ogdf/planarity/BoothLueker.cpp \
   include/ogdf/planarity/BoothLueker.h \
   include/ogdf/internal/planarity/EmbedPQTree.h \
   include/ogdf/internal/planarity/EmbedIndicator.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/BoothLueker.o -c src/ogdf/planarity/BoothLueker.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/BoothLueker.cpp
 
 $(release)/src/ogdf/planarity/BoothLueker.o: src/ogdf/planarity/BoothLueker.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -13110,8 +13121,8 @@ $(release)/src/ogdf/planarity/BoothLueker.o: src/ogdf/planarity/BoothLueker.cpp 
   include/ogdf/planarity/BoothLueker.h \
   include/ogdf/internal/planarity/EmbedPQTree.h \
   include/ogdf/internal/planarity/EmbedIndicator.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/BoothLueker.o -c src/ogdf/planarity/BoothLueker.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/BoothLueker.cpp
 
 $(debug)/src/ogdf/planarity/BoyerMyrvold.o: src/ogdf/planarity/BoyerMyrvold.cpp \
   include/ogdf/planarity/BoyerMyrvold.h \
@@ -13136,8 +13147,8 @@ $(debug)/src/ogdf/planarity/BoyerMyrvold.o: src/ogdf/planarity/BoyerMyrvold.cpp 
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/BoyerMyrvold.o -c src/ogdf/planarity/BoyerMyrvold.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/BoyerMyrvold.cpp
 
 $(release)/src/ogdf/planarity/BoyerMyrvold.o: src/ogdf/planarity/BoyerMyrvold.cpp \
   include/ogdf/planarity/BoyerMyrvold.h \
@@ -13162,8 +13173,8 @@ $(release)/src/ogdf/planarity/BoyerMyrvold.o: src/ogdf/planarity/BoyerMyrvold.cp
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/BoyerMyrvold.o -c src/ogdf/planarity/BoyerMyrvold.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/BoyerMyrvold.cpp
 
 $(debug)/src/ogdf/planarity/BoyerMyrvoldInit.o: src/ogdf/planarity/BoyerMyrvoldInit.cpp \
   include/ogdf/internal/planarity/BoyerMyrvoldInit.h \
@@ -13182,8 +13193,8 @@ $(debug)/src/ogdf/planarity/BoyerMyrvoldInit.o: src/ogdf/planarity/BoyerMyrvoldI
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/BoyerMyrvoldInit.o -c src/ogdf/planarity/BoyerMyrvoldInit.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/BoyerMyrvoldInit.cpp
 
 $(release)/src/ogdf/planarity/BoyerMyrvoldInit.o: src/ogdf/planarity/BoyerMyrvoldInit.cpp \
   include/ogdf/internal/planarity/BoyerMyrvoldInit.h \
@@ -13202,8 +13213,8 @@ $(release)/src/ogdf/planarity/BoyerMyrvoldInit.o: src/ogdf/planarity/BoyerMyrvol
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph.h \
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/BoyerMyrvoldInit.o -c src/ogdf/planarity/BoyerMyrvoldInit.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/BoyerMyrvoldInit.cpp
 
 $(debug)/src/ogdf/planarity/BoyerMyrvoldPlanar.o: src/ogdf/planarity/BoyerMyrvoldPlanar.cpp \
   include/ogdf/internal/planarity/BoyerMyrvoldPlanar.h \
@@ -13223,8 +13234,8 @@ $(debug)/src/ogdf/planarity/BoyerMyrvoldPlanar.o: src/ogdf/planarity/BoyerMyrvol
   include/ogdf/basic/SList.h \
   include/ogdf/internal/planarity/BoyerMyrvoldInit.h \
   include/ogdf/internal/planarity/FindKuratowskis.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/BoyerMyrvoldPlanar.o -c src/ogdf/planarity/BoyerMyrvoldPlanar.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/BoyerMyrvoldPlanar.cpp
 
 $(release)/src/ogdf/planarity/BoyerMyrvoldPlanar.o: src/ogdf/planarity/BoyerMyrvoldPlanar.cpp \
   include/ogdf/internal/planarity/BoyerMyrvoldPlanar.h \
@@ -13244,8 +13255,8 @@ $(release)/src/ogdf/planarity/BoyerMyrvoldPlanar.o: src/ogdf/planarity/BoyerMyrv
   include/ogdf/basic/SList.h \
   include/ogdf/internal/planarity/BoyerMyrvoldInit.h \
   include/ogdf/internal/planarity/FindKuratowskis.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/BoyerMyrvoldPlanar.o -c src/ogdf/planarity/BoyerMyrvoldPlanar.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/BoyerMyrvoldPlanar.cpp
 
 $(debug)/src/ogdf/planarity/CliqueReplacer.o: src/ogdf/planarity/CliqueReplacer.cpp \
   include/ogdf/internal/planarity/CliqueReplacer.h \
@@ -13268,8 +13279,8 @@ $(debug)/src/ogdf/planarity/CliqueReplacer.o: src/ogdf/planarity/CliqueReplacer.
   include/ogdf/misclayout/CircularLayout.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/CliqueReplacer.o -c src/ogdf/planarity/CliqueReplacer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/CliqueReplacer.cpp
 
 $(release)/src/ogdf/planarity/CliqueReplacer.o: src/ogdf/planarity/CliqueReplacer.cpp \
   include/ogdf/internal/planarity/CliqueReplacer.h \
@@ -13292,8 +13303,8 @@ $(release)/src/ogdf/planarity/CliqueReplacer.o: src/ogdf/planarity/CliqueReplace
   include/ogdf/misclayout/CircularLayout.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/CliqueReplacer.o -c src/ogdf/planarity/CliqueReplacer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/CliqueReplacer.cpp
 
 $(debug)/src/ogdf/planarity/ClusterPlanRep.o: src/ogdf/planarity/ClusterPlanRep.cpp \
   include/ogdf/cluster/ClusterPlanRep.h include/ogdf/planarity/PlanRep.h \
@@ -13333,8 +13344,8 @@ $(debug)/src/ogdf/planarity/ClusterPlanRep.o: src/ogdf/planarity/ClusterPlanRep.
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/GridLayoutMapped.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/ClusterPlanRep.o -c src/ogdf/planarity/ClusterPlanRep.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/ClusterPlanRep.cpp
 
 $(release)/src/ogdf/planarity/ClusterPlanRep.o: src/ogdf/planarity/ClusterPlanRep.cpp \
   include/ogdf/cluster/ClusterPlanRep.h include/ogdf/planarity/PlanRep.h \
@@ -13374,8 +13385,8 @@ $(release)/src/ogdf/planarity/ClusterPlanRep.o: src/ogdf/planarity/ClusterPlanRe
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/GridLayoutMapped.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/ClusterPlanRep.o -c src/ogdf/planarity/ClusterPlanRep.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/ClusterPlanRep.cpp
 
 $(debug)/src/ogdf/planarity/CrossingStructure.o: src/ogdf/planarity/CrossingStructure.cpp \
   include/ogdf/internal/planarity/CrossingStructure.h \
@@ -13402,8 +13413,8 @@ $(debug)/src/ogdf/planarity/CrossingStructure.o: src/ogdf/planarity/CrossingStru
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/CrossingStructure.o -c src/ogdf/planarity/CrossingStructure.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/CrossingStructure.cpp
 
 $(release)/src/ogdf/planarity/CrossingStructure.o: src/ogdf/planarity/CrossingStructure.cpp \
   include/ogdf/internal/planarity/CrossingStructure.h \
@@ -13430,8 +13441,8 @@ $(release)/src/ogdf/planarity/CrossingStructure.o: src/ogdf/planarity/CrossingSt
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/CrossingStructure.o -c src/ogdf/planarity/CrossingStructure.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/CrossingStructure.cpp
 
 $(debug)/src/ogdf/planarity/EmbedPQTree.o: src/ogdf/planarity/EmbedPQTree.cpp \
   include/ogdf/internal/planarity/EmbedPQTree.h \
@@ -13462,8 +13473,8 @@ $(debug)/src/ogdf/planarity/EmbedPQTree.o: src/ogdf/planarity/EmbedPQTree.cpp \
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/EmbedIndicator.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedPQTree.o -c src/ogdf/planarity/EmbedPQTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedPQTree.cpp
 
 $(release)/src/ogdf/planarity/EmbedPQTree.o: src/ogdf/planarity/EmbedPQTree.cpp \
   include/ogdf/internal/planarity/EmbedPQTree.h \
@@ -13494,8 +13505,8 @@ $(release)/src/ogdf/planarity/EmbedPQTree.o: src/ogdf/planarity/EmbedPQTree.cpp 
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/EmbedIndicator.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedPQTree.o -c src/ogdf/planarity/EmbedPQTree.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedPQTree.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMaxFace.o: src/ogdf/planarity/EmbedderMaxFace.cpp \
   include/ogdf/planarity/EmbedderMaxFace.h \
@@ -13540,8 +13551,8 @@ $(debug)/src/ogdf/planarity/EmbedderMaxFace.o: src/ogdf/planarity/EmbedderMaxFac
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMaxFace.o -c src/ogdf/planarity/EmbedderMaxFace.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMaxFace.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMaxFace.o: src/ogdf/planarity/EmbedderMaxFace.cpp \
   include/ogdf/planarity/EmbedderMaxFace.h \
@@ -13586,8 +13597,8 @@ $(release)/src/ogdf/planarity/EmbedderMaxFace.o: src/ogdf/planarity/EmbedderMaxF
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMaxFace.o -c src/ogdf/planarity/EmbedderMaxFace.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMaxFace.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMaxFaceLayers.o: src/ogdf/planarity/EmbedderMaxFaceLayers.cpp \
   include/ogdf/planarity/EmbedderMaxFaceLayers.h \
@@ -13634,8 +13645,8 @@ $(debug)/src/ogdf/planarity/EmbedderMaxFaceLayers.o: src/ogdf/planarity/Embedder
   include/ogdf/graphalg/ShortestPathWithBFM.h \
   include/ogdf/module/ShortestPathModule.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMaxFaceLayers.o -c src/ogdf/planarity/EmbedderMaxFaceLayers.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMaxFaceLayers.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMaxFaceLayers.o: src/ogdf/planarity/EmbedderMaxFaceLayers.cpp \
   include/ogdf/planarity/EmbedderMaxFaceLayers.h \
@@ -13682,8 +13693,8 @@ $(release)/src/ogdf/planarity/EmbedderMaxFaceLayers.o: src/ogdf/planarity/Embedd
   include/ogdf/graphalg/ShortestPathWithBFM.h \
   include/ogdf/module/ShortestPathModule.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMaxFaceLayers.o -c src/ogdf/planarity/EmbedderMaxFaceLayers.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMaxFaceLayers.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMinDepth.o: src/ogdf/planarity/EmbedderMinDepth.cpp \
   include/ogdf/planarity/EmbedderMinDepth.h \
@@ -13728,8 +13739,8 @@ $(debug)/src/ogdf/planarity/EmbedderMinDepth.o: src/ogdf/planarity/EmbedderMinDe
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMinDepth.o -c src/ogdf/planarity/EmbedderMinDepth.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMinDepth.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMinDepth.o: src/ogdf/planarity/EmbedderMinDepth.cpp \
   include/ogdf/planarity/EmbedderMinDepth.h \
@@ -13774,8 +13785,8 @@ $(release)/src/ogdf/planarity/EmbedderMinDepth.o: src/ogdf/planarity/EmbedderMin
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMinDepth.o -c src/ogdf/planarity/EmbedderMinDepth.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMinDepth.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o: src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp \
   include/ogdf/planarity/EmbedderMinDepthMaxFace.h \
@@ -13821,8 +13832,8 @@ $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o: src/ogdf/planarity/Embedd
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o -c src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o: src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp \
   include/ogdf/planarity/EmbedderMinDepthMaxFace.h \
@@ -13868,8 +13879,8 @@ $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o: src/ogdf/planarity/Embe
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o -c src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMinDepthMaxFace.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o: \
   src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp \
@@ -13918,8 +13929,8 @@ $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/graphalg/ShortestPathWithBFM.h \
   include/ogdf/module/ShortestPathModule.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o -c src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o: \
   src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp \
@@ -13968,8 +13979,8 @@ $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/graphalg/ShortestPathWithBFM.h \
   include/ogdf/module/ShortestPathModule.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o -c src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.cpp
 
 $(debug)/src/ogdf/planarity/EmbedderMinDepthPiTa.o: src/ogdf/planarity/EmbedderMinDepthPiTa.cpp \
   include/ogdf/planarity/EmbedderMinDepthPiTa.h \
@@ -14008,8 +14019,8 @@ $(debug)/src/ogdf/planarity/EmbedderMinDepthPiTa.o: src/ogdf/planarity/EmbedderM
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/EmbedderMinDepthPiTa.o -c src/ogdf/planarity/EmbedderMinDepthPiTa.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/EmbedderMinDepthPiTa.cpp
 
 $(release)/src/ogdf/planarity/EmbedderMinDepthPiTa.o: src/ogdf/planarity/EmbedderMinDepthPiTa.cpp \
   include/ogdf/planarity/EmbedderMinDepthPiTa.h \
@@ -14048,8 +14059,8 @@ $(release)/src/ogdf/planarity/EmbedderMinDepthPiTa.o: src/ogdf/planarity/Embedde
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/ConnectedSubgraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/EmbedderMinDepthPiTa.o -c src/ogdf/planarity/EmbedderMinDepthPiTa.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/EmbedderMinDepthPiTa.cpp
 
 $(debug)/src/ogdf/planarity/ExtractKuratowskis.o: src/ogdf/planarity/ExtractKuratowskis.cpp \
   include/ogdf/planarity/ExtractKuratowskis.h \
@@ -14069,8 +14080,8 @@ $(debug)/src/ogdf/planarity/ExtractKuratowskis.o: src/ogdf/planarity/ExtractKura
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h \
   include/ogdf/internal/planarity/FindKuratowskis.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/ExtractKuratowskis.o -c src/ogdf/planarity/ExtractKuratowskis.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/ExtractKuratowskis.cpp
 
 $(release)/src/ogdf/planarity/ExtractKuratowskis.o: src/ogdf/planarity/ExtractKuratowskis.cpp \
   include/ogdf/planarity/ExtractKuratowskis.h \
@@ -14090,8 +14101,8 @@ $(release)/src/ogdf/planarity/ExtractKuratowskis.o: src/ogdf/planarity/ExtractKu
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h \
   include/ogdf/internal/planarity/FindKuratowskis.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/ExtractKuratowskis.o -c src/ogdf/planarity/ExtractKuratowskis.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/ExtractKuratowskis.cpp
 
 $(debug)/src/ogdf/planarity/FastPlanarSubgraph.o: src/ogdf/planarity/FastPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -14138,8 +14149,8 @@ $(debug)/src/ogdf/planarity/FastPlanarSubgraph.o: src/ogdf/planarity/FastPlanarS
   include/ogdf/planarity/FastPlanarSubgraph.h \
   include/ogdf/module/PlanarSubgraphModule.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/FastPlanarSubgraph.o -c src/ogdf/planarity/FastPlanarSubgraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/FastPlanarSubgraph.cpp
 
 $(release)/src/ogdf/planarity/FastPlanarSubgraph.o: src/ogdf/planarity/FastPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -14186,8 +14197,8 @@ $(release)/src/ogdf/planarity/FastPlanarSubgraph.o: src/ogdf/planarity/FastPlana
   include/ogdf/planarity/FastPlanarSubgraph.h \
   include/ogdf/module/PlanarSubgraphModule.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/FastPlanarSubgraph.o -c src/ogdf/planarity/FastPlanarSubgraph.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/FastPlanarSubgraph.cpp
 
 $(debug)/src/ogdf/planarity/FindKuratowskis.o: src/ogdf/planarity/FindKuratowskis.cpp \
   include/ogdf/internal/planarity/FindKuratowskis.h \
@@ -14207,8 +14218,8 @@ $(debug)/src/ogdf/planarity/FindKuratowskis.o: src/ogdf/planarity/FindKuratowski
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/FindKuratowskis.o -c src/ogdf/planarity/FindKuratowskis.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/FindKuratowskis.cpp
 
 $(release)/src/ogdf/planarity/FindKuratowskis.o: src/ogdf/planarity/FindKuratowskis.cpp \
   include/ogdf/internal/planarity/FindKuratowskis.h \
@@ -14228,8 +14239,8 @@ $(release)/src/ogdf/planarity/FindKuratowskis.o: src/ogdf/planarity/FindKuratows
   include/ogdf/basic/EdgeArray.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/FindKuratowskis.o -c src/ogdf/planarity/FindKuratowskis.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/FindKuratowskis.cpp
 
 $(debug)/src/ogdf/planarity/FixEdgeInserterCore.o: src/ogdf/planarity/FixEdgeInserterCore.cpp \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h \
@@ -14259,8 +14270,8 @@ $(debug)/src/ogdf/planarity/FixEdgeInserterCore.o: src/ogdf/planarity/FixEdgeIns
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/basic/FaceSet.h include/ogdf/basic/Queue.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/FixEdgeInserterCore.o -c src/ogdf/planarity/FixEdgeInserterCore.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/FixEdgeInserterCore.cpp
 
 $(release)/src/ogdf/planarity/FixEdgeInserterCore.o: src/ogdf/planarity/FixEdgeInserterCore.cpp \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h \
@@ -14290,8 +14301,8 @@ $(release)/src/ogdf/planarity/FixEdgeInserterCore.o: src/ogdf/planarity/FixEdgeI
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/basic/FaceSet.h include/ogdf/basic/Queue.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/FixEdgeInserterCore.o -c src/ogdf/planarity/FixEdgeInserterCore.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/FixEdgeInserterCore.cpp
 
 $(debug)/src/ogdf/planarity/FixedEmbeddingInserter.o: src/ogdf/planarity/FixedEmbeddingInserter.cpp \
   include/ogdf/planarity/FixedEmbeddingInserter.h \
@@ -14321,8 +14332,8 @@ $(debug)/src/ogdf/planarity/FixedEmbeddingInserter.o: src/ogdf/planarity/FixedEm
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/FixedEmbeddingInserter.o -c src/ogdf/planarity/FixedEmbeddingInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/FixedEmbeddingInserter.cpp
 
 $(release)/src/ogdf/planarity/FixedEmbeddingInserter.o: src/ogdf/planarity/FixedEmbeddingInserter.cpp \
   include/ogdf/planarity/FixedEmbeddingInserter.h \
@@ -14352,8 +14363,8 @@ $(release)/src/ogdf/planarity/FixedEmbeddingInserter.o: src/ogdf/planarity/Fixed
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/FixedEmbeddingInserter.o -c src/ogdf/planarity/FixedEmbeddingInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/FixedEmbeddingInserter.cpp
 
 $(debug)/src/ogdf/planarity/GraphReduction.o: src/ogdf/planarity/GraphReduction.cpp \
   include/ogdf/graphalg/GraphReduction.h include/ogdf/basic/NodeArray.h \
@@ -14371,8 +14382,8 @@ $(debug)/src/ogdf/planarity/GraphReduction.o: src/ogdf/planarity/GraphReduction.
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/GraphReduction.o -c src/ogdf/planarity/GraphReduction.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/GraphReduction.cpp
 
 $(release)/src/ogdf/planarity/GraphReduction.o: src/ogdf/planarity/GraphReduction.cpp \
   include/ogdf/graphalg/GraphReduction.h include/ogdf/basic/NodeArray.h \
@@ -14390,8 +14401,8 @@ $(release)/src/ogdf/planarity/GraphReduction.o: src/ogdf/planarity/GraphReductio
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/GraphReduction.o -c src/ogdf/planarity/GraphReduction.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/GraphReduction.cpp
 
 $(debug)/src/ogdf/planarity/Layout.o: src/ogdf/planarity/Layout.cpp include/ogdf/basic/Layout.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -14417,8 +14428,8 @@ $(debug)/src/ogdf/planarity/Layout.o: src/ogdf/planarity/Layout.cpp include/ogdf
   include/ogdf/basic/GridLayout.h include/ogdf/orthogonal/OrthoRep.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/Layout.o -c src/ogdf/planarity/Layout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/Layout.cpp
 
 $(release)/src/ogdf/planarity/Layout.o: src/ogdf/planarity/Layout.cpp include/ogdf/basic/Layout.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -14444,8 +14455,8 @@ $(release)/src/ogdf/planarity/Layout.o: src/ogdf/planarity/Layout.cpp include/og
   include/ogdf/basic/GridLayout.h include/ogdf/orthogonal/OrthoRep.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/tuples.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/Layout.o -c src/ogdf/planarity/Layout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/Layout.cpp
 
 $(debug)/src/ogdf/planarity/MDMFLengthAttribute.o: src/ogdf/planarity/MDMFLengthAttribute.cpp \
   include/ogdf/internal/planarity/MDMFLengthAttribute.h \
@@ -14457,8 +14468,8 @@ $(debug)/src/ogdf/planarity/MDMFLengthAttribute.o: src/ogdf/planarity/MDMFLength
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MDMFLengthAttribute.o -c src/ogdf/planarity/MDMFLengthAttribute.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MDMFLengthAttribute.cpp
 
 $(release)/src/ogdf/planarity/MDMFLengthAttribute.o: src/ogdf/planarity/MDMFLengthAttribute.cpp \
   include/ogdf/internal/planarity/MDMFLengthAttribute.h \
@@ -14470,8 +14481,8 @@ $(release)/src/ogdf/planarity/MDMFLengthAttribute.o: src/ogdf/planarity/MDMFLeng
   include/ogdf/basic/CriticalSection.h \
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MDMFLengthAttribute.o -c src/ogdf/planarity/MDMFLengthAttribute.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MDMFLengthAttribute.cpp
 
 $(debug)/src/ogdf/planarity/MMCrossingMinimizationModule.o: \
   src/ogdf/planarity/MMCrossingMinimizationModule.cpp \
@@ -14493,8 +14504,8 @@ $(debug)/src/ogdf/planarity/MMCrossingMinimizationModule.o: \
   include/ogdf/basic/SList.h include/ogdf/basic/Module.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MMCrossingMinimizationModule.o -c src/ogdf/planarity/MMCrossingMinimizationModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MMCrossingMinimizationModule.cpp
 
 $(release)/src/ogdf/planarity/MMCrossingMinimizationModule.o: \
   src/ogdf/planarity/MMCrossingMinimizationModule.cpp \
@@ -14516,8 +14527,8 @@ $(release)/src/ogdf/planarity/MMCrossingMinimizationModule.o: \
   include/ogdf/basic/SList.h include/ogdf/basic/Module.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MMCrossingMinimizationModule.o -c src/ogdf/planarity/MMCrossingMinimizationModule.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MMCrossingMinimizationModule.cpp
 
 $(debug)/src/ogdf/planarity/MMFixedEmbeddingInserter.o: \
   src/ogdf/planarity/MMFixedEmbeddingInserter.cpp \
@@ -14564,8 +14575,8 @@ $(debug)/src/ogdf/planarity/MMFixedEmbeddingInserter.o: \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MMFixedEmbeddingInserter.o -c src/ogdf/planarity/MMFixedEmbeddingInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MMFixedEmbeddingInserter.cpp
 
 $(release)/src/ogdf/planarity/MMFixedEmbeddingInserter.o: \
   src/ogdf/planarity/MMFixedEmbeddingInserter.cpp \
@@ -14612,8 +14623,8 @@ $(release)/src/ogdf/planarity/MMFixedEmbeddingInserter.o: \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MMFixedEmbeddingInserter.o -c src/ogdf/planarity/MMFixedEmbeddingInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MMFixedEmbeddingInserter.cpp
 
 $(debug)/src/ogdf/planarity/MMSubgraphPlanarizer.o: src/ogdf/planarity/MMSubgraphPlanarizer.cpp \
   include/ogdf/planarity/MMSubgraphPlanarizer.h \
@@ -14642,8 +14653,8 @@ $(debug)/src/ogdf/planarity/MMSubgraphPlanarizer.o: src/ogdf/planarity/MMSubgrap
   include/ogdf/planarity/FastPlanarSubgraph.h \
   include/ogdf/planarity/MMFixedEmbeddingInserter.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MMSubgraphPlanarizer.o -c src/ogdf/planarity/MMSubgraphPlanarizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MMSubgraphPlanarizer.cpp
 
 $(release)/src/ogdf/planarity/MMSubgraphPlanarizer.o: src/ogdf/planarity/MMSubgraphPlanarizer.cpp \
   include/ogdf/planarity/MMSubgraphPlanarizer.h \
@@ -14672,8 +14683,8 @@ $(release)/src/ogdf/planarity/MMSubgraphPlanarizer.o: src/ogdf/planarity/MMSubgr
   include/ogdf/planarity/FastPlanarSubgraph.h \
   include/ogdf/planarity/MMFixedEmbeddingInserter.h \
   include/ogdf/basic/FaceArray.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MMSubgraphPlanarizer.o -c src/ogdf/planarity/MMSubgraphPlanarizer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MMSubgraphPlanarizer.cpp
 
 $(debug)/src/ogdf/planarity/MMVariableEmbeddingInserter.o: \
   src/ogdf/planarity/MMVariableEmbeddingInserter.cpp \
@@ -14722,8 +14733,8 @@ $(debug)/src/ogdf/planarity/MMVariableEmbeddingInserter.o: \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MMVariableEmbeddingInserter.o -c src/ogdf/planarity/MMVariableEmbeddingInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MMVariableEmbeddingInserter.cpp
 
 $(release)/src/ogdf/planarity/MMVariableEmbeddingInserter.o: \
   src/ogdf/planarity/MMVariableEmbeddingInserter.cpp \
@@ -14772,8 +14783,8 @@ $(release)/src/ogdf/planarity/MMVariableEmbeddingInserter.o: \
   include/ogdf/basic/LayoutStandards.h include/ogdf/basic/graphics.h \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MMVariableEmbeddingInserter.o -c src/ogdf/planarity/MMVariableEmbeddingInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MMVariableEmbeddingInserter.cpp
 
 $(debug)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o: \
   src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp \
@@ -14803,8 +14814,8 @@ $(debug)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o -c src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp
 
 $(release)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o: \
   src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp \
@@ -14834,8 +14845,8 @@ $(release)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o -c src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MaximalPlanarSubgraphSimple.cpp
 
 $(debug)/src/ogdf/planarity/MaximumPlanarSubgraph.o: src/ogdf/planarity/MaximumPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -14896,8 +14907,8 @@ $(debug)/src/ogdf/planarity/MaximumPlanarSubgraph.o: src/ogdf/planarity/MaximumP
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MaximumPlanarSubgraph.o -c src/ogdf/planarity/MaximumPlanarSubgraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MaximumPlanarSubgraph.cpp
 
 $(release)/src/ogdf/planarity/MaximumPlanarSubgraph.o: src/ogdf/planarity/MaximumPlanarSubgraph.cpp \
   include/ogdf/basic/basic.h include/ogdf/internal/basic/config.h \
@@ -14958,8 +14969,8 @@ $(release)/src/ogdf/planarity/MaximumPlanarSubgraph.o: src/ogdf/planarity/Maximu
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MaximumPlanarSubgraph.o -c src/ogdf/planarity/MaximumPlanarSubgraph.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MaximumPlanarSubgraph.cpp
 
 $(debug)/src/ogdf/planarity/MultiEdgeApproxInserter.o: src/ogdf/planarity/MultiEdgeApproxInserter.cpp \
   include/ogdf/planarity/MultiEdgeApproxInserter.h \
@@ -15008,8 +15019,8 @@ $(debug)/src/ogdf/planarity/MultiEdgeApproxInserter.o: src/ogdf/planarity/MultiE
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/MultiEdgeApproxInserter.o -c src/ogdf/planarity/MultiEdgeApproxInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/MultiEdgeApproxInserter.cpp
 
 $(release)/src/ogdf/planarity/MultiEdgeApproxInserter.o: src/ogdf/planarity/MultiEdgeApproxInserter.cpp \
   include/ogdf/planarity/MultiEdgeApproxInserter.h \
@@ -15058,8 +15069,8 @@ $(release)/src/ogdf/planarity/MultiEdgeApproxInserter.o: src/ogdf/planarity/Mult
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/MultiEdgeApproxInserter.o -c src/ogdf/planarity/MultiEdgeApproxInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/MultiEdgeApproxInserter.cpp
 
 $(debug)/src/ogdf/planarity/OptimalCrossingMinimizer.o: \
   src/ogdf/planarity/OptimalCrossingMinimizer.cpp \
@@ -15133,8 +15144,8 @@ $(debug)/src/ogdf/planarity/OptimalCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/OptimalCrossingMinimizer.o -c src/ogdf/planarity/OptimalCrossingMinimizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/OptimalCrossingMinimizer.cpp
 
 $(release)/src/ogdf/planarity/OptimalCrossingMinimizer.o: \
   src/ogdf/planarity/OptimalCrossingMinimizer.cpp \
@@ -15208,8 +15219,8 @@ $(release)/src/ogdf/planarity/OptimalCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/OptimalCrossingMinimizer.o -c src/ogdf/planarity/OptimalCrossingMinimizer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/OptimalCrossingMinimizer.cpp
 
 $(debug)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o: \
   src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp \
@@ -15283,8 +15294,8 @@ $(debug)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o -c src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp
 
 $(release)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o: \
   src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp \
@@ -15358,8 +15369,8 @@ $(release)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o -c src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.cpp
 
 $(debug)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o: \
   src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp \
@@ -15433,8 +15444,8 @@ $(debug)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o -c src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp
 
 $(release)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o: \
   src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp \
@@ -15508,8 +15519,8 @@ $(release)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o: \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h \
   include/ogdf/basic/extended_graph_alg.h \
   include/ogdf/basic/BinaryHeap2.h include/ogdf/basic/HeapBase.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o -c src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/OrderedOptimalCrossingMinimizer.cpp
 
 $(debug)/src/ogdf/planarity/PlanRep.o: src/ogdf/planarity/PlanRep.cpp \
   include/ogdf/planarity/PlanRep.h include/ogdf/basic/GraphCopy.h \
@@ -15537,8 +15548,8 @@ $(debug)/src/ogdf/planarity/PlanRep.o: src/ogdf/planarity/PlanRep.cpp \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanRep.o -c src/ogdf/planarity/PlanRep.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanRep.cpp
 
 $(release)/src/ogdf/planarity/PlanRep.o: src/ogdf/planarity/PlanRep.cpp \
   include/ogdf/planarity/PlanRep.h include/ogdf/basic/GraphCopy.h \
@@ -15566,8 +15577,8 @@ $(release)/src/ogdf/planarity/PlanRep.o: src/ogdf/planarity/PlanRep.cpp \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanRep.o -c src/ogdf/planarity/PlanRep.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanRep.cpp
 
 $(debug)/src/ogdf/planarity/PlanRepExpansion.o: src/ogdf/planarity/PlanRepExpansion.cpp \
   include/ogdf/planarity/PlanRepExpansion.h include/ogdf/basic/Graph.h \
@@ -15600,8 +15611,8 @@ $(debug)/src/ogdf/planarity/PlanRepExpansion.o: src/ogdf/planarity/PlanRepExpans
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/FaceSet.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/NodeSet.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanRepExpansion.o -c src/ogdf/planarity/PlanRepExpansion.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanRepExpansion.cpp
 
 $(release)/src/ogdf/planarity/PlanRepExpansion.o: src/ogdf/planarity/PlanRepExpansion.cpp \
   include/ogdf/planarity/PlanRepExpansion.h include/ogdf/basic/Graph.h \
@@ -15634,8 +15645,8 @@ $(release)/src/ogdf/planarity/PlanRepExpansion.o: src/ogdf/planarity/PlanRepExpa
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/FaceSet.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/NodeSet.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanRepExpansion.o -c src/ogdf/planarity/PlanRepExpansion.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanRepExpansion.cpp
 
 $(debug)/src/ogdf/planarity/PlanRepInc.o: src/ogdf/planarity/PlanRepInc.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -15672,8 +15683,8 @@ $(debug)/src/ogdf/planarity/PlanRepInc.o: src/ogdf/planarity/PlanRepInc.cpp \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/Array2D.h \
   include/ogdf/basic/TopologyModule.h include/ogdf/basic/EdgeComparer.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanRepInc.o -c src/ogdf/planarity/PlanRepInc.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanRepInc.cpp
 
 $(release)/src/ogdf/planarity/PlanRepInc.o: src/ogdf/planarity/PlanRepInc.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -15710,8 +15721,8 @@ $(release)/src/ogdf/planarity/PlanRepInc.o: src/ogdf/planarity/PlanRepInc.cpp \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/Array2D.h \
   include/ogdf/basic/TopologyModule.h include/ogdf/basic/EdgeComparer.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanRepInc.o -c src/ogdf/planarity/PlanRepInc.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanRepInc.cpp
 
 $(debug)/src/ogdf/planarity/PlanRepLight.o: src/ogdf/planarity/PlanRepLight.cpp \
   include/ogdf/planarity/PlanRepLight.h include/ogdf/planarity/PlanRep.h \
@@ -15737,8 +15748,8 @@ $(debug)/src/ogdf/planarity/PlanRepLight.o: src/ogdf/planarity/PlanRepLight.cpp 
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanRepLight.o -c src/ogdf/planarity/PlanRepLight.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanRepLight.cpp
 
 $(release)/src/ogdf/planarity/PlanRepLight.o: src/ogdf/planarity/PlanRepLight.cpp \
   include/ogdf/planarity/PlanRepLight.h include/ogdf/planarity/PlanRep.h \
@@ -15764,8 +15775,8 @@ $(release)/src/ogdf/planarity/PlanRepLight.o: src/ogdf/planarity/PlanRepLight.cp
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanRepLight.o -c src/ogdf/planarity/PlanRepLight.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanRepLight.cpp
 
 $(debug)/src/ogdf/planarity/PlanarPQTree.o: src/ogdf/planarity/PlanarPQTree.cpp \
   include/ogdf/internal/planarity/PlanarPQTree.h \
@@ -15795,8 +15806,8 @@ $(debug)/src/ogdf/planarity/PlanarPQTree.o: src/ogdf/planarity/PlanarPQTree.cpp 
   include/ogdf/internal/planarity/PQNodeKey.h \
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanarPQTree.o -c src/ogdf/planarity/PlanarPQTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanarPQTree.cpp
 
 $(release)/src/ogdf/planarity/PlanarPQTree.o: src/ogdf/planarity/PlanarPQTree.cpp \
   include/ogdf/internal/planarity/PlanarPQTree.h \
@@ -15826,8 +15837,8 @@ $(release)/src/ogdf/planarity/PlanarPQTree.o: src/ogdf/planarity/PlanarPQTree.cp
   include/ogdf/internal/planarity/PQNodeKey.h \
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/IndInfo.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanarPQTree.o -c src/ogdf/planarity/PlanarPQTree.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanarPQTree.cpp
 
 $(debug)/src/ogdf/planarity/PlanarSubgraphModule.o: src/ogdf/planarity/PlanarSubgraphModule.cpp \
   include/ogdf/module/PlanarSubgraphModule.h \
@@ -15847,8 +15858,8 @@ $(debug)/src/ogdf/planarity/PlanarSubgraphModule.o: src/ogdf/planarity/PlanarSub
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanarSubgraphModule.o -c src/ogdf/planarity/PlanarSubgraphModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanarSubgraphModule.cpp
 
 $(release)/src/ogdf/planarity/PlanarSubgraphModule.o: src/ogdf/planarity/PlanarSubgraphModule.cpp \
   include/ogdf/module/PlanarSubgraphModule.h \
@@ -15868,8 +15879,8 @@ $(release)/src/ogdf/planarity/PlanarSubgraphModule.o: src/ogdf/planarity/PlanarS
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanarSubgraphModule.o -c src/ogdf/planarity/PlanarSubgraphModule.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanarSubgraphModule.cpp
 
 $(debug)/src/ogdf/planarity/PlanarSubgraphPQTree.o: src/ogdf/planarity/PlanarSubgraphPQTree.cpp \
   include/ogdf/internal/planarity/PlanarSubgraphPQTree.h \
@@ -15900,8 +15911,8 @@ $(debug)/src/ogdf/planarity/PlanarSubgraphPQTree.o: src/ogdf/planarity/PlanarSub
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/MaxSequencePQTree.h \
   include/ogdf/internal/planarity/whaInfo.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanarSubgraphPQTree.o -c src/ogdf/planarity/PlanarSubgraphPQTree.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanarSubgraphPQTree.cpp
 
 $(release)/src/ogdf/planarity/PlanarSubgraphPQTree.o: src/ogdf/planarity/PlanarSubgraphPQTree.cpp \
   include/ogdf/internal/planarity/PlanarSubgraphPQTree.h \
@@ -15932,8 +15943,8 @@ $(release)/src/ogdf/planarity/PlanarSubgraphPQTree.o: src/ogdf/planarity/PlanarS
   include/ogdf/internal/planarity/PlanarLeafKey.h \
   include/ogdf/internal/planarity/MaxSequencePQTree.h \
   include/ogdf/internal/planarity/whaInfo.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanarSubgraphPQTree.o -c src/ogdf/planarity/PlanarSubgraphPQTree.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanarSubgraphPQTree.cpp
 
 $(debug)/src/ogdf/planarity/PlanarizationGridLayout.o: src/ogdf/planarity/PlanarizationGridLayout.cpp \
   include/ogdf/planarity/PlanarizationGridLayout.h \
@@ -15988,8 +15999,8 @@ $(debug)/src/ogdf/planarity/PlanarizationGridLayout.o: src/ogdf/planarity/Planar
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanarizationGridLayout.o -c src/ogdf/planarity/PlanarizationGridLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanarizationGridLayout.cpp
 
 $(release)/src/ogdf/planarity/PlanarizationGridLayout.o: src/ogdf/planarity/PlanarizationGridLayout.cpp \
   include/ogdf/planarity/PlanarizationGridLayout.h \
@@ -16044,8 +16055,8 @@ $(release)/src/ogdf/planarity/PlanarizationGridLayout.o: src/ogdf/planarity/Plan
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanarizationGridLayout.o -c src/ogdf/planarity/PlanarizationGridLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanarizationGridLayout.cpp
 
 $(debug)/src/ogdf/planarity/PlanarizationLayout.o: src/ogdf/planarity/PlanarizationLayout.cpp \
   include/ogdf/planarity/PlanarizationLayout.h \
@@ -16098,8 +16109,8 @@ $(debug)/src/ogdf/planarity/PlanarizationLayout.o: src/ogdf/planarity/Planarizat
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/internal/planarity/CliqueReplacer.h \
   include/ogdf/graphalg/CliqueFinder.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/PlanarizationLayout.o -c src/ogdf/planarity/PlanarizationLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/PlanarizationLayout.cpp
 
 $(release)/src/ogdf/planarity/PlanarizationLayout.o: src/ogdf/planarity/PlanarizationLayout.cpp \
   include/ogdf/planarity/PlanarizationLayout.h \
@@ -16152,8 +16163,8 @@ $(release)/src/ogdf/planarity/PlanarizationLayout.o: src/ogdf/planarity/Planariz
   include/ogdf/packing/TileToRowsCCPacker.h \
   include/ogdf/internal/planarity/CliqueReplacer.h \
   include/ogdf/graphalg/CliqueFinder.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/PlanarizationLayout.o -c src/ogdf/planarity/PlanarizationLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/PlanarizationLayout.cpp
 
 $(debug)/src/ogdf/planarity/SimpleEmbedder.o: src/ogdf/planarity/SimpleEmbedder.cpp \
   include/ogdf/planarity/SimpleEmbedder.h \
@@ -16190,8 +16201,8 @@ $(debug)/src/ogdf/planarity/SimpleEmbedder.o: src/ogdf/planarity/SimpleEmbedder.
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/SimpleEmbedder.o -c src/ogdf/planarity/SimpleEmbedder.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/SimpleEmbedder.cpp
 
 $(release)/src/ogdf/planarity/SimpleEmbedder.o: src/ogdf/planarity/SimpleEmbedder.cpp \
   include/ogdf/planarity/SimpleEmbedder.h \
@@ -16228,8 +16239,8 @@ $(release)/src/ogdf/planarity/SimpleEmbedder.o: src/ogdf/planarity/SimpleEmbedde
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/SimpleEmbedder.o -c src/ogdf/planarity/SimpleEmbedder.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/SimpleEmbedder.cpp
 
 $(debug)/src/ogdf/planarity/SubgraphPlanarizer.o: src/ogdf/planarity/SubgraphPlanarizer.cpp \
   include/ogdf/planarity/SubgraphPlanarizer.h \
@@ -16273,8 +16284,8 @@ $(debug)/src/ogdf/planarity/SubgraphPlanarizer.o: src/ogdf/planarity/SubgraphPla
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/CrossingStructure.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/SubgraphPlanarizer.o -c src/ogdf/planarity/SubgraphPlanarizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/SubgraphPlanarizer.cpp
 
 $(release)/src/ogdf/planarity/SubgraphPlanarizer.o: src/ogdf/planarity/SubgraphPlanarizer.cpp \
   include/ogdf/planarity/SubgraphPlanarizer.h \
@@ -16318,8 +16329,8 @@ $(release)/src/ogdf/planarity/SubgraphPlanarizer.o: src/ogdf/planarity/SubgraphP
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/CrossingStructure.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/SubgraphPlanarizer.o -c src/ogdf/planarity/SubgraphPlanarizer.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/SubgraphPlanarizer.cpp
 
 $(debug)/src/ogdf/planarity/TopologyModule.o: src/ogdf/planarity/TopologyModule.cpp \
   include/ogdf/planarity/PlanRepInc.h include/ogdf/planarity/PlanRep.h \
@@ -16360,8 +16371,8 @@ $(debug)/src/ogdf/planarity/TopologyModule.o: src/ogdf/planarity/TopologyModule.
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/TopologyModule.o -c src/ogdf/planarity/TopologyModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/TopologyModule.cpp
 
 $(release)/src/ogdf/planarity/TopologyModule.o: src/ogdf/planarity/TopologyModule.cpp \
   include/ogdf/planarity/PlanRepInc.h include/ogdf/planarity/PlanRep.h \
@@ -16402,8 +16413,8 @@ $(release)/src/ogdf/planarity/TopologyModule.o: src/ogdf/planarity/TopologyModul
   include/ogdf/cluster/ClusterGraphAttributes.h \
   include/ogdf/cluster/ClusterArray.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/TopologyModule.o -c src/ogdf/planarity/TopologyModule.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/TopologyModule.cpp
 
 $(debug)/src/ogdf/planarity/VarEdgeInserterCore.o: src/ogdf/planarity/VarEdgeInserterCore.cpp \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h \
@@ -16450,8 +16461,8 @@ $(debug)/src/ogdf/planarity/VarEdgeInserterCore.o: src/ogdf/planarity/VarEdgeIns
   include/ogdf/decomposition/PertinentGraph.h \
   include/ogdf/decomposition/StaticSkeleton.h \
   include/ogdf/decomposition/PlanarSPQRTree.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/VarEdgeInserterCore.o -c src/ogdf/planarity/VarEdgeInserterCore.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/VarEdgeInserterCore.cpp
 
 $(release)/src/ogdf/planarity/VarEdgeInserterCore.o: src/ogdf/planarity/VarEdgeInserterCore.cpp \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h \
@@ -16498,8 +16509,8 @@ $(release)/src/ogdf/planarity/VarEdgeInserterCore.o: src/ogdf/planarity/VarEdgeI
   include/ogdf/decomposition/PertinentGraph.h \
   include/ogdf/decomposition/StaticSkeleton.h \
   include/ogdf/decomposition/PlanarSPQRTree.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/VarEdgeInserterCore.o -c src/ogdf/planarity/VarEdgeInserterCore.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/VarEdgeInserterCore.cpp
 
 $(debug)/src/ogdf/planarity/VarEdgeInserterDynCore.o: src/ogdf/planarity/VarEdgeInserterDynCore.cpp \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h \
@@ -16543,8 +16554,8 @@ $(debug)/src/ogdf/planarity/VarEdgeInserterDynCore.o: src/ogdf/planarity/VarEdge
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/VarEdgeInserterDynCore.o -c src/ogdf/planarity/VarEdgeInserterDynCore.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/VarEdgeInserterDynCore.cpp
 
 $(release)/src/ogdf/planarity/VarEdgeInserterDynCore.o: src/ogdf/planarity/VarEdgeInserterDynCore.cpp \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h \
@@ -16588,8 +16599,8 @@ $(release)/src/ogdf/planarity/VarEdgeInserterDynCore.o: src/ogdf/planarity/VarEd
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/VarEdgeInserterDynCore.o -c src/ogdf/planarity/VarEdgeInserterDynCore.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/VarEdgeInserterDynCore.cpp
 
 $(debug)/src/ogdf/planarity/VariableEmbeddingInserter.o: \
   src/ogdf/planarity/VariableEmbeddingInserter.cpp \
@@ -16620,8 +16631,8 @@ $(debug)/src/ogdf/planarity/VariableEmbeddingInserter.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/VariableEmbeddingInserter.o -c src/ogdf/planarity/VariableEmbeddingInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/VariableEmbeddingInserter.cpp
 
 $(release)/src/ogdf/planarity/VariableEmbeddingInserter.o: \
   src/ogdf/planarity/VariableEmbeddingInserter.cpp \
@@ -16652,8 +16663,8 @@ $(release)/src/ogdf/planarity/VariableEmbeddingInserter.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/VariableEmbeddingInserter.o -c src/ogdf/planarity/VariableEmbeddingInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/VariableEmbeddingInserter.cpp
 
 $(debug)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o: \
   src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp \
@@ -16684,8 +16695,8 @@ $(debug)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h
-	mkdir -p $(debug)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o -c src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp
 
 $(release)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o: \
   src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp \
@@ -16716,8 +16727,8 @@ $(release)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h
-	mkdir -p $(release)/src/ogdf/planarity
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o -c src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp
+	$(MKDIR) $(release)/src/ogdf/planarity
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarity/VariableEmbeddingInserterDyn.cpp
 
 $(debug)/src/ogdf/planarlayout/BiconnectedShellingOrder.o: \
   src/ogdf/planarlayout/BiconnectedShellingOrder.cpp \
@@ -16751,8 +16762,8 @@ $(debug)/src/ogdf/planarlayout/BiconnectedShellingOrder.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/BiconnectedShellingOrder.o -c src/ogdf/planarlayout/BiconnectedShellingOrder.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/BiconnectedShellingOrder.cpp
 
 $(release)/src/ogdf/planarlayout/BiconnectedShellingOrder.o: \
   src/ogdf/planarlayout/BiconnectedShellingOrder.cpp \
@@ -16786,8 +16797,8 @@ $(release)/src/ogdf/planarlayout/BiconnectedShellingOrder.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/BiconnectedShellingOrder.o -c src/ogdf/planarlayout/BiconnectedShellingOrder.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/BiconnectedShellingOrder.cpp
 
 $(debug)/src/ogdf/planarlayout/FPPLayout.o: src/ogdf/planarlayout/FPPLayout.cpp \
   include/ogdf/planarlayout/FPPLayout.h include/ogdf/basic/Graph_d.h \
@@ -16829,8 +16840,8 @@ $(debug)/src/ogdf/planarlayout/FPPLayout.o: src/ogdf/planarlayout/FPPLayout.cpp 
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/FPPLayout.o -c src/ogdf/planarlayout/FPPLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/FPPLayout.cpp
 
 $(release)/src/ogdf/planarlayout/FPPLayout.o: src/ogdf/planarlayout/FPPLayout.cpp \
   include/ogdf/planarlayout/FPPLayout.h include/ogdf/basic/Graph_d.h \
@@ -16872,8 +16883,8 @@ $(release)/src/ogdf/planarlayout/FPPLayout.o: src/ogdf/planarlayout/FPPLayout.cp
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/FPPLayout.o -c src/ogdf/planarlayout/FPPLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/FPPLayout.cpp
 
 $(debug)/src/ogdf/planarlayout/IOPoints.o: src/ogdf/planarlayout/IOPoints.cpp \
   src/ogdf/planarlayout/IOPoints.h include/ogdf/planarity/PlanRep.h \
@@ -16899,8 +16910,8 @@ $(debug)/src/ogdf/planarlayout/IOPoints.o: src/ogdf/planarlayout/IOPoints.cpp \
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/IOPoints.o -c src/ogdf/planarlayout/IOPoints.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/IOPoints.cpp
 
 $(release)/src/ogdf/planarlayout/IOPoints.o: src/ogdf/planarlayout/IOPoints.cpp \
   src/ogdf/planarlayout/IOPoints.h include/ogdf/planarity/PlanRep.h \
@@ -16926,8 +16937,8 @@ $(release)/src/ogdf/planarlayout/IOPoints.o: src/ogdf/planarlayout/IOPoints.cpp 
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/IOPoints.o -c src/ogdf/planarlayout/IOPoints.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/IOPoints.cpp
 
 $(debug)/src/ogdf/planarlayout/MMCBBase.o: src/ogdf/planarlayout/MMCBBase.cpp \
   include/ogdf/planarlayout/MMCBDoubleGrid.h \
@@ -16957,8 +16968,8 @@ $(debug)/src/ogdf/planarlayout/MMCBBase.o: src/ogdf/planarlayout/MMCBBase.cpp \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarlayout/MMCBLocalStretch.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/MMCBBase.o -c src/ogdf/planarlayout/MMCBBase.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/MMCBBase.cpp
 
 $(release)/src/ogdf/planarlayout/MMCBBase.o: src/ogdf/planarlayout/MMCBBase.cpp \
   include/ogdf/planarlayout/MMCBDoubleGrid.h \
@@ -16988,8 +16999,8 @@ $(release)/src/ogdf/planarlayout/MMCBBase.o: src/ogdf/planarlayout/MMCBBase.cpp 
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/planarlayout/MMCBLocalStretch.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/MMCBBase.o -c src/ogdf/planarlayout/MMCBBase.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/MMCBBase.cpp
 
 $(debug)/src/ogdf/planarlayout/MixedModelBase.o: src/ogdf/planarlayout/MixedModelBase.cpp \
   src/ogdf/planarlayout/MixedModelBase.h \
@@ -17033,8 +17044,8 @@ $(debug)/src/ogdf/planarlayout/MixedModelBase.o: src/ogdf/planarlayout/MixedMode
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/MixedModelBase.o -c src/ogdf/planarlayout/MixedModelBase.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/MixedModelBase.cpp
 
 $(release)/src/ogdf/planarlayout/MixedModelBase.o: src/ogdf/planarlayout/MixedModelBase.cpp \
   src/ogdf/planarlayout/MixedModelBase.h \
@@ -17078,8 +17089,8 @@ $(release)/src/ogdf/planarlayout/MixedModelBase.o: src/ogdf/planarlayout/MixedMo
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/MixedModelBase.o -c src/ogdf/planarlayout/MixedModelBase.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/MixedModelBase.cpp
 
 $(debug)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o: \
   src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp \
@@ -17107,8 +17118,8 @@ $(debug)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o: \
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o -c src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp
 
 $(release)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o: \
   src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp \
@@ -17136,8 +17147,8 @@ $(release)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o: \
   include/ogdf/basic/graphics.h include/ogdf/basic/GridLayout.h \
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o -c src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.cpp
 
 $(debug)/src/ogdf/planarlayout/MixedModelLayout.o: src/ogdf/planarlayout/MixedModelLayout.cpp \
   include/ogdf/planarlayout/MixedModelLayout.h \
@@ -17190,8 +17201,8 @@ $(debug)/src/ogdf/planarlayout/MixedModelLayout.o: src/ogdf/planarlayout/MixedMo
   include/ogdf/planarity/KuratowskiSubdivision.h \
   src/ogdf/planarlayout/MixedModelBase.h src/ogdf/planarlayout/MMOrder.h \
   src/ogdf/planarlayout/IOPoints.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/MixedModelLayout.o -c src/ogdf/planarlayout/MixedModelLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/MixedModelLayout.cpp
 
 $(release)/src/ogdf/planarlayout/MixedModelLayout.o: src/ogdf/planarlayout/MixedModelLayout.cpp \
   include/ogdf/planarlayout/MixedModelLayout.h \
@@ -17244,8 +17255,8 @@ $(release)/src/ogdf/planarlayout/MixedModelLayout.o: src/ogdf/planarlayout/Mixed
   include/ogdf/planarity/KuratowskiSubdivision.h \
   src/ogdf/planarlayout/MixedModelBase.h src/ogdf/planarlayout/MMOrder.h \
   src/ogdf/planarlayout/IOPoints.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/MixedModelLayout.o -c src/ogdf/planarlayout/MixedModelLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/MixedModelLayout.cpp
 
 $(debug)/src/ogdf/planarlayout/PlanarDrawLayout.o: src/ogdf/planarlayout/PlanarDrawLayout.cpp \
   include/ogdf/planarlayout/PlanarDrawLayout.h \
@@ -17297,8 +17308,8 @@ $(debug)/src/ogdf/planarlayout/PlanarDrawLayout.o: src/ogdf/planarlayout/PlanarD
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/PlanarDrawLayout.o -c src/ogdf/planarlayout/PlanarDrawLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/PlanarDrawLayout.cpp
 
 $(release)/src/ogdf/planarlayout/PlanarDrawLayout.o: src/ogdf/planarlayout/PlanarDrawLayout.cpp \
   include/ogdf/planarlayout/PlanarDrawLayout.h \
@@ -17350,8 +17361,8 @@ $(release)/src/ogdf/planarlayout/PlanarDrawLayout.o: src/ogdf/planarlayout/Plana
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/PlanarDrawLayout.o -c src/ogdf/planarlayout/PlanarDrawLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/PlanarDrawLayout.cpp
 
 $(debug)/src/ogdf/planarlayout/PlanarStraightLayout.o: src/ogdf/planarlayout/PlanarStraightLayout.cpp \
   include/ogdf/planarlayout/PlanarStraightLayout.h \
@@ -17403,8 +17414,8 @@ $(debug)/src/ogdf/planarlayout/PlanarStraightLayout.o: src/ogdf/planarlayout/Pla
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/PlanarStraightLayout.o -c src/ogdf/planarlayout/PlanarStraightLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/PlanarStraightLayout.cpp
 
 $(release)/src/ogdf/planarlayout/PlanarStraightLayout.o: src/ogdf/planarlayout/PlanarStraightLayout.cpp \
   include/ogdf/planarlayout/PlanarStraightLayout.h \
@@ -17456,8 +17467,8 @@ $(release)/src/ogdf/planarlayout/PlanarStraightLayout.o: src/ogdf/planarlayout/P
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/PlanarStraightLayout.o -c src/ogdf/planarlayout/PlanarStraightLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/PlanarStraightLayout.cpp
 
 $(debug)/src/ogdf/planarlayout/SchnyderLayout.o: src/ogdf/planarlayout/SchnyderLayout.cpp \
   include/ogdf/planarlayout/SchnyderLayout.h \
@@ -17499,8 +17510,8 @@ $(debug)/src/ogdf/planarlayout/SchnyderLayout.o: src/ogdf/planarlayout/SchnyderL
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/SchnyderLayout.o -c src/ogdf/planarlayout/SchnyderLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/SchnyderLayout.cpp
 
 $(release)/src/ogdf/planarlayout/SchnyderLayout.o: src/ogdf/planarlayout/SchnyderLayout.cpp \
   include/ogdf/planarlayout/SchnyderLayout.h \
@@ -17542,8 +17553,8 @@ $(release)/src/ogdf/planarlayout/SchnyderLayout.o: src/ogdf/planarlayout/Schnyde
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/SchnyderLayout.o -c src/ogdf/planarlayout/SchnyderLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/SchnyderLayout.cpp
 
 $(debug)/src/ogdf/planarlayout/ShellingOrder.o: src/ogdf/planarlayout/ShellingOrder.cpp \
   include/ogdf/planarlayout/ShellingOrder.h \
@@ -17561,8 +17572,8 @@ $(debug)/src/ogdf/planarlayout/ShellingOrder.o: src/ogdf/planarlayout/ShellingOr
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/ShellingOrder.o -c src/ogdf/planarlayout/ShellingOrder.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/ShellingOrder.cpp
 
 $(release)/src/ogdf/planarlayout/ShellingOrder.o: src/ogdf/planarlayout/ShellingOrder.cpp \
   include/ogdf/planarlayout/ShellingOrder.h \
@@ -17580,8 +17591,8 @@ $(release)/src/ogdf/planarlayout/ShellingOrder.o: src/ogdf/planarlayout/Shelling
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/ShellingOrder.o -c src/ogdf/planarlayout/ShellingOrder.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/ShellingOrder.cpp
 
 $(debug)/src/ogdf/planarlayout/ShellingOrderModule.o: src/ogdf/planarlayout/ShellingOrderModule.cpp \
   include/ogdf/module/ShellingOrderModule.h \
@@ -17599,8 +17610,8 @@ $(debug)/src/ogdf/planarlayout/ShellingOrderModule.o: src/ogdf/planarlayout/Shel
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/ShellingOrderModule.o -c src/ogdf/planarlayout/ShellingOrderModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/ShellingOrderModule.cpp
 
 $(release)/src/ogdf/planarlayout/ShellingOrderModule.o: src/ogdf/planarlayout/ShellingOrderModule.cpp \
   include/ogdf/module/ShellingOrderModule.h \
@@ -17618,8 +17629,8 @@ $(release)/src/ogdf/planarlayout/ShellingOrderModule.o: src/ogdf/planarlayout/Sh
   include/ogdf/internal/basic/MallocMemoryAllocator.h \
   include/ogdf/basic/comparer.h include/ogdf/basic/ArrayBuffer.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/ShellingOrderModule.o -c src/ogdf/planarlayout/ShellingOrderModule.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/ShellingOrderModule.cpp
 
 $(debug)/src/ogdf/planarlayout/TriconnectedShellingOrder.o: \
   src/ogdf/planarlayout/TriconnectedShellingOrder.cpp \
@@ -17653,8 +17664,8 @@ $(debug)/src/ogdf/planarlayout/TriconnectedShellingOrder.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/planarlayout/TriconnectedShellingOrder.o -c src/ogdf/planarlayout/TriconnectedShellingOrder.cpp
+	$(MKDIR) $(debug)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/planarlayout/TriconnectedShellingOrder.cpp
 
 $(release)/src/ogdf/planarlayout/TriconnectedShellingOrder.o: \
   src/ogdf/planarlayout/TriconnectedShellingOrder.cpp \
@@ -17688,8 +17699,8 @@ $(release)/src/ogdf/planarlayout/TriconnectedShellingOrder.o: \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/planarlayout
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/planarlayout/TriconnectedShellingOrder.o -c src/ogdf/planarlayout/TriconnectedShellingOrder.cpp
+	$(MKDIR) $(release)/src/ogdf/planarlayout
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/planarlayout/TriconnectedShellingOrder.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDraw.o: src/ogdf/simultaneous/SimDraw.cpp \
   include/ogdf/simultaneous/SimDraw.h \
@@ -17717,8 +17728,8 @@ $(debug)/src/ogdf/simultaneous/SimDraw.o: src/ogdf/simultaneous/SimDraw.cpp \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDraw.o -c src/ogdf/simultaneous/SimDraw.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDraw.cpp
 
 $(release)/src/ogdf/simultaneous/SimDraw.o: src/ogdf/simultaneous/SimDraw.cpp \
   include/ogdf/simultaneous/SimDraw.h \
@@ -17746,8 +17757,8 @@ $(release)/src/ogdf/simultaneous/SimDraw.o: src/ogdf/simultaneous/SimDraw.cpp \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h \
   include/ogdf/internal/steinertree/EdgeWeightedGraph.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDraw.o -c src/ogdf/simultaneous/SimDraw.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDraw.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDrawCaller.o: src/ogdf/simultaneous/SimDrawCaller.cpp \
   include/ogdf/simultaneous/SimDrawCaller.h \
@@ -17804,8 +17815,8 @@ $(debug)/src/ogdf/simultaneous/SimDrawCaller.o: src/ogdf/simultaneous/SimDrawCal
   include/ogdf/module/PlanarSubgraphModule.h \
   include/ogdf/planarity/VariableEmbeddingInserter.h \
   include/ogdf/planarity/RemoveReinsertType.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDrawCaller.o -c src/ogdf/simultaneous/SimDrawCaller.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDrawCaller.cpp
 
 $(release)/src/ogdf/simultaneous/SimDrawCaller.o: src/ogdf/simultaneous/SimDrawCaller.cpp \
   include/ogdf/simultaneous/SimDrawCaller.h \
@@ -17862,8 +17873,8 @@ $(release)/src/ogdf/simultaneous/SimDrawCaller.o: src/ogdf/simultaneous/SimDrawC
   include/ogdf/module/PlanarSubgraphModule.h \
   include/ogdf/planarity/VariableEmbeddingInserter.h \
   include/ogdf/planarity/RemoveReinsertType.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDrawCaller.o -c src/ogdf/simultaneous/SimDrawCaller.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDrawCaller.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDrawColorizer.o: src/ogdf/simultaneous/SimDrawColorizer.cpp \
   include/ogdf/simultaneous/SimDrawColorizer.h \
@@ -17887,8 +17898,8 @@ $(debug)/src/ogdf/simultaneous/SimDrawColorizer.o: src/ogdf/simultaneous/SimDraw
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDrawColorizer.o -c src/ogdf/simultaneous/SimDrawColorizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDrawColorizer.cpp
 
 $(release)/src/ogdf/simultaneous/SimDrawColorizer.o: src/ogdf/simultaneous/SimDrawColorizer.cpp \
   include/ogdf/simultaneous/SimDrawColorizer.h \
@@ -17912,8 +17923,8 @@ $(release)/src/ogdf/simultaneous/SimDrawColorizer.o: src/ogdf/simultaneous/SimDr
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDrawColorizer.o -c src/ogdf/simultaneous/SimDrawColorizer.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDrawColorizer.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDrawCreator.o: src/ogdf/simultaneous/SimDrawCreator.cpp \
   include/ogdf/simultaneous/SimDrawCreator.h \
@@ -17940,8 +17951,8 @@ $(debug)/src/ogdf/simultaneous/SimDrawCreator.o: src/ogdf/simultaneous/SimDrawCr
   include/ogdf/basic/graph_generators.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDrawCreator.o -c src/ogdf/simultaneous/SimDrawCreator.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDrawCreator.cpp
 
 $(release)/src/ogdf/simultaneous/SimDrawCreator.o: src/ogdf/simultaneous/SimDrawCreator.cpp \
   include/ogdf/simultaneous/SimDrawCreator.h \
@@ -17968,8 +17979,8 @@ $(release)/src/ogdf/simultaneous/SimDrawCreator.o: src/ogdf/simultaneous/SimDraw
   include/ogdf/basic/graph_generators.h \
   include/ogdf/cluster/ClusterGraph.h include/ogdf/basic/Stack.h \
   include/ogdf/basic/GraphObserver.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDrawCreator.o -c src/ogdf/simultaneous/SimDrawCreator.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDrawCreator.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDrawCreatorSimple.o: src/ogdf/simultaneous/SimDrawCreatorSimple.cpp \
   include/ogdf/simultaneous/SimDrawCreatorSimple.h \
@@ -17994,8 +18005,8 @@ $(debug)/src/ogdf/simultaneous/SimDrawCreatorSimple.o: src/ogdf/simultaneous/Sim
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Array2D.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDrawCreatorSimple.o -c src/ogdf/simultaneous/SimDrawCreatorSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDrawCreatorSimple.cpp
 
 $(release)/src/ogdf/simultaneous/SimDrawCreatorSimple.o: src/ogdf/simultaneous/SimDrawCreatorSimple.cpp \
   include/ogdf/simultaneous/SimDrawCreatorSimple.h \
@@ -18020,8 +18031,8 @@ $(release)/src/ogdf/simultaneous/SimDrawCreatorSimple.o: src/ogdf/simultaneous/S
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/basic/Array2D.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDrawCreatorSimple.o -c src/ogdf/simultaneous/SimDrawCreatorSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDrawCreatorSimple.cpp
 
 $(debug)/src/ogdf/simultaneous/SimDrawManipulatorModule.o: \
   src/ogdf/simultaneous/SimDrawManipulatorModule.cpp \
@@ -18045,8 +18056,8 @@ $(debug)/src/ogdf/simultaneous/SimDrawManipulatorModule.o: \
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/simultaneous/SimDrawManipulatorModule.o -c src/ogdf/simultaneous/SimDrawManipulatorModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/simultaneous/SimDrawManipulatorModule.cpp
 
 $(release)/src/ogdf/simultaneous/SimDrawManipulatorModule.o: \
   src/ogdf/simultaneous/SimDrawManipulatorModule.cpp \
@@ -18070,8 +18081,8 @@ $(release)/src/ogdf/simultaneous/SimDrawManipulatorModule.o: \
   include/ogdf/basic/GraphCopy.h include/ogdf/basic/SList.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/simultaneous
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/simultaneous/SimDrawManipulatorModule.o -c src/ogdf/simultaneous/SimDrawManipulatorModule.cpp
+	$(MKDIR) $(release)/src/ogdf/simultaneous
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/simultaneous/SimDrawManipulatorModule.cpp
 
 $(debug)/src/ogdf/tree/LCA.o: src/ogdf/tree/LCA.cpp include/ogdf/tree/LCA.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/List.h \
@@ -18088,8 +18099,8 @@ $(debug)/src/ogdf/tree/LCA.o: src/ogdf/tree/LCA.cpp include/ogdf/tree/LCA.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/tree/LCA.o -c src/ogdf/tree/LCA.cpp
+	$(MKDIR) $(debug)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/tree/LCA.cpp
 
 $(release)/src/ogdf/tree/LCA.o: src/ogdf/tree/LCA.cpp include/ogdf/tree/LCA.h \
   include/ogdf/basic/Graph.h include/ogdf/basic/List.h \
@@ -18106,8 +18117,8 @@ $(release)/src/ogdf/tree/LCA.o: src/ogdf/tree/LCA.cpp include/ogdf/tree/LCA.h \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/tree/LCA.o -c src/ogdf/tree/LCA.cpp
+	$(MKDIR) $(release)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/tree/LCA.cpp
 
 $(debug)/src/ogdf/tree/RadialTreeLayout.o: src/ogdf/tree/RadialTreeLayout.cpp \
   include/ogdf/tree/RadialTreeLayout.h \
@@ -18132,8 +18143,8 @@ $(debug)/src/ogdf/tree/RadialTreeLayout.o: src/ogdf/tree/RadialTreeLayout.cpp \
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h include/ogdf/basic/Math.h
-	mkdir -p $(debug)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/tree/RadialTreeLayout.o -c src/ogdf/tree/RadialTreeLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/tree/RadialTreeLayout.cpp
 
 $(release)/src/ogdf/tree/RadialTreeLayout.o: src/ogdf/tree/RadialTreeLayout.cpp \
   include/ogdf/tree/RadialTreeLayout.h \
@@ -18158,8 +18169,8 @@ $(release)/src/ogdf/tree/RadialTreeLayout.o: src/ogdf/tree/RadialTreeLayout.cpp 
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h include/ogdf/basic/Math.h
-	mkdir -p $(release)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/tree/RadialTreeLayout.o -c src/ogdf/tree/RadialTreeLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/tree/RadialTreeLayout.cpp
 
 $(debug)/src/ogdf/tree/TreeLayout.o: src/ogdf/tree/TreeLayout.cpp include/ogdf/tree/TreeLayout.h \
   include/ogdf/module/LayoutModule.h \
@@ -18184,8 +18195,8 @@ $(debug)/src/ogdf/tree/TreeLayout.o: src/ogdf/tree/TreeLayout.cpp include/ogdf/t
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/tree/TreeLayout.o -c src/ogdf/tree/TreeLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/tree/TreeLayout.cpp
 
 $(release)/src/ogdf/tree/TreeLayout.o: src/ogdf/tree/TreeLayout.cpp include/ogdf/tree/TreeLayout.h \
   include/ogdf/module/LayoutModule.h \
@@ -18210,8 +18221,8 @@ $(release)/src/ogdf/tree/TreeLayout.o: src/ogdf/tree/TreeLayout.cpp include/ogdf
   include/ogdf/basic/AdjEntryArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/tree
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/tree/TreeLayout.o -c src/ogdf/tree/TreeLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/tree
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/tree/TreeLayout.cpp
 
 $(debug)/src/ogdf/uml/FixedEmbeddingInserterUML.o: src/ogdf/uml/FixedEmbeddingInserterUML.cpp \
   include/ogdf/uml/FixedEmbeddingInserterUML.h \
@@ -18242,8 +18253,8 @@ $(debug)/src/ogdf/uml/FixedEmbeddingInserterUML.o: src/ogdf/uml/FixedEmbeddingIn
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/FixedEmbeddingInserterUML.o -c src/ogdf/uml/FixedEmbeddingInserterUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/FixedEmbeddingInserterUML.cpp
 
 $(release)/src/ogdf/uml/FixedEmbeddingInserterUML.o: src/ogdf/uml/FixedEmbeddingInserterUML.cpp \
   include/ogdf/uml/FixedEmbeddingInserterUML.h \
@@ -18274,8 +18285,8 @@ $(release)/src/ogdf/uml/FixedEmbeddingInserterUML.o: src/ogdf/uml/FixedEmbedding
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/FixEdgeInserterCore.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/FixedEmbeddingInserterUML.o -c src/ogdf/uml/FixedEmbeddingInserterUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/FixedEmbeddingInserterUML.cpp
 
 $(debug)/src/ogdf/uml/OrthoLayoutUML.o: src/ogdf/uml/OrthoLayoutUML.cpp \
   include/ogdf/uml/OrthoLayoutUML.h \
@@ -18312,8 +18323,8 @@ $(debug)/src/ogdf/uml/OrthoLayoutUML.o: src/ogdf/uml/OrthoLayoutUML.cpp \
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/orthogonal/OrthoShaper.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/OrthoLayoutUML.o -c src/ogdf/uml/OrthoLayoutUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/OrthoLayoutUML.cpp
 
 $(release)/src/ogdf/uml/OrthoLayoutUML.o: src/ogdf/uml/OrthoLayoutUML.cpp \
   include/ogdf/uml/OrthoLayoutUML.h \
@@ -18350,8 +18361,8 @@ $(release)/src/ogdf/uml/OrthoLayoutUML.o: src/ogdf/uml/OrthoLayoutUML.cpp \
   include/ogdf/orthogonal/EdgeRouter.h \
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/orthogonal/OrthoShaper.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/OrthoLayoutUML.o -c src/ogdf/uml/OrthoLayoutUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/OrthoLayoutUML.cpp
 
 $(debug)/src/ogdf/uml/PlanRepUML.o: src/ogdf/uml/PlanRepUML.cpp include/ogdf/uml/PlanRepUML.h \
   include/ogdf/planarity/PlanRep.h include/ogdf/basic/GraphCopy.h \
@@ -18378,8 +18389,8 @@ $(debug)/src/ogdf/uml/PlanRepUML.o: src/ogdf/uml/PlanRepUML.cpp include/ogdf/uml
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/GridLayoutMapped.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/PlanRepUML.o -c src/ogdf/uml/PlanRepUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/PlanRepUML.cpp
 
 $(release)/src/ogdf/uml/PlanRepUML.o: src/ogdf/uml/PlanRepUML.cpp include/ogdf/uml/PlanRepUML.h \
   include/ogdf/planarity/PlanRep.h include/ogdf/basic/GraphCopy.h \
@@ -18406,8 +18417,8 @@ $(release)/src/ogdf/uml/PlanRepUML.o: src/ogdf/uml/PlanRepUML.cpp include/ogdf/u
   include/ogdf/orthogonal/OrthoRep.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/GridLayoutMapped.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/PlanRepUML.o -c src/ogdf/uml/PlanRepUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/PlanRepUML.cpp
 
 $(debug)/src/ogdf/uml/PlanarizationLayoutUML.o: src/ogdf/uml/PlanarizationLayoutUML.cpp \
   include/ogdf/uml/PlanarizationLayoutUML.h \
@@ -18465,8 +18476,8 @@ $(debug)/src/ogdf/uml/PlanarizationLayoutUML.o: src/ogdf/uml/PlanarizationLayout
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/PlanarizationLayoutUML.o -c src/ogdf/uml/PlanarizationLayoutUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/PlanarizationLayoutUML.cpp
 
 $(release)/src/ogdf/uml/PlanarizationLayoutUML.o: src/ogdf/uml/PlanarizationLayoutUML.cpp \
   include/ogdf/uml/PlanarizationLayoutUML.h \
@@ -18524,8 +18535,8 @@ $(release)/src/ogdf/uml/PlanarizationLayoutUML.o: src/ogdf/uml/PlanarizationLayo
   include/ogdf/internal/orthogonal/NodeInfo.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/PlanarizationLayoutUML.o -c src/ogdf/uml/PlanarizationLayoutUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/PlanarizationLayoutUML.cpp
 
 $(debug)/src/ogdf/uml/PlanarizationLayoutUML_inc.o: src/ogdf/uml/PlanarizationLayoutUML_inc.cpp \
   include/ogdf/uml/PlanarizationLayoutUML.h \
@@ -18573,8 +18584,8 @@ $(debug)/src/ogdf/uml/PlanarizationLayoutUML_inc.o: src/ogdf/uml/PlanarizationLa
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/PlanarizationLayoutUML_inc.o -c src/ogdf/uml/PlanarizationLayoutUML_inc.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/PlanarizationLayoutUML_inc.cpp
 
 $(release)/src/ogdf/uml/PlanarizationLayoutUML_inc.o: src/ogdf/uml/PlanarizationLayoutUML_inc.cpp \
   include/ogdf/uml/PlanarizationLayoutUML.h \
@@ -18622,8 +18633,8 @@ $(release)/src/ogdf/uml/PlanarizationLayoutUML_inc.o: src/ogdf/uml/Planarization
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/PlanarizationLayoutUML_inc.o -c src/ogdf/uml/PlanarizationLayoutUML_inc.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/PlanarizationLayoutUML_inc.cpp
 
 $(debug)/src/ogdf/uml/SubgraphPlanarizerUML.o: src/ogdf/uml/SubgraphPlanarizerUML.cpp \
   include/ogdf/uml/SubgraphPlanarizerUML.h \
@@ -18670,8 +18681,8 @@ $(debug)/src/ogdf/uml/SubgraphPlanarizerUML.o: src/ogdf/uml/SubgraphPlanarizerUM
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/CrossingStructure.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/SubgraphPlanarizerUML.o -c src/ogdf/uml/SubgraphPlanarizerUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/SubgraphPlanarizerUML.cpp
 
 $(release)/src/ogdf/uml/SubgraphPlanarizerUML.o: src/ogdf/uml/SubgraphPlanarizerUML.cpp \
   include/ogdf/uml/SubgraphPlanarizerUML.h \
@@ -18718,8 +18729,8 @@ $(release)/src/ogdf/uml/SubgraphPlanarizerUML.o: src/ogdf/uml/SubgraphPlanarizer
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/internal/planarity/CrossingStructure.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/SubgraphPlanarizerUML.o -c src/ogdf/uml/SubgraphPlanarizerUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/SubgraphPlanarizerUML.cpp
 
 $(debug)/src/ogdf/uml/UMLCrossingMinimizationModule.o: \
   src/ogdf/uml/UMLCrossingMinimizationModule.cpp \
@@ -18749,8 +18760,8 @@ $(debug)/src/ogdf/uml/UMLCrossingMinimizationModule.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/UMLCrossingMinimizationModule.o -c src/ogdf/uml/UMLCrossingMinimizationModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/UMLCrossingMinimizationModule.cpp
 
 $(release)/src/ogdf/uml/UMLCrossingMinimizationModule.o: \
   src/ogdf/uml/UMLCrossingMinimizationModule.cpp \
@@ -18780,8 +18791,8 @@ $(release)/src/ogdf/uml/UMLCrossingMinimizationModule.o: \
   include/ogdf/basic/tuples.h include/ogdf/basic/Stack.h \
   include/ogdf/uml/UMLGraph.h include/ogdf/basic/Module.h \
   include/ogdf/basic/Timeouter.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/UMLCrossingMinimizationModule.o -c src/ogdf/uml/UMLCrossingMinimizationModule.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/UMLCrossingMinimizationModule.cpp
 
 $(debug)/src/ogdf/uml/UMLGraph.o: src/ogdf/uml/UMLGraph.cpp include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -18811,8 +18822,8 @@ $(debug)/src/ogdf/uml/UMLGraph.o: src/ogdf/uml/UMLGraph.cpp include/ogdf/uml/UML
   include/ogdf/misclayout/CircularLayout.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/UMLGraph.o -c src/ogdf/uml/UMLGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/UMLGraph.cpp
 
 $(release)/src/ogdf/uml/UMLGraph.o: src/ogdf/uml/UMLGraph.cpp include/ogdf/uml/UMLGraph.h \
   include/ogdf/basic/GraphAttributes.h include/ogdf/basic/NodeArray.h \
@@ -18842,8 +18853,8 @@ $(release)/src/ogdf/uml/UMLGraph.o: src/ogdf/uml/UMLGraph.cpp include/ogdf/uml/U
   include/ogdf/misclayout/CircularLayout.h \
   include/ogdf/module/LayoutModule.h include/ogdf/basic/Constraints.h \
   include/ogdf/internal/energybased/MultilevelGraph.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/UMLGraph.o -c src/ogdf/uml/UMLGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/UMLGraph.cpp
 
 $(debug)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o: \
   src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp \
@@ -18875,8 +18886,8 @@ $(debug)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o: \
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o -c src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp
 
 $(release)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o: \
   src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp \
@@ -18908,8 +18919,8 @@ $(release)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o: \
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterDynCore.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o -c src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/VariableEmbeddingInserterDynUML.cpp
 
 $(debug)/src/ogdf/uml/VariableEmbeddingInserterUML.o: \
   src/ogdf/uml/VariableEmbeddingInserterUML.cpp \
@@ -18941,8 +18952,8 @@ $(debug)/src/ogdf/uml/VariableEmbeddingInserterUML.o: \
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h
-	mkdir -p $(debug)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/uml/VariableEmbeddingInserterUML.o -c src/ogdf/uml/VariableEmbeddingInserterUML.cpp
+	$(MKDIR) $(debug)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/uml/VariableEmbeddingInserterUML.cpp
 
 $(release)/src/ogdf/uml/VariableEmbeddingInserterUML.o: \
   src/ogdf/uml/VariableEmbeddingInserterUML.cpp \
@@ -18974,8 +18985,8 @@ $(release)/src/ogdf/uml/VariableEmbeddingInserterUML.o: \
   include/ogdf/basic/Module.h include/ogdf/basic/Timeouter.h \
   include/ogdf/planarity/RemoveReinsertType.h \
   include/ogdf/internal/planarity/VarEdgeInserterCore.h
-	mkdir -p $(release)/src/ogdf/uml
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/uml/VariableEmbeddingInserterUML.o -c src/ogdf/uml/VariableEmbeddingInserterUML.cpp
+	$(MKDIR) $(release)/src/ogdf/uml
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/uml/VariableEmbeddingInserterUML.cpp
 
 $(debug)/src/ogdf/upward/DominanceLayout.o: src/ogdf/upward/DominanceLayout.cpp \
   include/ogdf/upward/DominanceLayout.h \
@@ -19011,8 +19022,8 @@ $(debug)/src/ogdf/upward/DominanceLayout.o: src/ogdf/upward/DominanceLayout.cpp 
   include/ogdf/upward/UpwardPlanarity.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/layered/GreedyCycleRemoval.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/DominanceLayout.o -c src/ogdf/upward/DominanceLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/DominanceLayout.cpp
 
 $(release)/src/ogdf/upward/DominanceLayout.o: src/ogdf/upward/DominanceLayout.cpp \
   include/ogdf/upward/DominanceLayout.h \
@@ -19048,8 +19059,8 @@ $(release)/src/ogdf/upward/DominanceLayout.o: src/ogdf/upward/DominanceLayout.cp
   include/ogdf/upward/UpwardPlanarity.h \
   include/ogdf/decomposition/BCTree.h include/ogdf/basic/BoundedStack.h \
   include/ogdf/layered/GreedyCycleRemoval.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/DominanceLayout.o -c src/ogdf/upward/DominanceLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/DominanceLayout.cpp
 
 $(debug)/src/ogdf/upward/ExpansionGraph.o: src/ogdf/upward/ExpansionGraph.cpp \
   include/ogdf/upward/ExpansionGraph.h include/ogdf/basic/EdgeArray.h \
@@ -19067,8 +19078,8 @@ $(debug)/src/ogdf/upward/ExpansionGraph.o: src/ogdf/upward/ExpansionGraph.cpp \
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/NodeSet.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/ExpansionGraph.o -c src/ogdf/upward/ExpansionGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/ExpansionGraph.cpp
 
 $(release)/src/ogdf/upward/ExpansionGraph.o: src/ogdf/upward/ExpansionGraph.cpp \
   include/ogdf/upward/ExpansionGraph.h include/ogdf/basic/EdgeArray.h \
@@ -19086,8 +19097,8 @@ $(release)/src/ogdf/upward/ExpansionGraph.o: src/ogdf/upward/ExpansionGraph.cpp 
   include/ogdf/basic/Graph.h include/ogdf/basic/NodeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/NodeSet.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/ExpansionGraph.o -c src/ogdf/upward/ExpansionGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/ExpansionGraph.cpp
 
 $(debug)/src/ogdf/upward/FUPSSimple.o: src/ogdf/upward/FUPSSimple.cpp \
   include/ogdf/upward/FUPSSimple.h include/ogdf/module/FUPSModule.h \
@@ -19112,8 +19123,8 @@ $(debug)/src/ogdf/upward/FUPSSimple.o: src/ogdf/upward/FUPSSimple.cpp \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/FUPSSimple.o -c src/ogdf/upward/FUPSSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/FUPSSimple.cpp
 
 $(release)/src/ogdf/upward/FUPSSimple.o: src/ogdf/upward/FUPSSimple.cpp \
   include/ogdf/upward/FUPSSimple.h include/ogdf/module/FUPSModule.h \
@@ -19138,8 +19149,8 @@ $(release)/src/ogdf/upward/FUPSSimple.o: src/ogdf/upward/FUPSSimple.cpp \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/FUPSSimple.o -c src/ogdf/upward/FUPSSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/FUPSSimple.cpp
 
 $(debug)/src/ogdf/upward/FaceSinkGraph.o: src/ogdf/upward/FaceSinkGraph.cpp \
   include/ogdf/upward/FaceSinkGraph.h \
@@ -19158,8 +19169,8 @@ $(debug)/src/ogdf/upward/FaceSinkGraph.o: src/ogdf/upward/FaceSinkGraph.cpp \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/SList.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/FaceSinkGraph.o -c src/ogdf/upward/FaceSinkGraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/FaceSinkGraph.cpp
 
 $(release)/src/ogdf/upward/FaceSinkGraph.o: src/ogdf/upward/FaceSinkGraph.cpp \
   include/ogdf/upward/FaceSinkGraph.h \
@@ -19178,8 +19189,8 @@ $(release)/src/ogdf/upward/FaceSinkGraph.o: src/ogdf/upward/FaceSinkGraph.cpp \
   include/ogdf/basic/NodeArray.h include/ogdf/basic/Graph_d.h \
   include/ogdf/basic/GraphList.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/SList.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/FaceSinkGraph.o -c src/ogdf/upward/FaceSinkGraph.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/FaceSinkGraph.cpp
 
 $(debug)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o: \
   src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp \
@@ -19204,8 +19215,8 @@ $(debug)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o: \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o -c src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp
 
 $(release)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o: \
   src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp \
@@ -19230,8 +19241,8 @@ $(release)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o: \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o -c src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/FeasibleUpwardPlanarSubgraph.cpp
 
 $(debug)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o: \
   src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp \
@@ -19269,8 +19280,8 @@ $(debug)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o: \
   include/ogdf/layered/FastHierarchyLayout.h \
   include/ogdf/layered/OptimalRanking.h \
   include/ogdf/module/AcyclicSubgraphModule.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o -c src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp
 
 $(release)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o: \
   src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp \
@@ -19308,8 +19319,8 @@ $(release)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o: \
   include/ogdf/layered/FastHierarchyLayout.h \
   include/ogdf/layered/OptimalRanking.h \
   include/ogdf/module/AcyclicSubgraphModule.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o -c src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.cpp
 
 $(debug)/src/ogdf/upward/LayerBasedUPRLayout.o: src/ogdf/upward/LayerBasedUPRLayout.cpp \
   include/ogdf/upward/LayerBasedUPRLayout.h \
@@ -19342,8 +19353,8 @@ $(debug)/src/ogdf/upward/LayerBasedUPRLayout.o: src/ogdf/upward/LayerBasedUPRLay
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/LayerBasedUPRLayout.o -c src/ogdf/upward/LayerBasedUPRLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/LayerBasedUPRLayout.cpp
 
 $(release)/src/ogdf/upward/LayerBasedUPRLayout.o: src/ogdf/upward/LayerBasedUPRLayout.cpp \
   include/ogdf/upward/LayerBasedUPRLayout.h \
@@ -19376,8 +19387,8 @@ $(release)/src/ogdf/upward/LayerBasedUPRLayout.o: src/ogdf/upward/LayerBasedUPRL
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h include/ogdf/basic/Queue.h \
   include/ogdf/basic/Stack.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/LayerBasedUPRLayout.o -c src/ogdf/upward/LayerBasedUPRLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/LayerBasedUPRLayout.cpp
 
 $(debug)/src/ogdf/upward/SubgraphUpwardPlanarizer.o: src/ogdf/upward/SubgraphUpwardPlanarizer.cpp \
   include/ogdf/upward/SubgraphUpwardPlanarizer.h \
@@ -19409,8 +19420,8 @@ $(debug)/src/ogdf/upward/SubgraphUpwardPlanarizer.o: src/ogdf/upward/SubgraphUpw
   include/ogdf/upward/FeasibleUpwardPlanarSubgraph.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/Queue.h \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/SubgraphUpwardPlanarizer.o -c src/ogdf/upward/SubgraphUpwardPlanarizer.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/SubgraphUpwardPlanarizer.cpp
 
 $(release)/src/ogdf/upward/SubgraphUpwardPlanarizer.o: src/ogdf/upward/SubgraphUpwardPlanarizer.cpp \
   include/ogdf/upward/SubgraphUpwardPlanarizer.h \
@@ -19442,8 +19453,8 @@ $(release)/src/ogdf/upward/SubgraphUpwardPlanarizer.o: src/ogdf/upward/SubgraphU
   include/ogdf/upward/FeasibleUpwardPlanarSubgraph.h \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/Queue.h \
   include/ogdf/upward/FaceSinkGraph.h include/ogdf/basic/FaceArray.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/SubgraphUpwardPlanarizer.o -c src/ogdf/upward/SubgraphUpwardPlanarizer.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/SubgraphUpwardPlanarizer.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanRep.o: src/ogdf/upward/UpwardPlanRep.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -19465,8 +19476,8 @@ $(debug)/src/ogdf/upward/UpwardPlanRep.o: src/ogdf/upward/UpwardPlanRep.cpp \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/upward/FaceSinkGraph.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/FaceSet.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Hashing.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanRep.o -c src/ogdf/upward/UpwardPlanRep.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanRep.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanRep.o: src/ogdf/upward/UpwardPlanRep.cpp \
   include/ogdf/basic/simple_graph_alg.h include/ogdf/basic/EdgeArray.h \
@@ -19488,8 +19499,8 @@ $(release)/src/ogdf/upward/UpwardPlanRep.o: src/ogdf/upward/UpwardPlanRep.cpp \
   include/ogdf/basic/AdjEntryArray.h include/ogdf/upward/FaceSinkGraph.h \
   include/ogdf/basic/FaceArray.h include/ogdf/basic/FaceSet.h \
   include/ogdf/basic/tuples.h include/ogdf/basic/Hashing.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanRep.o -c src/ogdf/upward/UpwardPlanRep.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanRep.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanarSubgraphModule.o: \
   src/ogdf/upward/UpwardPlanarSubgraphModule.cpp \
@@ -19509,8 +19520,8 @@ $(debug)/src/ogdf/upward/UpwardPlanarSubgraphModule.o: \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanarSubgraphModule.o -c src/ogdf/upward/UpwardPlanarSubgraphModule.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanarSubgraphModule.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanarSubgraphModule.o: \
   src/ogdf/upward/UpwardPlanarSubgraphModule.cpp \
@@ -19530,8 +19541,8 @@ $(release)/src/ogdf/upward/UpwardPlanarSubgraphModule.o: \
   include/ogdf/basic/Graph.h include/ogdf/basic/EdgeArray.h \
   include/ogdf/basic/SList.h include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanarSubgraphModule.o -c src/ogdf/upward/UpwardPlanarSubgraphModule.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanarSubgraphModule.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o: \
   src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp \
@@ -19564,8 +19575,8 @@ $(debug)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o -c src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o: \
   src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp \
@@ -19598,8 +19609,8 @@ $(release)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o: \
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o -c src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanarSubgraphSimple.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanarity.o: src/ogdf/upward/UpwardPlanarity.cpp \
   include/ogdf/upward/UpwardPlanarity.h include/ogdf/basic/Graph.h \
@@ -19630,8 +19641,8 @@ $(debug)/src/ogdf/upward/UpwardPlanarity.o: src/ogdf/upward/UpwardPlanarity.cpp 
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/upward/FaceSinkGraph.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanarity.o -c src/ogdf/upward/UpwardPlanarity.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanarity.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanarity.o: src/ogdf/upward/UpwardPlanarity.cpp \
   include/ogdf/upward/UpwardPlanarity.h include/ogdf/basic/Graph.h \
@@ -19662,8 +19673,8 @@ $(release)/src/ogdf/upward/UpwardPlanarity.o: src/ogdf/upward/UpwardPlanarity.cp
   include/ogdf/basic/GraphCopy.h \
   include/ogdf/planarity/KuratowskiSubdivision.h \
   include/ogdf/upward/FaceSinkGraph.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanarity.o -c src/ogdf/upward/UpwardPlanarity.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanarity.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o: \
   src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp \
@@ -19684,8 +19695,8 @@ $(debug)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o: \
   include/ogdf/basic/SList.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o -c src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o: \
   src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp \
@@ -19706,8 +19717,8 @@ $(release)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o: \
   include/ogdf/basic/SList.h include/ogdf/basic/FaceArray.h \
   include/ogdf/basic/CombinatorialEmbedding.h \
   include/ogdf/basic/AdjEntryArray.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o -c src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.cpp
 
 $(debug)/src/ogdf/upward/UpwardPlanaritySingleSource.o: \
   src/ogdf/upward/UpwardPlanaritySingleSource.cpp \
@@ -19748,8 +19759,8 @@ $(debug)/src/ogdf/upward/UpwardPlanaritySingleSource.o: \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h \
   include/ogdf/upward/UpwardPlanarity.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/UpwardPlanaritySingleSource.o -c src/ogdf/upward/UpwardPlanaritySingleSource.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/UpwardPlanaritySingleSource.cpp
 
 $(release)/src/ogdf/upward/UpwardPlanaritySingleSource.o: \
   src/ogdf/upward/UpwardPlanaritySingleSource.cpp \
@@ -19790,8 +19801,8 @@ $(release)/src/ogdf/upward/UpwardPlanaritySingleSource.o: \
   include/ogdf/basic/simple_graph_alg.h \
   include/ogdf/basic/BoundedStack.h \
   include/ogdf/upward/UpwardPlanarity.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/UpwardPlanaritySingleSource.o -c src/ogdf/upward/UpwardPlanaritySingleSource.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/UpwardPlanaritySingleSource.cpp
 
 $(debug)/src/ogdf/upward/VisibilityLayout.o: src/ogdf/upward/VisibilityLayout.cpp \
   include/ogdf/upward/VisibilityLayout.h \
@@ -19836,8 +19847,8 @@ $(debug)/src/ogdf/upward/VisibilityLayout.o: src/ogdf/upward/VisibilityLayout.cp
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(debug)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/ogdf/upward/VisibilityLayout.o -c src/ogdf/upward/VisibilityLayout.cpp
+	$(MKDIR) $(debug)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_debug) -o $@ -c src/ogdf/upward/VisibilityLayout.cpp
 
 $(release)/src/ogdf/upward/VisibilityLayout.o: src/ogdf/upward/VisibilityLayout.cpp \
   include/ogdf/upward/VisibilityLayout.h \
@@ -19882,2636 +19893,2642 @@ $(release)/src/ogdf/upward/VisibilityLayout.o: src/ogdf/upward/VisibilityLayout.
   include/ogdf/planarity/ExtractKuratowskis.h \
   include/ogdf/internal/planarity/FindKuratowskis.h \
   include/ogdf/planarity/KuratowskiSubdivision.h
-	mkdir -p $(release)/src/ogdf/upward
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC -I./include  -DOGDF_INSTALL  -O2 -o $(release)/src/ogdf/upward/VisibilityLayout.o -c src/ogdf/upward/VisibilityLayout.cpp
+	$(MKDIR) $(release)/src/ogdf/upward
+	$(CC) $(CXXFLAGS) $(OGDFFLAGS) $(CXXFLAGS_release) -o $@ -c src/ogdf/upward/VisibilityLayout.cpp
 
 debug_OBJS = \
-$(debug)/src/ogdf/abacus/aba_constraint.o \
-$(debug)/src/ogdf/abacus/abacusroot.o \
-$(debug)/src/ogdf/abacus/branchrule.o \
-$(debug)/src/ogdf/abacus/column.o \
-$(debug)/src/ogdf/abacus/conbranchrule.o \
-$(debug)/src/ogdf/abacus/conclass.o \
-$(debug)/src/ogdf/abacus/convar.o \
-$(debug)/src/ogdf/abacus/csense.o \
-$(debug)/src/ogdf/abacus/fixcand.o \
-$(debug)/src/ogdf/abacus/fsvarstat.o \
-$(debug)/src/ogdf/abacus/global.o \
-$(debug)/src/ogdf/abacus/history.o \
-$(debug)/src/ogdf/abacus/infeascon.o \
-$(debug)/src/ogdf/abacus/lp.o \
-$(debug)/src/ogdf/abacus/lpif.o \
-$(debug)/src/ogdf/abacus/lpmasterosi.o \
-$(debug)/src/ogdf/abacus/lpsub.o \
-$(debug)/src/ogdf/abacus/lpvarstat.o \
-$(debug)/src/ogdf/abacus/master.o \
-$(debug)/src/ogdf/abacus/opensub.o \
-$(debug)/src/ogdf/abacus/optsense.o \
-$(debug)/src/ogdf/abacus/osiif.o \
-$(debug)/src/ogdf/abacus/row.o \
-$(debug)/src/ogdf/abacus/setbranchrule.o \
-$(debug)/src/ogdf/abacus/slackstat.o \
-$(debug)/src/ogdf/abacus/sparvec.o \
-$(debug)/src/ogdf/abacus/srowcon.o \
-$(debug)/src/ogdf/abacus/sub.o \
-$(debug)/src/ogdf/abacus/tailoff.o \
-$(debug)/src/ogdf/abacus/valbranchrule.o \
-$(debug)/src/ogdf/abacus/variable.o \
-$(debug)/src/ogdf/abacus/vartype.o \
-$(debug)/src/ogdf/augmentation/DfsMakeBiconnected.o \
-$(debug)/src/ogdf/augmentation/PlanarAugmentation.o \
-$(debug)/src/ogdf/augmentation/PlanarAugmentationFix.o \
-$(debug)/src/ogdf/basic/CombinatorialEmbedding.o \
-$(debug)/src/ogdf/basic/Constraint.o \
-$(debug)/src/ogdf/basic/ConstraintManager.o \
-$(debug)/src/ogdf/basic/DisjointSets.o \
-$(debug)/src/ogdf/basic/DualGraph.o \
-$(debug)/src/ogdf/basic/EdgeComparer.o \
-$(debug)/src/ogdf/basic/EdgeComparerSimple.o \
-$(debug)/src/ogdf/basic/Graph.o \
-$(debug)/src/ogdf/basic/GraphAttributes.o \
-$(debug)/src/ogdf/basic/GraphConstraints.o \
-$(debug)/src/ogdf/basic/GraphCopy.o \
-$(debug)/src/ogdf/basic/GridLayout.o \
-$(debug)/src/ogdf/basic/GridLayoutModule.o \
-$(debug)/src/ogdf/basic/Hashing.o \
-$(debug)/src/ogdf/basic/LayoutStandards.o \
-$(debug)/src/ogdf/basic/Logger.o \
-$(debug)/src/ogdf/basic/Math.o \
-$(debug)/src/ogdf/basic/NearestRectangleFinder.o \
-$(debug)/src/ogdf/basic/PoolMemoryAllocator.o \
-$(debug)/src/ogdf/basic/PreprocessorLayout.o \
-$(debug)/src/ogdf/basic/Stopwatch.o \
-$(debug)/src/ogdf/basic/System.o \
-$(debug)/src/ogdf/basic/Thread.o \
-$(debug)/src/ogdf/basic/basic.o \
-$(debug)/src/ogdf/basic/config.o \
-$(debug)/src/ogdf/basic/extended_graph_alg.o \
-$(debug)/src/ogdf/basic/geometry.o \
-$(debug)/src/ogdf/basic/graph_generators.o \
-$(debug)/src/ogdf/basic/graphics.o \
-$(debug)/src/ogdf/basic/modules.o \
-$(debug)/src/ogdf/basic/random_hierarchy.o \
-$(debug)/src/ogdf/basic/simple_graph_alg.o \
-$(debug)/src/ogdf/basic/stNumber.o \
-$(debug)/src/ogdf/cluster/CP_MasterBase.o \
-$(debug)/src/ogdf/cluster/CPlanarEdgeInserter.o \
-$(debug)/src/ogdf/cluster/CPlanarSubCLusteredST.o \
-$(debug)/src/ogdf/cluster/CPlanarSubClusteredGraph.o \
-$(debug)/src/ogdf/cluster/CPlanarity_Master.o \
-$(debug)/src/ogdf/cluster/CPlanarity_Sub.o \
-$(debug)/src/ogdf/cluster/CconnectClusterPlanar.o \
-$(debug)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o \
-$(debug)/src/ogdf/cluster/ClusterAnalysis.o \
-$(debug)/src/ogdf/cluster/ClusterGraph.o \
-$(debug)/src/ogdf/cluster/ClusterGraphAttributes.o \
-$(debug)/src/ogdf/cluster/ClusterPlanarity.o \
-$(debug)/src/ogdf/cluster/ClusterPlanarizationLayout.o \
-$(debug)/src/ogdf/cluster/Cluster_ChunkConnection.o \
-$(debug)/src/ogdf/cluster/Cluster_CutConstraint.o \
-$(debug)/src/ogdf/cluster/Cluster_EdgeVar.o \
-$(debug)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o \
-$(debug)/src/ogdf/cluster/Clusterer.o \
-$(debug)/src/ogdf/cluster/KuratowskiConstraint.o \
-$(debug)/src/ogdf/cluster/MaxCPlanar_Master.o \
-$(debug)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o \
-$(debug)/src/ogdf/cluster/MaxCPlanar_Sub.o \
-$(debug)/src/ogdf/cluster/MaximumCPlanarSubgraph.o \
-$(debug)/src/ogdf/decomposition/BCTree.o \
-$(debug)/src/ogdf/decomposition/DynamicBCTree.o \
-$(debug)/src/ogdf/decomposition/DynamicSPQRForest.o \
-$(debug)/src/ogdf/decomposition/DynamicSPQRTree.o \
-$(debug)/src/ogdf/decomposition/NonPlanarCore.o \
-$(debug)/src/ogdf/decomposition/PlanarSPQRTree.o \
-$(debug)/src/ogdf/decomposition/StaticSPQRTree.o \
-$(debug)/src/ogdf/decomposition/TricComp.o \
-$(debug)/src/ogdf/energybased/AdjacencyOracle.o \
-$(debug)/src/ogdf/energybased/ArrayGraph.o \
-$(debug)/src/ogdf/energybased/Attraction.o \
-$(debug)/src/ogdf/energybased/DavidsonHarel.o \
-$(debug)/src/ogdf/energybased/DavidsonHarelLayout.o \
-$(debug)/src/ogdf/energybased/EdgeAttributes.o \
-$(debug)/src/ogdf/energybased/EnergyFunction.o \
-$(debug)/src/ogdf/energybased/FMEKernel.o \
-$(debug)/src/ogdf/energybased/FMEMultipoleKernel.o \
-$(debug)/src/ogdf/energybased/FMEThread.o \
-$(debug)/src/ogdf/energybased/FMMMLayout.o \
-$(debug)/src/ogdf/energybased/FastMultipoleEmbedder.o \
-$(debug)/src/ogdf/energybased/FruchtermanReingold.o \
-$(debug)/src/ogdf/energybased/GEMLayout.o \
-$(debug)/src/ogdf/energybased/GalaxyMultilevel.o \
-$(debug)/src/ogdf/energybased/IntersectionRectangle.o \
-$(debug)/src/ogdf/energybased/LinearQuadtree.o \
-$(debug)/src/ogdf/energybased/LinearQuadtreeBuilder.o \
-$(debug)/src/ogdf/energybased/LinearQuadtreeExpansion.o \
-$(debug)/src/ogdf/energybased/MAARPacking.o \
-$(debug)/src/ogdf/energybased/Multilevel.o \
-$(debug)/src/ogdf/energybased/MultilevelGraph.o \
-$(debug)/src/ogdf/energybased/MultilevelLayout.o \
-$(debug)/src/ogdf/energybased/NMM.o \
-$(debug)/src/ogdf/energybased/NodeAttributes.o \
-$(debug)/src/ogdf/energybased/NodePairEnergy.o \
-$(debug)/src/ogdf/energybased/Overlap.o \
-$(debug)/src/ogdf/energybased/PivotMDS.o \
-$(debug)/src/ogdf/energybased/Planarity.o \
-$(debug)/src/ogdf/energybased/PlanarityGrid.o \
-$(debug)/src/ogdf/energybased/QuadTreeNM.o \
-$(debug)/src/ogdf/energybased/QuadTreeNodeNM.o \
-$(debug)/src/ogdf/energybased/Repulsion.o \
-$(debug)/src/ogdf/energybased/Set.o \
-$(debug)/src/ogdf/energybased/SpringEmbedderFR.o \
-$(debug)/src/ogdf/energybased/SpringEmbedderFRExact.o \
-$(debug)/src/ogdf/energybased/SpringEmbedderKK.o \
-$(debug)/src/ogdf/energybased/StressMinimization.o \
-$(debug)/src/ogdf/energybased/TutteLayout.o \
-$(debug)/src/ogdf/energybased/UniformGrid.o \
-$(debug)/src/ogdf/energybased/WSPD.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/RandomMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/SolarMerger.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o \
-$(debug)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o \
-$(debug)/src/ogdf/energybased/numexcept.o \
-$(debug)/src/ogdf/external/coin.o \
-$(debug)/src/ogdf/fileformats/GmlParser.o \
-$(debug)/src/ogdf/fileformats/GraphIO.o \
-$(debug)/src/ogdf/fileformats/GraphIO_gml.o \
-$(debug)/src/ogdf/fileformats/GraphIO_hyper.o \
-$(debug)/src/ogdf/fileformats/GraphIO_leda.o \
-$(debug)/src/ogdf/fileformats/GraphIO_ogml.o \
-$(debug)/src/ogdf/fileformats/GraphIO_svg.o \
-$(debug)/src/ogdf/fileformats/LineBuffer.o \
-$(debug)/src/ogdf/fileformats/Ogml.o \
-$(debug)/src/ogdf/fileformats/OgmlParser.o \
-$(debug)/src/ogdf/fileformats/UmlDiagramGraph.o \
-$(debug)/src/ogdf/fileformats/UmlModelGraph.o \
-$(debug)/src/ogdf/fileformats/UmlToGraphConverter.o \
-$(debug)/src/ogdf/fileformats/XmlParser.o \
-$(debug)/src/ogdf/fileformats/XmlScanner.o \
-$(debug)/src/ogdf/graphalg/CliqueFinder.o \
-$(debug)/src/ogdf/graphalg/ConvexHull.o \
-$(debug)/src/ogdf/graphalg/MinCostFlowModule.o \
-$(debug)/src/ogdf/graphalg/MinCostFlowReinelt.o \
-$(debug)/src/ogdf/graphalg/MinimumCut.o \
-$(debug)/src/ogdf/graphalg/PageRank.o \
-$(debug)/src/ogdf/graphalg/ShortestPathAlgorithms.o \
-$(debug)/src/ogdf/graphalg/ShortestPathsWithBFM.o \
-$(debug)/src/ogdf/graphalg/mcf_front_reinelt.o \
-$(debug)/src/ogdf/hypergraph/EdgeStandardRep.o \
-$(debug)/src/ogdf/hypergraph/Hypergraph.o \
-$(debug)/src/ogdf/hypergraph/HypergraphLayout.o \
-$(debug)/src/ogdf/incremental/SimpleIncNodeInserter.o \
-$(debug)/src/ogdf/labeling/ELabelPosSimple.o \
-$(debug)/src/ogdf/layered/CoffmanGrahamRanking.o \
-$(debug)/src/ogdf/layered/CrossingsMatrix.o \
-$(debug)/src/ogdf/layered/FastHierarchyLayout.o \
-$(debug)/src/ogdf/layered/FastSimpleHierarchyLayout.o \
-$(debug)/src/ogdf/layered/HierarchyLayoutModule.o \
-$(debug)/src/ogdf/layered/OptimalHierarchyClusterLayout.o \
-$(debug)/src/ogdf/layered/OptimalHierarchyLayout.o \
-$(debug)/src/ogdf/layered/OptimalRanking.o \
-$(debug)/src/ogdf/layered/SplitHeuristic.o \
-$(debug)/src/ogdf/layered/SugiyamaLayoutMC.o \
-$(debug)/src/ogdf/layered/acyclic_subgraph.o \
-$(debug)/src/ogdf/layered/heuristics.o \
-$(debug)/src/ogdf/layered/ranking.o \
-$(debug)/src/ogdf/layered/sugiyama-cluster.o \
-$(debug)/src/ogdf/layered/sugiyama.o \
-$(debug)/src/ogdf/lpsolver/LPSolver_coin.o \
-$(debug)/src/ogdf/minisat/Minisat.o \
-$(debug)/src/ogdf/minisat/core/Solver.o \
-$(debug)/src/ogdf/minisat/simp/SimpSolver.o \
-$(debug)/src/ogdf/minisat/utils/Options.o \
-$(debug)/src/ogdf/misclayout/BalloonLayout.o \
-$(debug)/src/ogdf/misclayout/BertaultLayout.o \
-$(debug)/src/ogdf/misclayout/CircularExactLayout.o \
-$(debug)/src/ogdf/misclayout/CircularLayout.o \
-$(debug)/src/ogdf/misclayout/ProcrustesSubLayout.o \
-$(debug)/src/ogdf/orthogonal/ClusterOrthoLayout.o \
-$(debug)/src/ogdf/orthogonal/ClusterOrthoShaper.o \
-$(debug)/src/ogdf/orthogonal/CompactionConstraintGraph.o \
-$(debug)/src/ogdf/orthogonal/EdgeRouter.o \
-$(debug)/src/ogdf/orthogonal/FlowCompaction.o \
-$(debug)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o \
-$(debug)/src/ogdf/orthogonal/GridFlowCompaction.o \
-$(debug)/src/ogdf/orthogonal/KandinskyLayout.o \
-$(debug)/src/ogdf/orthogonal/LongestPathCompaction.o \
-$(debug)/src/ogdf/orthogonal/NodeInfo.o \
-$(debug)/src/ogdf/orthogonal/OrthoGridLayout.o \
-$(debug)/src/ogdf/orthogonal/OrthoLayout.o \
-$(debug)/src/ogdf/orthogonal/OrthoRep.o \
-$(debug)/src/ogdf/orthogonal/OrthoShaper.o \
-$(debug)/src/ogdf/packing/CCLayoutPackModule.o \
-$(debug)/src/ogdf/packing/ComponentSplitterLayout.o \
-$(debug)/src/ogdf/packing/TileToRowsCCPacker.o \
-$(debug)/src/ogdf/planarity/BoothLueker.o \
-$(debug)/src/ogdf/planarity/BoyerMyrvold.o \
-$(debug)/src/ogdf/planarity/BoyerMyrvoldInit.o \
-$(debug)/src/ogdf/planarity/BoyerMyrvoldPlanar.o \
-$(debug)/src/ogdf/planarity/CliqueReplacer.o \
-$(debug)/src/ogdf/planarity/ClusterPlanRep.o \
-$(debug)/src/ogdf/planarity/CrossingStructure.o \
-$(debug)/src/ogdf/planarity/EmbedPQTree.o \
-$(debug)/src/ogdf/planarity/EmbedderMaxFace.o \
-$(debug)/src/ogdf/planarity/EmbedderMaxFaceLayers.o \
-$(debug)/src/ogdf/planarity/EmbedderMinDepth.o \
-$(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o \
-$(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o \
-$(debug)/src/ogdf/planarity/EmbedderMinDepthPiTa.o \
-$(debug)/src/ogdf/planarity/ExtractKuratowskis.o \
-$(debug)/src/ogdf/planarity/FastPlanarSubgraph.o \
-$(debug)/src/ogdf/planarity/FindKuratowskis.o \
-$(debug)/src/ogdf/planarity/FixEdgeInserterCore.o \
-$(debug)/src/ogdf/planarity/FixedEmbeddingInserter.o \
-$(debug)/src/ogdf/planarity/GraphReduction.o \
-$(debug)/src/ogdf/planarity/Layout.o \
-$(debug)/src/ogdf/planarity/MDMFLengthAttribute.o \
-$(debug)/src/ogdf/planarity/MMCrossingMinimizationModule.o \
-$(debug)/src/ogdf/planarity/MMFixedEmbeddingInserter.o \
-$(debug)/src/ogdf/planarity/MMSubgraphPlanarizer.o \
-$(debug)/src/ogdf/planarity/MMVariableEmbeddingInserter.o \
-$(debug)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o \
-$(debug)/src/ogdf/planarity/MaximumPlanarSubgraph.o \
-$(debug)/src/ogdf/planarity/MultiEdgeApproxInserter.o \
-$(debug)/src/ogdf/planarity/OptimalCrossingMinimizer.o \
-$(debug)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o \
-$(debug)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o \
-$(debug)/src/ogdf/planarity/PlanRep.o \
-$(debug)/src/ogdf/planarity/PlanRepExpansion.o \
-$(debug)/src/ogdf/planarity/PlanRepInc.o \
-$(debug)/src/ogdf/planarity/PlanRepLight.o \
-$(debug)/src/ogdf/planarity/PlanarPQTree.o \
-$(debug)/src/ogdf/planarity/PlanarSubgraphModule.o \
-$(debug)/src/ogdf/planarity/PlanarSubgraphPQTree.o \
-$(debug)/src/ogdf/planarity/PlanarizationGridLayout.o \
-$(debug)/src/ogdf/planarity/PlanarizationLayout.o \
-$(debug)/src/ogdf/planarity/SimpleEmbedder.o \
-$(debug)/src/ogdf/planarity/SubgraphPlanarizer.o \
-$(debug)/src/ogdf/planarity/TopologyModule.o \
-$(debug)/src/ogdf/planarity/VarEdgeInserterCore.o \
-$(debug)/src/ogdf/planarity/VarEdgeInserterDynCore.o \
-$(debug)/src/ogdf/planarity/VariableEmbeddingInserter.o \
-$(debug)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o \
-$(debug)/src/ogdf/planarlayout/BiconnectedShellingOrder.o \
-$(debug)/src/ogdf/planarlayout/FPPLayout.o \
-$(debug)/src/ogdf/planarlayout/IOPoints.o \
-$(debug)/src/ogdf/planarlayout/MMCBBase.o \
-$(debug)/src/ogdf/planarlayout/MixedModelBase.o \
-$(debug)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o \
-$(debug)/src/ogdf/planarlayout/MixedModelLayout.o \
-$(debug)/src/ogdf/planarlayout/PlanarDrawLayout.o \
-$(debug)/src/ogdf/planarlayout/PlanarStraightLayout.o \
-$(debug)/src/ogdf/planarlayout/SchnyderLayout.o \
-$(debug)/src/ogdf/planarlayout/ShellingOrder.o \
-$(debug)/src/ogdf/planarlayout/ShellingOrderModule.o \
-$(debug)/src/ogdf/planarlayout/TriconnectedShellingOrder.o \
-$(debug)/src/ogdf/simultaneous/SimDraw.o \
-$(debug)/src/ogdf/simultaneous/SimDrawCaller.o \
-$(debug)/src/ogdf/simultaneous/SimDrawColorizer.o \
-$(debug)/src/ogdf/simultaneous/SimDrawCreator.o \
-$(debug)/src/ogdf/simultaneous/SimDrawCreatorSimple.o \
-$(debug)/src/ogdf/simultaneous/SimDrawManipulatorModule.o \
-$(debug)/src/ogdf/tree/LCA.o \
-$(debug)/src/ogdf/tree/RadialTreeLayout.o \
-$(debug)/src/ogdf/tree/TreeLayout.o \
-$(debug)/src/ogdf/uml/FixedEmbeddingInserterUML.o \
-$(debug)/src/ogdf/uml/OrthoLayoutUML.o \
-$(debug)/src/ogdf/uml/PlanRepUML.o \
-$(debug)/src/ogdf/uml/PlanarizationLayoutUML.o \
-$(debug)/src/ogdf/uml/PlanarizationLayoutUML_inc.o \
-$(debug)/src/ogdf/uml/SubgraphPlanarizerUML.o \
-$(debug)/src/ogdf/uml/UMLCrossingMinimizationModule.o \
-$(debug)/src/ogdf/uml/UMLGraph.o \
-$(debug)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o \
-$(debug)/src/ogdf/uml/VariableEmbeddingInserterUML.o \
-$(debug)/src/ogdf/upward/DominanceLayout.o \
-$(debug)/src/ogdf/upward/ExpansionGraph.o \
-$(debug)/src/ogdf/upward/FUPSSimple.o \
-$(debug)/src/ogdf/upward/FaceSinkGraph.o \
-$(debug)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o \
-$(debug)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o \
-$(debug)/src/ogdf/upward/LayerBasedUPRLayout.o \
-$(debug)/src/ogdf/upward/SubgraphUpwardPlanarizer.o \
-$(debug)/src/ogdf/upward/UpwardPlanRep.o \
-$(debug)/src/ogdf/upward/UpwardPlanarSubgraphModule.o \
-$(debug)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o \
-$(debug)/src/ogdf/upward/UpwardPlanarity.o \
-$(debug)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o \
-$(debug)/src/ogdf/upward/UpwardPlanaritySingleSource.o \
-$(debug)/src/ogdf/upward/VisibilityLayout.o \
+	$(debug)/src/ogdf/abacus/aba_constraint.o \
+	$(debug)/src/ogdf/abacus/abacusroot.o \
+	$(debug)/src/ogdf/abacus/branchrule.o \
+	$(debug)/src/ogdf/abacus/column.o \
+	$(debug)/src/ogdf/abacus/conbranchrule.o \
+	$(debug)/src/ogdf/abacus/conclass.o \
+	$(debug)/src/ogdf/abacus/convar.o \
+	$(debug)/src/ogdf/abacus/csense.o \
+	$(debug)/src/ogdf/abacus/fixcand.o \
+	$(debug)/src/ogdf/abacus/fsvarstat.o \
+	$(debug)/src/ogdf/abacus/global.o \
+	$(debug)/src/ogdf/abacus/history.o \
+	$(debug)/src/ogdf/abacus/infeascon.o \
+	$(debug)/src/ogdf/abacus/lp.o \
+	$(debug)/src/ogdf/abacus/lpif.o \
+	$(debug)/src/ogdf/abacus/lpmasterosi.o \
+	$(debug)/src/ogdf/abacus/lpsub.o \
+	$(debug)/src/ogdf/abacus/lpvarstat.o \
+	$(debug)/src/ogdf/abacus/master.o \
+	$(debug)/src/ogdf/abacus/opensub.o \
+	$(debug)/src/ogdf/abacus/optsense.o \
+	$(debug)/src/ogdf/abacus/osiif.o \
+	$(debug)/src/ogdf/abacus/row.o \
+	$(debug)/src/ogdf/abacus/setbranchrule.o \
+	$(debug)/src/ogdf/abacus/slackstat.o \
+	$(debug)/src/ogdf/abacus/sparvec.o \
+	$(debug)/src/ogdf/abacus/srowcon.o \
+	$(debug)/src/ogdf/abacus/sub.o \
+	$(debug)/src/ogdf/abacus/tailoff.o \
+	$(debug)/src/ogdf/abacus/valbranchrule.o \
+	$(debug)/src/ogdf/abacus/variable.o \
+	$(debug)/src/ogdf/abacus/vartype.o \
+	$(debug)/src/ogdf/augmentation/DfsMakeBiconnected.o \
+	$(debug)/src/ogdf/augmentation/PlanarAugmentation.o \
+	$(debug)/src/ogdf/augmentation/PlanarAugmentationFix.o \
+	$(debug)/src/ogdf/basic/CombinatorialEmbedding.o \
+	$(debug)/src/ogdf/basic/Constraint.o \
+	$(debug)/src/ogdf/basic/ConstraintManager.o \
+	$(debug)/src/ogdf/basic/DisjointSets.o \
+	$(debug)/src/ogdf/basic/DualGraph.o \
+	$(debug)/src/ogdf/basic/EdgeComparer.o \
+	$(debug)/src/ogdf/basic/EdgeComparerSimple.o \
+	$(debug)/src/ogdf/basic/Graph.o \
+	$(debug)/src/ogdf/basic/GraphAttributes.o \
+	$(debug)/src/ogdf/basic/GraphConstraints.o \
+	$(debug)/src/ogdf/basic/GraphCopy.o \
+	$(debug)/src/ogdf/basic/GridLayout.o \
+	$(debug)/src/ogdf/basic/GridLayoutModule.o \
+	$(debug)/src/ogdf/basic/Hashing.o \
+	$(debug)/src/ogdf/basic/LayoutStandards.o \
+	$(debug)/src/ogdf/basic/Logger.o \
+	$(debug)/src/ogdf/basic/Math.o \
+	$(debug)/src/ogdf/basic/NearestRectangleFinder.o \
+	$(debug)/src/ogdf/basic/PoolMemoryAllocator.o \
+	$(debug)/src/ogdf/basic/PreprocessorLayout.o \
+	$(debug)/src/ogdf/basic/Stopwatch.o \
+	$(debug)/src/ogdf/basic/System.o \
+	$(debug)/src/ogdf/basic/Thread.o \
+	$(debug)/src/ogdf/basic/basic.o \
+	$(debug)/src/ogdf/basic/config.o \
+	$(debug)/src/ogdf/basic/extended_graph_alg.o \
+	$(debug)/src/ogdf/basic/geometry.o \
+	$(debug)/src/ogdf/basic/graph_generators.o \
+	$(debug)/src/ogdf/basic/graphics.o \
+	$(debug)/src/ogdf/basic/modules.o \
+	$(debug)/src/ogdf/basic/random_hierarchy.o \
+	$(debug)/src/ogdf/basic/simple_graph_alg.o \
+	$(debug)/src/ogdf/basic/stNumber.o \
+	$(debug)/src/ogdf/cluster/CP_MasterBase.o \
+	$(debug)/src/ogdf/cluster/CPlanarEdgeInserter.o \
+	$(debug)/src/ogdf/cluster/CPlanarSubCLusteredST.o \
+	$(debug)/src/ogdf/cluster/CPlanarSubClusteredGraph.o \
+	$(debug)/src/ogdf/cluster/CPlanarity_Master.o \
+	$(debug)/src/ogdf/cluster/CPlanarity_Sub.o \
+	$(debug)/src/ogdf/cluster/CconnectClusterPlanar.o \
+	$(debug)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o \
+	$(debug)/src/ogdf/cluster/ClusterAnalysis.o \
+	$(debug)/src/ogdf/cluster/ClusterGraph.o \
+	$(debug)/src/ogdf/cluster/ClusterGraphAttributes.o \
+	$(debug)/src/ogdf/cluster/ClusterPlanarity.o \
+	$(debug)/src/ogdf/cluster/ClusterPlanarizationLayout.o \
+	$(debug)/src/ogdf/cluster/Cluster_ChunkConnection.o \
+	$(debug)/src/ogdf/cluster/Cluster_CutConstraint.o \
+	$(debug)/src/ogdf/cluster/Cluster_EdgeVar.o \
+	$(debug)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o \
+	$(debug)/src/ogdf/cluster/Clusterer.o \
+	$(debug)/src/ogdf/cluster/KuratowskiConstraint.o \
+	$(debug)/src/ogdf/cluster/MaxCPlanar_Master.o \
+	$(debug)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o \
+	$(debug)/src/ogdf/cluster/MaxCPlanar_Sub.o \
+	$(debug)/src/ogdf/cluster/MaximumCPlanarSubgraph.o \
+	$(debug)/src/ogdf/decomposition/BCTree.o \
+	$(debug)/src/ogdf/decomposition/DynamicBCTree.o \
+	$(debug)/src/ogdf/decomposition/DynamicSPQRForest.o \
+	$(debug)/src/ogdf/decomposition/DynamicSPQRTree.o \
+	$(debug)/src/ogdf/decomposition/NonPlanarCore.o \
+	$(debug)/src/ogdf/decomposition/PlanarSPQRTree.o \
+	$(debug)/src/ogdf/decomposition/StaticSPQRTree.o \
+	$(debug)/src/ogdf/decomposition/TricComp.o \
+	$(debug)/src/ogdf/energybased/AdjacencyOracle.o \
+	$(debug)/src/ogdf/energybased/ArrayGraph.o \
+	$(debug)/src/ogdf/energybased/Attraction.o \
+	$(debug)/src/ogdf/energybased/DavidsonHarel.o \
+	$(debug)/src/ogdf/energybased/DavidsonHarelLayout.o \
+	$(debug)/src/ogdf/energybased/EdgeAttributes.o \
+	$(debug)/src/ogdf/energybased/EnergyFunction.o \
+	$(debug)/src/ogdf/energybased/FMEKernel.o \
+	$(debug)/src/ogdf/energybased/FMEMultipoleKernel.o \
+	$(debug)/src/ogdf/energybased/FMEThread.o \
+	$(debug)/src/ogdf/energybased/FMMMLayout.o \
+	$(debug)/src/ogdf/energybased/FastMultipoleEmbedder.o \
+	$(debug)/src/ogdf/energybased/FruchtermanReingold.o \
+	$(debug)/src/ogdf/energybased/GEMLayout.o \
+	$(debug)/src/ogdf/energybased/GalaxyMultilevel.o \
+	$(debug)/src/ogdf/energybased/IntersectionRectangle.o \
+	$(debug)/src/ogdf/energybased/LinearQuadtree.o \
+	$(debug)/src/ogdf/energybased/LinearQuadtreeBuilder.o \
+	$(debug)/src/ogdf/energybased/LinearQuadtreeExpansion.o \
+	$(debug)/src/ogdf/energybased/MAARPacking.o \
+	$(debug)/src/ogdf/energybased/Multilevel.o \
+	$(debug)/src/ogdf/energybased/MultilevelGraph.o \
+	$(debug)/src/ogdf/energybased/MultilevelLayout.o \
+	$(debug)/src/ogdf/energybased/NMM.o \
+	$(debug)/src/ogdf/energybased/NodeAttributes.o \
+	$(debug)/src/ogdf/energybased/NodePairEnergy.o \
+	$(debug)/src/ogdf/energybased/Overlap.o \
+	$(debug)/src/ogdf/energybased/PivotMDS.o \
+	$(debug)/src/ogdf/energybased/Planarity.o \
+	$(debug)/src/ogdf/energybased/PlanarityGrid.o \
+	$(debug)/src/ogdf/energybased/QuadTreeNM.o \
+	$(debug)/src/ogdf/energybased/QuadTreeNodeNM.o \
+	$(debug)/src/ogdf/energybased/Repulsion.o \
+	$(debug)/src/ogdf/energybased/Set.o \
+	$(debug)/src/ogdf/energybased/SpringEmbedderFR.o \
+	$(debug)/src/ogdf/energybased/SpringEmbedderFRExact.o \
+	$(debug)/src/ogdf/energybased/SpringEmbedderKK.o \
+	$(debug)/src/ogdf/energybased/StressMinimization.o \
+	$(debug)/src/ogdf/energybased/TutteLayout.o \
+	$(debug)/src/ogdf/energybased/UniformGrid.o \
+	$(debug)/src/ogdf/energybased/WSPD.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/RandomMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/SolarMerger.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o \
+	$(debug)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o \
+	$(debug)/src/ogdf/energybased/numexcept.o \
+	$(debug)/src/ogdf/external/coin.o \
+	$(debug)/src/ogdf/fileformats/GmlParser.o \
+	$(debug)/src/ogdf/fileformats/GraphIO.o \
+	$(debug)/src/ogdf/fileformats/GraphIO_gml.o \
+	$(debug)/src/ogdf/fileformats/GraphIO_hyper.o \
+	$(debug)/src/ogdf/fileformats/GraphIO_leda.o \
+	$(debug)/src/ogdf/fileformats/GraphIO_ogml.o \
+	$(debug)/src/ogdf/fileformats/GraphIO_svg.o \
+	$(debug)/src/ogdf/fileformats/LineBuffer.o \
+	$(debug)/src/ogdf/fileformats/Ogml.o \
+	$(debug)/src/ogdf/fileformats/OgmlParser.o \
+	$(debug)/src/ogdf/fileformats/UmlDiagramGraph.o \
+	$(debug)/src/ogdf/fileformats/UmlModelGraph.o \
+	$(debug)/src/ogdf/fileformats/UmlToGraphConverter.o \
+	$(debug)/src/ogdf/fileformats/XmlParser.o \
+	$(debug)/src/ogdf/fileformats/XmlScanner.o \
+	$(debug)/src/ogdf/graphalg/CliqueFinder.o \
+	$(debug)/src/ogdf/graphalg/ConvexHull.o \
+	$(debug)/src/ogdf/graphalg/MinCostFlowModule.o \
+	$(debug)/src/ogdf/graphalg/MinCostFlowReinelt.o \
+	$(debug)/src/ogdf/graphalg/MinimumCut.o \
+	$(debug)/src/ogdf/graphalg/PageRank.o \
+	$(debug)/src/ogdf/graphalg/ShortestPathAlgorithms.o \
+	$(debug)/src/ogdf/graphalg/ShortestPathsWithBFM.o \
+	$(debug)/src/ogdf/graphalg/mcf_front_reinelt.o \
+	$(debug)/src/ogdf/hypergraph/EdgeStandardRep.o \
+	$(debug)/src/ogdf/hypergraph/Hypergraph.o \
+	$(debug)/src/ogdf/hypergraph/HypergraphLayout.o \
+	$(debug)/src/ogdf/incremental/SimpleIncNodeInserter.o \
+	$(debug)/src/ogdf/labeling/ELabelPosSimple.o \
+	$(debug)/src/ogdf/layered/CoffmanGrahamRanking.o \
+	$(debug)/src/ogdf/layered/CrossingsMatrix.o \
+	$(debug)/src/ogdf/layered/FastHierarchyLayout.o \
+	$(debug)/src/ogdf/layered/FastSimpleHierarchyLayout.o \
+	$(debug)/src/ogdf/layered/HierarchyLayoutModule.o \
+	$(debug)/src/ogdf/layered/OptimalHierarchyClusterLayout.o \
+	$(debug)/src/ogdf/layered/OptimalHierarchyLayout.o \
+	$(debug)/src/ogdf/layered/OptimalRanking.o \
+	$(debug)/src/ogdf/layered/SplitHeuristic.o \
+	$(debug)/src/ogdf/layered/SugiyamaLayoutMC.o \
+	$(debug)/src/ogdf/layered/acyclic_subgraph.o \
+	$(debug)/src/ogdf/layered/heuristics.o \
+	$(debug)/src/ogdf/layered/ranking.o \
+	$(debug)/src/ogdf/layered/sugiyama-cluster.o \
+	$(debug)/src/ogdf/layered/sugiyama.o \
+	$(debug)/src/ogdf/lpsolver/LPSolver_coin.o \
+	$(debug)/src/ogdf/minisat/Minisat.o \
+	$(debug)/src/ogdf/minisat/core/Solver.o \
+	$(debug)/src/ogdf/minisat/simp/SimpSolver.o \
+	$(debug)/src/ogdf/minisat/utils/Options.o \
+	$(debug)/src/ogdf/misclayout/BalloonLayout.o \
+	$(debug)/src/ogdf/misclayout/BertaultLayout.o \
+	$(debug)/src/ogdf/misclayout/CircularExactLayout.o \
+	$(debug)/src/ogdf/misclayout/CircularLayout.o \
+	$(debug)/src/ogdf/misclayout/ProcrustesSubLayout.o \
+	$(debug)/src/ogdf/orthogonal/ClusterOrthoLayout.o \
+	$(debug)/src/ogdf/orthogonal/ClusterOrthoShaper.o \
+	$(debug)/src/ogdf/orthogonal/CompactionConstraintGraph.o \
+	$(debug)/src/ogdf/orthogonal/EdgeRouter.o \
+	$(debug)/src/ogdf/orthogonal/FlowCompaction.o \
+	$(debug)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o \
+	$(debug)/src/ogdf/orthogonal/GridFlowCompaction.o \
+	$(debug)/src/ogdf/orthogonal/KandinskyLayout.o \
+	$(debug)/src/ogdf/orthogonal/LongestPathCompaction.o \
+	$(debug)/src/ogdf/orthogonal/NodeInfo.o \
+	$(debug)/src/ogdf/orthogonal/OrthoGridLayout.o \
+	$(debug)/src/ogdf/orthogonal/OrthoLayout.o \
+	$(debug)/src/ogdf/orthogonal/OrthoRep.o \
+	$(debug)/src/ogdf/orthogonal/OrthoShaper.o \
+	$(debug)/src/ogdf/packing/CCLayoutPackModule.o \
+	$(debug)/src/ogdf/packing/ComponentSplitterLayout.o \
+	$(debug)/src/ogdf/packing/TileToRowsCCPacker.o \
+	$(debug)/src/ogdf/planarity/BoothLueker.o \
+	$(debug)/src/ogdf/planarity/BoyerMyrvold.o \
+	$(debug)/src/ogdf/planarity/BoyerMyrvoldInit.o \
+	$(debug)/src/ogdf/planarity/BoyerMyrvoldPlanar.o \
+	$(debug)/src/ogdf/planarity/CliqueReplacer.o \
+	$(debug)/src/ogdf/planarity/ClusterPlanRep.o \
+	$(debug)/src/ogdf/planarity/CrossingStructure.o \
+	$(debug)/src/ogdf/planarity/EmbedPQTree.o \
+	$(debug)/src/ogdf/planarity/EmbedderMaxFace.o \
+	$(debug)/src/ogdf/planarity/EmbedderMaxFaceLayers.o \
+	$(debug)/src/ogdf/planarity/EmbedderMinDepth.o \
+	$(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o \
+	$(debug)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o \
+	$(debug)/src/ogdf/planarity/EmbedderMinDepthPiTa.o \
+	$(debug)/src/ogdf/planarity/ExtractKuratowskis.o \
+	$(debug)/src/ogdf/planarity/FastPlanarSubgraph.o \
+	$(debug)/src/ogdf/planarity/FindKuratowskis.o \
+	$(debug)/src/ogdf/planarity/FixEdgeInserterCore.o \
+	$(debug)/src/ogdf/planarity/FixedEmbeddingInserter.o \
+	$(debug)/src/ogdf/planarity/GraphReduction.o \
+	$(debug)/src/ogdf/planarity/Layout.o \
+	$(debug)/src/ogdf/planarity/MDMFLengthAttribute.o \
+	$(debug)/src/ogdf/planarity/MMCrossingMinimizationModule.o \
+	$(debug)/src/ogdf/planarity/MMFixedEmbeddingInserter.o \
+	$(debug)/src/ogdf/planarity/MMSubgraphPlanarizer.o \
+	$(debug)/src/ogdf/planarity/MMVariableEmbeddingInserter.o \
+	$(debug)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o \
+	$(debug)/src/ogdf/planarity/MaximumPlanarSubgraph.o \
+	$(debug)/src/ogdf/planarity/MultiEdgeApproxInserter.o \
+	$(debug)/src/ogdf/planarity/OptimalCrossingMinimizer.o \
+	$(debug)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o \
+	$(debug)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o \
+	$(debug)/src/ogdf/planarity/PlanRep.o \
+	$(debug)/src/ogdf/planarity/PlanRepExpansion.o \
+	$(debug)/src/ogdf/planarity/PlanRepInc.o \
+	$(debug)/src/ogdf/planarity/PlanRepLight.o \
+	$(debug)/src/ogdf/planarity/PlanarPQTree.o \
+	$(debug)/src/ogdf/planarity/PlanarSubgraphModule.o \
+	$(debug)/src/ogdf/planarity/PlanarSubgraphPQTree.o \
+	$(debug)/src/ogdf/planarity/PlanarizationGridLayout.o \
+	$(debug)/src/ogdf/planarity/PlanarizationLayout.o \
+	$(debug)/src/ogdf/planarity/SimpleEmbedder.o \
+	$(debug)/src/ogdf/planarity/SubgraphPlanarizer.o \
+	$(debug)/src/ogdf/planarity/TopologyModule.o \
+	$(debug)/src/ogdf/planarity/VarEdgeInserterCore.o \
+	$(debug)/src/ogdf/planarity/VarEdgeInserterDynCore.o \
+	$(debug)/src/ogdf/planarity/VariableEmbeddingInserter.o \
+	$(debug)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o \
+	$(debug)/src/ogdf/planarlayout/BiconnectedShellingOrder.o \
+	$(debug)/src/ogdf/planarlayout/FPPLayout.o \
+	$(debug)/src/ogdf/planarlayout/IOPoints.o \
+	$(debug)/src/ogdf/planarlayout/MMCBBase.o \
+	$(debug)/src/ogdf/planarlayout/MixedModelBase.o \
+	$(debug)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o \
+	$(debug)/src/ogdf/planarlayout/MixedModelLayout.o \
+	$(debug)/src/ogdf/planarlayout/PlanarDrawLayout.o \
+	$(debug)/src/ogdf/planarlayout/PlanarStraightLayout.o \
+	$(debug)/src/ogdf/planarlayout/SchnyderLayout.o \
+	$(debug)/src/ogdf/planarlayout/ShellingOrder.o \
+	$(debug)/src/ogdf/planarlayout/ShellingOrderModule.o \
+	$(debug)/src/ogdf/planarlayout/TriconnectedShellingOrder.o \
+	$(debug)/src/ogdf/simultaneous/SimDraw.o \
+	$(debug)/src/ogdf/simultaneous/SimDrawCaller.o \
+	$(debug)/src/ogdf/simultaneous/SimDrawColorizer.o \
+	$(debug)/src/ogdf/simultaneous/SimDrawCreator.o \
+	$(debug)/src/ogdf/simultaneous/SimDrawCreatorSimple.o \
+	$(debug)/src/ogdf/simultaneous/SimDrawManipulatorModule.o \
+	$(debug)/src/ogdf/tree/LCA.o \
+	$(debug)/src/ogdf/tree/RadialTreeLayout.o \
+	$(debug)/src/ogdf/tree/TreeLayout.o \
+	$(debug)/src/ogdf/uml/FixedEmbeddingInserterUML.o \
+	$(debug)/src/ogdf/uml/OrthoLayoutUML.o \
+	$(debug)/src/ogdf/uml/PlanRepUML.o \
+	$(debug)/src/ogdf/uml/PlanarizationLayoutUML.o \
+	$(debug)/src/ogdf/uml/PlanarizationLayoutUML_inc.o \
+	$(debug)/src/ogdf/uml/SubgraphPlanarizerUML.o \
+	$(debug)/src/ogdf/uml/UMLCrossingMinimizationModule.o \
+	$(debug)/src/ogdf/uml/UMLGraph.o \
+	$(debug)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o \
+	$(debug)/src/ogdf/uml/VariableEmbeddingInserterUML.o \
+	$(debug)/src/ogdf/upward/DominanceLayout.o \
+	$(debug)/src/ogdf/upward/ExpansionGraph.o \
+	$(debug)/src/ogdf/upward/FUPSSimple.o \
+	$(debug)/src/ogdf/upward/FaceSinkGraph.o \
+	$(debug)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o \
+	$(debug)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o \
+	$(debug)/src/ogdf/upward/LayerBasedUPRLayout.o \
+	$(debug)/src/ogdf/upward/SubgraphUpwardPlanarizer.o \
+	$(debug)/src/ogdf/upward/UpwardPlanRep.o \
+	$(debug)/src/ogdf/upward/UpwardPlanarSubgraphModule.o \
+	$(debug)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o \
+	$(debug)/src/ogdf/upward/UpwardPlanarity.o \
+	$(debug)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o \
+	$(debug)/src/ogdf/upward/UpwardPlanaritySingleSource.o \
+	$(debug)/src/ogdf/upward/VisibilityLayout.o \
 
 release_OBJS = \
-$(release)/src/ogdf/abacus/aba_constraint.o \
-$(release)/src/ogdf/abacus/abacusroot.o \
-$(release)/src/ogdf/abacus/branchrule.o \
-$(release)/src/ogdf/abacus/column.o \
-$(release)/src/ogdf/abacus/conbranchrule.o \
-$(release)/src/ogdf/abacus/conclass.o \
-$(release)/src/ogdf/abacus/convar.o \
-$(release)/src/ogdf/abacus/csense.o \
-$(release)/src/ogdf/abacus/fixcand.o \
-$(release)/src/ogdf/abacus/fsvarstat.o \
-$(release)/src/ogdf/abacus/global.o \
-$(release)/src/ogdf/abacus/history.o \
-$(release)/src/ogdf/abacus/infeascon.o \
-$(release)/src/ogdf/abacus/lp.o \
-$(release)/src/ogdf/abacus/lpif.o \
-$(release)/src/ogdf/abacus/lpmasterosi.o \
-$(release)/src/ogdf/abacus/lpsub.o \
-$(release)/src/ogdf/abacus/lpvarstat.o \
-$(release)/src/ogdf/abacus/master.o \
-$(release)/src/ogdf/abacus/opensub.o \
-$(release)/src/ogdf/abacus/optsense.o \
-$(release)/src/ogdf/abacus/osiif.o \
-$(release)/src/ogdf/abacus/row.o \
-$(release)/src/ogdf/abacus/setbranchrule.o \
-$(release)/src/ogdf/abacus/slackstat.o \
-$(release)/src/ogdf/abacus/sparvec.o \
-$(release)/src/ogdf/abacus/srowcon.o \
-$(release)/src/ogdf/abacus/sub.o \
-$(release)/src/ogdf/abacus/tailoff.o \
-$(release)/src/ogdf/abacus/valbranchrule.o \
-$(release)/src/ogdf/abacus/variable.o \
-$(release)/src/ogdf/abacus/vartype.o \
-$(release)/src/ogdf/augmentation/DfsMakeBiconnected.o \
-$(release)/src/ogdf/augmentation/PlanarAugmentation.o \
-$(release)/src/ogdf/augmentation/PlanarAugmentationFix.o \
-$(release)/src/ogdf/basic/CombinatorialEmbedding.o \
-$(release)/src/ogdf/basic/Constraint.o \
-$(release)/src/ogdf/basic/ConstraintManager.o \
-$(release)/src/ogdf/basic/DisjointSets.o \
-$(release)/src/ogdf/basic/DualGraph.o \
-$(release)/src/ogdf/basic/EdgeComparer.o \
-$(release)/src/ogdf/basic/EdgeComparerSimple.o \
-$(release)/src/ogdf/basic/Graph.o \
-$(release)/src/ogdf/basic/GraphAttributes.o \
-$(release)/src/ogdf/basic/GraphConstraints.o \
-$(release)/src/ogdf/basic/GraphCopy.o \
-$(release)/src/ogdf/basic/GridLayout.o \
-$(release)/src/ogdf/basic/GridLayoutModule.o \
-$(release)/src/ogdf/basic/Hashing.o \
-$(release)/src/ogdf/basic/LayoutStandards.o \
-$(release)/src/ogdf/basic/Logger.o \
-$(release)/src/ogdf/basic/Math.o \
-$(release)/src/ogdf/basic/NearestRectangleFinder.o \
-$(release)/src/ogdf/basic/PoolMemoryAllocator.o \
-$(release)/src/ogdf/basic/PreprocessorLayout.o \
-$(release)/src/ogdf/basic/Stopwatch.o \
-$(release)/src/ogdf/basic/System.o \
-$(release)/src/ogdf/basic/Thread.o \
-$(release)/src/ogdf/basic/basic.o \
-$(release)/src/ogdf/basic/config.o \
-$(release)/src/ogdf/basic/extended_graph_alg.o \
-$(release)/src/ogdf/basic/geometry.o \
-$(release)/src/ogdf/basic/graph_generators.o \
-$(release)/src/ogdf/basic/graphics.o \
-$(release)/src/ogdf/basic/modules.o \
-$(release)/src/ogdf/basic/random_hierarchy.o \
-$(release)/src/ogdf/basic/simple_graph_alg.o \
-$(release)/src/ogdf/basic/stNumber.o \
-$(release)/src/ogdf/cluster/CP_MasterBase.o \
-$(release)/src/ogdf/cluster/CPlanarEdgeInserter.o \
-$(release)/src/ogdf/cluster/CPlanarSubCLusteredST.o \
-$(release)/src/ogdf/cluster/CPlanarSubClusteredGraph.o \
-$(release)/src/ogdf/cluster/CPlanarity_Master.o \
-$(release)/src/ogdf/cluster/CPlanarity_Sub.o \
-$(release)/src/ogdf/cluster/CconnectClusterPlanar.o \
-$(release)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o \
-$(release)/src/ogdf/cluster/ClusterAnalysis.o \
-$(release)/src/ogdf/cluster/ClusterGraph.o \
-$(release)/src/ogdf/cluster/ClusterGraphAttributes.o \
-$(release)/src/ogdf/cluster/ClusterPlanarity.o \
-$(release)/src/ogdf/cluster/ClusterPlanarizationLayout.o \
-$(release)/src/ogdf/cluster/Cluster_ChunkConnection.o \
-$(release)/src/ogdf/cluster/Cluster_CutConstraint.o \
-$(release)/src/ogdf/cluster/Cluster_EdgeVar.o \
-$(release)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o \
-$(release)/src/ogdf/cluster/Clusterer.o \
-$(release)/src/ogdf/cluster/KuratowskiConstraint.o \
-$(release)/src/ogdf/cluster/MaxCPlanar_Master.o \
-$(release)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o \
-$(release)/src/ogdf/cluster/MaxCPlanar_Sub.o \
-$(release)/src/ogdf/cluster/MaximumCPlanarSubgraph.o \
-$(release)/src/ogdf/decomposition/BCTree.o \
-$(release)/src/ogdf/decomposition/DynamicBCTree.o \
-$(release)/src/ogdf/decomposition/DynamicSPQRForest.o \
-$(release)/src/ogdf/decomposition/DynamicSPQRTree.o \
-$(release)/src/ogdf/decomposition/NonPlanarCore.o \
-$(release)/src/ogdf/decomposition/PlanarSPQRTree.o \
-$(release)/src/ogdf/decomposition/StaticSPQRTree.o \
-$(release)/src/ogdf/decomposition/TricComp.o \
-$(release)/src/ogdf/energybased/AdjacencyOracle.o \
-$(release)/src/ogdf/energybased/ArrayGraph.o \
-$(release)/src/ogdf/energybased/Attraction.o \
-$(release)/src/ogdf/energybased/DavidsonHarel.o \
-$(release)/src/ogdf/energybased/DavidsonHarelLayout.o \
-$(release)/src/ogdf/energybased/EdgeAttributes.o \
-$(release)/src/ogdf/energybased/EnergyFunction.o \
-$(release)/src/ogdf/energybased/FMEKernel.o \
-$(release)/src/ogdf/energybased/FMEMultipoleKernel.o \
-$(release)/src/ogdf/energybased/FMEThread.o \
-$(release)/src/ogdf/energybased/FMMMLayout.o \
-$(release)/src/ogdf/energybased/FastMultipoleEmbedder.o \
-$(release)/src/ogdf/energybased/FruchtermanReingold.o \
-$(release)/src/ogdf/energybased/GEMLayout.o \
-$(release)/src/ogdf/energybased/GalaxyMultilevel.o \
-$(release)/src/ogdf/energybased/IntersectionRectangle.o \
-$(release)/src/ogdf/energybased/LinearQuadtree.o \
-$(release)/src/ogdf/energybased/LinearQuadtreeBuilder.o \
-$(release)/src/ogdf/energybased/LinearQuadtreeExpansion.o \
-$(release)/src/ogdf/energybased/MAARPacking.o \
-$(release)/src/ogdf/energybased/Multilevel.o \
-$(release)/src/ogdf/energybased/MultilevelGraph.o \
-$(release)/src/ogdf/energybased/MultilevelLayout.o \
-$(release)/src/ogdf/energybased/NMM.o \
-$(release)/src/ogdf/energybased/NodeAttributes.o \
-$(release)/src/ogdf/energybased/NodePairEnergy.o \
-$(release)/src/ogdf/energybased/Overlap.o \
-$(release)/src/ogdf/energybased/PivotMDS.o \
-$(release)/src/ogdf/energybased/Planarity.o \
-$(release)/src/ogdf/energybased/PlanarityGrid.o \
-$(release)/src/ogdf/energybased/QuadTreeNM.o \
-$(release)/src/ogdf/energybased/QuadTreeNodeNM.o \
-$(release)/src/ogdf/energybased/Repulsion.o \
-$(release)/src/ogdf/energybased/Set.o \
-$(release)/src/ogdf/energybased/SpringEmbedderFR.o \
-$(release)/src/ogdf/energybased/SpringEmbedderFRExact.o \
-$(release)/src/ogdf/energybased/SpringEmbedderKK.o \
-$(release)/src/ogdf/energybased/StressMinimization.o \
-$(release)/src/ogdf/energybased/TutteLayout.o \
-$(release)/src/ogdf/energybased/UniformGrid.o \
-$(release)/src/ogdf/energybased/WSPD.o \
-$(release)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o \
-$(release)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/RandomMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o \
-$(release)/src/ogdf/energybased/multilevelmixer/SolarMerger.o \
-$(release)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o \
-$(release)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o \
-$(release)/src/ogdf/energybased/numexcept.o \
-$(release)/src/ogdf/external/coin.o \
-$(release)/src/ogdf/fileformats/GmlParser.o \
-$(release)/src/ogdf/fileformats/GraphIO.o \
-$(release)/src/ogdf/fileformats/GraphIO_gml.o \
-$(release)/src/ogdf/fileformats/GraphIO_hyper.o \
-$(release)/src/ogdf/fileformats/GraphIO_leda.o \
-$(release)/src/ogdf/fileformats/GraphIO_ogml.o \
-$(release)/src/ogdf/fileformats/GraphIO_svg.o \
-$(release)/src/ogdf/fileformats/LineBuffer.o \
-$(release)/src/ogdf/fileformats/Ogml.o \
-$(release)/src/ogdf/fileformats/OgmlParser.o \
-$(release)/src/ogdf/fileformats/UmlDiagramGraph.o \
-$(release)/src/ogdf/fileformats/UmlModelGraph.o \
-$(release)/src/ogdf/fileformats/UmlToGraphConverter.o \
-$(release)/src/ogdf/fileformats/XmlParser.o \
-$(release)/src/ogdf/fileformats/XmlScanner.o \
-$(release)/src/ogdf/graphalg/CliqueFinder.o \
-$(release)/src/ogdf/graphalg/ConvexHull.o \
-$(release)/src/ogdf/graphalg/MinCostFlowModule.o \
-$(release)/src/ogdf/graphalg/MinCostFlowReinelt.o \
-$(release)/src/ogdf/graphalg/MinimumCut.o \
-$(release)/src/ogdf/graphalg/PageRank.o \
-$(release)/src/ogdf/graphalg/ShortestPathAlgorithms.o \
-$(release)/src/ogdf/graphalg/ShortestPathsWithBFM.o \
-$(release)/src/ogdf/graphalg/mcf_front_reinelt.o \
-$(release)/src/ogdf/hypergraph/EdgeStandardRep.o \
-$(release)/src/ogdf/hypergraph/Hypergraph.o \
-$(release)/src/ogdf/hypergraph/HypergraphLayout.o \
-$(release)/src/ogdf/incremental/SimpleIncNodeInserter.o \
-$(release)/src/ogdf/labeling/ELabelPosSimple.o \
-$(release)/src/ogdf/layered/CoffmanGrahamRanking.o \
-$(release)/src/ogdf/layered/CrossingsMatrix.o \
-$(release)/src/ogdf/layered/FastHierarchyLayout.o \
-$(release)/src/ogdf/layered/FastSimpleHierarchyLayout.o \
-$(release)/src/ogdf/layered/HierarchyLayoutModule.o \
-$(release)/src/ogdf/layered/OptimalHierarchyClusterLayout.o \
-$(release)/src/ogdf/layered/OptimalHierarchyLayout.o \
-$(release)/src/ogdf/layered/OptimalRanking.o \
-$(release)/src/ogdf/layered/SplitHeuristic.o \
-$(release)/src/ogdf/layered/SugiyamaLayoutMC.o \
-$(release)/src/ogdf/layered/acyclic_subgraph.o \
-$(release)/src/ogdf/layered/heuristics.o \
-$(release)/src/ogdf/layered/ranking.o \
-$(release)/src/ogdf/layered/sugiyama-cluster.o \
-$(release)/src/ogdf/layered/sugiyama.o \
-$(release)/src/ogdf/lpsolver/LPSolver_coin.o \
-$(release)/src/ogdf/minisat/Minisat.o \
-$(release)/src/ogdf/minisat/core/Solver.o \
-$(release)/src/ogdf/minisat/simp/SimpSolver.o \
-$(release)/src/ogdf/minisat/utils/Options.o \
-$(release)/src/ogdf/misclayout/BalloonLayout.o \
-$(release)/src/ogdf/misclayout/BertaultLayout.o \
-$(release)/src/ogdf/misclayout/CircularExactLayout.o \
-$(release)/src/ogdf/misclayout/CircularLayout.o \
-$(release)/src/ogdf/misclayout/ProcrustesSubLayout.o \
-$(release)/src/ogdf/orthogonal/ClusterOrthoLayout.o \
-$(release)/src/ogdf/orthogonal/ClusterOrthoShaper.o \
-$(release)/src/ogdf/orthogonal/CompactionConstraintGraph.o \
-$(release)/src/ogdf/orthogonal/EdgeRouter.o \
-$(release)/src/ogdf/orthogonal/FlowCompaction.o \
-$(release)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o \
-$(release)/src/ogdf/orthogonal/GridFlowCompaction.o \
-$(release)/src/ogdf/orthogonal/KandinskyLayout.o \
-$(release)/src/ogdf/orthogonal/LongestPathCompaction.o \
-$(release)/src/ogdf/orthogonal/NodeInfo.o \
-$(release)/src/ogdf/orthogonal/OrthoGridLayout.o \
-$(release)/src/ogdf/orthogonal/OrthoLayout.o \
-$(release)/src/ogdf/orthogonal/OrthoRep.o \
-$(release)/src/ogdf/orthogonal/OrthoShaper.o \
-$(release)/src/ogdf/packing/CCLayoutPackModule.o \
-$(release)/src/ogdf/packing/ComponentSplitterLayout.o \
-$(release)/src/ogdf/packing/TileToRowsCCPacker.o \
-$(release)/src/ogdf/planarity/BoothLueker.o \
-$(release)/src/ogdf/planarity/BoyerMyrvold.o \
-$(release)/src/ogdf/planarity/BoyerMyrvoldInit.o \
-$(release)/src/ogdf/planarity/BoyerMyrvoldPlanar.o \
-$(release)/src/ogdf/planarity/CliqueReplacer.o \
-$(release)/src/ogdf/planarity/ClusterPlanRep.o \
-$(release)/src/ogdf/planarity/CrossingStructure.o \
-$(release)/src/ogdf/planarity/EmbedPQTree.o \
-$(release)/src/ogdf/planarity/EmbedderMaxFace.o \
-$(release)/src/ogdf/planarity/EmbedderMaxFaceLayers.o \
-$(release)/src/ogdf/planarity/EmbedderMinDepth.o \
-$(release)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o \
-$(release)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o \
-$(release)/src/ogdf/planarity/EmbedderMinDepthPiTa.o \
-$(release)/src/ogdf/planarity/ExtractKuratowskis.o \
-$(release)/src/ogdf/planarity/FastPlanarSubgraph.o \
-$(release)/src/ogdf/planarity/FindKuratowskis.o \
-$(release)/src/ogdf/planarity/FixEdgeInserterCore.o \
-$(release)/src/ogdf/planarity/FixedEmbeddingInserter.o \
-$(release)/src/ogdf/planarity/GraphReduction.o \
-$(release)/src/ogdf/planarity/Layout.o \
-$(release)/src/ogdf/planarity/MDMFLengthAttribute.o \
-$(release)/src/ogdf/planarity/MMCrossingMinimizationModule.o \
-$(release)/src/ogdf/planarity/MMFixedEmbeddingInserter.o \
-$(release)/src/ogdf/planarity/MMSubgraphPlanarizer.o \
-$(release)/src/ogdf/planarity/MMVariableEmbeddingInserter.o \
-$(release)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o \
-$(release)/src/ogdf/planarity/MaximumPlanarSubgraph.o \
-$(release)/src/ogdf/planarity/MultiEdgeApproxInserter.o \
-$(release)/src/ogdf/planarity/OptimalCrossingMinimizer.o \
-$(release)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o \
-$(release)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o \
-$(release)/src/ogdf/planarity/PlanRep.o \
-$(release)/src/ogdf/planarity/PlanRepExpansion.o \
-$(release)/src/ogdf/planarity/PlanRepInc.o \
-$(release)/src/ogdf/planarity/PlanRepLight.o \
-$(release)/src/ogdf/planarity/PlanarPQTree.o \
-$(release)/src/ogdf/planarity/PlanarSubgraphModule.o \
-$(release)/src/ogdf/planarity/PlanarSubgraphPQTree.o \
-$(release)/src/ogdf/planarity/PlanarizationGridLayout.o \
-$(release)/src/ogdf/planarity/PlanarizationLayout.o \
-$(release)/src/ogdf/planarity/SimpleEmbedder.o \
-$(release)/src/ogdf/planarity/SubgraphPlanarizer.o \
-$(release)/src/ogdf/planarity/TopologyModule.o \
-$(release)/src/ogdf/planarity/VarEdgeInserterCore.o \
-$(release)/src/ogdf/planarity/VarEdgeInserterDynCore.o \
-$(release)/src/ogdf/planarity/VariableEmbeddingInserter.o \
-$(release)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o \
-$(release)/src/ogdf/planarlayout/BiconnectedShellingOrder.o \
-$(release)/src/ogdf/planarlayout/FPPLayout.o \
-$(release)/src/ogdf/planarlayout/IOPoints.o \
-$(release)/src/ogdf/planarlayout/MMCBBase.o \
-$(release)/src/ogdf/planarlayout/MixedModelBase.o \
-$(release)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o \
-$(release)/src/ogdf/planarlayout/MixedModelLayout.o \
-$(release)/src/ogdf/planarlayout/PlanarDrawLayout.o \
-$(release)/src/ogdf/planarlayout/PlanarStraightLayout.o \
-$(release)/src/ogdf/planarlayout/SchnyderLayout.o \
-$(release)/src/ogdf/planarlayout/ShellingOrder.o \
-$(release)/src/ogdf/planarlayout/ShellingOrderModule.o \
-$(release)/src/ogdf/planarlayout/TriconnectedShellingOrder.o \
-$(release)/src/ogdf/simultaneous/SimDraw.o \
-$(release)/src/ogdf/simultaneous/SimDrawCaller.o \
-$(release)/src/ogdf/simultaneous/SimDrawColorizer.o \
-$(release)/src/ogdf/simultaneous/SimDrawCreator.o \
-$(release)/src/ogdf/simultaneous/SimDrawCreatorSimple.o \
-$(release)/src/ogdf/simultaneous/SimDrawManipulatorModule.o \
-$(release)/src/ogdf/tree/LCA.o \
-$(release)/src/ogdf/tree/RadialTreeLayout.o \
-$(release)/src/ogdf/tree/TreeLayout.o \
-$(release)/src/ogdf/uml/FixedEmbeddingInserterUML.o \
-$(release)/src/ogdf/uml/OrthoLayoutUML.o \
-$(release)/src/ogdf/uml/PlanRepUML.o \
-$(release)/src/ogdf/uml/PlanarizationLayoutUML.o \
-$(release)/src/ogdf/uml/PlanarizationLayoutUML_inc.o \
-$(release)/src/ogdf/uml/SubgraphPlanarizerUML.o \
-$(release)/src/ogdf/uml/UMLCrossingMinimizationModule.o \
-$(release)/src/ogdf/uml/UMLGraph.o \
-$(release)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o \
-$(release)/src/ogdf/uml/VariableEmbeddingInserterUML.o \
-$(release)/src/ogdf/upward/DominanceLayout.o \
-$(release)/src/ogdf/upward/ExpansionGraph.o \
-$(release)/src/ogdf/upward/FUPSSimple.o \
-$(release)/src/ogdf/upward/FaceSinkGraph.o \
-$(release)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o \
-$(release)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o \
-$(release)/src/ogdf/upward/LayerBasedUPRLayout.o \
-$(release)/src/ogdf/upward/SubgraphUpwardPlanarizer.o \
-$(release)/src/ogdf/upward/UpwardPlanRep.o \
-$(release)/src/ogdf/upward/UpwardPlanarSubgraphModule.o \
-$(release)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o \
-$(release)/src/ogdf/upward/UpwardPlanarity.o \
-$(release)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o \
-$(release)/src/ogdf/upward/UpwardPlanaritySingleSource.o \
-$(release)/src/ogdf/upward/VisibilityLayout.o \
+	$(release)/src/ogdf/abacus/aba_constraint.o \
+	$(release)/src/ogdf/abacus/abacusroot.o \
+	$(release)/src/ogdf/abacus/branchrule.o \
+	$(release)/src/ogdf/abacus/column.o \
+	$(release)/src/ogdf/abacus/conbranchrule.o \
+	$(release)/src/ogdf/abacus/conclass.o \
+	$(release)/src/ogdf/abacus/convar.o \
+	$(release)/src/ogdf/abacus/csense.o \
+	$(release)/src/ogdf/abacus/fixcand.o \
+	$(release)/src/ogdf/abacus/fsvarstat.o \
+	$(release)/src/ogdf/abacus/global.o \
+	$(release)/src/ogdf/abacus/history.o \
+	$(release)/src/ogdf/abacus/infeascon.o \
+	$(release)/src/ogdf/abacus/lp.o \
+	$(release)/src/ogdf/abacus/lpif.o \
+	$(release)/src/ogdf/abacus/lpmasterosi.o \
+	$(release)/src/ogdf/abacus/lpsub.o \
+	$(release)/src/ogdf/abacus/lpvarstat.o \
+	$(release)/src/ogdf/abacus/master.o \
+	$(release)/src/ogdf/abacus/opensub.o \
+	$(release)/src/ogdf/abacus/optsense.o \
+	$(release)/src/ogdf/abacus/osiif.o \
+	$(release)/src/ogdf/abacus/row.o \
+	$(release)/src/ogdf/abacus/setbranchrule.o \
+	$(release)/src/ogdf/abacus/slackstat.o \
+	$(release)/src/ogdf/abacus/sparvec.o \
+	$(release)/src/ogdf/abacus/srowcon.o \
+	$(release)/src/ogdf/abacus/sub.o \
+	$(release)/src/ogdf/abacus/tailoff.o \
+	$(release)/src/ogdf/abacus/valbranchrule.o \
+	$(release)/src/ogdf/abacus/variable.o \
+	$(release)/src/ogdf/abacus/vartype.o \
+	$(release)/src/ogdf/augmentation/DfsMakeBiconnected.o \
+	$(release)/src/ogdf/augmentation/PlanarAugmentation.o \
+	$(release)/src/ogdf/augmentation/PlanarAugmentationFix.o \
+	$(release)/src/ogdf/basic/CombinatorialEmbedding.o \
+	$(release)/src/ogdf/basic/Constraint.o \
+	$(release)/src/ogdf/basic/ConstraintManager.o \
+	$(release)/src/ogdf/basic/DisjointSets.o \
+	$(release)/src/ogdf/basic/DualGraph.o \
+	$(release)/src/ogdf/basic/EdgeComparer.o \
+	$(release)/src/ogdf/basic/EdgeComparerSimple.o \
+	$(release)/src/ogdf/basic/Graph.o \
+	$(release)/src/ogdf/basic/GraphAttributes.o \
+	$(release)/src/ogdf/basic/GraphConstraints.o \
+	$(release)/src/ogdf/basic/GraphCopy.o \
+	$(release)/src/ogdf/basic/GridLayout.o \
+	$(release)/src/ogdf/basic/GridLayoutModule.o \
+	$(release)/src/ogdf/basic/Hashing.o \
+	$(release)/src/ogdf/basic/LayoutStandards.o \
+	$(release)/src/ogdf/basic/Logger.o \
+	$(release)/src/ogdf/basic/Math.o \
+	$(release)/src/ogdf/basic/NearestRectangleFinder.o \
+	$(release)/src/ogdf/basic/PoolMemoryAllocator.o \
+	$(release)/src/ogdf/basic/PreprocessorLayout.o \
+	$(release)/src/ogdf/basic/Stopwatch.o \
+	$(release)/src/ogdf/basic/System.o \
+	$(release)/src/ogdf/basic/Thread.o \
+	$(release)/src/ogdf/basic/basic.o \
+	$(release)/src/ogdf/basic/config.o \
+	$(release)/src/ogdf/basic/extended_graph_alg.o \
+	$(release)/src/ogdf/basic/geometry.o \
+	$(release)/src/ogdf/basic/graph_generators.o \
+	$(release)/src/ogdf/basic/graphics.o \
+	$(release)/src/ogdf/basic/modules.o \
+	$(release)/src/ogdf/basic/random_hierarchy.o \
+	$(release)/src/ogdf/basic/simple_graph_alg.o \
+	$(release)/src/ogdf/basic/stNumber.o \
+	$(release)/src/ogdf/cluster/CP_MasterBase.o \
+	$(release)/src/ogdf/cluster/CPlanarEdgeInserter.o \
+	$(release)/src/ogdf/cluster/CPlanarSubCLusteredST.o \
+	$(release)/src/ogdf/cluster/CPlanarSubClusteredGraph.o \
+	$(release)/src/ogdf/cluster/CPlanarity_Master.o \
+	$(release)/src/ogdf/cluster/CPlanarity_Sub.o \
+	$(release)/src/ogdf/cluster/CconnectClusterPlanar.o \
+	$(release)/src/ogdf/cluster/CconnectClusterPlanarEmbed.o \
+	$(release)/src/ogdf/cluster/ClusterAnalysis.o \
+	$(release)/src/ogdf/cluster/ClusterGraph.o \
+	$(release)/src/ogdf/cluster/ClusterGraphAttributes.o \
+	$(release)/src/ogdf/cluster/ClusterPlanarity.o \
+	$(release)/src/ogdf/cluster/ClusterPlanarizationLayout.o \
+	$(release)/src/ogdf/cluster/Cluster_ChunkConnection.o \
+	$(release)/src/ogdf/cluster/Cluster_CutConstraint.o \
+	$(release)/src/ogdf/cluster/Cluster_EdgeVar.o \
+	$(release)/src/ogdf/cluster/Cluster_MaxPlanarEdges.o \
+	$(release)/src/ogdf/cluster/Clusterer.o \
+	$(release)/src/ogdf/cluster/KuratowskiConstraint.o \
+	$(release)/src/ogdf/cluster/MaxCPlanar_Master.o \
+	$(release)/src/ogdf/cluster/MaxCPlanar_MinimalClusterConnection.o \
+	$(release)/src/ogdf/cluster/MaxCPlanar_Sub.o \
+	$(release)/src/ogdf/cluster/MaximumCPlanarSubgraph.o \
+	$(release)/src/ogdf/decomposition/BCTree.o \
+	$(release)/src/ogdf/decomposition/DynamicBCTree.o \
+	$(release)/src/ogdf/decomposition/DynamicSPQRForest.o \
+	$(release)/src/ogdf/decomposition/DynamicSPQRTree.o \
+	$(release)/src/ogdf/decomposition/NonPlanarCore.o \
+	$(release)/src/ogdf/decomposition/PlanarSPQRTree.o \
+	$(release)/src/ogdf/decomposition/StaticSPQRTree.o \
+	$(release)/src/ogdf/decomposition/TricComp.o \
+	$(release)/src/ogdf/energybased/AdjacencyOracle.o \
+	$(release)/src/ogdf/energybased/ArrayGraph.o \
+	$(release)/src/ogdf/energybased/Attraction.o \
+	$(release)/src/ogdf/energybased/DavidsonHarel.o \
+	$(release)/src/ogdf/energybased/DavidsonHarelLayout.o \
+	$(release)/src/ogdf/energybased/EdgeAttributes.o \
+	$(release)/src/ogdf/energybased/EnergyFunction.o \
+	$(release)/src/ogdf/energybased/FMEKernel.o \
+	$(release)/src/ogdf/energybased/FMEMultipoleKernel.o \
+	$(release)/src/ogdf/energybased/FMEThread.o \
+	$(release)/src/ogdf/energybased/FMMMLayout.o \
+	$(release)/src/ogdf/energybased/FastMultipoleEmbedder.o \
+	$(release)/src/ogdf/energybased/FruchtermanReingold.o \
+	$(release)/src/ogdf/energybased/GEMLayout.o \
+	$(release)/src/ogdf/energybased/GalaxyMultilevel.o \
+	$(release)/src/ogdf/energybased/IntersectionRectangle.o \
+	$(release)/src/ogdf/energybased/LinearQuadtree.o \
+	$(release)/src/ogdf/energybased/LinearQuadtreeBuilder.o \
+	$(release)/src/ogdf/energybased/LinearQuadtreeExpansion.o \
+	$(release)/src/ogdf/energybased/MAARPacking.o \
+	$(release)/src/ogdf/energybased/Multilevel.o \
+	$(release)/src/ogdf/energybased/MultilevelGraph.o \
+	$(release)/src/ogdf/energybased/MultilevelLayout.o \
+	$(release)/src/ogdf/energybased/NMM.o \
+	$(release)/src/ogdf/energybased/NodeAttributes.o \
+	$(release)/src/ogdf/energybased/NodePairEnergy.o \
+	$(release)/src/ogdf/energybased/Overlap.o \
+	$(release)/src/ogdf/energybased/PivotMDS.o \
+	$(release)/src/ogdf/energybased/Planarity.o \
+	$(release)/src/ogdf/energybased/PlanarityGrid.o \
+	$(release)/src/ogdf/energybased/QuadTreeNM.o \
+	$(release)/src/ogdf/energybased/QuadTreeNodeNM.o \
+	$(release)/src/ogdf/energybased/Repulsion.o \
+	$(release)/src/ogdf/energybased/Set.o \
+	$(release)/src/ogdf/energybased/SpringEmbedderFR.o \
+	$(release)/src/ogdf/energybased/SpringEmbedderFRExact.o \
+	$(release)/src/ogdf/energybased/SpringEmbedderKK.o \
+	$(release)/src/ogdf/energybased/StressMinimization.o \
+	$(release)/src/ogdf/energybased/TutteLayout.o \
+	$(release)/src/ogdf/energybased/UniformGrid.o \
+	$(release)/src/ogdf/energybased/WSPD.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/BarycenterPlacer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/CirclePlacer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/EdgeCoverMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/IndependentSetMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MatchingMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MedianPlacer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/MixedForceLayout.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/RandomMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/RandomPlacer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/ScalingLayout.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/SolarMerger.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/SolarPlacer.o \
+	$(release)/src/ogdf/energybased/multilevelmixer/ZeroPlacer.o \
+	$(release)/src/ogdf/energybased/numexcept.o \
+	$(release)/src/ogdf/external/coin.o \
+	$(release)/src/ogdf/fileformats/GmlParser.o \
+	$(release)/src/ogdf/fileformats/GraphIO.o \
+	$(release)/src/ogdf/fileformats/GraphIO_gml.o \
+	$(release)/src/ogdf/fileformats/GraphIO_hyper.o \
+	$(release)/src/ogdf/fileformats/GraphIO_leda.o \
+	$(release)/src/ogdf/fileformats/GraphIO_ogml.o \
+	$(release)/src/ogdf/fileformats/GraphIO_svg.o \
+	$(release)/src/ogdf/fileformats/LineBuffer.o \
+	$(release)/src/ogdf/fileformats/Ogml.o \
+	$(release)/src/ogdf/fileformats/OgmlParser.o \
+	$(release)/src/ogdf/fileformats/UmlDiagramGraph.o \
+	$(release)/src/ogdf/fileformats/UmlModelGraph.o \
+	$(release)/src/ogdf/fileformats/UmlToGraphConverter.o \
+	$(release)/src/ogdf/fileformats/XmlParser.o \
+	$(release)/src/ogdf/fileformats/XmlScanner.o \
+	$(release)/src/ogdf/graphalg/CliqueFinder.o \
+	$(release)/src/ogdf/graphalg/ConvexHull.o \
+	$(release)/src/ogdf/graphalg/MinCostFlowModule.o \
+	$(release)/src/ogdf/graphalg/MinCostFlowReinelt.o \
+	$(release)/src/ogdf/graphalg/MinimumCut.o \
+	$(release)/src/ogdf/graphalg/PageRank.o \
+	$(release)/src/ogdf/graphalg/ShortestPathAlgorithms.o \
+	$(release)/src/ogdf/graphalg/ShortestPathsWithBFM.o \
+	$(release)/src/ogdf/graphalg/mcf_front_reinelt.o \
+	$(release)/src/ogdf/hypergraph/EdgeStandardRep.o \
+	$(release)/src/ogdf/hypergraph/Hypergraph.o \
+	$(release)/src/ogdf/hypergraph/HypergraphLayout.o \
+	$(release)/src/ogdf/incremental/SimpleIncNodeInserter.o \
+	$(release)/src/ogdf/labeling/ELabelPosSimple.o \
+	$(release)/src/ogdf/layered/CoffmanGrahamRanking.o \
+	$(release)/src/ogdf/layered/CrossingsMatrix.o \
+	$(release)/src/ogdf/layered/FastHierarchyLayout.o \
+	$(release)/src/ogdf/layered/FastSimpleHierarchyLayout.o \
+	$(release)/src/ogdf/layered/HierarchyLayoutModule.o \
+	$(release)/src/ogdf/layered/OptimalHierarchyClusterLayout.o \
+	$(release)/src/ogdf/layered/OptimalHierarchyLayout.o \
+	$(release)/src/ogdf/layered/OptimalRanking.o \
+	$(release)/src/ogdf/layered/SplitHeuristic.o \
+	$(release)/src/ogdf/layered/SugiyamaLayoutMC.o \
+	$(release)/src/ogdf/layered/acyclic_subgraph.o \
+	$(release)/src/ogdf/layered/heuristics.o \
+	$(release)/src/ogdf/layered/ranking.o \
+	$(release)/src/ogdf/layered/sugiyama-cluster.o \
+	$(release)/src/ogdf/layered/sugiyama.o \
+	$(release)/src/ogdf/lpsolver/LPSolver_coin.o \
+	$(release)/src/ogdf/minisat/Minisat.o \
+	$(release)/src/ogdf/minisat/core/Solver.o \
+	$(release)/src/ogdf/minisat/simp/SimpSolver.o \
+	$(release)/src/ogdf/minisat/utils/Options.o \
+	$(release)/src/ogdf/misclayout/BalloonLayout.o \
+	$(release)/src/ogdf/misclayout/BertaultLayout.o \
+	$(release)/src/ogdf/misclayout/CircularExactLayout.o \
+	$(release)/src/ogdf/misclayout/CircularLayout.o \
+	$(release)/src/ogdf/misclayout/ProcrustesSubLayout.o \
+	$(release)/src/ogdf/orthogonal/ClusterOrthoLayout.o \
+	$(release)/src/ogdf/orthogonal/ClusterOrthoShaper.o \
+	$(release)/src/ogdf/orthogonal/CompactionConstraintGraph.o \
+	$(release)/src/ogdf/orthogonal/EdgeRouter.o \
+	$(release)/src/ogdf/orthogonal/FlowCompaction.o \
+	$(release)/src/ogdf/orthogonal/GridCompactionConstraintGraph.o \
+	$(release)/src/ogdf/orthogonal/GridFlowCompaction.o \
+	$(release)/src/ogdf/orthogonal/KandinskyLayout.o \
+	$(release)/src/ogdf/orthogonal/LongestPathCompaction.o \
+	$(release)/src/ogdf/orthogonal/NodeInfo.o \
+	$(release)/src/ogdf/orthogonal/OrthoGridLayout.o \
+	$(release)/src/ogdf/orthogonal/OrthoLayout.o \
+	$(release)/src/ogdf/orthogonal/OrthoRep.o \
+	$(release)/src/ogdf/orthogonal/OrthoShaper.o \
+	$(release)/src/ogdf/packing/CCLayoutPackModule.o \
+	$(release)/src/ogdf/packing/ComponentSplitterLayout.o \
+	$(release)/src/ogdf/packing/TileToRowsCCPacker.o \
+	$(release)/src/ogdf/planarity/BoothLueker.o \
+	$(release)/src/ogdf/planarity/BoyerMyrvold.o \
+	$(release)/src/ogdf/planarity/BoyerMyrvoldInit.o \
+	$(release)/src/ogdf/planarity/BoyerMyrvoldPlanar.o \
+	$(release)/src/ogdf/planarity/CliqueReplacer.o \
+	$(release)/src/ogdf/planarity/ClusterPlanRep.o \
+	$(release)/src/ogdf/planarity/CrossingStructure.o \
+	$(release)/src/ogdf/planarity/EmbedPQTree.o \
+	$(release)/src/ogdf/planarity/EmbedderMaxFace.o \
+	$(release)/src/ogdf/planarity/EmbedderMaxFaceLayers.o \
+	$(release)/src/ogdf/planarity/EmbedderMinDepth.o \
+	$(release)/src/ogdf/planarity/EmbedderMinDepthMaxFace.o \
+	$(release)/src/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.o \
+	$(release)/src/ogdf/planarity/EmbedderMinDepthPiTa.o \
+	$(release)/src/ogdf/planarity/ExtractKuratowskis.o \
+	$(release)/src/ogdf/planarity/FastPlanarSubgraph.o \
+	$(release)/src/ogdf/planarity/FindKuratowskis.o \
+	$(release)/src/ogdf/planarity/FixEdgeInserterCore.o \
+	$(release)/src/ogdf/planarity/FixedEmbeddingInserter.o \
+	$(release)/src/ogdf/planarity/GraphReduction.o \
+	$(release)/src/ogdf/planarity/Layout.o \
+	$(release)/src/ogdf/planarity/MDMFLengthAttribute.o \
+	$(release)/src/ogdf/planarity/MMCrossingMinimizationModule.o \
+	$(release)/src/ogdf/planarity/MMFixedEmbeddingInserter.o \
+	$(release)/src/ogdf/planarity/MMSubgraphPlanarizer.o \
+	$(release)/src/ogdf/planarity/MMVariableEmbeddingInserter.o \
+	$(release)/src/ogdf/planarity/MaximalPlanarSubgraphSimple.o \
+	$(release)/src/ogdf/planarity/MaximumPlanarSubgraph.o \
+	$(release)/src/ogdf/planarity/MultiEdgeApproxInserter.o \
+	$(release)/src/ogdf/planarity/OptimalCrossingMinimizer.o \
+	$(release)/src/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.o \
+	$(release)/src/ogdf/planarity/OrderedOptimalCrossingMinimizer.o \
+	$(release)/src/ogdf/planarity/PlanRep.o \
+	$(release)/src/ogdf/planarity/PlanRepExpansion.o \
+	$(release)/src/ogdf/planarity/PlanRepInc.o \
+	$(release)/src/ogdf/planarity/PlanRepLight.o \
+	$(release)/src/ogdf/planarity/PlanarPQTree.o \
+	$(release)/src/ogdf/planarity/PlanarSubgraphModule.o \
+	$(release)/src/ogdf/planarity/PlanarSubgraphPQTree.o \
+	$(release)/src/ogdf/planarity/PlanarizationGridLayout.o \
+	$(release)/src/ogdf/planarity/PlanarizationLayout.o \
+	$(release)/src/ogdf/planarity/SimpleEmbedder.o \
+	$(release)/src/ogdf/planarity/SubgraphPlanarizer.o \
+	$(release)/src/ogdf/planarity/TopologyModule.o \
+	$(release)/src/ogdf/planarity/VarEdgeInserterCore.o \
+	$(release)/src/ogdf/planarity/VarEdgeInserterDynCore.o \
+	$(release)/src/ogdf/planarity/VariableEmbeddingInserter.o \
+	$(release)/src/ogdf/planarity/VariableEmbeddingInserterDyn.o \
+	$(release)/src/ogdf/planarlayout/BiconnectedShellingOrder.o \
+	$(release)/src/ogdf/planarlayout/FPPLayout.o \
+	$(release)/src/ogdf/planarlayout/IOPoints.o \
+	$(release)/src/ogdf/planarlayout/MMCBBase.o \
+	$(release)/src/ogdf/planarlayout/MixedModelBase.o \
+	$(release)/src/ogdf/planarlayout/MixedModelCrossingsBeautifierModule.o \
+	$(release)/src/ogdf/planarlayout/MixedModelLayout.o \
+	$(release)/src/ogdf/planarlayout/PlanarDrawLayout.o \
+	$(release)/src/ogdf/planarlayout/PlanarStraightLayout.o \
+	$(release)/src/ogdf/planarlayout/SchnyderLayout.o \
+	$(release)/src/ogdf/planarlayout/ShellingOrder.o \
+	$(release)/src/ogdf/planarlayout/ShellingOrderModule.o \
+	$(release)/src/ogdf/planarlayout/TriconnectedShellingOrder.o \
+	$(release)/src/ogdf/simultaneous/SimDraw.o \
+	$(release)/src/ogdf/simultaneous/SimDrawCaller.o \
+	$(release)/src/ogdf/simultaneous/SimDrawColorizer.o \
+	$(release)/src/ogdf/simultaneous/SimDrawCreator.o \
+	$(release)/src/ogdf/simultaneous/SimDrawCreatorSimple.o \
+	$(release)/src/ogdf/simultaneous/SimDrawManipulatorModule.o \
+	$(release)/src/ogdf/tree/LCA.o \
+	$(release)/src/ogdf/tree/RadialTreeLayout.o \
+	$(release)/src/ogdf/tree/TreeLayout.o \
+	$(release)/src/ogdf/uml/FixedEmbeddingInserterUML.o \
+	$(release)/src/ogdf/uml/OrthoLayoutUML.o \
+	$(release)/src/ogdf/uml/PlanRepUML.o \
+	$(release)/src/ogdf/uml/PlanarizationLayoutUML.o \
+	$(release)/src/ogdf/uml/PlanarizationLayoutUML_inc.o \
+	$(release)/src/ogdf/uml/SubgraphPlanarizerUML.o \
+	$(release)/src/ogdf/uml/UMLCrossingMinimizationModule.o \
+	$(release)/src/ogdf/uml/UMLGraph.o \
+	$(release)/src/ogdf/uml/VariableEmbeddingInserterDynUML.o \
+	$(release)/src/ogdf/uml/VariableEmbeddingInserterUML.o \
+	$(release)/src/ogdf/upward/DominanceLayout.o \
+	$(release)/src/ogdf/upward/ExpansionGraph.o \
+	$(release)/src/ogdf/upward/FUPSSimple.o \
+	$(release)/src/ogdf/upward/FaceSinkGraph.o \
+	$(release)/src/ogdf/upward/FeasibleUpwardPlanarSubgraph.o \
+	$(release)/src/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.o \
+	$(release)/src/ogdf/upward/LayerBasedUPRLayout.o \
+	$(release)/src/ogdf/upward/SubgraphUpwardPlanarizer.o \
+	$(release)/src/ogdf/upward/UpwardPlanRep.o \
+	$(release)/src/ogdf/upward/UpwardPlanarSubgraphModule.o \
+	$(release)/src/ogdf/upward/UpwardPlanarSubgraphSimple.o \
+	$(release)/src/ogdf/upward/UpwardPlanarity.o \
+	$(release)/src/ogdf/upward/UpwardPlanarityEmbeddedDigraph.o \
+	$(release)/src/ogdf/upward/UpwardPlanaritySingleSource.o \
+	$(release)/src/ogdf/upward/VisibilityLayout.o \
 
 $(debug)/src/coin/Cgl/CglAllDifferent.o: src/coin/Cgl/CglAllDifferent.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglAllDifferent.o -c src/coin/Cgl/CglAllDifferent.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglAllDifferent.cpp
 
 $(release)/src/coin/Cgl/CglAllDifferent.o: src/coin/Cgl/CglAllDifferent.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglAllDifferent.o -c src/coin/Cgl/CglAllDifferent.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglAllDifferent.cpp
 
 $(debug)/src/coin/Cgl/CglClique.o: src/coin/Cgl/CglClique.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglClique.o -c src/coin/Cgl/CglClique.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglClique.cpp
 
 $(release)/src/coin/Cgl/CglClique.o: src/coin/Cgl/CglClique.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglClique.o -c src/coin/Cgl/CglClique.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglClique.cpp
 
 $(debug)/src/coin/Cgl/CglCliqueHelper.o: src/coin/Cgl/CglCliqueHelper.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglCliqueHelper.o -c src/coin/Cgl/CglCliqueHelper.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglCliqueHelper.cpp
 
 $(release)/src/coin/Cgl/CglCliqueHelper.o: src/coin/Cgl/CglCliqueHelper.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglCliqueHelper.o -c src/coin/Cgl/CglCliqueHelper.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglCliqueHelper.cpp
 
 $(debug)/src/coin/Cgl/CglCliqueTest.o: src/coin/Cgl/CglCliqueTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglCliqueTest.o -c src/coin/Cgl/CglCliqueTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglCliqueTest.cpp
 
 $(release)/src/coin/Cgl/CglCliqueTest.o: src/coin/Cgl/CglCliqueTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglCliqueTest.o -c src/coin/Cgl/CglCliqueTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglCliqueTest.cpp
 
 $(debug)/src/coin/Cgl/CglCutGenerator.o: src/coin/Cgl/CglCutGenerator.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglCutGenerator.o -c src/coin/Cgl/CglCutGenerator.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglCutGenerator.cpp
 
 $(release)/src/coin/Cgl/CglCutGenerator.o: src/coin/Cgl/CglCutGenerator.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglCutGenerator.o -c src/coin/Cgl/CglCutGenerator.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglCutGenerator.cpp
 
 $(debug)/src/coin/Cgl/CglDuplicateRow.o: src/coin/Cgl/CglDuplicateRow.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglDuplicateRow.o -c src/coin/Cgl/CglDuplicateRow.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglDuplicateRow.cpp
 
 $(release)/src/coin/Cgl/CglDuplicateRow.o: src/coin/Cgl/CglDuplicateRow.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglDuplicateRow.o -c src/coin/Cgl/CglDuplicateRow.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglDuplicateRow.cpp
 
 $(debug)/src/coin/Cgl/CglFlowCover.o: src/coin/Cgl/CglFlowCover.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglFlowCover.o -c src/coin/Cgl/CglFlowCover.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglFlowCover.cpp
 
 $(release)/src/coin/Cgl/CglFlowCover.o: src/coin/Cgl/CglFlowCover.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglFlowCover.o -c src/coin/Cgl/CglFlowCover.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglFlowCover.cpp
 
 $(debug)/src/coin/Cgl/CglFlowCoverTest.o: src/coin/Cgl/CglFlowCoverTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglFlowCoverTest.o -c src/coin/Cgl/CglFlowCoverTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglFlowCoverTest.cpp
 
 $(release)/src/coin/Cgl/CglFlowCoverTest.o: src/coin/Cgl/CglFlowCoverTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglFlowCoverTest.o -c src/coin/Cgl/CglFlowCoverTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglFlowCoverTest.cpp
 
 $(debug)/src/coin/Cgl/CglGomory.o: src/coin/Cgl/CglGomory.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglGomory.o -c src/coin/Cgl/CglGomory.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglGomory.cpp
 
 $(release)/src/coin/Cgl/CglGomory.o: src/coin/Cgl/CglGomory.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglGomory.o -c src/coin/Cgl/CglGomory.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglGomory.cpp
 
 $(debug)/src/coin/Cgl/CglGomoryTest.o: src/coin/Cgl/CglGomoryTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglGomoryTest.o -c src/coin/Cgl/CglGomoryTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglGomoryTest.cpp
 
 $(release)/src/coin/Cgl/CglGomoryTest.o: src/coin/Cgl/CglGomoryTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglGomoryTest.o -c src/coin/Cgl/CglGomoryTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglGomoryTest.cpp
 
 $(debug)/src/coin/Cgl/CglKnapsackCover.o: src/coin/Cgl/CglKnapsackCover.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglKnapsackCover.o -c src/coin/Cgl/CglKnapsackCover.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglKnapsackCover.cpp
 
 $(release)/src/coin/Cgl/CglKnapsackCover.o: src/coin/Cgl/CglKnapsackCover.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglKnapsackCover.o -c src/coin/Cgl/CglKnapsackCover.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglKnapsackCover.cpp
 
 $(debug)/src/coin/Cgl/CglKnapsackCoverTest.o: src/coin/Cgl/CglKnapsackCoverTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglKnapsackCoverTest.o -c src/coin/Cgl/CglKnapsackCoverTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglKnapsackCoverTest.cpp
 
 $(release)/src/coin/Cgl/CglKnapsackCoverTest.o: src/coin/Cgl/CglKnapsackCoverTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglKnapsackCoverTest.o -c src/coin/Cgl/CglKnapsackCoverTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglKnapsackCoverTest.cpp
 
 $(debug)/src/coin/Cgl/CglLandP.o: src/coin/Cgl/CglLandP.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandP.o -c src/coin/Cgl/CglLandP.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandP.cpp
 
 $(release)/src/coin/Cgl/CglLandP.o: src/coin/Cgl/CglLandP.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandP.o -c src/coin/Cgl/CglLandP.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandP.cpp
 
 $(debug)/src/coin/Cgl/CglLandPMessages.o: src/coin/Cgl/CglLandPMessages.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPMessages.o -c src/coin/Cgl/CglLandPMessages.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPMessages.cpp
 
 $(release)/src/coin/Cgl/CglLandPMessages.o: src/coin/Cgl/CglLandPMessages.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPMessages.o -c src/coin/Cgl/CglLandPMessages.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPMessages.cpp
 
 $(debug)/src/coin/Cgl/CglLandPSimplex.o: src/coin/Cgl/CglLandPSimplex.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPSimplex.o -c src/coin/Cgl/CglLandPSimplex.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPSimplex.cpp
 
 $(release)/src/coin/Cgl/CglLandPSimplex.o: src/coin/Cgl/CglLandPSimplex.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPSimplex.o -c src/coin/Cgl/CglLandPSimplex.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPSimplex.cpp
 
 $(debug)/src/coin/Cgl/CglLandPTabRow.o: src/coin/Cgl/CglLandPTabRow.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPTabRow.o -c src/coin/Cgl/CglLandPTabRow.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPTabRow.cpp
 
 $(release)/src/coin/Cgl/CglLandPTabRow.o: src/coin/Cgl/CglLandPTabRow.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPTabRow.o -c src/coin/Cgl/CglLandPTabRow.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPTabRow.cpp
 
 $(debug)/src/coin/Cgl/CglLandPTest.o: src/coin/Cgl/CglLandPTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPTest.o -c src/coin/Cgl/CglLandPTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPTest.cpp
 
 $(release)/src/coin/Cgl/CglLandPTest.o: src/coin/Cgl/CglLandPTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPTest.o -c src/coin/Cgl/CglLandPTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPTest.cpp
 
 $(debug)/src/coin/Cgl/CglLandPUtils.o: src/coin/Cgl/CglLandPUtils.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPUtils.o -c src/coin/Cgl/CglLandPUtils.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPUtils.cpp
 
 $(release)/src/coin/Cgl/CglLandPUtils.o: src/coin/Cgl/CglLandPUtils.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPUtils.o -c src/coin/Cgl/CglLandPUtils.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPUtils.cpp
 
 $(debug)/src/coin/Cgl/CglLandPValidator.o: src/coin/Cgl/CglLandPValidator.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLandPValidator.o -c src/coin/Cgl/CglLandPValidator.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLandPValidator.cpp
 
 $(release)/src/coin/Cgl/CglLandPValidator.o: src/coin/Cgl/CglLandPValidator.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLandPValidator.o -c src/coin/Cgl/CglLandPValidator.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLandPValidator.cpp
 
 $(debug)/src/coin/Cgl/CglLiftAndProject.o: src/coin/Cgl/CglLiftAndProject.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglLiftAndProject.o -c src/coin/Cgl/CglLiftAndProject.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglLiftAndProject.cpp
 
 $(release)/src/coin/Cgl/CglLiftAndProject.o: src/coin/Cgl/CglLiftAndProject.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglLiftAndProject.o -c src/coin/Cgl/CglLiftAndProject.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglLiftAndProject.cpp
 
 $(debug)/src/coin/Cgl/CglMessage.o: src/coin/Cgl/CglMessage.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglMessage.o -c src/coin/Cgl/CglMessage.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglMessage.cpp
 
 $(release)/src/coin/Cgl/CglMessage.o: src/coin/Cgl/CglMessage.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglMessage.o -c src/coin/Cgl/CglMessage.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglMessage.cpp
 
 $(debug)/src/coin/Cgl/CglMixedIntegerRounding.o: src/coin/Cgl/CglMixedIntegerRounding.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglMixedIntegerRounding.o -c src/coin/Cgl/CglMixedIntegerRounding.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding.cpp
 
 $(release)/src/coin/Cgl/CglMixedIntegerRounding.o: src/coin/Cgl/CglMixedIntegerRounding.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglMixedIntegerRounding.o -c src/coin/Cgl/CglMixedIntegerRounding.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding.cpp
 
 $(debug)/src/coin/Cgl/CglMixedIntegerRounding2.o: src/coin/Cgl/CglMixedIntegerRounding2.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglMixedIntegerRounding2.o -c src/coin/Cgl/CglMixedIntegerRounding2.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding2.cpp
 
 $(release)/src/coin/Cgl/CglMixedIntegerRounding2.o: src/coin/Cgl/CglMixedIntegerRounding2.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglMixedIntegerRounding2.o -c src/coin/Cgl/CglMixedIntegerRounding2.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding2.cpp
 
 $(debug)/src/coin/Cgl/CglMixedIntegerRounding2Test.o: src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglMixedIntegerRounding2Test.o -c src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
 
 $(release)/src/coin/Cgl/CglMixedIntegerRounding2Test.o: src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglMixedIntegerRounding2Test.o -c src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglMixedIntegerRounding2Test.cpp
 
 $(debug)/src/coin/Cgl/CglMixedIntegerRoundingTest.o: src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglMixedIntegerRoundingTest.o -c src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
 
 $(release)/src/coin/Cgl/CglMixedIntegerRoundingTest.o: src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglMixedIntegerRoundingTest.o -c src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglMixedIntegerRoundingTest.cpp
 
 $(debug)/src/coin/Cgl/CglOddHole.o: src/coin/Cgl/CglOddHole.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglOddHole.o -c src/coin/Cgl/CglOddHole.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglOddHole.cpp
 
 $(release)/src/coin/Cgl/CglOddHole.o: src/coin/Cgl/CglOddHole.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglOddHole.o -c src/coin/Cgl/CglOddHole.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglOddHole.cpp
 
 $(debug)/src/coin/Cgl/CglOddHoleTest.o: src/coin/Cgl/CglOddHoleTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglOddHoleTest.o -c src/coin/Cgl/CglOddHoleTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglOddHoleTest.cpp
 
 $(release)/src/coin/Cgl/CglOddHoleTest.o: src/coin/Cgl/CglOddHoleTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglOddHoleTest.o -c src/coin/Cgl/CglOddHoleTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglOddHoleTest.cpp
 
 $(debug)/src/coin/Cgl/CglParam.o: src/coin/Cgl/CglParam.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglParam.o -c src/coin/Cgl/CglParam.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglParam.cpp
 
 $(release)/src/coin/Cgl/CglParam.o: src/coin/Cgl/CglParam.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglParam.o -c src/coin/Cgl/CglParam.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglParam.cpp
 
 $(debug)/src/coin/Cgl/CglPreProcess.o: src/coin/Cgl/CglPreProcess.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglPreProcess.o -c src/coin/Cgl/CglPreProcess.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglPreProcess.cpp
 
 $(release)/src/coin/Cgl/CglPreProcess.o: src/coin/Cgl/CglPreProcess.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglPreProcess.o -c src/coin/Cgl/CglPreProcess.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglPreProcess.cpp
 
 $(debug)/src/coin/Cgl/CglProbing.o: src/coin/Cgl/CglProbing.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglProbing.o -c src/coin/Cgl/CglProbing.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglProbing.cpp
 
 $(release)/src/coin/Cgl/CglProbing.o: src/coin/Cgl/CglProbing.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglProbing.o -c src/coin/Cgl/CglProbing.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglProbing.cpp
 
 $(debug)/src/coin/Cgl/CglProbingTest.o: src/coin/Cgl/CglProbingTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglProbingTest.o -c src/coin/Cgl/CglProbingTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglProbingTest.cpp
 
 $(release)/src/coin/Cgl/CglProbingTest.o: src/coin/Cgl/CglProbingTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglProbingTest.o -c src/coin/Cgl/CglProbingTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglProbingTest.cpp
 
 $(debug)/src/coin/Cgl/CglRedSplit.o: src/coin/Cgl/CglRedSplit.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglRedSplit.o -c src/coin/Cgl/CglRedSplit.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglRedSplit.cpp
 
 $(release)/src/coin/Cgl/CglRedSplit.o: src/coin/Cgl/CglRedSplit.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglRedSplit.o -c src/coin/Cgl/CglRedSplit.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglRedSplit.cpp
 
 $(debug)/src/coin/Cgl/CglRedSplitParam.o: src/coin/Cgl/CglRedSplitParam.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglRedSplitParam.o -c src/coin/Cgl/CglRedSplitParam.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglRedSplitParam.cpp
 
 $(release)/src/coin/Cgl/CglRedSplitParam.o: src/coin/Cgl/CglRedSplitParam.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglRedSplitParam.o -c src/coin/Cgl/CglRedSplitParam.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglRedSplitParam.cpp
 
 $(debug)/src/coin/Cgl/CglRedSplitTest.o: src/coin/Cgl/CglRedSplitTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglRedSplitTest.o -c src/coin/Cgl/CglRedSplitTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglRedSplitTest.cpp
 
 $(release)/src/coin/Cgl/CglRedSplitTest.o: src/coin/Cgl/CglRedSplitTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglRedSplitTest.o -c src/coin/Cgl/CglRedSplitTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglRedSplitTest.cpp
 
 $(debug)/src/coin/Cgl/CglResidualCapacity.o: src/coin/Cgl/CglResidualCapacity.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglResidualCapacity.o -c src/coin/Cgl/CglResidualCapacity.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglResidualCapacity.cpp
 
 $(release)/src/coin/Cgl/CglResidualCapacity.o: src/coin/Cgl/CglResidualCapacity.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglResidualCapacity.o -c src/coin/Cgl/CglResidualCapacity.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglResidualCapacity.cpp
 
 $(debug)/src/coin/Cgl/CglResidualCapacityTest.o: src/coin/Cgl/CglResidualCapacityTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglResidualCapacityTest.o -c src/coin/Cgl/CglResidualCapacityTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglResidualCapacityTest.cpp
 
 $(release)/src/coin/Cgl/CglResidualCapacityTest.o: src/coin/Cgl/CglResidualCapacityTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglResidualCapacityTest.o -c src/coin/Cgl/CglResidualCapacityTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglResidualCapacityTest.cpp
 
 $(debug)/src/coin/Cgl/CglSimpleRounding.o: src/coin/Cgl/CglSimpleRounding.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglSimpleRounding.o -c src/coin/Cgl/CglSimpleRounding.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglSimpleRounding.cpp
 
 $(release)/src/coin/Cgl/CglSimpleRounding.o: src/coin/Cgl/CglSimpleRounding.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglSimpleRounding.o -c src/coin/Cgl/CglSimpleRounding.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglSimpleRounding.cpp
 
 $(debug)/src/coin/Cgl/CglSimpleRoundingTest.o: src/coin/Cgl/CglSimpleRoundingTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglSimpleRoundingTest.o -c src/coin/Cgl/CglSimpleRoundingTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglSimpleRoundingTest.cpp
 
 $(release)/src/coin/Cgl/CglSimpleRoundingTest.o: src/coin/Cgl/CglSimpleRoundingTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglSimpleRoundingTest.o -c src/coin/Cgl/CglSimpleRoundingTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglSimpleRoundingTest.cpp
 
 $(debug)/src/coin/Cgl/CglStored.o: src/coin/Cgl/CglStored.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglStored.o -c src/coin/Cgl/CglStored.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglStored.cpp
 
 $(release)/src/coin/Cgl/CglStored.o: src/coin/Cgl/CglStored.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglStored.o -c src/coin/Cgl/CglStored.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglStored.cpp
 
 $(debug)/src/coin/Cgl/CglTreeInfo.o: src/coin/Cgl/CglTreeInfo.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglTreeInfo.o -c src/coin/Cgl/CglTreeInfo.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglTreeInfo.cpp
 
 $(release)/src/coin/Cgl/CglTreeInfo.o: src/coin/Cgl/CglTreeInfo.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglTreeInfo.o -c src/coin/Cgl/CglTreeInfo.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglTreeInfo.cpp
 
 $(debug)/src/coin/Cgl/CglTwomir.o: src/coin/Cgl/CglTwomir.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglTwomir.o -c src/coin/Cgl/CglTwomir.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglTwomir.cpp
 
 $(release)/src/coin/Cgl/CglTwomir.o: src/coin/Cgl/CglTwomir.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglTwomir.o -c src/coin/Cgl/CglTwomir.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglTwomir.cpp
 
 $(debug)/src/coin/Cgl/CglTwomirTest.o: src/coin/Cgl/CglTwomirTest.cpp
-	mkdir -p $(debug)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Cgl/CglTwomirTest.o -c src/coin/Cgl/CglTwomirTest.cpp
+	$(MKDIR) $(debug)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Cgl/CglTwomirTest.cpp
 
 $(release)/src/coin/Cgl/CglTwomirTest.o: src/coin/Cgl/CglTwomirTest.cpp
-	mkdir -p $(release)/src/coin/Cgl
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Cgl/CglTwomirTest.o -c src/coin/Cgl/CglTwomirTest.cpp
+	$(MKDIR) $(release)/src/coin/Cgl
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Cgl/CglTwomirTest.cpp
 
 $(debug)/src/coin/Clp/ClpCholeskyBase.o: src/coin/Clp/ClpCholeskyBase.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpCholeskyBase.o -c src/coin/Clp/ClpCholeskyBase.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpCholeskyBase.cpp
 
 $(release)/src/coin/Clp/ClpCholeskyBase.o: src/coin/Clp/ClpCholeskyBase.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpCholeskyBase.o -c src/coin/Clp/ClpCholeskyBase.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpCholeskyBase.cpp
 
 $(debug)/src/coin/Clp/ClpCholeskyDense.o: src/coin/Clp/ClpCholeskyDense.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpCholeskyDense.o -c src/coin/Clp/ClpCholeskyDense.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpCholeskyDense.cpp
 
 $(release)/src/coin/Clp/ClpCholeskyDense.o: src/coin/Clp/ClpCholeskyDense.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpCholeskyDense.o -c src/coin/Clp/ClpCholeskyDense.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpCholeskyDense.cpp
 
 $(debug)/src/coin/Clp/ClpCholeskyTaucs.o: src/coin/Clp/ClpCholeskyTaucs.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpCholeskyTaucs.o -c src/coin/Clp/ClpCholeskyTaucs.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpCholeskyTaucs.cpp
 
 $(release)/src/coin/Clp/ClpCholeskyTaucs.o: src/coin/Clp/ClpCholeskyTaucs.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpCholeskyTaucs.o -c src/coin/Clp/ClpCholeskyTaucs.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpCholeskyTaucs.cpp
 
 $(debug)/src/coin/Clp/ClpConstraint.o: src/coin/Clp/ClpConstraint.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpConstraint.o -c src/coin/Clp/ClpConstraint.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpConstraint.cpp
 
 $(release)/src/coin/Clp/ClpConstraint.o: src/coin/Clp/ClpConstraint.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpConstraint.o -c src/coin/Clp/ClpConstraint.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpConstraint.cpp
 
 $(debug)/src/coin/Clp/ClpConstraintLinear.o: src/coin/Clp/ClpConstraintLinear.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpConstraintLinear.o -c src/coin/Clp/ClpConstraintLinear.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpConstraintLinear.cpp
 
 $(release)/src/coin/Clp/ClpConstraintLinear.o: src/coin/Clp/ClpConstraintLinear.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpConstraintLinear.o -c src/coin/Clp/ClpConstraintLinear.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpConstraintLinear.cpp
 
 $(debug)/src/coin/Clp/ClpConstraintQuadratic.o: src/coin/Clp/ClpConstraintQuadratic.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpConstraintQuadratic.o -c src/coin/Clp/ClpConstraintQuadratic.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpConstraintQuadratic.cpp
 
 $(release)/src/coin/Clp/ClpConstraintQuadratic.o: src/coin/Clp/ClpConstraintQuadratic.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpConstraintQuadratic.o -c src/coin/Clp/ClpConstraintQuadratic.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpConstraintQuadratic.cpp
 
 $(debug)/src/coin/Clp/ClpDualRowDantzig.o: src/coin/Clp/ClpDualRowDantzig.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDualRowDantzig.o -c src/coin/Clp/ClpDualRowDantzig.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDualRowDantzig.cpp
 
 $(release)/src/coin/Clp/ClpDualRowDantzig.o: src/coin/Clp/ClpDualRowDantzig.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDualRowDantzig.o -c src/coin/Clp/ClpDualRowDantzig.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDualRowDantzig.cpp
 
 $(debug)/src/coin/Clp/ClpDualRowPivot.o: src/coin/Clp/ClpDualRowPivot.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDualRowPivot.o -c src/coin/Clp/ClpDualRowPivot.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDualRowPivot.cpp
 
 $(release)/src/coin/Clp/ClpDualRowPivot.o: src/coin/Clp/ClpDualRowPivot.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDualRowPivot.o -c src/coin/Clp/ClpDualRowPivot.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDualRowPivot.cpp
 
 $(debug)/src/coin/Clp/ClpDualRowSteepest.o: src/coin/Clp/ClpDualRowSteepest.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDualRowSteepest.o -c src/coin/Clp/ClpDualRowSteepest.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDualRowSteepest.cpp
 
 $(release)/src/coin/Clp/ClpDualRowSteepest.o: src/coin/Clp/ClpDualRowSteepest.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDualRowSteepest.o -c src/coin/Clp/ClpDualRowSteepest.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDualRowSteepest.cpp
 
 $(debug)/src/coin/Clp/ClpDummyMatrix.o: src/coin/Clp/ClpDummyMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDummyMatrix.o -c src/coin/Clp/ClpDummyMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDummyMatrix.cpp
 
 $(release)/src/coin/Clp/ClpDummyMatrix.o: src/coin/Clp/ClpDummyMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDummyMatrix.o -c src/coin/Clp/ClpDummyMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDummyMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpDynamicExampleMatrix.o: src/coin/Clp/ClpDynamicExampleMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDynamicExampleMatrix.o -c src/coin/Clp/ClpDynamicExampleMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDynamicExampleMatrix.cpp
 
 $(release)/src/coin/Clp/ClpDynamicExampleMatrix.o: src/coin/Clp/ClpDynamicExampleMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDynamicExampleMatrix.o -c src/coin/Clp/ClpDynamicExampleMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDynamicExampleMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpDynamicMatrix.o: src/coin/Clp/ClpDynamicMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpDynamicMatrix.o -c src/coin/Clp/ClpDynamicMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpDynamicMatrix.cpp
 
 $(release)/src/coin/Clp/ClpDynamicMatrix.o: src/coin/Clp/ClpDynamicMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpDynamicMatrix.o -c src/coin/Clp/ClpDynamicMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpDynamicMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpEventHandler.o: src/coin/Clp/ClpEventHandler.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpEventHandler.o -c src/coin/Clp/ClpEventHandler.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpEventHandler.cpp
 
 $(release)/src/coin/Clp/ClpEventHandler.o: src/coin/Clp/ClpEventHandler.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpEventHandler.o -c src/coin/Clp/ClpEventHandler.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpEventHandler.cpp
 
 $(debug)/src/coin/Clp/ClpFactorization.o: src/coin/Clp/ClpFactorization.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpFactorization.o -c src/coin/Clp/ClpFactorization.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpFactorization.cpp
 
 $(release)/src/coin/Clp/ClpFactorization.o: src/coin/Clp/ClpFactorization.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpFactorization.o -c src/coin/Clp/ClpFactorization.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpFactorization.cpp
 
 $(debug)/src/coin/Clp/ClpGubDynamicMatrix.o: src/coin/Clp/ClpGubDynamicMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpGubDynamicMatrix.o -c src/coin/Clp/ClpGubDynamicMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpGubDynamicMatrix.cpp
 
 $(release)/src/coin/Clp/ClpGubDynamicMatrix.o: src/coin/Clp/ClpGubDynamicMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpGubDynamicMatrix.o -c src/coin/Clp/ClpGubDynamicMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpGubDynamicMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpGubMatrix.o: src/coin/Clp/ClpGubMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpGubMatrix.o -c src/coin/Clp/ClpGubMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpGubMatrix.cpp
 
 $(release)/src/coin/Clp/ClpGubMatrix.o: src/coin/Clp/ClpGubMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpGubMatrix.o -c src/coin/Clp/ClpGubMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpGubMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpHelperFunctions.o: src/coin/Clp/ClpHelperFunctions.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpHelperFunctions.o -c src/coin/Clp/ClpHelperFunctions.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpHelperFunctions.cpp
 
 $(release)/src/coin/Clp/ClpHelperFunctions.o: src/coin/Clp/ClpHelperFunctions.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpHelperFunctions.o -c src/coin/Clp/ClpHelperFunctions.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpHelperFunctions.cpp
 
 $(debug)/src/coin/Clp/ClpInterior.o: src/coin/Clp/ClpInterior.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpInterior.o -c src/coin/Clp/ClpInterior.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpInterior.cpp
 
 $(release)/src/coin/Clp/ClpInterior.o: src/coin/Clp/ClpInterior.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpInterior.o -c src/coin/Clp/ClpInterior.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpInterior.cpp
 
 $(debug)/src/coin/Clp/ClpLinearObjective.o: src/coin/Clp/ClpLinearObjective.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpLinearObjective.o -c src/coin/Clp/ClpLinearObjective.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpLinearObjective.cpp
 
 $(release)/src/coin/Clp/ClpLinearObjective.o: src/coin/Clp/ClpLinearObjective.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpLinearObjective.o -c src/coin/Clp/ClpLinearObjective.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpLinearObjective.cpp
 
 $(debug)/src/coin/Clp/ClpLsqr.o: src/coin/Clp/ClpLsqr.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpLsqr.o -c src/coin/Clp/ClpLsqr.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpLsqr.cpp
 
 $(release)/src/coin/Clp/ClpLsqr.o: src/coin/Clp/ClpLsqr.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpLsqr.o -c src/coin/Clp/ClpLsqr.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpLsqr.cpp
 
 $(debug)/src/coin/Clp/ClpMatrixBase.o: src/coin/Clp/ClpMatrixBase.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpMatrixBase.o -c src/coin/Clp/ClpMatrixBase.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpMatrixBase.cpp
 
 $(release)/src/coin/Clp/ClpMatrixBase.o: src/coin/Clp/ClpMatrixBase.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpMatrixBase.o -c src/coin/Clp/ClpMatrixBase.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpMatrixBase.cpp
 
 $(debug)/src/coin/Clp/ClpMessage.o: src/coin/Clp/ClpMessage.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpMessage.o -c src/coin/Clp/ClpMessage.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpMessage.cpp
 
 $(release)/src/coin/Clp/ClpMessage.o: src/coin/Clp/ClpMessage.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpMessage.o -c src/coin/Clp/ClpMessage.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpMessage.cpp
 
 $(debug)/src/coin/Clp/ClpModel.o: src/coin/Clp/ClpModel.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpModel.o -c src/coin/Clp/ClpModel.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpModel.cpp
 
 $(release)/src/coin/Clp/ClpModel.o: src/coin/Clp/ClpModel.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpModel.o -c src/coin/Clp/ClpModel.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpModel.cpp
 
 $(debug)/src/coin/Clp/ClpNetworkBasis.o: src/coin/Clp/ClpNetworkBasis.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpNetworkBasis.o -c src/coin/Clp/ClpNetworkBasis.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpNetworkBasis.cpp
 
 $(release)/src/coin/Clp/ClpNetworkBasis.o: src/coin/Clp/ClpNetworkBasis.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpNetworkBasis.o -c src/coin/Clp/ClpNetworkBasis.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpNetworkBasis.cpp
 
 $(debug)/src/coin/Clp/ClpNetworkMatrix.o: src/coin/Clp/ClpNetworkMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpNetworkMatrix.o -c src/coin/Clp/ClpNetworkMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpNetworkMatrix.cpp
 
 $(release)/src/coin/Clp/ClpNetworkMatrix.o: src/coin/Clp/ClpNetworkMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpNetworkMatrix.o -c src/coin/Clp/ClpNetworkMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpNetworkMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpNode.o: src/coin/Clp/ClpNode.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpNode.o -c src/coin/Clp/ClpNode.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpNode.cpp
 
 $(release)/src/coin/Clp/ClpNode.o: src/coin/Clp/ClpNode.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpNode.o -c src/coin/Clp/ClpNode.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpNode.cpp
 
 $(debug)/src/coin/Clp/ClpNonLinearCost.o: src/coin/Clp/ClpNonLinearCost.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpNonLinearCost.o -c src/coin/Clp/ClpNonLinearCost.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpNonLinearCost.cpp
 
 $(release)/src/coin/Clp/ClpNonLinearCost.o: src/coin/Clp/ClpNonLinearCost.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpNonLinearCost.o -c src/coin/Clp/ClpNonLinearCost.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpNonLinearCost.cpp
 
 $(debug)/src/coin/Clp/ClpObjective.o: src/coin/Clp/ClpObjective.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpObjective.o -c src/coin/Clp/ClpObjective.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpObjective.cpp
 
 $(release)/src/coin/Clp/ClpObjective.o: src/coin/Clp/ClpObjective.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpObjective.o -c src/coin/Clp/ClpObjective.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpObjective.cpp
 
 $(debug)/src/coin/Clp/ClpPackedMatrix.o: src/coin/Clp/ClpPackedMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPackedMatrix.o -c src/coin/Clp/ClpPackedMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPackedMatrix.cpp
 
 $(release)/src/coin/Clp/ClpPackedMatrix.o: src/coin/Clp/ClpPackedMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPackedMatrix.o -c src/coin/Clp/ClpPackedMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPackedMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpPdco.o: src/coin/Clp/ClpPdco.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPdco.o -c src/coin/Clp/ClpPdco.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPdco.cpp
 
 $(release)/src/coin/Clp/ClpPdco.o: src/coin/Clp/ClpPdco.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPdco.o -c src/coin/Clp/ClpPdco.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPdco.cpp
 
 $(debug)/src/coin/Clp/ClpPdcoBase.o: src/coin/Clp/ClpPdcoBase.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPdcoBase.o -c src/coin/Clp/ClpPdcoBase.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPdcoBase.cpp
 
 $(release)/src/coin/Clp/ClpPdcoBase.o: src/coin/Clp/ClpPdcoBase.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPdcoBase.o -c src/coin/Clp/ClpPdcoBase.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPdcoBase.cpp
 
 $(debug)/src/coin/Clp/ClpPlusMinusOneMatrix.o: src/coin/Clp/ClpPlusMinusOneMatrix.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPlusMinusOneMatrix.o -c src/coin/Clp/ClpPlusMinusOneMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPlusMinusOneMatrix.cpp
 
 $(release)/src/coin/Clp/ClpPlusMinusOneMatrix.o: src/coin/Clp/ClpPlusMinusOneMatrix.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPlusMinusOneMatrix.o -c src/coin/Clp/ClpPlusMinusOneMatrix.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPlusMinusOneMatrix.cpp
 
 $(debug)/src/coin/Clp/ClpPredictorCorrector.o: src/coin/Clp/ClpPredictorCorrector.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPredictorCorrector.o -c src/coin/Clp/ClpPredictorCorrector.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPredictorCorrector.cpp
 
 $(release)/src/coin/Clp/ClpPredictorCorrector.o: src/coin/Clp/ClpPredictorCorrector.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPredictorCorrector.o -c src/coin/Clp/ClpPredictorCorrector.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPredictorCorrector.cpp
 
 $(debug)/src/coin/Clp/ClpPresolve.o: src/coin/Clp/ClpPresolve.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPresolve.o -c src/coin/Clp/ClpPresolve.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPresolve.cpp
 
 $(release)/src/coin/Clp/ClpPresolve.o: src/coin/Clp/ClpPresolve.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPresolve.o -c src/coin/Clp/ClpPresolve.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPresolve.cpp
 
 $(debug)/src/coin/Clp/ClpPrimalColumnDantzig.o: src/coin/Clp/ClpPrimalColumnDantzig.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPrimalColumnDantzig.o -c src/coin/Clp/ClpPrimalColumnDantzig.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPrimalColumnDantzig.cpp
 
 $(release)/src/coin/Clp/ClpPrimalColumnDantzig.o: src/coin/Clp/ClpPrimalColumnDantzig.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPrimalColumnDantzig.o -c src/coin/Clp/ClpPrimalColumnDantzig.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPrimalColumnDantzig.cpp
 
 $(debug)/src/coin/Clp/ClpPrimalColumnPivot.o: src/coin/Clp/ClpPrimalColumnPivot.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPrimalColumnPivot.o -c src/coin/Clp/ClpPrimalColumnPivot.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPrimalColumnPivot.cpp
 
 $(release)/src/coin/Clp/ClpPrimalColumnPivot.o: src/coin/Clp/ClpPrimalColumnPivot.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPrimalColumnPivot.o -c src/coin/Clp/ClpPrimalColumnPivot.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPrimalColumnPivot.cpp
 
 $(debug)/src/coin/Clp/ClpPrimalColumnSteepest.o: src/coin/Clp/ClpPrimalColumnSteepest.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpPrimalColumnSteepest.o -c src/coin/Clp/ClpPrimalColumnSteepest.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpPrimalColumnSteepest.cpp
 
 $(release)/src/coin/Clp/ClpPrimalColumnSteepest.o: src/coin/Clp/ClpPrimalColumnSteepest.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpPrimalColumnSteepest.o -c src/coin/Clp/ClpPrimalColumnSteepest.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpPrimalColumnSteepest.cpp
 
 $(debug)/src/coin/Clp/ClpQuadraticObjective.o: src/coin/Clp/ClpQuadraticObjective.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpQuadraticObjective.o -c src/coin/Clp/ClpQuadraticObjective.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpQuadraticObjective.cpp
 
 $(release)/src/coin/Clp/ClpQuadraticObjective.o: src/coin/Clp/ClpQuadraticObjective.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpQuadraticObjective.o -c src/coin/Clp/ClpQuadraticObjective.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpQuadraticObjective.cpp
 
 $(debug)/src/coin/Clp/ClpSimplex.o: src/coin/Clp/ClpSimplex.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSimplex.o -c src/coin/Clp/ClpSimplex.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSimplex.cpp
 
 $(release)/src/coin/Clp/ClpSimplex.o: src/coin/Clp/ClpSimplex.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSimplex.o -c src/coin/Clp/ClpSimplex.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSimplex.cpp
 
 $(debug)/src/coin/Clp/ClpSimplexDual.o: src/coin/Clp/ClpSimplexDual.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSimplexDual.o -c src/coin/Clp/ClpSimplexDual.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSimplexDual.cpp
 
 $(release)/src/coin/Clp/ClpSimplexDual.o: src/coin/Clp/ClpSimplexDual.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSimplexDual.o -c src/coin/Clp/ClpSimplexDual.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSimplexDual.cpp
 
 $(debug)/src/coin/Clp/ClpSimplexNonlinear.o: src/coin/Clp/ClpSimplexNonlinear.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSimplexNonlinear.o -c src/coin/Clp/ClpSimplexNonlinear.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSimplexNonlinear.cpp
 
 $(release)/src/coin/Clp/ClpSimplexNonlinear.o: src/coin/Clp/ClpSimplexNonlinear.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSimplexNonlinear.o -c src/coin/Clp/ClpSimplexNonlinear.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSimplexNonlinear.cpp
 
 $(debug)/src/coin/Clp/ClpSimplexOther.o: src/coin/Clp/ClpSimplexOther.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSimplexOther.o -c src/coin/Clp/ClpSimplexOther.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSimplexOther.cpp
 
 $(release)/src/coin/Clp/ClpSimplexOther.o: src/coin/Clp/ClpSimplexOther.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSimplexOther.o -c src/coin/Clp/ClpSimplexOther.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSimplexOther.cpp
 
 $(debug)/src/coin/Clp/ClpSimplexPrimal.o: src/coin/Clp/ClpSimplexPrimal.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSimplexPrimal.o -c src/coin/Clp/ClpSimplexPrimal.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSimplexPrimal.cpp
 
 $(release)/src/coin/Clp/ClpSimplexPrimal.o: src/coin/Clp/ClpSimplexPrimal.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSimplexPrimal.o -c src/coin/Clp/ClpSimplexPrimal.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSimplexPrimal.cpp
 
 $(debug)/src/coin/Clp/ClpSolve.o: src/coin/Clp/ClpSolve.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/ClpSolve.o -c src/coin/Clp/ClpSolve.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/ClpSolve.cpp
 
 $(release)/src/coin/Clp/ClpSolve.o: src/coin/Clp/ClpSolve.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/ClpSolve.o -c src/coin/Clp/ClpSolve.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/ClpSolve.cpp
 
 $(debug)/src/coin/Clp/Clp_C_Interface.o: src/coin/Clp/Clp_C_Interface.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/Clp_C_Interface.o -c src/coin/Clp/Clp_C_Interface.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/Clp_C_Interface.cpp
 
 $(release)/src/coin/Clp/Clp_C_Interface.o: src/coin/Clp/Clp_C_Interface.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/Clp_C_Interface.o -c src/coin/Clp/Clp_C_Interface.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/Clp_C_Interface.cpp
 
 $(debug)/src/coin/Clp/IdiSolve.o: src/coin/Clp/IdiSolve.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/IdiSolve.o -c src/coin/Clp/IdiSolve.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/IdiSolve.cpp
 
 $(release)/src/coin/Clp/IdiSolve.o: src/coin/Clp/IdiSolve.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/IdiSolve.o -c src/coin/Clp/IdiSolve.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/IdiSolve.cpp
 
 $(debug)/src/coin/Clp/Idiot.o: src/coin/Clp/Idiot.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/Idiot.o -c src/coin/Clp/Idiot.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/Idiot.cpp
 
 $(release)/src/coin/Clp/Idiot.o: src/coin/Clp/Idiot.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/Idiot.o -c src/coin/Clp/Idiot.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/Idiot.cpp
 
 $(debug)/src/coin/Clp/MyEventHandler.o: src/coin/Clp/MyEventHandler.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/MyEventHandler.o -c src/coin/Clp/MyEventHandler.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/MyEventHandler.cpp
 
 $(release)/src/coin/Clp/MyEventHandler.o: src/coin/Clp/MyEventHandler.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/MyEventHandler.o -c src/coin/Clp/MyEventHandler.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/MyEventHandler.cpp
 
 $(debug)/src/coin/Clp/MyMessageHandler.o: src/coin/Clp/MyMessageHandler.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/MyMessageHandler.o -c src/coin/Clp/MyMessageHandler.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/MyMessageHandler.cpp
 
 $(release)/src/coin/Clp/MyMessageHandler.o: src/coin/Clp/MyMessageHandler.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/MyMessageHandler.o -c src/coin/Clp/MyMessageHandler.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/MyMessageHandler.cpp
 
 $(debug)/src/coin/Clp/unitTest.o: src/coin/Clp/unitTest.cpp
-	mkdir -p $(debug)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Clp/unitTest.o -c src/coin/Clp/unitTest.cpp
+	$(MKDIR) $(debug)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Clp/unitTest.cpp
 
 $(release)/src/coin/Clp/unitTest.o: src/coin/Clp/unitTest.cpp
-	mkdir -p $(release)/src/coin/Clp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Clp/unitTest.o -c src/coin/Clp/unitTest.cpp
+	$(MKDIR) $(release)/src/coin/Clp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Clp/unitTest.cpp
 
 $(debug)/src/coin/CoinUtils/CoinAlloc.o: src/coin/CoinUtils/CoinAlloc.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinAlloc.o -c src/coin/CoinUtils/CoinAlloc.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinAlloc.cpp
 
 $(release)/src/coin/CoinUtils/CoinAlloc.o: src/coin/CoinUtils/CoinAlloc.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinAlloc.o -c src/coin/CoinUtils/CoinAlloc.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinAlloc.cpp
 
 $(debug)/src/coin/CoinUtils/CoinBuild.o: src/coin/CoinUtils/CoinBuild.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinBuild.o -c src/coin/CoinUtils/CoinBuild.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinBuild.cpp
 
 $(release)/src/coin/CoinUtils/CoinBuild.o: src/coin/CoinUtils/CoinBuild.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinBuild.o -c src/coin/CoinUtils/CoinBuild.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinBuild.cpp
 
 $(debug)/src/coin/CoinUtils/CoinDenseFactorization.o: src/coin/CoinUtils/CoinDenseFactorization.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinDenseFactorization.o -c src/coin/CoinUtils/CoinDenseFactorization.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinDenseFactorization.cpp
 
 $(release)/src/coin/CoinUtils/CoinDenseFactorization.o: src/coin/CoinUtils/CoinDenseFactorization.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinDenseFactorization.o -c src/coin/CoinUtils/CoinDenseFactorization.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinDenseFactorization.cpp
 
 $(debug)/src/coin/CoinUtils/CoinDenseVector.o: src/coin/CoinUtils/CoinDenseVector.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinDenseVector.o -c src/coin/CoinUtils/CoinDenseVector.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinDenseVector.cpp
 
 $(release)/src/coin/CoinUtils/CoinDenseVector.o: src/coin/CoinUtils/CoinDenseVector.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinDenseVector.o -c src/coin/CoinUtils/CoinDenseVector.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinDenseVector.cpp
 
 $(debug)/src/coin/CoinUtils/CoinError.o: src/coin/CoinUtils/CoinError.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinError.o -c src/coin/CoinUtils/CoinError.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinError.cpp
 
 $(release)/src/coin/CoinUtils/CoinError.o: src/coin/CoinUtils/CoinError.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinError.o -c src/coin/CoinUtils/CoinError.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinError.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFactorization1.o: src/coin/CoinUtils/CoinFactorization1.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFactorization1.o -c src/coin/CoinUtils/CoinFactorization1.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFactorization1.cpp
 
 $(release)/src/coin/CoinUtils/CoinFactorization1.o: src/coin/CoinUtils/CoinFactorization1.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFactorization1.o -c src/coin/CoinUtils/CoinFactorization1.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFactorization1.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFactorization2.o: src/coin/CoinUtils/CoinFactorization2.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFactorization2.o -c src/coin/CoinUtils/CoinFactorization2.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFactorization2.cpp
 
 $(release)/src/coin/CoinUtils/CoinFactorization2.o: src/coin/CoinUtils/CoinFactorization2.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFactorization2.o -c src/coin/CoinUtils/CoinFactorization2.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFactorization2.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFactorization3.o: src/coin/CoinUtils/CoinFactorization3.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFactorization3.o -c src/coin/CoinUtils/CoinFactorization3.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFactorization3.cpp
 
 $(release)/src/coin/CoinUtils/CoinFactorization3.o: src/coin/CoinUtils/CoinFactorization3.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFactorization3.o -c src/coin/CoinUtils/CoinFactorization3.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFactorization3.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFactorization4.o: src/coin/CoinUtils/CoinFactorization4.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFactorization4.o -c src/coin/CoinUtils/CoinFactorization4.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFactorization4.cpp
 
 $(release)/src/coin/CoinUtils/CoinFactorization4.o: src/coin/CoinUtils/CoinFactorization4.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFactorization4.o -c src/coin/CoinUtils/CoinFactorization4.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFactorization4.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFileIO.o: src/coin/CoinUtils/CoinFileIO.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFileIO.o -c src/coin/CoinUtils/CoinFileIO.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFileIO.cpp
 
 $(release)/src/coin/CoinUtils/CoinFileIO.o: src/coin/CoinUtils/CoinFileIO.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFileIO.o -c src/coin/CoinUtils/CoinFileIO.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFileIO.cpp
 
 $(debug)/src/coin/CoinUtils/CoinFinite.o: src/coin/CoinUtils/CoinFinite.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinFinite.o -c src/coin/CoinUtils/CoinFinite.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinFinite.cpp
 
 $(release)/src/coin/CoinUtils/CoinFinite.o: src/coin/CoinUtils/CoinFinite.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinFinite.o -c src/coin/CoinUtils/CoinFinite.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinFinite.cpp
 
 $(debug)/src/coin/CoinUtils/CoinIndexedVector.o: src/coin/CoinUtils/CoinIndexedVector.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinIndexedVector.o -c src/coin/CoinUtils/CoinIndexedVector.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinIndexedVector.cpp
 
 $(release)/src/coin/CoinUtils/CoinIndexedVector.o: src/coin/CoinUtils/CoinIndexedVector.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinIndexedVector.o -c src/coin/CoinUtils/CoinIndexedVector.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinIndexedVector.cpp
 
 $(debug)/src/coin/CoinUtils/CoinLpIO.o: src/coin/CoinUtils/CoinLpIO.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinLpIO.o -c src/coin/CoinUtils/CoinLpIO.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinLpIO.cpp
 
 $(release)/src/coin/CoinUtils/CoinLpIO.o: src/coin/CoinUtils/CoinLpIO.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinLpIO.o -c src/coin/CoinUtils/CoinLpIO.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinLpIO.cpp
 
 $(debug)/src/coin/CoinUtils/CoinMessage.o: src/coin/CoinUtils/CoinMessage.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinMessage.o -c src/coin/CoinUtils/CoinMessage.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinMessage.cpp
 
 $(release)/src/coin/CoinUtils/CoinMessage.o: src/coin/CoinUtils/CoinMessage.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinMessage.o -c src/coin/CoinUtils/CoinMessage.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinMessage.cpp
 
 $(debug)/src/coin/CoinUtils/CoinMessageHandler.o: src/coin/CoinUtils/CoinMessageHandler.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinMessageHandler.o -c src/coin/CoinUtils/CoinMessageHandler.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinMessageHandler.cpp
 
 $(release)/src/coin/CoinUtils/CoinMessageHandler.o: src/coin/CoinUtils/CoinMessageHandler.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinMessageHandler.o -c src/coin/CoinUtils/CoinMessageHandler.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinMessageHandler.cpp
 
 $(debug)/src/coin/CoinUtils/CoinModel.o: src/coin/CoinUtils/CoinModel.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinModel.o -c src/coin/CoinUtils/CoinModel.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinModel.cpp
 
 $(release)/src/coin/CoinUtils/CoinModel.o: src/coin/CoinUtils/CoinModel.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinModel.o -c src/coin/CoinUtils/CoinModel.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinModel.cpp
 
 $(debug)/src/coin/CoinUtils/CoinModelUseful.o: src/coin/CoinUtils/CoinModelUseful.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinModelUseful.o -c src/coin/CoinUtils/CoinModelUseful.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinModelUseful.cpp
 
 $(release)/src/coin/CoinUtils/CoinModelUseful.o: src/coin/CoinUtils/CoinModelUseful.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinModelUseful.o -c src/coin/CoinUtils/CoinModelUseful.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinModelUseful.cpp
 
 $(debug)/src/coin/CoinUtils/CoinModelUseful2.o: src/coin/CoinUtils/CoinModelUseful2.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinModelUseful2.o -c src/coin/CoinUtils/CoinModelUseful2.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinModelUseful2.cpp
 
 $(release)/src/coin/CoinUtils/CoinModelUseful2.o: src/coin/CoinUtils/CoinModelUseful2.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinModelUseful2.o -c src/coin/CoinUtils/CoinModelUseful2.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinModelUseful2.cpp
 
 $(debug)/src/coin/CoinUtils/CoinMpsIO.o: src/coin/CoinUtils/CoinMpsIO.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinMpsIO.o -c src/coin/CoinUtils/CoinMpsIO.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinMpsIO.cpp
 
 $(release)/src/coin/CoinUtils/CoinMpsIO.o: src/coin/CoinUtils/CoinMpsIO.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinMpsIO.o -c src/coin/CoinUtils/CoinMpsIO.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinMpsIO.cpp
 
 $(debug)/src/coin/CoinUtils/CoinOslFactorization.o: src/coin/CoinUtils/CoinOslFactorization.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinOslFactorization.o -c src/coin/CoinUtils/CoinOslFactorization.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinOslFactorization.cpp
 
 $(release)/src/coin/CoinUtils/CoinOslFactorization.o: src/coin/CoinUtils/CoinOslFactorization.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinOslFactorization.o -c src/coin/CoinUtils/CoinOslFactorization.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinOslFactorization.cpp
 
 $(debug)/src/coin/CoinUtils/CoinOslFactorization2.o: src/coin/CoinUtils/CoinOslFactorization2.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinOslFactorization2.o -c src/coin/CoinUtils/CoinOslFactorization2.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinOslFactorization2.cpp
 
 $(release)/src/coin/CoinUtils/CoinOslFactorization2.o: src/coin/CoinUtils/CoinOslFactorization2.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinOslFactorization2.o -c src/coin/CoinUtils/CoinOslFactorization2.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinOslFactorization2.cpp
 
 $(debug)/src/coin/CoinUtils/CoinOslFactorization3.o: src/coin/CoinUtils/CoinOslFactorization3.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinOslFactorization3.o -c src/coin/CoinUtils/CoinOslFactorization3.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinOslFactorization3.cpp
 
 $(release)/src/coin/CoinUtils/CoinOslFactorization3.o: src/coin/CoinUtils/CoinOslFactorization3.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinOslFactorization3.o -c src/coin/CoinUtils/CoinOslFactorization3.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinOslFactorization3.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPackedMatrix.o: src/coin/CoinUtils/CoinPackedMatrix.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPackedMatrix.o -c src/coin/CoinUtils/CoinPackedMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPackedMatrix.cpp
 
 $(release)/src/coin/CoinUtils/CoinPackedMatrix.o: src/coin/CoinUtils/CoinPackedMatrix.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPackedMatrix.o -c src/coin/CoinUtils/CoinPackedMatrix.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPackedMatrix.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPackedVector.o: src/coin/CoinUtils/CoinPackedVector.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPackedVector.o -c src/coin/CoinUtils/CoinPackedVector.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPackedVector.cpp
 
 $(release)/src/coin/CoinUtils/CoinPackedVector.o: src/coin/CoinUtils/CoinPackedVector.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPackedVector.o -c src/coin/CoinUtils/CoinPackedVector.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPackedVector.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPackedVectorBase.o: src/coin/CoinUtils/CoinPackedVectorBase.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPackedVectorBase.o -c src/coin/CoinUtils/CoinPackedVectorBase.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPackedVectorBase.cpp
 
 $(release)/src/coin/CoinUtils/CoinPackedVectorBase.o: src/coin/CoinUtils/CoinPackedVectorBase.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPackedVectorBase.o -c src/coin/CoinUtils/CoinPackedVectorBase.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPackedVectorBase.cpp
 
 $(debug)/src/coin/CoinUtils/CoinParam.o: src/coin/CoinUtils/CoinParam.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinParam.o -c src/coin/CoinUtils/CoinParam.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinParam.cpp
 
 $(release)/src/coin/CoinUtils/CoinParam.o: src/coin/CoinUtils/CoinParam.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinParam.o -c src/coin/CoinUtils/CoinParam.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinParam.cpp
 
 $(debug)/src/coin/CoinUtils/CoinParamUtils.o: src/coin/CoinUtils/CoinParamUtils.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinParamUtils.o -c src/coin/CoinUtils/CoinParamUtils.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinParamUtils.cpp
 
 $(release)/src/coin/CoinUtils/CoinParamUtils.o: src/coin/CoinUtils/CoinParamUtils.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinParamUtils.o -c src/coin/CoinUtils/CoinParamUtils.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinParamUtils.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPostsolveMatrix.o: src/coin/CoinUtils/CoinPostsolveMatrix.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPostsolveMatrix.o -c src/coin/CoinUtils/CoinPostsolveMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPostsolveMatrix.cpp
 
 $(release)/src/coin/CoinUtils/CoinPostsolveMatrix.o: src/coin/CoinUtils/CoinPostsolveMatrix.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPostsolveMatrix.o -c src/coin/CoinUtils/CoinPostsolveMatrix.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPostsolveMatrix.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o: src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o -c src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
 
 $(release)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o: src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o -c src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPrePostsolveMatrix.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveDoubleton.o: src/coin/CoinUtils/CoinPresolveDoubleton.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveDoubleton.o -c src/coin/CoinUtils/CoinPresolveDoubleton.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveDoubleton.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveDoubleton.o: src/coin/CoinUtils/CoinPresolveDoubleton.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveDoubleton.o -c src/coin/CoinUtils/CoinPresolveDoubleton.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveDoubleton.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveDual.o: src/coin/CoinUtils/CoinPresolveDual.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveDual.o -c src/coin/CoinUtils/CoinPresolveDual.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveDual.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveDual.o: src/coin/CoinUtils/CoinPresolveDual.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveDual.o -c src/coin/CoinUtils/CoinPresolveDual.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveDual.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveDupcol.o: src/coin/CoinUtils/CoinPresolveDupcol.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveDupcol.o -c src/coin/CoinUtils/CoinPresolveDupcol.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveDupcol.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveDupcol.o: src/coin/CoinUtils/CoinPresolveDupcol.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveDupcol.o -c src/coin/CoinUtils/CoinPresolveDupcol.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveDupcol.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveEmpty.o: src/coin/CoinUtils/CoinPresolveEmpty.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveEmpty.o -c src/coin/CoinUtils/CoinPresolveEmpty.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveEmpty.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveEmpty.o: src/coin/CoinUtils/CoinPresolveEmpty.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveEmpty.o -c src/coin/CoinUtils/CoinPresolveEmpty.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveEmpty.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveFixed.o: src/coin/CoinUtils/CoinPresolveFixed.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveFixed.o -c src/coin/CoinUtils/CoinPresolveFixed.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveFixed.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveFixed.o: src/coin/CoinUtils/CoinPresolveFixed.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveFixed.o -c src/coin/CoinUtils/CoinPresolveFixed.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveFixed.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveForcing.o: src/coin/CoinUtils/CoinPresolveForcing.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveForcing.o -c src/coin/CoinUtils/CoinPresolveForcing.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveForcing.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveForcing.o: src/coin/CoinUtils/CoinPresolveForcing.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveForcing.o -c src/coin/CoinUtils/CoinPresolveForcing.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveForcing.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o: src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o -c src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o: src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o -c src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveHelperFunctions.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveImpliedFree.o: src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveImpliedFree.o -c src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveImpliedFree.o: src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveImpliedFree.o -c src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveImpliedFree.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveIsolated.o: src/coin/CoinUtils/CoinPresolveIsolated.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveIsolated.o -c src/coin/CoinUtils/CoinPresolveIsolated.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveIsolated.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveIsolated.o: src/coin/CoinUtils/CoinPresolveIsolated.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveIsolated.o -c src/coin/CoinUtils/CoinPresolveIsolated.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveIsolated.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveMatrix.o: src/coin/CoinUtils/CoinPresolveMatrix.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveMatrix.o -c src/coin/CoinUtils/CoinPresolveMatrix.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveMatrix.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveMatrix.o: src/coin/CoinUtils/CoinPresolveMatrix.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveMatrix.o -c src/coin/CoinUtils/CoinPresolveMatrix.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveMatrix.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolvePsdebug.o: src/coin/CoinUtils/CoinPresolvePsdebug.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolvePsdebug.o -c src/coin/CoinUtils/CoinPresolvePsdebug.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolvePsdebug.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolvePsdebug.o: src/coin/CoinUtils/CoinPresolvePsdebug.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolvePsdebug.o -c src/coin/CoinUtils/CoinPresolvePsdebug.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolvePsdebug.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveSingleton.o: src/coin/CoinUtils/CoinPresolveSingleton.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveSingleton.o -c src/coin/CoinUtils/CoinPresolveSingleton.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveSingleton.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveSingleton.o: src/coin/CoinUtils/CoinPresolveSingleton.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveSingleton.o -c src/coin/CoinUtils/CoinPresolveSingleton.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveSingleton.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveSubst.o: src/coin/CoinUtils/CoinPresolveSubst.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveSubst.o -c src/coin/CoinUtils/CoinPresolveSubst.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveSubst.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveSubst.o: src/coin/CoinUtils/CoinPresolveSubst.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveSubst.o -c src/coin/CoinUtils/CoinPresolveSubst.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveSubst.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveTighten.o: src/coin/CoinUtils/CoinPresolveTighten.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveTighten.o -c src/coin/CoinUtils/CoinPresolveTighten.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveTighten.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveTighten.o: src/coin/CoinUtils/CoinPresolveTighten.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveTighten.o -c src/coin/CoinUtils/CoinPresolveTighten.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveTighten.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveTripleton.o: src/coin/CoinUtils/CoinPresolveTripleton.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveTripleton.o -c src/coin/CoinUtils/CoinPresolveTripleton.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveTripleton.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveTripleton.o: src/coin/CoinUtils/CoinPresolveTripleton.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveTripleton.o -c src/coin/CoinUtils/CoinPresolveTripleton.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveTripleton.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveUseless.o: src/coin/CoinUtils/CoinPresolveUseless.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveUseless.o -c src/coin/CoinUtils/CoinPresolveUseless.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveUseless.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveUseless.o: src/coin/CoinUtils/CoinPresolveUseless.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveUseless.o -c src/coin/CoinUtils/CoinPresolveUseless.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveUseless.cpp
 
 $(debug)/src/coin/CoinUtils/CoinPresolveZeros.o: src/coin/CoinUtils/CoinPresolveZeros.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinPresolveZeros.o -c src/coin/CoinUtils/CoinPresolveZeros.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinPresolveZeros.cpp
 
 $(release)/src/coin/CoinUtils/CoinPresolveZeros.o: src/coin/CoinUtils/CoinPresolveZeros.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinPresolveZeros.o -c src/coin/CoinUtils/CoinPresolveZeros.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinPresolveZeros.cpp
 
 $(debug)/src/coin/CoinUtils/CoinSearchTree.o: src/coin/CoinUtils/CoinSearchTree.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinSearchTree.o -c src/coin/CoinUtils/CoinSearchTree.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinSearchTree.cpp
 
 $(release)/src/coin/CoinUtils/CoinSearchTree.o: src/coin/CoinUtils/CoinSearchTree.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinSearchTree.o -c src/coin/CoinUtils/CoinSearchTree.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinSearchTree.cpp
 
 $(debug)/src/coin/CoinUtils/CoinShallowPackedVector.o: src/coin/CoinUtils/CoinShallowPackedVector.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinShallowPackedVector.o -c src/coin/CoinUtils/CoinShallowPackedVector.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinShallowPackedVector.cpp
 
 $(release)/src/coin/CoinUtils/CoinShallowPackedVector.o: src/coin/CoinUtils/CoinShallowPackedVector.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinShallowPackedVector.o -c src/coin/CoinUtils/CoinShallowPackedVector.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinShallowPackedVector.cpp
 
 $(debug)/src/coin/CoinUtils/CoinSimpFactorization.o: src/coin/CoinUtils/CoinSimpFactorization.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinSimpFactorization.o -c src/coin/CoinUtils/CoinSimpFactorization.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinSimpFactorization.cpp
 
 $(release)/src/coin/CoinUtils/CoinSimpFactorization.o: src/coin/CoinUtils/CoinSimpFactorization.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinSimpFactorization.o -c src/coin/CoinUtils/CoinSimpFactorization.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinSimpFactorization.cpp
 
 $(debug)/src/coin/CoinUtils/CoinSnapshot.o: src/coin/CoinUtils/CoinSnapshot.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinSnapshot.o -c src/coin/CoinUtils/CoinSnapshot.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinSnapshot.cpp
 
 $(release)/src/coin/CoinUtils/CoinSnapshot.o: src/coin/CoinUtils/CoinSnapshot.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinSnapshot.o -c src/coin/CoinUtils/CoinSnapshot.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinSnapshot.cpp
 
 $(debug)/src/coin/CoinUtils/CoinStructuredModel.o: src/coin/CoinUtils/CoinStructuredModel.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinStructuredModel.o -c src/coin/CoinUtils/CoinStructuredModel.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinStructuredModel.cpp
 
 $(release)/src/coin/CoinUtils/CoinStructuredModel.o: src/coin/CoinUtils/CoinStructuredModel.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinStructuredModel.o -c src/coin/CoinUtils/CoinStructuredModel.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinStructuredModel.cpp
 
 $(debug)/src/coin/CoinUtils/CoinWarmStartBasis.o: src/coin/CoinUtils/CoinWarmStartBasis.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinWarmStartBasis.o -c src/coin/CoinUtils/CoinWarmStartBasis.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinWarmStartBasis.cpp
 
 $(release)/src/coin/CoinUtils/CoinWarmStartBasis.o: src/coin/CoinUtils/CoinWarmStartBasis.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinWarmStartBasis.o -c src/coin/CoinUtils/CoinWarmStartBasis.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinWarmStartBasis.cpp
 
 $(debug)/src/coin/CoinUtils/CoinWarmStartDual.o: src/coin/CoinUtils/CoinWarmStartDual.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinWarmStartDual.o -c src/coin/CoinUtils/CoinWarmStartDual.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinWarmStartDual.cpp
 
 $(release)/src/coin/CoinUtils/CoinWarmStartDual.o: src/coin/CoinUtils/CoinWarmStartDual.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinWarmStartDual.o -c src/coin/CoinUtils/CoinWarmStartDual.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinWarmStartDual.cpp
 
 $(debug)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o: src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o -c src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
 
 $(release)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o: src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o -c src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinWarmStartPrimalDual.cpp
 
 $(debug)/src/coin/CoinUtils/CoinWarmStartVector.o: src/coin/CoinUtils/CoinWarmStartVector.cpp
-	mkdir -p $(debug)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/CoinUtils/CoinWarmStartVector.o -c src/coin/CoinUtils/CoinWarmStartVector.cpp
+	$(MKDIR) $(debug)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/CoinUtils/CoinWarmStartVector.cpp
 
 $(release)/src/coin/CoinUtils/CoinWarmStartVector.o: src/coin/CoinUtils/CoinWarmStartVector.cpp
-	mkdir -p $(release)/src/coin/CoinUtils
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/CoinUtils/CoinWarmStartVector.o -c src/coin/CoinUtils/CoinWarmStartVector.cpp
+	$(MKDIR) $(release)/src/coin/CoinUtils
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/CoinUtils/CoinWarmStartVector.cpp
 
 $(debug)/src/coin/Osi/OsiAuxInfo.o: src/coin/Osi/OsiAuxInfo.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiAuxInfo.o -c src/coin/Osi/OsiAuxInfo.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiAuxInfo.cpp
 
 $(release)/src/coin/Osi/OsiAuxInfo.o: src/coin/Osi/OsiAuxInfo.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiAuxInfo.o -c src/coin/Osi/OsiAuxInfo.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiAuxInfo.cpp
 
 $(debug)/src/coin/Osi/OsiBranchingObject.o: src/coin/Osi/OsiBranchingObject.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiBranchingObject.o -c src/coin/Osi/OsiBranchingObject.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiBranchingObject.cpp
 
 $(release)/src/coin/Osi/OsiBranchingObject.o: src/coin/Osi/OsiBranchingObject.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiBranchingObject.o -c src/coin/Osi/OsiBranchingObject.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiBranchingObject.cpp
 
 $(debug)/src/coin/Osi/OsiChooseVariable.o: src/coin/Osi/OsiChooseVariable.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiChooseVariable.o -c src/coin/Osi/OsiChooseVariable.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiChooseVariable.cpp
 
 $(release)/src/coin/Osi/OsiChooseVariable.o: src/coin/Osi/OsiChooseVariable.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiChooseVariable.o -c src/coin/Osi/OsiChooseVariable.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiChooseVariable.cpp
 
 $(debug)/src/coin/Osi/OsiColCut.o: src/coin/Osi/OsiColCut.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiColCut.o -c src/coin/Osi/OsiColCut.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiColCut.cpp
 
 $(release)/src/coin/Osi/OsiColCut.o: src/coin/Osi/OsiColCut.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiColCut.o -c src/coin/Osi/OsiColCut.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiColCut.cpp
 
 $(debug)/src/coin/Osi/OsiCut.o: src/coin/Osi/OsiCut.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiCut.o -c src/coin/Osi/OsiCut.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiCut.cpp
 
 $(release)/src/coin/Osi/OsiCut.o: src/coin/Osi/OsiCut.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiCut.o -c src/coin/Osi/OsiCut.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiCut.cpp
 
 $(debug)/src/coin/Osi/OsiCuts.o: src/coin/Osi/OsiCuts.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiCuts.o -c src/coin/Osi/OsiCuts.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiCuts.cpp
 
 $(release)/src/coin/Osi/OsiCuts.o: src/coin/Osi/OsiCuts.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiCuts.o -c src/coin/Osi/OsiCuts.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiCuts.cpp
 
 $(debug)/src/coin/Osi/OsiNames.o: src/coin/Osi/OsiNames.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiNames.o -c src/coin/Osi/OsiNames.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiNames.cpp
 
 $(release)/src/coin/Osi/OsiNames.o: src/coin/Osi/OsiNames.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiNames.o -c src/coin/Osi/OsiNames.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiNames.cpp
 
 $(debug)/src/coin/Osi/OsiPresolve.o: src/coin/Osi/OsiPresolve.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiPresolve.o -c src/coin/Osi/OsiPresolve.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiPresolve.cpp
 
 $(release)/src/coin/Osi/OsiPresolve.o: src/coin/Osi/OsiPresolve.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiPresolve.o -c src/coin/Osi/OsiPresolve.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiPresolve.cpp
 
 $(debug)/src/coin/Osi/OsiRowCut.o: src/coin/Osi/OsiRowCut.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiRowCut.o -c src/coin/Osi/OsiRowCut.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiRowCut.cpp
 
 $(release)/src/coin/Osi/OsiRowCut.o: src/coin/Osi/OsiRowCut.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiRowCut.o -c src/coin/Osi/OsiRowCut.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiRowCut.cpp
 
 $(debug)/src/coin/Osi/OsiRowCutDebugger.o: src/coin/Osi/OsiRowCutDebugger.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiRowCutDebugger.o -c src/coin/Osi/OsiRowCutDebugger.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiRowCutDebugger.cpp
 
 $(release)/src/coin/Osi/OsiRowCutDebugger.o: src/coin/Osi/OsiRowCutDebugger.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiRowCutDebugger.o -c src/coin/Osi/OsiRowCutDebugger.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiRowCutDebugger.cpp
 
 $(debug)/src/coin/Osi/OsiSolverBranch.o: src/coin/Osi/OsiSolverBranch.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiSolverBranch.o -c src/coin/Osi/OsiSolverBranch.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiSolverBranch.cpp
 
 $(release)/src/coin/Osi/OsiSolverBranch.o: src/coin/Osi/OsiSolverBranch.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiSolverBranch.o -c src/coin/Osi/OsiSolverBranch.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiSolverBranch.cpp
 
 $(debug)/src/coin/Osi/OsiSolverInterface.o: src/coin/Osi/OsiSolverInterface.cpp
-	mkdir -p $(debug)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Osi/OsiSolverInterface.o -c src/coin/Osi/OsiSolverInterface.cpp
+	$(MKDIR) $(debug)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Osi/OsiSolverInterface.cpp
 
 $(release)/src/coin/Osi/OsiSolverInterface.o: src/coin/Osi/OsiSolverInterface.cpp
-	mkdir -p $(release)/src/coin/Osi
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Osi/OsiSolverInterface.o -c src/coin/Osi/OsiSolverInterface.cpp
+	$(MKDIR) $(release)/src/coin/Osi
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Osi/OsiSolverInterface.cpp
 
 $(debug)/src/coin/OsiClp/OsiClpSolverInterface.o: src/coin/OsiClp/OsiClpSolverInterface.cpp
-	mkdir -p $(debug)/src/coin/OsiClp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/OsiClp/OsiClpSolverInterface.o -c src/coin/OsiClp/OsiClpSolverInterface.cpp
+	$(MKDIR) $(debug)/src/coin/OsiClp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/OsiClp/OsiClpSolverInterface.cpp
 
 $(release)/src/coin/OsiClp/OsiClpSolverInterface.o: src/coin/OsiClp/OsiClpSolverInterface.cpp
-	mkdir -p $(release)/src/coin/OsiClp
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/OsiClp/OsiClpSolverInterface.o -c src/coin/OsiClp/OsiClpSolverInterface.cpp
+	$(MKDIR) $(release)/src/coin/OsiClp
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/OsiClp/OsiClpSolverInterface.cpp
 
 $(debug)/src/coin/Symphony/OsiSymSolverInterface.o: src/coin/Symphony/OsiSymSolverInterface.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/OsiSymSolverInterface.o -c src/coin/Symphony/OsiSymSolverInterface.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/OsiSymSolverInterface.cpp
 
 $(release)/src/coin/Symphony/OsiSymSolverInterface.o: src/coin/Symphony/OsiSymSolverInterface.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/OsiSymSolverInterface.o -c src/coin/Symphony/OsiSymSolverInterface.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/OsiSymSolverInterface.cpp
 
 $(debug)/src/coin/Symphony/SymWarmStart.o: src/coin/Symphony/SymWarmStart.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/SymWarmStart.o -c src/coin/Symphony/SymWarmStart.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/SymWarmStart.cpp
 
 $(release)/src/coin/Symphony/SymWarmStart.o: src/coin/Symphony/SymWarmStart.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/SymWarmStart.o -c src/coin/Symphony/SymWarmStart.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/SymWarmStart.cpp
 
 $(debug)/src/coin/Symphony/cg_func.o: src/coin/Symphony/cg_func.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cg_func.o -c src/coin/Symphony/cg_func.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cg_func.cpp
 
 $(release)/src/coin/Symphony/cg_func.o: src/coin/Symphony/cg_func.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cg_func.o -c src/coin/Symphony/cg_func.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cg_func.cpp
 
 $(debug)/src/coin/Symphony/cg_proccomm.o: src/coin/Symphony/cg_proccomm.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cg_proccomm.o -c src/coin/Symphony/cg_proccomm.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cg_proccomm.cpp
 
 $(release)/src/coin/Symphony/cg_proccomm.o: src/coin/Symphony/cg_proccomm.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cg_proccomm.o -c src/coin/Symphony/cg_proccomm.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cg_proccomm.cpp
 
 $(debug)/src/coin/Symphony/cg_wrapper.o: src/coin/Symphony/cg_wrapper.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cg_wrapper.o -c src/coin/Symphony/cg_wrapper.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cg_wrapper.cpp
 
 $(release)/src/coin/Symphony/cg_wrapper.o: src/coin/Symphony/cg_wrapper.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cg_wrapper.o -c src/coin/Symphony/cg_wrapper.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cg_wrapper.cpp
 
 $(debug)/src/coin/Symphony/cp_func.o: src/coin/Symphony/cp_func.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cp_func.o -c src/coin/Symphony/cp_func.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cp_func.cpp
 
 $(release)/src/coin/Symphony/cp_func.o: src/coin/Symphony/cp_func.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cp_func.o -c src/coin/Symphony/cp_func.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cp_func.cpp
 
 $(debug)/src/coin/Symphony/cp_proccomm.o: src/coin/Symphony/cp_proccomm.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cp_proccomm.o -c src/coin/Symphony/cp_proccomm.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cp_proccomm.cpp
 
 $(release)/src/coin/Symphony/cp_proccomm.o: src/coin/Symphony/cp_proccomm.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cp_proccomm.o -c src/coin/Symphony/cp_proccomm.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cp_proccomm.cpp
 
 $(debug)/src/coin/Symphony/cp_wrapper.o: src/coin/Symphony/cp_wrapper.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cp_wrapper.o -c src/coin/Symphony/cp_wrapper.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cp_wrapper.cpp
 
 $(release)/src/coin/Symphony/cp_wrapper.o: src/coin/Symphony/cp_wrapper.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cp_wrapper.o -c src/coin/Symphony/cp_wrapper.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cp_wrapper.cpp
 
 $(debug)/src/coin/Symphony/cut_gen.o: src/coin/Symphony/cut_gen.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cut_gen.o -c src/coin/Symphony/cut_gen.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cut_gen.cpp
 
 $(release)/src/coin/Symphony/cut_gen.o: src/coin/Symphony/cut_gen.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cut_gen.o -c src/coin/Symphony/cut_gen.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cut_gen.cpp
 
 $(debug)/src/coin/Symphony/cut_pool.o: src/coin/Symphony/cut_pool.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/cut_pool.o -c src/coin/Symphony/cut_pool.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/cut_pool.cpp
 
 $(release)/src/coin/Symphony/cut_pool.o: src/coin/Symphony/cut_pool.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/cut_pool.o -c src/coin/Symphony/cut_pool.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/cut_pool.cpp
 
 $(debug)/src/coin/Symphony/lp.o: src/coin/Symphony/lp.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp.o -c src/coin/Symphony/lp.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp.cpp
 
 $(release)/src/coin/Symphony/lp.o: src/coin/Symphony/lp.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp.o -c src/coin/Symphony/lp.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp.cpp
 
 $(debug)/src/coin/Symphony/lp_branch.o: src/coin/Symphony/lp_branch.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_branch.o -c src/coin/Symphony/lp_branch.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_branch.cpp
 
 $(release)/src/coin/Symphony/lp_branch.o: src/coin/Symphony/lp_branch.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_branch.o -c src/coin/Symphony/lp_branch.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_branch.cpp
 
 $(debug)/src/coin/Symphony/lp_free.o: src/coin/Symphony/lp_free.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_free.o -c src/coin/Symphony/lp_free.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_free.cpp
 
 $(release)/src/coin/Symphony/lp_free.o: src/coin/Symphony/lp_free.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_free.o -c src/coin/Symphony/lp_free.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_free.cpp
 
 $(debug)/src/coin/Symphony/lp_genfunc.o: src/coin/Symphony/lp_genfunc.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_genfunc.o -c src/coin/Symphony/lp_genfunc.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_genfunc.cpp
 
 $(release)/src/coin/Symphony/lp_genfunc.o: src/coin/Symphony/lp_genfunc.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_genfunc.o -c src/coin/Symphony/lp_genfunc.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_genfunc.cpp
 
 $(debug)/src/coin/Symphony/lp_heuristics.o: src/coin/Symphony/lp_heuristics.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_heuristics.o -c src/coin/Symphony/lp_heuristics.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_heuristics.cpp
 
 $(release)/src/coin/Symphony/lp_heuristics.o: src/coin/Symphony/lp_heuristics.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_heuristics.o -c src/coin/Symphony/lp_heuristics.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_heuristics.cpp
 
 $(debug)/src/coin/Symphony/lp_proccomm.o: src/coin/Symphony/lp_proccomm.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_proccomm.o -c src/coin/Symphony/lp_proccomm.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_proccomm.cpp
 
 $(release)/src/coin/Symphony/lp_proccomm.o: src/coin/Symphony/lp_proccomm.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_proccomm.o -c src/coin/Symphony/lp_proccomm.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_proccomm.cpp
 
 $(debug)/src/coin/Symphony/lp_rowfunc.o: src/coin/Symphony/lp_rowfunc.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_rowfunc.o -c src/coin/Symphony/lp_rowfunc.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_rowfunc.cpp
 
 $(release)/src/coin/Symphony/lp_rowfunc.o: src/coin/Symphony/lp_rowfunc.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_rowfunc.o -c src/coin/Symphony/lp_rowfunc.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_rowfunc.cpp
 
 $(debug)/src/coin/Symphony/lp_solver.o: src/coin/Symphony/lp_solver.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_solver.o -c src/coin/Symphony/lp_solver.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_solver.cpp
 
 $(release)/src/coin/Symphony/lp_solver.o: src/coin/Symphony/lp_solver.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_solver.o -c src/coin/Symphony/lp_solver.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_solver.cpp
 
 $(debug)/src/coin/Symphony/lp_sp.o: src/coin/Symphony/lp_sp.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_sp.o -c src/coin/Symphony/lp_sp.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_sp.cpp
 
 $(release)/src/coin/Symphony/lp_sp.o: src/coin/Symphony/lp_sp.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_sp.o -c src/coin/Symphony/lp_sp.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_sp.cpp
 
 $(debug)/src/coin/Symphony/lp_varfunc.o: src/coin/Symphony/lp_varfunc.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_varfunc.o -c src/coin/Symphony/lp_varfunc.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_varfunc.cpp
 
 $(release)/src/coin/Symphony/lp_varfunc.o: src/coin/Symphony/lp_varfunc.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_varfunc.o -c src/coin/Symphony/lp_varfunc.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_varfunc.cpp
 
 $(debug)/src/coin/Symphony/lp_wrapper.o: src/coin/Symphony/lp_wrapper.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/lp_wrapper.o -c src/coin/Symphony/lp_wrapper.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/lp_wrapper.cpp
 
 $(release)/src/coin/Symphony/lp_wrapper.o: src/coin/Symphony/lp_wrapper.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/lp_wrapper.o -c src/coin/Symphony/lp_wrapper.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/lp_wrapper.cpp
 
 $(debug)/src/coin/Symphony/master.o: src/coin/Symphony/master.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master.o -c src/coin/Symphony/master.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master.cpp
 
 $(release)/src/coin/Symphony/master.o: src/coin/Symphony/master.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master.o -c src/coin/Symphony/master.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master.cpp
 
 $(debug)/src/coin/Symphony/master_func.o: src/coin/Symphony/master_func.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_func.o -c src/coin/Symphony/master_func.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_func.cpp
 
 $(release)/src/coin/Symphony/master_func.o: src/coin/Symphony/master_func.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_func.o -c src/coin/Symphony/master_func.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_func.cpp
 
 $(debug)/src/coin/Symphony/master_io.o: src/coin/Symphony/master_io.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_io.o -c src/coin/Symphony/master_io.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_io.cpp
 
 $(release)/src/coin/Symphony/master_io.o: src/coin/Symphony/master_io.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_io.o -c src/coin/Symphony/master_io.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_io.cpp
 
 $(debug)/src/coin/Symphony/master_prep.o: src/coin/Symphony/master_prep.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_prep.o -c src/coin/Symphony/master_prep.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_prep.cpp
 
 $(release)/src/coin/Symphony/master_prep.o: src/coin/Symphony/master_prep.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_prep.o -c src/coin/Symphony/master_prep.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_prep.cpp
 
 $(debug)/src/coin/Symphony/master_prep_base.o: src/coin/Symphony/master_prep_base.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_prep_base.o -c src/coin/Symphony/master_prep_base.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_prep_base.cpp
 
 $(release)/src/coin/Symphony/master_prep_base.o: src/coin/Symphony/master_prep_base.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_prep_base.o -c src/coin/Symphony/master_prep_base.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_prep_base.cpp
 
 $(debug)/src/coin/Symphony/master_prep_sr.o: src/coin/Symphony/master_prep_sr.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_prep_sr.o -c src/coin/Symphony/master_prep_sr.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_prep_sr.cpp
 
 $(release)/src/coin/Symphony/master_prep_sr.o: src/coin/Symphony/master_prep_sr.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_prep_sr.o -c src/coin/Symphony/master_prep_sr.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_prep_sr.cpp
 
 $(debug)/src/coin/Symphony/master_wrapper.o: src/coin/Symphony/master_wrapper.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/master_wrapper.o -c src/coin/Symphony/master_wrapper.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/master_wrapper.cpp
 
 $(release)/src/coin/Symphony/master_wrapper.o: src/coin/Symphony/master_wrapper.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/master_wrapper.o -c src/coin/Symphony/master_wrapper.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/master_wrapper.cpp
 
 $(debug)/src/coin/Symphony/pack_array.o: src/coin/Symphony/pack_array.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/pack_array.o -c src/coin/Symphony/pack_array.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/pack_array.cpp
 
 $(release)/src/coin/Symphony/pack_array.o: src/coin/Symphony/pack_array.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/pack_array.o -c src/coin/Symphony/pack_array.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/pack_array.cpp
 
 $(debug)/src/coin/Symphony/pack_cut.o: src/coin/Symphony/pack_cut.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/pack_cut.o -c src/coin/Symphony/pack_cut.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/pack_cut.cpp
 
 $(release)/src/coin/Symphony/pack_cut.o: src/coin/Symphony/pack_cut.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/pack_cut.o -c src/coin/Symphony/pack_cut.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/pack_cut.cpp
 
 $(debug)/src/coin/Symphony/proccomm.o: src/coin/Symphony/proccomm.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/proccomm.o -c src/coin/Symphony/proccomm.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/proccomm.cpp
 
 $(release)/src/coin/Symphony/proccomm.o: src/coin/Symphony/proccomm.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/proccomm.o -c src/coin/Symphony/proccomm.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/proccomm.cpp
 
 $(debug)/src/coin/Symphony/sym_qsort.o: src/coin/Symphony/sym_qsort.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/sym_qsort.o -c src/coin/Symphony/sym_qsort.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/sym_qsort.cpp
 
 $(release)/src/coin/Symphony/sym_qsort.o: src/coin/Symphony/sym_qsort.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/sym_qsort.o -c src/coin/Symphony/sym_qsort.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/sym_qsort.cpp
 
 $(debug)/src/coin/Symphony/timemeas.o: src/coin/Symphony/timemeas.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/timemeas.o -c src/coin/Symphony/timemeas.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/timemeas.cpp
 
 $(release)/src/coin/Symphony/timemeas.o: src/coin/Symphony/timemeas.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/timemeas.o -c src/coin/Symphony/timemeas.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/timemeas.cpp
 
 $(debug)/src/coin/Symphony/tm_func.o: src/coin/Symphony/tm_func.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/tm_func.o -c src/coin/Symphony/tm_func.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/tm_func.cpp
 
 $(release)/src/coin/Symphony/tm_func.o: src/coin/Symphony/tm_func.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/tm_func.o -c src/coin/Symphony/tm_func.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/tm_func.cpp
 
 $(debug)/src/coin/Symphony/tm_proccomm.o: src/coin/Symphony/tm_proccomm.cpp
-	mkdir -p $(debug)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -g3 -O0 -DOGDF_DEBUG -o $(debug)/src/coin/Symphony/tm_proccomm.o -c src/coin/Symphony/tm_proccomm.cpp
+	$(MKDIR) $(debug)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_debug) -o $@ -c src/coin/Symphony/tm_proccomm.cpp
 
 $(release)/src/coin/Symphony/tm_proccomm.o: src/coin/Symphony/tm_proccomm.cpp
-	mkdir -p $(release)/src/coin/Symphony
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand   -fPIC $(COIN_INSTALL_DEFINES) -I./include/coin  -O2 -o $(release)/src/coin/Symphony/tm_proccomm.o -c src/coin/Symphony/tm_proccomm.cpp
+	$(MKDIR) $(release)/src/coin/Symphony
+	$(CC) $(CXXFLAGS) $(COINFLAGS) $(CXXFLAGS_release) -o $@ -c src/coin/Symphony/tm_proccomm.cpp
 
 debug_COIN_OBJS = \
-$(debug)/src/coin/Cgl/CglAllDifferent.o \
-$(debug)/src/coin/Cgl/CglClique.o \
-$(debug)/src/coin/Cgl/CglCliqueHelper.o \
-$(debug)/src/coin/Cgl/CglCliqueTest.o \
-$(debug)/src/coin/Cgl/CglCutGenerator.o \
-$(debug)/src/coin/Cgl/CglDuplicateRow.o \
-$(debug)/src/coin/Cgl/CglFlowCover.o \
-$(debug)/src/coin/Cgl/CglFlowCoverTest.o \
-$(debug)/src/coin/Cgl/CglGomory.o \
-$(debug)/src/coin/Cgl/CglGomoryTest.o \
-$(debug)/src/coin/Cgl/CglKnapsackCover.o \
-$(debug)/src/coin/Cgl/CglKnapsackCoverTest.o \
-$(debug)/src/coin/Cgl/CglLandP.o \
-$(debug)/src/coin/Cgl/CglLandPMessages.o \
-$(debug)/src/coin/Cgl/CglLandPSimplex.o \
-$(debug)/src/coin/Cgl/CglLandPTabRow.o \
-$(debug)/src/coin/Cgl/CglLandPTest.o \
-$(debug)/src/coin/Cgl/CglLandPUtils.o \
-$(debug)/src/coin/Cgl/CglLandPValidator.o \
-$(debug)/src/coin/Cgl/CglLiftAndProject.o \
-$(debug)/src/coin/Cgl/CglMessage.o \
-$(debug)/src/coin/Cgl/CglMixedIntegerRounding.o \
-$(debug)/src/coin/Cgl/CglMixedIntegerRounding2.o \
-$(debug)/src/coin/Cgl/CglMixedIntegerRounding2Test.o \
-$(debug)/src/coin/Cgl/CglMixedIntegerRoundingTest.o \
-$(debug)/src/coin/Cgl/CglOddHole.o \
-$(debug)/src/coin/Cgl/CglOddHoleTest.o \
-$(debug)/src/coin/Cgl/CglParam.o \
-$(debug)/src/coin/Cgl/CglPreProcess.o \
-$(debug)/src/coin/Cgl/CglProbing.o \
-$(debug)/src/coin/Cgl/CglProbingTest.o \
-$(debug)/src/coin/Cgl/CglRedSplit.o \
-$(debug)/src/coin/Cgl/CglRedSplitParam.o \
-$(debug)/src/coin/Cgl/CglRedSplitTest.o \
-$(debug)/src/coin/Cgl/CglResidualCapacity.o \
-$(debug)/src/coin/Cgl/CglResidualCapacityTest.o \
-$(debug)/src/coin/Cgl/CglSimpleRounding.o \
-$(debug)/src/coin/Cgl/CglSimpleRoundingTest.o \
-$(debug)/src/coin/Cgl/CglStored.o \
-$(debug)/src/coin/Cgl/CglTreeInfo.o \
-$(debug)/src/coin/Cgl/CglTwomir.o \
-$(debug)/src/coin/Cgl/CglTwomirTest.o \
-$(debug)/src/coin/Clp/ClpCholeskyBase.o \
-$(debug)/src/coin/Clp/ClpCholeskyDense.o \
-$(debug)/src/coin/Clp/ClpCholeskyTaucs.o \
-$(debug)/src/coin/Clp/ClpConstraint.o \
-$(debug)/src/coin/Clp/ClpConstraintLinear.o \
-$(debug)/src/coin/Clp/ClpConstraintQuadratic.o \
-$(debug)/src/coin/Clp/ClpDualRowDantzig.o \
-$(debug)/src/coin/Clp/ClpDualRowPivot.o \
-$(debug)/src/coin/Clp/ClpDualRowSteepest.o \
-$(debug)/src/coin/Clp/ClpDummyMatrix.o \
-$(debug)/src/coin/Clp/ClpDynamicExampleMatrix.o \
-$(debug)/src/coin/Clp/ClpDynamicMatrix.o \
-$(debug)/src/coin/Clp/ClpEventHandler.o \
-$(debug)/src/coin/Clp/ClpFactorization.o \
-$(debug)/src/coin/Clp/ClpGubDynamicMatrix.o \
-$(debug)/src/coin/Clp/ClpGubMatrix.o \
-$(debug)/src/coin/Clp/ClpHelperFunctions.o \
-$(debug)/src/coin/Clp/ClpInterior.o \
-$(debug)/src/coin/Clp/ClpLinearObjective.o \
-$(debug)/src/coin/Clp/ClpLsqr.o \
-$(debug)/src/coin/Clp/ClpMatrixBase.o \
-$(debug)/src/coin/Clp/ClpMessage.o \
-$(debug)/src/coin/Clp/ClpModel.o \
-$(debug)/src/coin/Clp/ClpNetworkBasis.o \
-$(debug)/src/coin/Clp/ClpNetworkMatrix.o \
-$(debug)/src/coin/Clp/ClpNode.o \
-$(debug)/src/coin/Clp/ClpNonLinearCost.o \
-$(debug)/src/coin/Clp/ClpObjective.o \
-$(debug)/src/coin/Clp/ClpPackedMatrix.o \
-$(debug)/src/coin/Clp/ClpPdco.o \
-$(debug)/src/coin/Clp/ClpPdcoBase.o \
-$(debug)/src/coin/Clp/ClpPlusMinusOneMatrix.o \
-$(debug)/src/coin/Clp/ClpPredictorCorrector.o \
-$(debug)/src/coin/Clp/ClpPresolve.o \
-$(debug)/src/coin/Clp/ClpPrimalColumnDantzig.o \
-$(debug)/src/coin/Clp/ClpPrimalColumnPivot.o \
-$(debug)/src/coin/Clp/ClpPrimalColumnSteepest.o \
-$(debug)/src/coin/Clp/ClpQuadraticObjective.o \
-$(debug)/src/coin/Clp/ClpSimplex.o \
-$(debug)/src/coin/Clp/ClpSimplexDual.o \
-$(debug)/src/coin/Clp/ClpSimplexNonlinear.o \
-$(debug)/src/coin/Clp/ClpSimplexOther.o \
-$(debug)/src/coin/Clp/ClpSimplexPrimal.o \
-$(debug)/src/coin/Clp/ClpSolve.o \
-$(debug)/src/coin/Clp/Clp_C_Interface.o \
-$(debug)/src/coin/Clp/IdiSolve.o \
-$(debug)/src/coin/Clp/Idiot.o \
-$(debug)/src/coin/Clp/MyEventHandler.o \
-$(debug)/src/coin/Clp/MyMessageHandler.o \
-$(debug)/src/coin/CoinUtils/CoinAlloc.o \
-$(debug)/src/coin/CoinUtils/CoinBuild.o \
-$(debug)/src/coin/CoinUtils/CoinDenseFactorization.o \
-$(debug)/src/coin/CoinUtils/CoinDenseVector.o \
-$(debug)/src/coin/CoinUtils/CoinError.o \
-$(debug)/src/coin/CoinUtils/CoinFactorization1.o \
-$(debug)/src/coin/CoinUtils/CoinFactorization2.o \
-$(debug)/src/coin/CoinUtils/CoinFactorization3.o \
-$(debug)/src/coin/CoinUtils/CoinFactorization4.o \
-$(debug)/src/coin/CoinUtils/CoinFileIO.o \
-$(debug)/src/coin/CoinUtils/CoinFinite.o \
-$(debug)/src/coin/CoinUtils/CoinIndexedVector.o \
-$(debug)/src/coin/CoinUtils/CoinLpIO.o \
-$(debug)/src/coin/CoinUtils/CoinMessage.o \
-$(debug)/src/coin/CoinUtils/CoinMessageHandler.o \
-$(debug)/src/coin/CoinUtils/CoinModel.o \
-$(debug)/src/coin/CoinUtils/CoinModelUseful.o \
-$(debug)/src/coin/CoinUtils/CoinModelUseful2.o \
-$(debug)/src/coin/CoinUtils/CoinMpsIO.o \
-$(debug)/src/coin/CoinUtils/CoinOslFactorization.o \
-$(debug)/src/coin/CoinUtils/CoinOslFactorization2.o \
-$(debug)/src/coin/CoinUtils/CoinOslFactorization3.o \
-$(debug)/src/coin/CoinUtils/CoinPackedMatrix.o \
-$(debug)/src/coin/CoinUtils/CoinPackedVector.o \
-$(debug)/src/coin/CoinUtils/CoinPackedVectorBase.o \
-$(debug)/src/coin/CoinUtils/CoinParam.o \
-$(debug)/src/coin/CoinUtils/CoinParamUtils.o \
-$(debug)/src/coin/CoinUtils/CoinPostsolveMatrix.o \
-$(debug)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveDoubleton.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveDual.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveDupcol.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveEmpty.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveFixed.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveForcing.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveImpliedFree.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveIsolated.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveMatrix.o \
-$(debug)/src/coin/CoinUtils/CoinPresolvePsdebug.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveSingleton.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveSubst.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveTighten.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveTripleton.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveUseless.o \
-$(debug)/src/coin/CoinUtils/CoinPresolveZeros.o \
-$(debug)/src/coin/CoinUtils/CoinSearchTree.o \
-$(debug)/src/coin/CoinUtils/CoinShallowPackedVector.o \
-$(debug)/src/coin/CoinUtils/CoinSimpFactorization.o \
-$(debug)/src/coin/CoinUtils/CoinSnapshot.o \
-$(debug)/src/coin/CoinUtils/CoinStructuredModel.o \
-$(debug)/src/coin/CoinUtils/CoinWarmStartBasis.o \
-$(debug)/src/coin/CoinUtils/CoinWarmStartDual.o \
-$(debug)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o \
-$(debug)/src/coin/CoinUtils/CoinWarmStartVector.o \
-$(debug)/src/coin/Osi/OsiAuxInfo.o \
-$(debug)/src/coin/Osi/OsiBranchingObject.o \
-$(debug)/src/coin/Osi/OsiChooseVariable.o \
-$(debug)/src/coin/Osi/OsiColCut.o \
-$(debug)/src/coin/Osi/OsiCut.o \
-$(debug)/src/coin/Osi/OsiCuts.o \
-$(debug)/src/coin/Osi/OsiNames.o \
-$(debug)/src/coin/Osi/OsiPresolve.o \
-$(debug)/src/coin/Osi/OsiRowCut.o \
-$(debug)/src/coin/Osi/OsiRowCutDebugger.o \
-$(debug)/src/coin/Osi/OsiSolverBranch.o \
-$(debug)/src/coin/Osi/OsiSolverInterface.o \
-$(debug)/src/coin/OsiClp/OsiClpSolverInterface.o \
-$(debug)/src/coin/Symphony/OsiSymSolverInterface.o \
-$(debug)/src/coin/Symphony/SymWarmStart.o \
-$(debug)/src/coin/Symphony/cg_func.o \
-$(debug)/src/coin/Symphony/cg_proccomm.o \
-$(debug)/src/coin/Symphony/cg_wrapper.o \
-$(debug)/src/coin/Symphony/cp_func.o \
-$(debug)/src/coin/Symphony/cp_proccomm.o \
-$(debug)/src/coin/Symphony/cp_wrapper.o \
-$(debug)/src/coin/Symphony/cut_gen.o \
-$(debug)/src/coin/Symphony/cut_pool.o \
-$(debug)/src/coin/Symphony/lp.o \
-$(debug)/src/coin/Symphony/lp_branch.o \
-$(debug)/src/coin/Symphony/lp_free.o \
-$(debug)/src/coin/Symphony/lp_genfunc.o \
-$(debug)/src/coin/Symphony/lp_heuristics.o \
-$(debug)/src/coin/Symphony/lp_proccomm.o \
-$(debug)/src/coin/Symphony/lp_rowfunc.o \
-$(debug)/src/coin/Symphony/lp_solver.o \
-$(debug)/src/coin/Symphony/lp_sp.o \
-$(debug)/src/coin/Symphony/lp_varfunc.o \
-$(debug)/src/coin/Symphony/lp_wrapper.o \
-$(debug)/src/coin/Symphony/master.o \
-$(debug)/src/coin/Symphony/master_func.o \
-$(debug)/src/coin/Symphony/master_io.o \
-$(debug)/src/coin/Symphony/master_prep.o \
-$(debug)/src/coin/Symphony/master_prep_base.o \
-$(debug)/src/coin/Symphony/master_prep_sr.o \
-$(debug)/src/coin/Symphony/master_wrapper.o \
-$(debug)/src/coin/Symphony/pack_array.o \
-$(debug)/src/coin/Symphony/pack_cut.o \
-$(debug)/src/coin/Symphony/proccomm.o \
-$(debug)/src/coin/Symphony/sym_qsort.o \
-$(debug)/src/coin/Symphony/timemeas.o \
-$(debug)/src/coin/Symphony/tm_func.o \
-$(debug)/src/coin/Symphony/tm_proccomm.o \
+	$(debug)/src/coin/Cgl/CglAllDifferent.o \
+	$(debug)/src/coin/Cgl/CglClique.o \
+	$(debug)/src/coin/Cgl/CglCliqueHelper.o \
+	$(debug)/src/coin/Cgl/CglCliqueTest.o \
+	$(debug)/src/coin/Cgl/CglCutGenerator.o \
+	$(debug)/src/coin/Cgl/CglDuplicateRow.o \
+	$(debug)/src/coin/Cgl/CglFlowCover.o \
+	$(debug)/src/coin/Cgl/CglFlowCoverTest.o \
+	$(debug)/src/coin/Cgl/CglGomory.o \
+	$(debug)/src/coin/Cgl/CglGomoryTest.o \
+	$(debug)/src/coin/Cgl/CglKnapsackCover.o \
+	$(debug)/src/coin/Cgl/CglKnapsackCoverTest.o \
+	$(debug)/src/coin/Cgl/CglLandP.o \
+	$(debug)/src/coin/Cgl/CglLandPMessages.o \
+	$(debug)/src/coin/Cgl/CglLandPSimplex.o \
+	$(debug)/src/coin/Cgl/CglLandPTabRow.o \
+	$(debug)/src/coin/Cgl/CglLandPTest.o \
+	$(debug)/src/coin/Cgl/CglLandPUtils.o \
+	$(debug)/src/coin/Cgl/CglLandPValidator.o \
+	$(debug)/src/coin/Cgl/CglLiftAndProject.o \
+	$(debug)/src/coin/Cgl/CglMessage.o \
+	$(debug)/src/coin/Cgl/CglMixedIntegerRounding.o \
+	$(debug)/src/coin/Cgl/CglMixedIntegerRounding2.o \
+	$(debug)/src/coin/Cgl/CglMixedIntegerRounding2Test.o \
+	$(debug)/src/coin/Cgl/CglMixedIntegerRoundingTest.o \
+	$(debug)/src/coin/Cgl/CglOddHole.o \
+	$(debug)/src/coin/Cgl/CglOddHoleTest.o \
+	$(debug)/src/coin/Cgl/CglParam.o \
+	$(debug)/src/coin/Cgl/CglPreProcess.o \
+	$(debug)/src/coin/Cgl/CglProbing.o \
+	$(debug)/src/coin/Cgl/CglProbingTest.o \
+	$(debug)/src/coin/Cgl/CglRedSplit.o \
+	$(debug)/src/coin/Cgl/CglRedSplitParam.o \
+	$(debug)/src/coin/Cgl/CglRedSplitTest.o \
+	$(debug)/src/coin/Cgl/CglResidualCapacity.o \
+	$(debug)/src/coin/Cgl/CglResidualCapacityTest.o \
+	$(debug)/src/coin/Cgl/CglSimpleRounding.o \
+	$(debug)/src/coin/Cgl/CglSimpleRoundingTest.o \
+	$(debug)/src/coin/Cgl/CglStored.o \
+	$(debug)/src/coin/Cgl/CglTreeInfo.o \
+	$(debug)/src/coin/Cgl/CglTwomir.o \
+	$(debug)/src/coin/Cgl/CglTwomirTest.o \
+	$(debug)/src/coin/Clp/ClpCholeskyBase.o \
+	$(debug)/src/coin/Clp/ClpCholeskyDense.o \
+	$(debug)/src/coin/Clp/ClpCholeskyTaucs.o \
+	$(debug)/src/coin/Clp/ClpConstraint.o \
+	$(debug)/src/coin/Clp/ClpConstraintLinear.o \
+	$(debug)/src/coin/Clp/ClpConstraintQuadratic.o \
+	$(debug)/src/coin/Clp/ClpDualRowDantzig.o \
+	$(debug)/src/coin/Clp/ClpDualRowPivot.o \
+	$(debug)/src/coin/Clp/ClpDualRowSteepest.o \
+	$(debug)/src/coin/Clp/ClpDummyMatrix.o \
+	$(debug)/src/coin/Clp/ClpDynamicExampleMatrix.o \
+	$(debug)/src/coin/Clp/ClpDynamicMatrix.o \
+	$(debug)/src/coin/Clp/ClpEventHandler.o \
+	$(debug)/src/coin/Clp/ClpFactorization.o \
+	$(debug)/src/coin/Clp/ClpGubDynamicMatrix.o \
+	$(debug)/src/coin/Clp/ClpGubMatrix.o \
+	$(debug)/src/coin/Clp/ClpHelperFunctions.o \
+	$(debug)/src/coin/Clp/ClpInterior.o \
+	$(debug)/src/coin/Clp/ClpLinearObjective.o \
+	$(debug)/src/coin/Clp/ClpLsqr.o \
+	$(debug)/src/coin/Clp/ClpMatrixBase.o \
+	$(debug)/src/coin/Clp/ClpMessage.o \
+	$(debug)/src/coin/Clp/ClpModel.o \
+	$(debug)/src/coin/Clp/ClpNetworkBasis.o \
+	$(debug)/src/coin/Clp/ClpNetworkMatrix.o \
+	$(debug)/src/coin/Clp/ClpNode.o \
+	$(debug)/src/coin/Clp/ClpNonLinearCost.o \
+	$(debug)/src/coin/Clp/ClpObjective.o \
+	$(debug)/src/coin/Clp/ClpPackedMatrix.o \
+	$(debug)/src/coin/Clp/ClpPdco.o \
+	$(debug)/src/coin/Clp/ClpPdcoBase.o \
+	$(debug)/src/coin/Clp/ClpPlusMinusOneMatrix.o \
+	$(debug)/src/coin/Clp/ClpPredictorCorrector.o \
+	$(debug)/src/coin/Clp/ClpPresolve.o \
+	$(debug)/src/coin/Clp/ClpPrimalColumnDantzig.o \
+	$(debug)/src/coin/Clp/ClpPrimalColumnPivot.o \
+	$(debug)/src/coin/Clp/ClpPrimalColumnSteepest.o \
+	$(debug)/src/coin/Clp/ClpQuadraticObjective.o \
+	$(debug)/src/coin/Clp/ClpSimplex.o \
+	$(debug)/src/coin/Clp/ClpSimplexDual.o \
+	$(debug)/src/coin/Clp/ClpSimplexNonlinear.o \
+	$(debug)/src/coin/Clp/ClpSimplexOther.o \
+	$(debug)/src/coin/Clp/ClpSimplexPrimal.o \
+	$(debug)/src/coin/Clp/ClpSolve.o \
+	$(debug)/src/coin/Clp/Clp_C_Interface.o \
+	$(debug)/src/coin/Clp/IdiSolve.o \
+	$(debug)/src/coin/Clp/Idiot.o \
+	$(debug)/src/coin/Clp/MyEventHandler.o \
+	$(debug)/src/coin/Clp/MyMessageHandler.o \
+	$(debug)/src/coin/CoinUtils/CoinAlloc.o \
+	$(debug)/src/coin/CoinUtils/CoinBuild.o \
+	$(debug)/src/coin/CoinUtils/CoinDenseFactorization.o \
+	$(debug)/src/coin/CoinUtils/CoinDenseVector.o \
+	$(debug)/src/coin/CoinUtils/CoinError.o \
+	$(debug)/src/coin/CoinUtils/CoinFactorization1.o \
+	$(debug)/src/coin/CoinUtils/CoinFactorization2.o \
+	$(debug)/src/coin/CoinUtils/CoinFactorization3.o \
+	$(debug)/src/coin/CoinUtils/CoinFactorization4.o \
+	$(debug)/src/coin/CoinUtils/CoinFileIO.o \
+	$(debug)/src/coin/CoinUtils/CoinFinite.o \
+	$(debug)/src/coin/CoinUtils/CoinIndexedVector.o \
+	$(debug)/src/coin/CoinUtils/CoinLpIO.o \
+	$(debug)/src/coin/CoinUtils/CoinMessage.o \
+	$(debug)/src/coin/CoinUtils/CoinMessageHandler.o \
+	$(debug)/src/coin/CoinUtils/CoinModel.o \
+	$(debug)/src/coin/CoinUtils/CoinModelUseful.o \
+	$(debug)/src/coin/CoinUtils/CoinModelUseful2.o \
+	$(debug)/src/coin/CoinUtils/CoinMpsIO.o \
+	$(debug)/src/coin/CoinUtils/CoinOslFactorization.o \
+	$(debug)/src/coin/CoinUtils/CoinOslFactorization2.o \
+	$(debug)/src/coin/CoinUtils/CoinOslFactorization3.o \
+	$(debug)/src/coin/CoinUtils/CoinPackedMatrix.o \
+	$(debug)/src/coin/CoinUtils/CoinPackedVector.o \
+	$(debug)/src/coin/CoinUtils/CoinPackedVectorBase.o \
+	$(debug)/src/coin/CoinUtils/CoinParam.o \
+	$(debug)/src/coin/CoinUtils/CoinParamUtils.o \
+	$(debug)/src/coin/CoinUtils/CoinPostsolveMatrix.o \
+	$(debug)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveDoubleton.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveDual.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveDupcol.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveEmpty.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveFixed.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveForcing.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveImpliedFree.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveIsolated.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveMatrix.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolvePsdebug.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveSingleton.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveSubst.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveTighten.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveTripleton.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveUseless.o \
+	$(debug)/src/coin/CoinUtils/CoinPresolveZeros.o \
+	$(debug)/src/coin/CoinUtils/CoinSearchTree.o \
+	$(debug)/src/coin/CoinUtils/CoinShallowPackedVector.o \
+	$(debug)/src/coin/CoinUtils/CoinSimpFactorization.o \
+	$(debug)/src/coin/CoinUtils/CoinSnapshot.o \
+	$(debug)/src/coin/CoinUtils/CoinStructuredModel.o \
+	$(debug)/src/coin/CoinUtils/CoinWarmStartBasis.o \
+	$(debug)/src/coin/CoinUtils/CoinWarmStartDual.o \
+	$(debug)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o \
+	$(debug)/src/coin/CoinUtils/CoinWarmStartVector.o \
+	$(debug)/src/coin/Osi/OsiAuxInfo.o \
+	$(debug)/src/coin/Osi/OsiBranchingObject.o \
+	$(debug)/src/coin/Osi/OsiChooseVariable.o \
+	$(debug)/src/coin/Osi/OsiColCut.o \
+	$(debug)/src/coin/Osi/OsiCut.o \
+	$(debug)/src/coin/Osi/OsiCuts.o \
+	$(debug)/src/coin/Osi/OsiNames.o \
+	$(debug)/src/coin/Osi/OsiPresolve.o \
+	$(debug)/src/coin/Osi/OsiRowCut.o \
+	$(debug)/src/coin/Osi/OsiRowCutDebugger.o \
+	$(debug)/src/coin/Osi/OsiSolverBranch.o \
+	$(debug)/src/coin/Osi/OsiSolverInterface.o \
+	$(debug)/src/coin/OsiClp/OsiClpSolverInterface.o \
+	$(debug)/src/coin/Symphony/OsiSymSolverInterface.o \
+	$(debug)/src/coin/Symphony/SymWarmStart.o \
+	$(debug)/src/coin/Symphony/cg_func.o \
+	$(debug)/src/coin/Symphony/cg_proccomm.o \
+	$(debug)/src/coin/Symphony/cg_wrapper.o \
+	$(debug)/src/coin/Symphony/cp_func.o \
+	$(debug)/src/coin/Symphony/cp_proccomm.o \
+	$(debug)/src/coin/Symphony/cp_wrapper.o \
+	$(debug)/src/coin/Symphony/cut_gen.o \
+	$(debug)/src/coin/Symphony/cut_pool.o \
+	$(debug)/src/coin/Symphony/lp.o \
+	$(debug)/src/coin/Symphony/lp_branch.o \
+	$(debug)/src/coin/Symphony/lp_free.o \
+	$(debug)/src/coin/Symphony/lp_genfunc.o \
+	$(debug)/src/coin/Symphony/lp_heuristics.o \
+	$(debug)/src/coin/Symphony/lp_proccomm.o \
+	$(debug)/src/coin/Symphony/lp_rowfunc.o \
+	$(debug)/src/coin/Symphony/lp_solver.o \
+	$(debug)/src/coin/Symphony/lp_sp.o \
+	$(debug)/src/coin/Symphony/lp_varfunc.o \
+	$(debug)/src/coin/Symphony/lp_wrapper.o \
+	$(debug)/src/coin/Symphony/master.o \
+	$(debug)/src/coin/Symphony/master_func.o \
+	$(debug)/src/coin/Symphony/master_io.o \
+	$(debug)/src/coin/Symphony/master_prep.o \
+	$(debug)/src/coin/Symphony/master_prep_base.o \
+	$(debug)/src/coin/Symphony/master_prep_sr.o \
+	$(debug)/src/coin/Symphony/master_wrapper.o \
+	$(debug)/src/coin/Symphony/pack_array.o \
+	$(debug)/src/coin/Symphony/pack_cut.o \
+	$(debug)/src/coin/Symphony/proccomm.o \
+	$(debug)/src/coin/Symphony/sym_qsort.o \
+	$(debug)/src/coin/Symphony/timemeas.o \
+	$(debug)/src/coin/Symphony/tm_func.o \
+	$(debug)/src/coin/Symphony/tm_proccomm.o \
 
 release_COIN_OBJS = \
-$(release)/src/coin/Cgl/CglAllDifferent.o \
-$(release)/src/coin/Cgl/CglClique.o \
-$(release)/src/coin/Cgl/CglCliqueHelper.o \
-$(release)/src/coin/Cgl/CglCliqueTest.o \
-$(release)/src/coin/Cgl/CglCutGenerator.o \
-$(release)/src/coin/Cgl/CglDuplicateRow.o \
-$(release)/src/coin/Cgl/CglFlowCover.o \
-$(release)/src/coin/Cgl/CglFlowCoverTest.o \
-$(release)/src/coin/Cgl/CglGomory.o \
-$(release)/src/coin/Cgl/CglGomoryTest.o \
-$(release)/src/coin/Cgl/CglKnapsackCover.o \
-$(release)/src/coin/Cgl/CglKnapsackCoverTest.o \
-$(release)/src/coin/Cgl/CglLandP.o \
-$(release)/src/coin/Cgl/CglLandPMessages.o \
-$(release)/src/coin/Cgl/CglLandPSimplex.o \
-$(release)/src/coin/Cgl/CglLandPTabRow.o \
-$(release)/src/coin/Cgl/CglLandPTest.o \
-$(release)/src/coin/Cgl/CglLandPUtils.o \
-$(release)/src/coin/Cgl/CglLandPValidator.o \
-$(release)/src/coin/Cgl/CglLiftAndProject.o \
-$(release)/src/coin/Cgl/CglMessage.o \
-$(release)/src/coin/Cgl/CglMixedIntegerRounding.o \
-$(release)/src/coin/Cgl/CglMixedIntegerRounding2.o \
-$(release)/src/coin/Cgl/CglMixedIntegerRounding2Test.o \
-$(release)/src/coin/Cgl/CglMixedIntegerRoundingTest.o \
-$(release)/src/coin/Cgl/CglOddHole.o \
-$(release)/src/coin/Cgl/CglOddHoleTest.o \
-$(release)/src/coin/Cgl/CglParam.o \
-$(release)/src/coin/Cgl/CglPreProcess.o \
-$(release)/src/coin/Cgl/CglProbing.o \
-$(release)/src/coin/Cgl/CglProbingTest.o \
-$(release)/src/coin/Cgl/CglRedSplit.o \
-$(release)/src/coin/Cgl/CglRedSplitParam.o \
-$(release)/src/coin/Cgl/CglRedSplitTest.o \
-$(release)/src/coin/Cgl/CglResidualCapacity.o \
-$(release)/src/coin/Cgl/CglResidualCapacityTest.o \
-$(release)/src/coin/Cgl/CglSimpleRounding.o \
-$(release)/src/coin/Cgl/CglSimpleRoundingTest.o \
-$(release)/src/coin/Cgl/CglStored.o \
-$(release)/src/coin/Cgl/CglTreeInfo.o \
-$(release)/src/coin/Cgl/CglTwomir.o \
-$(release)/src/coin/Cgl/CglTwomirTest.o \
-$(release)/src/coin/Clp/ClpCholeskyBase.o \
-$(release)/src/coin/Clp/ClpCholeskyDense.o \
-$(release)/src/coin/Clp/ClpCholeskyTaucs.o \
-$(release)/src/coin/Clp/ClpConstraint.o \
-$(release)/src/coin/Clp/ClpConstraintLinear.o \
-$(release)/src/coin/Clp/ClpConstraintQuadratic.o \
-$(release)/src/coin/Clp/ClpDualRowDantzig.o \
-$(release)/src/coin/Clp/ClpDualRowPivot.o \
-$(release)/src/coin/Clp/ClpDualRowSteepest.o \
-$(release)/src/coin/Clp/ClpDummyMatrix.o \
-$(release)/src/coin/Clp/ClpDynamicExampleMatrix.o \
-$(release)/src/coin/Clp/ClpDynamicMatrix.o \
-$(release)/src/coin/Clp/ClpEventHandler.o \
-$(release)/src/coin/Clp/ClpFactorization.o \
-$(release)/src/coin/Clp/ClpGubDynamicMatrix.o \
-$(release)/src/coin/Clp/ClpGubMatrix.o \
-$(release)/src/coin/Clp/ClpHelperFunctions.o \
-$(release)/src/coin/Clp/ClpInterior.o \
-$(release)/src/coin/Clp/ClpLinearObjective.o \
-$(release)/src/coin/Clp/ClpLsqr.o \
-$(release)/src/coin/Clp/ClpMatrixBase.o \
-$(release)/src/coin/Clp/ClpMessage.o \
-$(release)/src/coin/Clp/ClpModel.o \
-$(release)/src/coin/Clp/ClpNetworkBasis.o \
-$(release)/src/coin/Clp/ClpNetworkMatrix.o \
-$(release)/src/coin/Clp/ClpNode.o \
-$(release)/src/coin/Clp/ClpNonLinearCost.o \
-$(release)/src/coin/Clp/ClpObjective.o \
-$(release)/src/coin/Clp/ClpPackedMatrix.o \
-$(release)/src/coin/Clp/ClpPdco.o \
-$(release)/src/coin/Clp/ClpPdcoBase.o \
-$(release)/src/coin/Clp/ClpPlusMinusOneMatrix.o \
-$(release)/src/coin/Clp/ClpPredictorCorrector.o \
-$(release)/src/coin/Clp/ClpPresolve.o \
-$(release)/src/coin/Clp/ClpPrimalColumnDantzig.o \
-$(release)/src/coin/Clp/ClpPrimalColumnPivot.o \
-$(release)/src/coin/Clp/ClpPrimalColumnSteepest.o \
-$(release)/src/coin/Clp/ClpQuadraticObjective.o \
-$(release)/src/coin/Clp/ClpSimplex.o \
-$(release)/src/coin/Clp/ClpSimplexDual.o \
-$(release)/src/coin/Clp/ClpSimplexNonlinear.o \
-$(release)/src/coin/Clp/ClpSimplexOther.o \
-$(release)/src/coin/Clp/ClpSimplexPrimal.o \
-$(release)/src/coin/Clp/ClpSolve.o \
-$(release)/src/coin/Clp/Clp_C_Interface.o \
-$(release)/src/coin/Clp/IdiSolve.o \
-$(release)/src/coin/Clp/Idiot.o \
-$(release)/src/coin/Clp/MyEventHandler.o \
-$(release)/src/coin/Clp/MyMessageHandler.o \
-$(release)/src/coin/CoinUtils/CoinAlloc.o \
-$(release)/src/coin/CoinUtils/CoinBuild.o \
-$(release)/src/coin/CoinUtils/CoinDenseFactorization.o \
-$(release)/src/coin/CoinUtils/CoinDenseVector.o \
-$(release)/src/coin/CoinUtils/CoinError.o \
-$(release)/src/coin/CoinUtils/CoinFactorization1.o \
-$(release)/src/coin/CoinUtils/CoinFactorization2.o \
-$(release)/src/coin/CoinUtils/CoinFactorization3.o \
-$(release)/src/coin/CoinUtils/CoinFactorization4.o \
-$(release)/src/coin/CoinUtils/CoinFileIO.o \
-$(release)/src/coin/CoinUtils/CoinFinite.o \
-$(release)/src/coin/CoinUtils/CoinIndexedVector.o \
-$(release)/src/coin/CoinUtils/CoinLpIO.o \
-$(release)/src/coin/CoinUtils/CoinMessage.o \
-$(release)/src/coin/CoinUtils/CoinMessageHandler.o \
-$(release)/src/coin/CoinUtils/CoinModel.o \
-$(release)/src/coin/CoinUtils/CoinModelUseful.o \
-$(release)/src/coin/CoinUtils/CoinModelUseful2.o \
-$(release)/src/coin/CoinUtils/CoinMpsIO.o \
-$(release)/src/coin/CoinUtils/CoinOslFactorization.o \
-$(release)/src/coin/CoinUtils/CoinOslFactorization2.o \
-$(release)/src/coin/CoinUtils/CoinOslFactorization3.o \
-$(release)/src/coin/CoinUtils/CoinPackedMatrix.o \
-$(release)/src/coin/CoinUtils/CoinPackedVector.o \
-$(release)/src/coin/CoinUtils/CoinPackedVectorBase.o \
-$(release)/src/coin/CoinUtils/CoinParam.o \
-$(release)/src/coin/CoinUtils/CoinParamUtils.o \
-$(release)/src/coin/CoinUtils/CoinPostsolveMatrix.o \
-$(release)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o \
-$(release)/src/coin/CoinUtils/CoinPresolveDoubleton.o \
-$(release)/src/coin/CoinUtils/CoinPresolveDual.o \
-$(release)/src/coin/CoinUtils/CoinPresolveDupcol.o \
-$(release)/src/coin/CoinUtils/CoinPresolveEmpty.o \
-$(release)/src/coin/CoinUtils/CoinPresolveFixed.o \
-$(release)/src/coin/CoinUtils/CoinPresolveForcing.o \
-$(release)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o \
-$(release)/src/coin/CoinUtils/CoinPresolveImpliedFree.o \
-$(release)/src/coin/CoinUtils/CoinPresolveIsolated.o \
-$(release)/src/coin/CoinUtils/CoinPresolveMatrix.o \
-$(release)/src/coin/CoinUtils/CoinPresolvePsdebug.o \
-$(release)/src/coin/CoinUtils/CoinPresolveSingleton.o \
-$(release)/src/coin/CoinUtils/CoinPresolveSubst.o \
-$(release)/src/coin/CoinUtils/CoinPresolveTighten.o \
-$(release)/src/coin/CoinUtils/CoinPresolveTripleton.o \
-$(release)/src/coin/CoinUtils/CoinPresolveUseless.o \
-$(release)/src/coin/CoinUtils/CoinPresolveZeros.o \
-$(release)/src/coin/CoinUtils/CoinSearchTree.o \
-$(release)/src/coin/CoinUtils/CoinShallowPackedVector.o \
-$(release)/src/coin/CoinUtils/CoinSimpFactorization.o \
-$(release)/src/coin/CoinUtils/CoinSnapshot.o \
-$(release)/src/coin/CoinUtils/CoinStructuredModel.o \
-$(release)/src/coin/CoinUtils/CoinWarmStartBasis.o \
-$(release)/src/coin/CoinUtils/CoinWarmStartDual.o \
-$(release)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o \
-$(release)/src/coin/CoinUtils/CoinWarmStartVector.o \
-$(release)/src/coin/Osi/OsiAuxInfo.o \
-$(release)/src/coin/Osi/OsiBranchingObject.o \
-$(release)/src/coin/Osi/OsiChooseVariable.o \
-$(release)/src/coin/Osi/OsiColCut.o \
-$(release)/src/coin/Osi/OsiCut.o \
-$(release)/src/coin/Osi/OsiCuts.o \
-$(release)/src/coin/Osi/OsiNames.o \
-$(release)/src/coin/Osi/OsiPresolve.o \
-$(release)/src/coin/Osi/OsiRowCut.o \
-$(release)/src/coin/Osi/OsiRowCutDebugger.o \
-$(release)/src/coin/Osi/OsiSolverBranch.o \
-$(release)/src/coin/Osi/OsiSolverInterface.o \
-$(release)/src/coin/OsiClp/OsiClpSolverInterface.o \
-$(release)/src/coin/Symphony/OsiSymSolverInterface.o \
-$(release)/src/coin/Symphony/SymWarmStart.o \
-$(release)/src/coin/Symphony/cg_func.o \
-$(release)/src/coin/Symphony/cg_proccomm.o \
-$(release)/src/coin/Symphony/cg_wrapper.o \
-$(release)/src/coin/Symphony/cp_func.o \
-$(release)/src/coin/Symphony/cp_proccomm.o \
-$(release)/src/coin/Symphony/cp_wrapper.o \
-$(release)/src/coin/Symphony/cut_gen.o \
-$(release)/src/coin/Symphony/cut_pool.o \
-$(release)/src/coin/Symphony/lp.o \
-$(release)/src/coin/Symphony/lp_branch.o \
-$(release)/src/coin/Symphony/lp_free.o \
-$(release)/src/coin/Symphony/lp_genfunc.o \
-$(release)/src/coin/Symphony/lp_heuristics.o \
-$(release)/src/coin/Symphony/lp_proccomm.o \
-$(release)/src/coin/Symphony/lp_rowfunc.o \
-$(release)/src/coin/Symphony/lp_solver.o \
-$(release)/src/coin/Symphony/lp_sp.o \
-$(release)/src/coin/Symphony/lp_varfunc.o \
-$(release)/src/coin/Symphony/lp_wrapper.o \
-$(release)/src/coin/Symphony/master.o \
-$(release)/src/coin/Symphony/master_func.o \
-$(release)/src/coin/Symphony/master_io.o \
-$(release)/src/coin/Symphony/master_prep.o \
-$(release)/src/coin/Symphony/master_prep_base.o \
-$(release)/src/coin/Symphony/master_prep_sr.o \
-$(release)/src/coin/Symphony/master_wrapper.o \
-$(release)/src/coin/Symphony/pack_array.o \
-$(release)/src/coin/Symphony/pack_cut.o \
-$(release)/src/coin/Symphony/proccomm.o \
-$(release)/src/coin/Symphony/sym_qsort.o \
-$(release)/src/coin/Symphony/timemeas.o \
-$(release)/src/coin/Symphony/tm_func.o \
-$(release)/src/coin/Symphony/tm_proccomm.o \
+	$(release)/src/coin/Cgl/CglAllDifferent.o \
+	$(release)/src/coin/Cgl/CglClique.o \
+	$(release)/src/coin/Cgl/CglCliqueHelper.o \
+	$(release)/src/coin/Cgl/CglCliqueTest.o \
+	$(release)/src/coin/Cgl/CglCutGenerator.o \
+	$(release)/src/coin/Cgl/CglDuplicateRow.o \
+	$(release)/src/coin/Cgl/CglFlowCover.o \
+	$(release)/src/coin/Cgl/CglFlowCoverTest.o \
+	$(release)/src/coin/Cgl/CglGomory.o \
+	$(release)/src/coin/Cgl/CglGomoryTest.o \
+	$(release)/src/coin/Cgl/CglKnapsackCover.o \
+	$(release)/src/coin/Cgl/CglKnapsackCoverTest.o \
+	$(release)/src/coin/Cgl/CglLandP.o \
+	$(release)/src/coin/Cgl/CglLandPMessages.o \
+	$(release)/src/coin/Cgl/CglLandPSimplex.o \
+	$(release)/src/coin/Cgl/CglLandPTabRow.o \
+	$(release)/src/coin/Cgl/CglLandPTest.o \
+	$(release)/src/coin/Cgl/CglLandPUtils.o \
+	$(release)/src/coin/Cgl/CglLandPValidator.o \
+	$(release)/src/coin/Cgl/CglLiftAndProject.o \
+	$(release)/src/coin/Cgl/CglMessage.o \
+	$(release)/src/coin/Cgl/CglMixedIntegerRounding.o \
+	$(release)/src/coin/Cgl/CglMixedIntegerRounding2.o \
+	$(release)/src/coin/Cgl/CglMixedIntegerRounding2Test.o \
+	$(release)/src/coin/Cgl/CglMixedIntegerRoundingTest.o \
+	$(release)/src/coin/Cgl/CglOddHole.o \
+	$(release)/src/coin/Cgl/CglOddHoleTest.o \
+	$(release)/src/coin/Cgl/CglParam.o \
+	$(release)/src/coin/Cgl/CglPreProcess.o \
+	$(release)/src/coin/Cgl/CglProbing.o \
+	$(release)/src/coin/Cgl/CglProbingTest.o \
+	$(release)/src/coin/Cgl/CglRedSplit.o \
+	$(release)/src/coin/Cgl/CglRedSplitParam.o \
+	$(release)/src/coin/Cgl/CglRedSplitTest.o \
+	$(release)/src/coin/Cgl/CglResidualCapacity.o \
+	$(release)/src/coin/Cgl/CglResidualCapacityTest.o \
+	$(release)/src/coin/Cgl/CglSimpleRounding.o \
+	$(release)/src/coin/Cgl/CglSimpleRoundingTest.o \
+	$(release)/src/coin/Cgl/CglStored.o \
+	$(release)/src/coin/Cgl/CglTreeInfo.o \
+	$(release)/src/coin/Cgl/CglTwomir.o \
+	$(release)/src/coin/Cgl/CglTwomirTest.o \
+	$(release)/src/coin/Clp/ClpCholeskyBase.o \
+	$(release)/src/coin/Clp/ClpCholeskyDense.o \
+	$(release)/src/coin/Clp/ClpCholeskyTaucs.o \
+	$(release)/src/coin/Clp/ClpConstraint.o \
+	$(release)/src/coin/Clp/ClpConstraintLinear.o \
+	$(release)/src/coin/Clp/ClpConstraintQuadratic.o \
+	$(release)/src/coin/Clp/ClpDualRowDantzig.o \
+	$(release)/src/coin/Clp/ClpDualRowPivot.o \
+	$(release)/src/coin/Clp/ClpDualRowSteepest.o \
+	$(release)/src/coin/Clp/ClpDummyMatrix.o \
+	$(release)/src/coin/Clp/ClpDynamicExampleMatrix.o \
+	$(release)/src/coin/Clp/ClpDynamicMatrix.o \
+	$(release)/src/coin/Clp/ClpEventHandler.o \
+	$(release)/src/coin/Clp/ClpFactorization.o \
+	$(release)/src/coin/Clp/ClpGubDynamicMatrix.o \
+	$(release)/src/coin/Clp/ClpGubMatrix.o \
+	$(release)/src/coin/Clp/ClpHelperFunctions.o \
+	$(release)/src/coin/Clp/ClpInterior.o \
+	$(release)/src/coin/Clp/ClpLinearObjective.o \
+	$(release)/src/coin/Clp/ClpLsqr.o \
+	$(release)/src/coin/Clp/ClpMatrixBase.o \
+	$(release)/src/coin/Clp/ClpMessage.o \
+	$(release)/src/coin/Clp/ClpModel.o \
+	$(release)/src/coin/Clp/ClpNetworkBasis.o \
+	$(release)/src/coin/Clp/ClpNetworkMatrix.o \
+	$(release)/src/coin/Clp/ClpNode.o \
+	$(release)/src/coin/Clp/ClpNonLinearCost.o \
+	$(release)/src/coin/Clp/ClpObjective.o \
+	$(release)/src/coin/Clp/ClpPackedMatrix.o \
+	$(release)/src/coin/Clp/ClpPdco.o \
+	$(release)/src/coin/Clp/ClpPdcoBase.o \
+	$(release)/src/coin/Clp/ClpPlusMinusOneMatrix.o \
+	$(release)/src/coin/Clp/ClpPredictorCorrector.o \
+	$(release)/src/coin/Clp/ClpPresolve.o \
+	$(release)/src/coin/Clp/ClpPrimalColumnDantzig.o \
+	$(release)/src/coin/Clp/ClpPrimalColumnPivot.o \
+	$(release)/src/coin/Clp/ClpPrimalColumnSteepest.o \
+	$(release)/src/coin/Clp/ClpQuadraticObjective.o \
+	$(release)/src/coin/Clp/ClpSimplex.o \
+	$(release)/src/coin/Clp/ClpSimplexDual.o \
+	$(release)/src/coin/Clp/ClpSimplexNonlinear.o \
+	$(release)/src/coin/Clp/ClpSimplexOther.o \
+	$(release)/src/coin/Clp/ClpSimplexPrimal.o \
+	$(release)/src/coin/Clp/ClpSolve.o \
+	$(release)/src/coin/Clp/Clp_C_Interface.o \
+	$(release)/src/coin/Clp/IdiSolve.o \
+	$(release)/src/coin/Clp/Idiot.o \
+	$(release)/src/coin/Clp/MyEventHandler.o \
+	$(release)/src/coin/Clp/MyMessageHandler.o \
+	$(release)/src/coin/CoinUtils/CoinAlloc.o \
+	$(release)/src/coin/CoinUtils/CoinBuild.o \
+	$(release)/src/coin/CoinUtils/CoinDenseFactorization.o \
+	$(release)/src/coin/CoinUtils/CoinDenseVector.o \
+	$(release)/src/coin/CoinUtils/CoinError.o \
+	$(release)/src/coin/CoinUtils/CoinFactorization1.o \
+	$(release)/src/coin/CoinUtils/CoinFactorization2.o \
+	$(release)/src/coin/CoinUtils/CoinFactorization3.o \
+	$(release)/src/coin/CoinUtils/CoinFactorization4.o \
+	$(release)/src/coin/CoinUtils/CoinFileIO.o \
+	$(release)/src/coin/CoinUtils/CoinFinite.o \
+	$(release)/src/coin/CoinUtils/CoinIndexedVector.o \
+	$(release)/src/coin/CoinUtils/CoinLpIO.o \
+	$(release)/src/coin/CoinUtils/CoinMessage.o \
+	$(release)/src/coin/CoinUtils/CoinMessageHandler.o \
+	$(release)/src/coin/CoinUtils/CoinModel.o \
+	$(release)/src/coin/CoinUtils/CoinModelUseful.o \
+	$(release)/src/coin/CoinUtils/CoinModelUseful2.o \
+	$(release)/src/coin/CoinUtils/CoinMpsIO.o \
+	$(release)/src/coin/CoinUtils/CoinOslFactorization.o \
+	$(release)/src/coin/CoinUtils/CoinOslFactorization2.o \
+	$(release)/src/coin/CoinUtils/CoinOslFactorization3.o \
+	$(release)/src/coin/CoinUtils/CoinPackedMatrix.o \
+	$(release)/src/coin/CoinUtils/CoinPackedVector.o \
+	$(release)/src/coin/CoinUtils/CoinPackedVectorBase.o \
+	$(release)/src/coin/CoinUtils/CoinParam.o \
+	$(release)/src/coin/CoinUtils/CoinParamUtils.o \
+	$(release)/src/coin/CoinUtils/CoinPostsolveMatrix.o \
+	$(release)/src/coin/CoinUtils/CoinPrePostsolveMatrix.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveDoubleton.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveDual.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveDupcol.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveEmpty.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveFixed.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveForcing.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveHelperFunctions.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveImpliedFree.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveIsolated.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveMatrix.o \
+	$(release)/src/coin/CoinUtils/CoinPresolvePsdebug.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveSingleton.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveSubst.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveTighten.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveTripleton.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveUseless.o \
+	$(release)/src/coin/CoinUtils/CoinPresolveZeros.o \
+	$(release)/src/coin/CoinUtils/CoinSearchTree.o \
+	$(release)/src/coin/CoinUtils/CoinShallowPackedVector.o \
+	$(release)/src/coin/CoinUtils/CoinSimpFactorization.o \
+	$(release)/src/coin/CoinUtils/CoinSnapshot.o \
+	$(release)/src/coin/CoinUtils/CoinStructuredModel.o \
+	$(release)/src/coin/CoinUtils/CoinWarmStartBasis.o \
+	$(release)/src/coin/CoinUtils/CoinWarmStartDual.o \
+	$(release)/src/coin/CoinUtils/CoinWarmStartPrimalDual.o \
+	$(release)/src/coin/CoinUtils/CoinWarmStartVector.o \
+	$(release)/src/coin/Osi/OsiAuxInfo.o \
+	$(release)/src/coin/Osi/OsiBranchingObject.o \
+	$(release)/src/coin/Osi/OsiChooseVariable.o \
+	$(release)/src/coin/Osi/OsiColCut.o \
+	$(release)/src/coin/Osi/OsiCut.o \
+	$(release)/src/coin/Osi/OsiCuts.o \
+	$(release)/src/coin/Osi/OsiNames.o \
+	$(release)/src/coin/Osi/OsiPresolve.o \
+	$(release)/src/coin/Osi/OsiRowCut.o \
+	$(release)/src/coin/Osi/OsiRowCutDebugger.o \
+	$(release)/src/coin/Osi/OsiSolverBranch.o \
+	$(release)/src/coin/Osi/OsiSolverInterface.o \
+	$(release)/src/coin/OsiClp/OsiClpSolverInterface.o \
+	$(release)/src/coin/Symphony/OsiSymSolverInterface.o \
+	$(release)/src/coin/Symphony/SymWarmStart.o \
+	$(release)/src/coin/Symphony/cg_func.o \
+	$(release)/src/coin/Symphony/cg_proccomm.o \
+	$(release)/src/coin/Symphony/cg_wrapper.o \
+	$(release)/src/coin/Symphony/cp_func.o \
+	$(release)/src/coin/Symphony/cp_proccomm.o \
+	$(release)/src/coin/Symphony/cp_wrapper.o \
+	$(release)/src/coin/Symphony/cut_gen.o \
+	$(release)/src/coin/Symphony/cut_pool.o \
+	$(release)/src/coin/Symphony/lp.o \
+	$(release)/src/coin/Symphony/lp_branch.o \
+	$(release)/src/coin/Symphony/lp_free.o \
+	$(release)/src/coin/Symphony/lp_genfunc.o \
+	$(release)/src/coin/Symphony/lp_heuristics.o \
+	$(release)/src/coin/Symphony/lp_proccomm.o \
+	$(release)/src/coin/Symphony/lp_rowfunc.o \
+	$(release)/src/coin/Symphony/lp_solver.o \
+	$(release)/src/coin/Symphony/lp_sp.o \
+	$(release)/src/coin/Symphony/lp_varfunc.o \
+	$(release)/src/coin/Symphony/lp_wrapper.o \
+	$(release)/src/coin/Symphony/master.o \
+	$(release)/src/coin/Symphony/master_func.o \
+	$(release)/src/coin/Symphony/master_io.o \
+	$(release)/src/coin/Symphony/master_prep.o \
+	$(release)/src/coin/Symphony/master_prep_base.o \
+	$(release)/src/coin/Symphony/master_prep_sr.o \
+	$(release)/src/coin/Symphony/master_wrapper.o \
+	$(release)/src/coin/Symphony/pack_array.o \
+	$(release)/src/coin/Symphony/pack_cut.o \
+	$(release)/src/coin/Symphony/proccomm.o \
+	$(release)/src/coin/Symphony/sym_qsort.o \
+	$(release)/src/coin/Symphony/timemeas.o \
+	$(release)/src/coin/Symphony/tm_func.o \
+	$(release)/src/coin/Symphony/tm_proccomm.o \
+
+
+#######################################################
+# test binary targets
 
 
 #######################################################
 # all, clean, etc. for debug
 
+.PHONY: debug installdebug cleandebug cleandebug-coin
+
 $(debug)/libCOIN.so: $(debug_COIN_OBJS)
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand -shared -o $(debug)/libCOIN.so $(debug_COIN_OBJS)
+	$(LD) -shared -o $(debug)/libCOIN.so $(debug_COIN_OBJS)
 
 $(debug)/libOGDF.so: $(debug_OBJS)
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand -shared -o $(debug)/libOGDF.so $(debug_OBJS)  $(LIBS)
+	$(LD) -shared -o $(debug)/libOGDF.so $(debug_OBJS)  $(LIBS)
 
 debug: $(debug)/libOGDF.so $(debug)/libCOIN.so
 
 cleandebug:
-	rm -rf $(debug)
+	$(RM) $(debug) test/test-debug
 
 cleandebug-coin:
-	rm -rf $(debug)/libCOIN.a $(debug)/libCOIN.so $(debug)/src/coin
+	$(RM) $(debug)/libCOIN.a $(debug)/libCOIN.so $(debug)/src/coin
 
 installdebug:
 	install -d $(DESTDIR)/usr/local/lib
@@ -22522,775 +22539,787 @@ installdebug:
 #######################################################
 # all, clean, etc. for release
 
+.PHONY: release installrelease cleanrelease cleanrelease-coin
+
 $(release)/libCOIN.so: $(release_COIN_OBJS)
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand -shared -o $(release)/libCOIN.so $(release_COIN_OBJS)
+	$(LD) -shared -o $(release)/libCOIN.so $(release_COIN_OBJS)
 
 $(release)/libOGDF.so: $(release_OBJS)
-	em++ -std=c++11 -stdlib=libc++ -Dsrandom=srand -Drandom=rand -shared -o $(release)/libOGDF.so $(release_OBJS)  $(LIBS)
+	$(LD) -shared -o $(release)/libOGDF.so $(release_OBJS)  $(LIBS)
 
 release: $(release)/libOGDF.so $(release)/libCOIN.so
 
 cleanrelease:
-	rm -rf $(release)
+	$(RM) $(release) test/test-release
 
 cleanrelease-coin:
-	rm -rf $(release)/libCOIN.a $(release)/libCOIN.so $(release)/src/coin
+	$(RM) $(release)/libCOIN.a $(release)/libCOIN.so $(release)/src/coin
 
 installrelease:
 	install -d $(DESTDIR)/usr/local/lib
 	install -m 0644 $(release)/libOGDF.so $(DESTDIR)/usr/local/lib/
 	install -m 0644 $(release)/libCOIN.so $(DESTDIR)/usr/local/lib/
 
+.PHONY: install-headers install-pkgconfig
 install: installrelease install-headers install-pkgconfig
 
 install-headers:
 	install -d $(DESTDIR)/usr/local/include/ogdf
-	install -d $(DESTDIR)/usr/local/include/ogdf/external
-	install -m 0644 include/ogdf/external/coin.h $(DESTDIR)/usr/local/include/ogdf/external
-	install -m 0644 include/ogdf/external/abacus.h $(DESTDIR)/usr/local/include/ogdf/external
-	install -d $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinSteinerTreeZelikovsky.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/ConvexHull.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinSteinerTreeKou.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/GraphReduction.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinCostFlowReinelt.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinimumCut.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinSteinerTreeRZLoss.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/CliqueFinder.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinSteinerTreeMehlhorn.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/MinSteinerTreeTakahashi.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/ShortestPathWithBFM.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/PageRank.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/Clusterer.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/ShortestPathAlgorithms.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -m 0644 include/ogdf/graphalg/Dijkstra.h $(DESTDIR)/usr/local/include/ogdf/graphalg
-	install -d $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -m 0644 include/ogdf/misclayout/BalloonLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -m 0644 include/ogdf/misclayout/BertaultLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -m 0644 include/ogdf/misclayout/ProcrustesSubLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -m 0644 include/ogdf/misclayout/CircularExactLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -m 0644 include/ogdf/misclayout/CircularLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
-	install -d $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -d $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MixedForceLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MedianPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/IndependentSetMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/ZeroPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MultilevelBuilder.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/InitialPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/RandomPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MatchingMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/EdgeCoverMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/RandomMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/SolarPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/SolarMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/ScalingLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/multilevelmixer/CirclePlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
-	install -m 0644 include/ogdf/energybased/FMMMLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/GEMLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/SpringEmbedderKK.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/MultilevelLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/DavidsonHarel.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/SpringEmbedderFR.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/FastMultipoleEmbedder.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/DavidsonHarelLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/TutteLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/PivotMDS.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/StressMinimization.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -m 0644 include/ogdf/energybased/SpringEmbedderFRExact.h $(DESTDIR)/usr/local/include/ogdf/energybased
-	install -d $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GridLayout.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/DisjointSets.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Array.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/CriticalSection.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/PreprocessorLayout.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GraphCopy.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Skiplist.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/BoundedStack.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/MinPriorityQueue.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/geometry.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/BoundedQueue.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GraphObserver.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GraphList.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Logger.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/List.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/memory.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Hashing.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/IncNodeInserter.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Thread.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Graph_d.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Constraints.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Math.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/ArrayBuffer.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Timeouter.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/NearestRectangleFinder.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/NodeComparer.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/comparer.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/ModuleOption.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/BinaryHeap2.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Barrier.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Layout.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/extended_graph_alg.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/HashIterator2D.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/NodeSet.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/EdgeComparerSimple.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/System.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/CombinatorialEmbedding.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Graph.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/EdgeComparer.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/EdgeArray.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/precondition.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/HashArray.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Queue.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/TopologyModule.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/graphics.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/graph_generators.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/HashArray2D.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Array2D.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/basic.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Stack.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/tuples.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/SList.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GridLayoutMapped.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/HyperGraph.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/MinHeap.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/HeapBase.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/exceptions.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/AdjEntryArray.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/EFreeList.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/simple_graph_alg.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/DualGraph.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Stopwatch.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/GraphCopyAttributes.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/NodeArray.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/FaceArray.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/FaceSet.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/EList.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/BinaryHeap.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/LayoutStandards.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -m 0644 include/ogdf/basic/Module.h $(DESTDIR)/usr/local/include/ogdf/basic
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/doc
-	install -m 0644 include/ogdf/minisat/Minisat.h $(DESTDIR)/usr/local/include/ogdf/minisat
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Alloc.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/mtl/IntTypeImport
-	install -m 0644 include/ogdf/minisat/mtl/IntTypeImport/inttypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl/IntTypeImport
-	install -m 0644 include/ogdf/minisat/mtl/IntTypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Vec.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Sort.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Map.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Heap.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/XAlloc.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Queue.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -m 0644 include/ogdf/minisat/mtl/Alg.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/simp
-	install -m 0644 include/ogdf/minisat/simp/SimpSolver.h $(DESTDIR)/usr/local/include/ogdf/minisat/simp
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/core
-	install -m 0644 include/ogdf/minisat/core/SolverTypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/core
-	install -m 0644 include/ogdf/minisat/core/Solver.h $(DESTDIR)/usr/local/include/ogdf/minisat/core
-	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/utils
-	install -m 0644 include/ogdf/minisat/utils/ParseUtils.h $(DESTDIR)/usr/local/include/ogdf/minisat/utils
-	install -m 0644 include/ogdf/minisat/utils/Options.h $(DESTDIR)/usr/local/include/ogdf/minisat/utils
-	install -d $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/MinimumEdgeDistances.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/GridFlowCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/FlowCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/GridCompactionConstraintGraph.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/OrthoLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/OrthoShaper.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/EdgeRouter.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/CompactionConstraintGraph.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/OrthoRep.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/KandinskyLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/OrthoGridLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
-	install -m 0644 include/ogdf/orthogonal/LongestPathCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -d $(DESTDIR)/usr/local/include/ogdf/packing
+	install -m 0644 include/ogdf/packing/ComponentSplitterLayout.h $(DESTDIR)/usr/local/include/ogdf/packing
+	install -m 0644 include/ogdf/packing/TileToRowsCCPacker.h $(DESTDIR)/usr/local/include/ogdf/packing
+	install -d $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDrawCreatorSimple.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/TwoLayerCrossMinSimDraw.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDrawManipulatorModule.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDrawColorizer.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDrawCreator.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDraw.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
+	install -m 0644 include/ogdf/simultaneous/SimDrawCaller.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
 	install -d $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/rowcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lp.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/variable.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/sub.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/sparvec.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/pool.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/hash.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/ring.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/cutbuffer.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lpsolution.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/fixcand.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/column.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/slackstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/nonduplpool.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/numvar.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/conbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/hash.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/opensub.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/poolslotref.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/history.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/fsvarstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/vartype.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/optsense.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lpmaster.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/numcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/master.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/row.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/boundbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/pool.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/lpsubosi.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/colvar.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lpvarstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/active.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/boundbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lpmasterosi.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/poolslot.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/branchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/global.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/convar.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/bheap.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/tailoff.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/srowcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/separator.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/infeascon.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/osiif.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/lpsub.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/bprioqueue.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/osiinclude.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/constraint.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lpsolution.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/osiif.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/ring.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/poolslot.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/conclass.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/srowcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/fixcand.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/slackstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/abacusroot.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/rowcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/poolslotref.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/convar.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/master.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/standardpool.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/conbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/osiinclude.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lpmaster.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lp.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/setbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/variable.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lpvarstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/global.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/sub.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/fsvarstat.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/active.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/numcon.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/constraint.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/optsense.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/bheap.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/csense.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -m 0644 include/ogdf/abacus/valbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/conclass.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/setbranchrule.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/row.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -m 0644 include/ogdf/abacus/standardpool.h $(DESTDIR)/usr/local/include/ogdf/abacus
-	install -d $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -m 0644 include/ogdf/legacy/AbacusOptimalCrossingMinimizerSuperPrice.h $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -m 0644 include/ogdf/legacy/OptimalCrossingMinimizerBase.h $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -m 0644 include/ogdf/legacy/AbacusOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -m 0644 include/ogdf/legacy/FixedUpwardEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -m 0644 include/ogdf/legacy/CoinOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/legacy
-	install -d $(DESTDIR)/usr/local/include/ogdf/lpsolver
-	install -m 0644 include/ogdf/lpsolver/LPSolver.h $(DESTDIR)/usr/local/include/ogdf/lpsolver
-	install -d $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UMLLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/LayoutClusterPlanRepModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/ShortestPathModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UpwardPlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/TwoLayerCrossMin.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UPRLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/ClusterPlanarModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/CCLayoutPackModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MultilevelLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/LayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/ForceLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/CrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/RankingModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MinCostFlowModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/AugmentationModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/HierarchyClusterLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UMLEdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/GridLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MMEdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/OrthoCompactionModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/LayoutPlanRepModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/ClustererModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/HierarchyLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/LayoutPlanRepUMLModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/ShellingOrderModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/PlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UMLCrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/CPlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/PlanarityModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/EdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UpwardPlanarizerModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MinSteinerTreeModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/EmbedderModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MixedModelCrossingsBeautifierModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/FUPSModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/MMCrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/UpwardEdgeInserterModule.h $(DESTDIR)/usr/local/include/ogdf/module
-	install -m 0644 include/ogdf/module/AcyclicSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/abacus/numvar.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/tailoff.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/nonduplpool.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lpsub.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/lpmasterosi.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/sparvec.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/column.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/separator.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/infeascon.h $(DESTDIR)/usr/local/include/ogdf/abacus
+	install -m 0644 include/ogdf/abacus/vartype.h $(DESTDIR)/usr/local/include/ogdf/abacus
 	install -d $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/PlanarDrawLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/FPPLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/PlanarStraightLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/MMCBDoubleGrid.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/SchnyderLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/MMCBLocalStretch.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/BiconnectedShellingOrder.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/MixedModelLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -m 0644 include/ogdf/planarlayout/MMCBBase.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
 	install -m 0644 include/ogdf/planarlayout/ShellingOrder.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
 	install -m 0644 include/ogdf/planarlayout/TriconnectedShellingOrder.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
-	install -d $(DESTDIR)/usr/local/include/ogdf/packing
-	install -m 0644 include/ogdf/packing/TileToRowsCCPacker.h $(DESTDIR)/usr/local/include/ogdf/packing
-	install -m 0644 include/ogdf/packing/ComponentSplitterLayout.h $(DESTDIR)/usr/local/include/ogdf/packing
-	install -d $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/StaticSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/PlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/DynamicPlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/BCTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/DynamicSPQRForest.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/StaticSkeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/Skeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/DynamicSkeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/StaticPlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/SPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/DynamicSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/PertinentGraph.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -m 0644 include/ogdf/decomposition/DynamicBCTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
-	install -d $(DESTDIR)/usr/local/include/ogdf/augmentation
-	install -m 0644 include/ogdf/augmentation/DfsMakeBiconnected.h $(DESTDIR)/usr/local/include/ogdf/augmentation
-	install -m 0644 include/ogdf/augmentation/PlanarAugmentation.h $(DESTDIR)/usr/local/include/ogdf/augmentation
-	install -m 0644 include/ogdf/augmentation/PlanarAugmentationFix.h $(DESTDIR)/usr/local/include/ogdf/augmentation
+	install -m 0644 include/ogdf/planarlayout/PlanarStraightLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/BiconnectedShellingOrder.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/MMCBBase.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/MixedModelLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/MMCBLocalStretch.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/SchnyderLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/FPPLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/PlanarDrawLayout.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
+	install -m 0644 include/ogdf/planarlayout/MMCBDoubleGrid.h $(DESTDIR)/usr/local/include/ogdf/planarlayout
 	install -d $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/ExpansionGraph.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/FUPSSimple.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/LayerBasedUPRLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/FaceSinkGraph.h $(DESTDIR)/usr/local/include/ogdf/upward
 	install -m 0644 include/ogdf/upward/FeasibleUpwardPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/FUPSSimple.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/FixedUpwardEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/SubgraphUpwardPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/DominanceLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/VisibilityLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/UpwardPlanarity.h $(DESTDIR)/usr/local/include/ogdf/upward
 	install -m 0644 include/ogdf/upward/UpwardPlanarSubgraphSimple.h $(DESTDIR)/usr/local/include/ogdf/upward
 	install -m 0644 include/ogdf/upward/UpwardPlanRep.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/FixedEmbeddingUpwardEdgeInserter.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/SubgraphUpwardPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/VisibilityLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
 	install -m 0644 include/ogdf/upward/UpwardPlanarizationLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/FaceSinkGraph.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/FixedUpwardEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/LayerBasedUPRLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/DominanceLayout.h $(DESTDIR)/usr/local/include/ogdf/upward
-	install -m 0644 include/ogdf/upward/UpwardPlanarity.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -m 0644 include/ogdf/upward/ExpansionGraph.h $(DESTDIR)/usr/local/include/ogdf/upward
+	install -d $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -m 0644 include/ogdf/legacy/OptimalCrossingMinimizerBase.h $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -m 0644 include/ogdf/legacy/FixedUpwardEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -m 0644 include/ogdf/legacy/CoinOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -m 0644 include/ogdf/legacy/AbacusOptimalCrossingMinimizerSuperPrice.h $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -m 0644 include/ogdf/legacy/AbacusOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/legacy
+	install -d $(DESTDIR)/usr/local/include/ogdf/labeling
+	install -m 0644 include/ogdf/labeling/EdgeLabel.h $(DESTDIR)/usr/local/include/ogdf/labeling
+	install -m 0644 include/ogdf/labeling/ELabelPosSimple.h $(DESTDIR)/usr/local/include/ogdf/labeling
+	install -m 0644 include/ogdf/labeling/ELabelInterface.h $(DESTDIR)/usr/local/include/ogdf/labeling
+	install -d $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/precondition.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/new.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/NodeComparer.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/MinHeap.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/PreprocessorLayout.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/HashArray2D.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/FaceArray.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Graph_d.clean.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/ArrayBuffer.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/bind.all.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/BinaryHeap.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/EdgeComparer.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/SList.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/HashIterator2D.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Layout.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Stopwatch.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/LayoutStandards.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/NearestRectangleFinder.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/extended_graph_alg.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Timeouter.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/ogdf.bin.all.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Barrier.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/tuples.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/geometry.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/basic.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/graph.clean.h.all.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/HeapBase.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Queue.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/NodeSet.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/MinPriorityQueue.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/NodeArray.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/BoundedQueue.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/DisjointSets.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/AdjEntryArray.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Stack.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Graph.clean.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/HyperGraph.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/CombinatorialEmbedding.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/memory.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/IncNodeInserter.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/EList.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/graph.clean.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/DualGraph.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/HashArray.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/exceptions.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Array2D.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Constraints.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/System.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/comparer.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Graph_d.clean.h.all.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/FaceSet.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Hashing.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/simple_graph_alg.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Graph_d.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/BoundedStack.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/graph_generators.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GraphList.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Thread.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/graphics.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GraphCopyAttributes.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GridLayout.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/EdgeComparerSimple.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/ogdf_bin.all.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GraphObserver.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/BinaryHeap2.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GridLayoutMapped.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/ModuleOption.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/CriticalSection.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Skiplist.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Math.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Logger.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/TopologyModule.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Graph.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Module.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/GraphCopy.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/List.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/EdgeArray.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/Array.h $(DESTDIR)/usr/local/include/ogdf/basic
+	install -m 0644 include/ogdf/basic/EFreeList.h $(DESTDIR)/usr/local/include/ogdf/basic
 	install -d $(DESTDIR)/usr/local/include/ogdf/tree
 	install -m 0644 include/ogdf/tree/TreeLayout.h $(DESTDIR)/usr/local/include/ogdf/tree
 	install -m 0644 include/ogdf/tree/RadialTreeLayout.h $(DESTDIR)/usr/local/include/ogdf/tree
 	install -m 0644 include/ogdf/tree/LCA.h $(DESTDIR)/usr/local/include/ogdf/tree
-	install -d $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterPlanarity.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterGraphObserver.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterOrthoShaper.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterGraphCopyAttributes.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterAnalysis.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/MaximumCPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterPlanRep.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterGraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/CconnectClusterPlanarEmbed.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterSet.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterPlanarizationLayout.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/CconnectClusterPlanar.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/CPlanarSubClusteredGraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterGraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterArray.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/ClusterOrthoLayout.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -m 0644 include/ogdf/cluster/CPlanarEdgeInserter.h $(DESTDIR)/usr/local/include/ogdf/cluster
-	install -d $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/UMLGraph.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/VariableEmbeddingInserterDynUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/OrthoLayoutUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/FixedEmbeddingInserterUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/PlanarizationLayoutUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/SubgraphPlanarizerUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/PlanRepUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -m 0644 include/ogdf/uml/VariableEmbeddingInserterUML.h $(DESTDIR)/usr/local/include/ogdf/uml
-	install -d $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/SplitHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/BarycenterHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/LongestPathRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/GreedySwitchHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/GreedyInsertHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/OptimalHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/MedianHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/GreedyCycleRemoval.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/FastHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/CrossingsMatrix.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/CoffmanGrahamRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/OptimalRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/Level.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/ExtendedNestingGraph.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/OptimalHierarchyClusterLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/SugiyamaLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/Hierarchy.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/DfsAcyclicSubgraph.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/FastSimpleHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/SugiyamaLayoutMC.h $(DESTDIR)/usr/local/include/ogdf/layered
-	install -m 0644 include/ogdf/layered/SiftingHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -d $(DESTDIR)/usr/local/include/ogdf/augmentation
+	install -m 0644 include/ogdf/augmentation/PlanarAugmentation.h $(DESTDIR)/usr/local/include/ogdf/augmentation
+	install -m 0644 include/ogdf/augmentation/PlanarAugmentationFix.h $(DESTDIR)/usr/local/include/ogdf/augmentation
+	install -m 0644 include/ogdf/augmentation/DfsMakeBiconnected.h $(DESTDIR)/usr/local/include/ogdf/augmentation
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat
+	install -m 0644 include/ogdf/minisat/Minisat.h $(DESTDIR)/usr/local/include/ogdf/minisat
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/core
+	install -m 0644 include/ogdf/minisat/core/SolverTypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/core
+	install -m 0644 include/ogdf/minisat/core/Solver.h $(DESTDIR)/usr/local/include/ogdf/minisat/core
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/IntTypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Alloc.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Map.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Queue.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/XAlloc.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/mtl/IntTypeImport
+	install -m 0644 include/ogdf/minisat/mtl/IntTypeImport/inttypes.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl/IntTypeImport
+	install -m 0644 include/ogdf/minisat/mtl/Sort.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Heap.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Alg.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -m 0644 include/ogdf/minisat/mtl/Vec.h $(DESTDIR)/usr/local/include/ogdf/minisat/mtl
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/simp
+	install -m 0644 include/ogdf/minisat/simp/SimpSolver.h $(DESTDIR)/usr/local/include/ogdf/minisat/simp
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/doc
+	install -d $(DESTDIR)/usr/local/include/ogdf/minisat/utils
+	install -m 0644 include/ogdf/minisat/utils/Options.h $(DESTDIR)/usr/local/include/ogdf/minisat/utils
+	install -m 0644 include/ogdf/minisat/utils/ParseUtils.h $(DESTDIR)/usr/local/include/ogdf/minisat/utils
+	install -d $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/StaticSkeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/DynamicSPQRForest.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/StaticSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/DynamicSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/PlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/PertinentGraph.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/DynamicPlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/Skeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/DynamicSkeleton.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/SPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/StaticPlanarSPQRTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/DynamicBCTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
+	install -m 0644 include/ogdf/decomposition/BCTree.h $(DESTDIR)/usr/local/include/ogdf/decomposition
 	install -d $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/GmlParser.h $(DESTDIR)/usr/local/include/ogdf/fileformats
 	install -m 0644 include/ogdf/fileformats/OgmlParser.h $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/Ogml.h $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/XmlScanner.h $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/LineBuffer.h $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/UmlToGraphConverter.h $(DESTDIR)/usr/local/include/ogdf/fileformats
-	install -m 0644 include/ogdf/fileformats/XmlParser.h $(DESTDIR)/usr/local/include/ogdf/fileformats
 	install -m 0644 include/ogdf/fileformats/GraphIO.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/GmlParser.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/LineBuffer.h $(DESTDIR)/usr/local/include/ogdf/fileformats
 	install -m 0644 include/ogdf/fileformats/UmlDiagramGraph.h $(DESTDIR)/usr/local/include/ogdf/fileformats
 	install -m 0644 include/ogdf/fileformats/UmlModelGraph.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/XmlParser.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/Ogml.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/UmlToGraphConverter.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -m 0644 include/ogdf/fileformats/XmlScanner.h $(DESTDIR)/usr/local/include/ogdf/fileformats
+	install -d $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/DavidsonHarelLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/GEMLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/SpringEmbedderFRExact.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/TutteLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/DavidsonHarel.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/SpringEmbedderFR.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/FastMultipoleEmbedder.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/FMMMLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/PivotMDS.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -d $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/IndependentSetMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/SolarMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/LocalBiconnectedMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/ModularMultilevelMixer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MatchingMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MedianPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/InitialPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/ScalingLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/ZeroPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/RandomMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/CirclePlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleFastLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleNoTwistLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/RandomPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/EdgeCoverMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/SolarPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/BarycenterPlacer.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/AlgebraicDistanceMerger.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MixedForceLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/multilevelmixer/MultilevelBuilder.h $(DESTDIR)/usr/local/include/ogdf/energybased/multilevelmixer
+	install -m 0644 include/ogdf/energybased/StressMinimization.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/SpringEmbedderKK.h $(DESTDIR)/usr/local/include/ogdf/energybased
+	install -m 0644 include/ogdf/energybased/MultilevelLayout.h $(DESTDIR)/usr/local/include/ogdf/energybased
 	install -d $(DESTDIR)/usr/local/include/ogdf/internal
-	install -m 0644 include/ogdf/internal/version.h $(DESTDIR)/usr/local/include/ogdf/internal
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/Attraction.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/NMM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/Planarity.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/QuadTreeNodeNM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/FruchtermanReingold.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/MultilevelGraph.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/PlanarityGrid.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/EdgeAttributes.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/NodeAttributes.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/Repulsion.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/IntersectionRectangle.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/QuadTreeNM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/EnergyFunction.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/UniformGrid.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/AdjacencyOracle.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/Overlap.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/NodePairEnergy.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -m 0644 include/ogdf/internal/energybased/ParticleInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -m 0644 include/ogdf/internal/basic/MallocMemoryAllocator.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -m 0644 include/ogdf/internal/basic/config.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -m 0644 include/ogdf/internal/basic/list_templates.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -m 0644 include/ogdf/internal/basic/intrinsics.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -m 0644 include/ogdf/internal/basic/PoolMemoryAllocator.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
-	install -m 0644 include/ogdf/internal/orthogonal/RoutingChannel.h $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
-	install -m 0644 include/ogdf/internal/orthogonal/NodeInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/lpsolver
-	install -m 0644 include/ogdf/internal/lpsolver/LPSolver_coin.h $(DESTDIR)/usr/local/include/ogdf/internal/lpsolver
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/augmentation
-	install -m 0644 include/ogdf/internal/augmentation/PALabel.h $(DESTDIR)/usr/local/include/ogdf/internal/augmentation
 	install -d $(DESTDIR)/usr/local/include/ogdf/internal/upward
 	install -m 0644 include/ogdf/internal/upward/UpwardPlanarityEmbeddedDigraph.h $(DESTDIR)/usr/local/include/ogdf/internal/upward
 	install -m 0644 include/ogdf/internal/upward/UpwardPlanaritySingleSource.h $(DESTDIR)/usr/local/include/ogdf/internal/upward
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/CPlanar_Edge.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/KuratowskiConstraint.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_MinimalClusterConnection.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/Cluster_MaxPlanarEdges.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_Master.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/Cluster_CutConstraint.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/CPlanarity_Master.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/CPlanarity_Sub.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/Cluster_EdgeVar.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/basics.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/CPlanarSubClusteredST.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_Sub.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/CP_MasterBase.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/ClusterPQContainer.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -m 0644 include/ogdf/internal/cluster/Cluster_ChunkConnection.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
-	install -d $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/Save.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/FullComponent.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/Voronoi.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/EdgeWeightedGraph.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/CTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/StaticLCATree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/StaticTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/HeaviestEdgeInComponentTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/Triple.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/steinertree/EdgeWeightedGraphCopy.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
-	install -m 0644 include/ogdf/internal/config_autogen.h $(DESTDIR)/usr/local/include/ogdf/internal
 	install -d $(DESTDIR)/usr/local/include/ogdf/internal/labeling
 	install -m 0644 include/ogdf/internal/labeling/EdgeLabel-impl.h $(DESTDIR)/usr/local/include/ogdf/internal/labeling
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -m 0644 include/ogdf/internal/basic/MallocMemoryAllocator.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -m 0644 include/ogdf/internal/basic/intrinsics.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -m 0644 include/ogdf/internal/basic/PoolMemoryAllocator.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -m 0644 include/ogdf/internal/basic/list_templates.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -m 0644 include/ogdf/internal/basic/config.h $(DESTDIR)/usr/local/include/ogdf/internal/basic
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/augmentation
+	install -m 0644 include/ogdf/internal/augmentation/PALabel.h $(DESTDIR)/usr/local/include/ogdf/internal/augmentation
+	install -m 0644 include/ogdf/internal/config_autogen.h $(DESTDIR)/usr/local/include/ogdf/internal
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/EnergyFunction.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/FruchtermanReingold.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/QuadTreeNodeNM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/MultilevelGraph.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/Overlap.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/Attraction.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/EdgeAttributes.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/NodePairEnergy.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/ParticleInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/Repulsion.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/UniformGrid.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/NodeAttributes.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/PlanarityGrid.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/IntersectionRectangle.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/NMM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/AdjacencyOracle.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/Planarity.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/energybased/QuadTreeNM.h $(DESTDIR)/usr/local/include/ogdf/internal/energybased
+	install -m 0644 include/ogdf/internal/version.h $(DESTDIR)/usr/local/include/ogdf/internal
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/lpsolver
+	install -m 0644 include/ogdf/internal/lpsolver/LPSolver_coin.h $(DESTDIR)/usr/local/include/ogdf/internal/lpsolver
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
+	install -m 0644 include/ogdf/internal/orthogonal/RoutingChannel.h $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
+	install -m 0644 include/ogdf/internal/orthogonal/NodeInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/orthogonal
 	install -d $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/EmbedderMaxFaceBiconnectedGraphsLayers.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/VarEdgeInserterCore.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQInternalKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/BoyerMyrvoldPlanar.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/EmbedPQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
 	install -m 0644 include/ogdf/internal/planarity/VarEdgeInserterDynCore.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PlanarLeafKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/CliqueReplacer.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PlanarSubgraphPQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/BoyerMyrvoldInit.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/FixEdgeInserterCore.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQLeafKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/EmbedIndicator.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/MDMFLengthAttribute.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQBasicKeyRoot.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/FindKuratowskis.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/IndInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQNodeKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQNodeRoot.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/EmbedderMaxFaceBiconnectedGraphs.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQNode.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/MaxSequencePQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
 	install -m 0644 include/ogdf/internal/planarity/PlanarPQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/CrossingStructure.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/whaInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQInternalNode.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/PQBasicKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -m 0644 include/ogdf/internal/planarity/ConnectedSubgraph.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/IndInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQLeafKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQNodeRoot.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
 	install -m 0644 include/ogdf/internal/planarity/PQLeaf.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
-	install -d $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/TwoLayerCrossMinSimDraw.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDraw.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDrawManipulatorModule.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDrawCaller.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDrawCreatorSimple.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDrawCreator.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -m 0644 include/ogdf/simultaneous/SimDrawColorizer.h $(DESTDIR)/usr/local/include/ogdf/simultaneous
-	install -d $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/Hypergraph.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/EdgeStandardRep.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/HypergraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/HypergraphLayout.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/HypergraphArray.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/HypergraphLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -m 0644 include/ogdf/hypergraph/HypergraphObserver.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
-	install -d $(DESTDIR)/usr/local/include/ogdf/labeling
-	install -m 0644 include/ogdf/labeling/EdgeLabel.h $(DESTDIR)/usr/local/include/ogdf/labeling
-	install -m 0644 include/ogdf/labeling/ELabelInterface.h $(DESTDIR)/usr/local/include/ogdf/labeling
-	install -m 0644 include/ogdf/labeling/ELabelPosSimple.h $(DESTDIR)/usr/local/include/ogdf/labeling
+	install -m 0644 include/ogdf/internal/planarity/PQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/MDMFLengthAttribute.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/CliqueReplacer.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQNodeKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQBasicKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/whaInfo.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/VarEdgeInserterCore.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/EmbedPQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/EmbedderMaxFaceBiconnectedGraphsLayers.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/FindKuratowskis.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQNode.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/FixEdgeInserterCore.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PlanarSubgraphPQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/MaxSequencePQTree.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/BoyerMyrvoldInit.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQInternalNode.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/EmbedderMaxFaceBiconnectedGraphs.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQInternalKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/EmbedIndicator.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PQBasicKeyRoot.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/PlanarLeafKey.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/BoyerMyrvoldPlanar.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/CrossingStructure.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -m 0644 include/ogdf/internal/planarity/ConnectedSubgraph.h $(DESTDIR)/usr/local/include/ogdf/internal/planarity
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_Master.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/ClusterPQContainer.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/CP_MasterBase.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/CPlanarity_Sub.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/CPlanar_Edge.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_MinimalClusterConnection.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/KuratowskiConstraint.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/basics.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/CPlanarity_Master.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/Cluster_MaxPlanarEdges.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/Cluster_EdgeVar.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/MaxCPlanar_Sub.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/Cluster_ChunkConnection.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/CPlanarSubClusteredST.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -m 0644 include/ogdf/internal/cluster/Cluster_CutConstraint.h $(DESTDIR)/usr/local/include/ogdf/internal/cluster
+	install -d $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/EdgeWeightedGraph.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/FullComponent.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/EdgeWeightedGraphCopy.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/StaticLCATree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/Triple.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/CTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/HeaviestEdgeInComponentTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/StaticTree.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/Voronoi.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -m 0644 include/ogdf/internal/steinertree/Save.h $(DESTDIR)/usr/local/include/ogdf/internal/steinertree
+	install -d $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/EmbedderModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MinSteinerTreeModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UMLCrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MixedModelCrossingsBeautifierModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/RankingModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/LayoutClusterPlanRepModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/FUPSModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UPRLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/OrthoCompactionModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/ShortestPathModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/GridLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/PlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UMLLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MMCrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/AcyclicSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MultilevelLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/ClusterPlanarModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/CPlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/LayoutPlanRepModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/PlanarityModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/HierarchyLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UpwardEdgeInserterModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/LayoutPlanRepUMLModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/TwoLayerCrossMin.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/ClustererModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MMEdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UpwardPlanarSubgraphModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/CCLayoutPackModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/ShellingOrderModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UMLEdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/EdgeInsertionModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/AugmentationModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/CrossingMinimizationModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/ForceLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/UpwardPlanarizerModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/LayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/HierarchyClusterLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -m 0644 include/ogdf/module/MinCostFlowModule.h $(DESTDIR)/usr/local/include/ogdf/module
+	install -d $(DESTDIR)/usr/local/include/ogdf/lpsolver
+	install -m 0644 include/ogdf/lpsolver/LPSolver.h $(DESTDIR)/usr/local/include/ogdf/lpsolver
+	install -d $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/OrthoShaper.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/KandinskyLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/CompactionConstraintGraph.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/MinimumEdgeDistances.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/GridFlowCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/GridCompactionConstraintGraph.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/EdgeRouter.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/OrthoLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/OrthoGridLayout.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/OrthoRep.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/LongestPathCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -m 0644 include/ogdf/orthogonal/FlowCompaction.h $(DESTDIR)/usr/local/include/ogdf/orthogonal
+	install -d $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinSteinerTreeZelikovsky.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinSteinerTreeKou.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/Dijkstra.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinSteinerTreeTakahashi.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinSteinerTreeRZLoss.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/GraphReduction.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/ShortestPathAlgorithms.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/CliqueFinder.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinCostFlowReinelt.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/ConvexHull.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/ShortestPathWithBFM.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/PageRank.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinimumCut.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/Clusterer.h $(DESTDIR)/usr/local/include/ogdf/graphalg
+	install -m 0644 include/ogdf/graphalg/MinSteinerTreeMehlhorn.h $(DESTDIR)/usr/local/include/ogdf/graphalg
 	install -d $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/MultiEdgeApproxInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/MaximalPlanarSubgraphSimple.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/BoothLueker.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/MMVariableEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/SimpleEmbedder.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/FastPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EmbedderMinDepthMaxFace.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/MaximumPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EdgeTypePatterns.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/NonPlanarCore.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EmbedderMinDepthPiTa.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/BoyerMyrvold.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/PlanRepLight.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/NodeTypePatterns.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/ExtractKuratowskis.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/PlanRepInc.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/PlanRepExpansion.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/OptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/SimpleIncNodeInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/SubgraphPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EmbedderMinDepth.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/MMFixedEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EmbedderMaxFaceLayers.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/FixedEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/RemoveReinsertType.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/MMSubgraphPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/VariableEmbeddingInserterDyn.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/PlanRep.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/PlanarizationGridLayout.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/OrderedOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/SubgraphPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/EmbedderMinDepthMaxFaceLayers.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/EmbedderMaxFace.h $(DESTDIR)/usr/local/include/ogdf/planarity
-	install -m 0644 include/ogdf/planarity/KuratowskiSubdivision.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/PlanarizationLayout.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/PlanarizationGridLayout.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/MaximalPlanarSubgraphSimple.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EdgeTypePatterns.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EmbedderMinDepthPiTa.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/PlanRepLight.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EmbedderMinDepth.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EmbedderMinDepthMaxFace.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/OptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/FixedEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/BoothLueker.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/MultiEdgeApproxInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/SimpleIncNodeInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/MMSubgraphPlanarizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/RemoveReinsertType.h $(DESTDIR)/usr/local/include/ogdf/planarity
 	install -m 0644 include/ogdf/planarity/VariableEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/ExtractKuratowskis.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/MMVariableEmbeddingInserter.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/OrderedOptimalCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/KuratowskiSubdivision.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/SimpleEmbedder.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/MaximumPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/BoyerMyrvold.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EmbedderMaxFaceLayers.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/NodeTypePatterns.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/NonPlanarCore.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/VariableEmbeddingInserterDyn.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/EmbedderMaxFace.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/OptimalSimultaneousCrossingMinimizer.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/FastPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -m 0644 include/ogdf/planarity/PlanRep.h $(DESTDIR)/usr/local/include/ogdf/planarity
+	install -d $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/FastSimpleHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/SiftingHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/OptimalRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/SplitHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/BarycenterHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/OptimalHierarchyClusterLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/Hierarchy.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/Level.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/FastHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/GreedyInsertHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/GreedyCycleRemoval.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/OptimalHierarchyLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/CrossingsMatrix.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/SugiyamaLayoutMC.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/ExtendedNestingGraph.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/CoffmanGrahamRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/MedianHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/GreedySwitchHeuristic.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/SugiyamaLayout.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/DfsAcyclicSubgraph.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -m 0644 include/ogdf/layered/LongestPathRanking.h $(DESTDIR)/usr/local/include/ogdf/layered
+	install -d $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/HypergraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/HypergraphObserver.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/EdgeStandardRep.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/HypergraphArray.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/HypergraphLayout.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/HypergraphLayoutModule.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -m 0644 include/ogdf/hypergraph/Hypergraph.h $(DESTDIR)/usr/local/include/ogdf/hypergraph
+	install -d $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/PlanRepUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/FixedEmbeddingInserterUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/PlanarizationLayoutUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/VariableEmbeddingInserterDynUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/UMLGraph.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/VariableEmbeddingInserterUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/SubgraphPlanarizerUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -m 0644 include/ogdf/uml/OrthoLayoutUML.h $(DESTDIR)/usr/local/include/ogdf/uml
+	install -d $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterSet.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterPlanRep.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterOrthoShaper.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterPlanarity.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterOrthoLayout.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterPlanarizationLayout.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterGraphCopyAttributes.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/CPlanarEdgeInserter.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/CconnectClusterPlanar.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterArray.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterGraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterAnalysis.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterGraphAttributes.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/CPlanarSubClusteredGraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/CconnectClusterPlanarEmbed.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/ClusterGraphObserver.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -m 0644 include/ogdf/cluster/MaximumCPlanarSubgraph.h $(DESTDIR)/usr/local/include/ogdf/cluster
+	install -d $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -m 0644 include/ogdf/misclayout/ProcrustesSubLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -m 0644 include/ogdf/misclayout/BertaultLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -m 0644 include/ogdf/misclayout/CircularLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -m 0644 include/ogdf/misclayout/CircularExactLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -m 0644 include/ogdf/misclayout/BalloonLayout.h $(DESTDIR)/usr/local/include/ogdf/misclayout
+	install -d $(DESTDIR)/usr/local/include/ogdf/external
+	install -m 0644 include/ogdf/external/abacus.h $(DESTDIR)/usr/local/include/ogdf/external
+	install -m 0644 include/ogdf/external/coin.h $(DESTDIR)/usr/local/include/ogdf/external
 	install -d $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSimplex.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiGrbSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiPresolve.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDualRowDantzig.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_sym_default.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_qsort.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSnapshot.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cg_u.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglPreProcess.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandPValidator.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPrimalQuadraticDantzig.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinStructuredModel.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPackedMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyDense.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/configall_system.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinDenseVector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinFinite.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveImpliedFree.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPackedMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinAlloc.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinFileIO.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/Idiot.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiClpSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinModel.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveZeros.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveUseless.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiRowCutDebugger.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/symphony.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpInterior.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinMessage.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPdcoBase.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_prep.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSimplexDual.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPresolve.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglKnapsackCover.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiAuxInfo.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglTreeInfo.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinIndexedVector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_dg.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinWarmStartDual.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_default.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinHelperFunctions.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpModel.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinParam.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDualRowPivot.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiSolverBranch.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglFlowCover.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_dg_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_pack_cut.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveIsolated.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglGomory.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglStored.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpMatrixBase.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_proto.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveTighten.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyBase.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiRowCut.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/SymWarmStart.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_master.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyWssmpKKT.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLiftAndProject.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveEmpty.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_pack_array.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPackedVectorBase.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinUtilsConfig.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglConfig.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandPUtils.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpConfig.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinMpsIO.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveDoubleton.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpConstraint.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpConstraintLinear.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_cgl_default.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_macros.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSimplexNonlinear.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpLinearObjective.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cp.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglTwomir.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDummyMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSimplexOther.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglDuplicateRow.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDynamicExampleMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveSubst.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiSymSolverParameters.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglSimpleRounding.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/symphony_api.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglAllDifferent.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDynamicMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglMixedIntegerRounding2.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/Coin_C_defines.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinError.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpNetworkBasis.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpNode.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinFloatEqual.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSimpFactorization.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveTripleton.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpLsqr.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_primal_heuristics.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/configall_system_msc.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_proccomm.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_lp_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinMessageHandler.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_cgl.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPragma.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveSingleton.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiCollections.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_clp_default.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglClique.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPredictorCorrector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPrimalColumnSteepest.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSmartPtr.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_master_u.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSignal.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPrimalColumnPivot.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandP.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
 	install -m 0644 include/coin/CoinWarmStart.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglParam.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_dg_u.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiChooseVariable.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpDualRowSteepest.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinShallowPackedVector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPrimalColumnDantzig.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpGubDynamicMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyMumps.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_win32_time.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSolve.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinDenseFactorization.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglRedSplit.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_tm_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpGubMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPdco.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_lp_solver.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_types.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_return_values.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveFixed.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpMessage.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/SymConfig.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandPTabRow.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/MyEventHandler.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_lp.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpParameters.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandPMessages.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglMessage.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_tm.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpSimplexPrimal.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveForcing.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiBranchingObject.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglOddHole.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpNonLinearCost.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinUtility.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyUfl.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSort.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinDistance.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_timemeas.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiCpxSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinWarmStartVector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinLpIO.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinBuild.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinTypes.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cp_u.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyTaucs.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinSearchTree.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpPlusMinusOneMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/MyMessageHandler.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglRedSplitParam.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpHelperFunctions.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cg_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cg.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_prep_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinOslC.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveDupcol.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_lp_u.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiSymSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiSolverParameters.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_cp_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpCholeskyWssmp.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/config_coinutils_default.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiColCut.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpFactorization.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolveDual.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiCut.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpObjective.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinWarmStartBasis.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPackedVector.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/OsiCuts.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinModelUseful.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpEventHandler.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_constants.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpQuadraticObjective.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_master_params.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpNetworkMatrix.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglProbing.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/sym_messages.h $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinWarmStartPrimalDual.hpp $(DESTDIR)/usr/local/include/coin
 	install -m 0644 include/coin/CoinTime.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinFactorization.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglMixedIntegerRounding.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/ClpConstraintQuadratic.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CoinPresolvePsdebug.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglLandPSimplex.hpp $(DESTDIR)/usr/local/include/coin
-	install -m 0644 include/coin/CglResidualCapacity.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinMessageHandler.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveEmpty.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPredictorCorrector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSimplexPrimal.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyBase.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDualRowSteepest.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinDistance.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiRowCut.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinError.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiGrbSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinLpIO.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSmartPtr.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglParam.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpEventHandler.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_tm_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPresolve.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpNetworkMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_constants.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSimplex.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPdco.hpp $(DESTDIR)/usr/local/include/coin
 	install -m 0644 include/coin/CoinOslFactorization.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandPSimplex.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpQuadraticObjective.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSnapshot.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglMessage.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiChooseVariable.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_pack_array.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_proto.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyWssmp.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinIndexedVector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveForcing.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandPUtils.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglGomory.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPackedMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/SymConfig.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_sym_default.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_dg.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/SymWarmStart.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPackedVectorBase.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpConstraint.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpObjective.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpInterior.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglClique.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpMatrixBase.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_types.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinUtility.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cg.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglRedSplitParam.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinWarmStartPrimalDual.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveTighten.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinUtilsConfig.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSimplexNonlinear.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPrimalColumnDantzig.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_messages.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSimplexDual.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiSymSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveImpliedFree.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_default.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveDupcol.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglRedSplit.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiAuxInfo.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSearchTree.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_master_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cg_u.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandPValidator.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpLsqr.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolvePsdebug.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDummyMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyTaucs.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cp_u.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglAllDifferent.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDualRowDantzig.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiSolverBranch.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/Coin_C_defines.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglSimpleRounding.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/MyMessageHandler.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSimplexOther.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpModel.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_master_u.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_coinutils_default.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiCuts.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cp_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/configall_system_msc.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPackedMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiSolverParameters.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveUseless.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiCut.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpConfig.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSignal.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinOslC.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_prep_params.h $(DESTDIR)/usr/local/include/coin
 	install -m 0644 include/coin/CglCutGenerator.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiCollections.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPackedVector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveSubst.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveTripleton.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_tm.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpParameters.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpFactorization.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSort.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinDenseVector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiPresolve.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinMpsIO.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_proccomm.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_prep.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPrimalQuadraticDantzig.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpGubDynamicMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiSymSolverParameters.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_lp_u.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiClpSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinBuild.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDynamicExampleMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiCpxSolverInterface.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveZeros.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveSingleton.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglConfig.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinModel.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinStructuredModel.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiBranchingObject.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_cgl.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDualRowPivot.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglDuplicateRow.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinAlloc.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinFactorization.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_pack_cut.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPrimalColumnPivot.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_macros.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_timemeas.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandPMessages.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_lp_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_lp.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglMixedIntegerRounding2.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpSolve.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpNetworkBasis.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinShallowPackedVector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinParam.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpConstraintLinear.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglFlowCover.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLiftAndProject.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinWarmStartDual.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpDynamicMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/symphony_api.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_dg_u.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglTwomir.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandP.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinWarmStartBasis.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglLandPTabRow.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinSimpFactorization.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_return_values.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_cgl_default.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinHelperFunctions.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_win32_time.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/symphony.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyDense.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinDenseFactorization.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiColCut.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPrimalColumnSteepest.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpMessage.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinWarmStartVector.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglPreProcess.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveDual.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cg_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglProbing.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/Idiot.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinTypes.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_dg_params.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinFloatEqual.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpHelperFunctions.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpGubMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_qsort.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyWssmpKKT.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/config_clp_default.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpLinearObjective.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveFixed.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpConstraintQuadratic.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveIsolated.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglTreeInfo.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPragma.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_master.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglKnapsackCover.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinFinite.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPdcoBase.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_lp_solver.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpPlusMinusOneMatrix.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpNonLinearCost.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglMixedIntegerRounding.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/configall_system.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/OsiRowCutDebugger.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinFileIO.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinModelUseful.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglStored.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinMessage.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CoinPresolveDoubleton.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglResidualCapacity.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyMumps.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_cp.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/sym_primal_heuristics.h $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/CglOddHole.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpCholeskyUfl.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/MyEventHandler.hpp $(DESTDIR)/usr/local/include/coin
+	install -m 0644 include/coin/ClpNode.hpp $(DESTDIR)/usr/local/include/coin
 
 install-pkgconfig: ogdf.pc
 	install -d $(DESTDIR)/usr/local/lib/pkgconfig
 	install -m 0644 ogdf.pc $(DESTDIR)/usr/local/lib/pkgconfig
 
 distclean: clean-doc cleandebug cleanrelease
-	rm -rf Makefile ogdf.pc include/ogdf/internal/config_autogen.h include/coin/config.h
+	$(RM) Makefile ogdf.pc include/ogdf/internal/config_autogen.h include/coin/config.h
