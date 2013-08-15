@@ -42,6 +42,24 @@
 
 #include <ogdf/basic/graphics.h>
 
+#include <ogdf/layered/Hierarchy.h>
+#include <ogdf/layered/SugiyamaLayout.h>
+#include <ogdf/layered/LongestPathRanking.h>
+#include <ogdf/layered/BarycenterHeuristic.h>
+#include <ogdf/layered/SplitHeuristic.h>
+#include <ogdf/layered/FastHierarchyLayout.h>
+#include <ogdf/layered/OptimalHierarchyClusterLayout.h>
+#include <ogdf/packing/TileToRowsCCPacker.h>
+#include <ogdf/basic/simple_graph_alg.h>
+#include <ogdf/basic/Thread.h>
+#include <ogdf/basic/CriticalSection.h>
+
+#include <ogdf/layered/OptimalRanking.h>
+#include <ogdf/layered/DfsAcyclicSubgraph.h>
+#include <ogdf/basic/simple_graph_alg.h>
+#include <ogdf/graphalg/MinCostFlowReinelt.h>
+#include <ogdf/basic/GraphCopy.h>
+
 #include <emscripten/bind.h>
 
 namespace ogdf{
@@ -215,7 +233,24 @@ EMSCRIPTEN_BINDINGS(graph) {
 		//.function("callAndReverse",select_overload<void(ogdf::Graph&)>(&ogdf::AcyclicSubgraphModule::callAndReverse))
 		//.function("callAndReverse",select_overload<void(ogdf::Graph&)>(&ogdf::AcyclicSubgraphModule::callAndReverse))
 		;
+	class_<ogdf::OptimalRanking,base<ogdf::RankingModule> >("OptimalRanking")
+		.constructor()
+		;
 
+	class_<ogdf::LongestPathRanking>("LongestPathRanking")
+		.constructor()
+		;
+
+	class_<ogdf::SugiyamaLayout>("SugiyamaLayout")
+		.constructor()
+		.function("call",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::SugiyamaLayout::call))
+		//.function("setRanking",&ogdf::SugiyamaLayout::setRanking)
+		//.function("setCrossMin",&ogdf::SugiyamaLayout::setCrossMin)
+		;
+
+
+
+	
 	class_<ogdf::GraphIO>("GraphIO")
         .constructor()
 		.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
