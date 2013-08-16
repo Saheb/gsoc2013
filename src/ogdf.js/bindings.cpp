@@ -128,7 +128,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("newNode", select_overload<ogdf::node()>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newNode",select_overload<ogdf::node(int)>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node,int)>(&ogdf::Graph::newEdge),allow_raw_pointers())
+		//.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node,int)>(&ogdf::Graph::newEdge),allow_raw_pointers())
 		//.function("newEdge", select_overload<ogdf::edge(ogdf::node)>(&ogdf::Graph::newNode),allow_raw_pointers())
 		//.function("newEdge", select_overload<ogdf::edge()>(&ogdf::Graph::newNode),allow_raw_pointers())
 		;
@@ -187,6 +187,9 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("size",&ogdf::List<ogdf::node>::size)
 		.function("empty",&ogdf::List<ogdf::node>::empty)
 		;
+	class_<ogdf::List<ogdf::DPoint>>("List<DPoint>")
+		.constructor()
+		;
 	class_<ogdf::GraphList<ogdf::EdgeElement>>("GraphList<edge>")
 		.constructor()
 		.function("size",&ogdf::GraphList<ogdf::EdgeElement>::size)
@@ -212,9 +215,14 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.value("Blue",ogdf::Color::Name::Blue)
 		.value("Green",ogdf::Color::Name::Green)
 		;
-
-	class_<ogdf::DPolyline>("DPolyline")
+	class_<ogdf::DPoint>("DPoint")
 		.constructor()
+		.constructor<double,double>()
+		;
+
+	class_<ogdf::DPolyline/*,base<ogdf::List<ogdf::DPoint>*/>("DPolyline")
+		.constructor()
+		//.function("pushBack",&ogdf::List<DPoint>::pushBack)
 		;
 
 	function("randomGraph", &ogdf::randomGraph);

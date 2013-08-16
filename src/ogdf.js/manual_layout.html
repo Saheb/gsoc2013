@@ -1,0 +1,41 @@
+<html>
+<meta charset="UTF-8"> 
+  <script src="ogdf.js"></script>
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
+  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
+  <script>
+    var G = new Module.Graph();
+	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle|0x00040|0x00080|0x02000);
+	var len = 11;
+	for(var i=1;i<len;i++)
+	{
+		var left = G.newNode();
+		GA.setX(left,-5*(i+1));
+		GA.setY(left,-20*i);
+		GA.setWidth(left,10*(i+1));
+		GA.setHeight(left,15);
+
+		var bottom = G.newNode();
+		GA.setX(bottom,20*(len-i));
+		GA.setY(bottom,5*(len+1-i));
+		GA.setWidth(bottom,15);
+		GA.setHeight(bottom,10*(len+1-i));
+
+		var e = G.newEdge(left,bottom);
+		GA.setEdgeColor(e,new Module.Color(Module.Name.Red));
+		var dpl = GA.bends(e);
+	}
+
+	var svg = Module.GraphIO.getSVG(GA);
+	console.log("SVG for GA method drawSVG is = " + svg);
+  </script>
+  <body>
+  	<canvas id="canvas" width="1000px" height="600px"></canvas>
+  </body>
+  <script>
+  	var c = document.getElementById('canvas');
+	var ctx = c.getContext('2d');
+	ctx.drawSvg(svg, 0, 0, 1000, 600);
+	</script>
+</html>
