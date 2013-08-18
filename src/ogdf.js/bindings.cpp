@@ -178,7 +178,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		constant("edgeStyle",0x00400);
 		constant("edgeType",0x00040);
 		constant("nodeType",0x00080);
-		
+
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::edge>::size)
@@ -188,9 +188,6 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor()
 		.function("size",&ogdf::List<ogdf::node>::size)
 		.function("empty",&ogdf::List<ogdf::node>::empty)
-		;
-	class_<ogdf::List<ogdf::DPoint>>("List<DPoint>")
-		.constructor()
 		;
 	class_<ogdf::GraphList<ogdf::EdgeElement>>("GraphList<edge>")
 		.constructor()
@@ -222,7 +219,13 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor<double,double>()
 		;
 
-	class_<ogdf::DPolyline/*,base<ogdf::List<ogdf::DPoint>*/>("DPolyline")
+	class_<ogdf::List<ogdf::DPoint>>("List<DPoint>")
+		.smart_ptr<std::shared_ptr<ogdf::List<ogdf::DPoint>>>()
+		.constructor()
+		.function("pushBack",&ogdf::List<ogdf::DPoint>::pushBack);
+		;
+	class_<ogdf::DPolyline,base<ogdf::List<ogdf::DPoint>>("DPolyline")
+		.smart_ptr<std::shared_ptr<ogdf::DPolyline>>()
 		.constructor()
 		//.function("pushBack",&ogdf::List<DPoint>::pushBack)
 		;
