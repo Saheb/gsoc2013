@@ -169,11 +169,11 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("setWidth",&ogdf::setWidth,allow_raw_pointers())
 		.function("setHeight",&ogdf::setHeight,allow_raw_pointers())
 		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())
-		.function("setNodeColor",&ogdf::setEdgeColor,allow_raw_pointers())	
+		.function("setNodeColor",&ogdf::setNodeColor,allow_raw_pointers())	
 		.function("setStrokeWidth",&ogdf::setStrokeWidth,allow_raw_pointers())
 		;
 		constant("nodeGraphics",0x00001);
-		constant("edgeGraphcis",0x00002);
+		constant("edgeGraphics",0x00002);
 		constant("nodeStyle",0x00800);
 		constant("edgeStyle",0x00400);
 
