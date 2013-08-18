@@ -6,7 +6,7 @@
   <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
   <script>
     var G = new Module.Graph();
-	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle);
+	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
 	var len = 11;
 	for(var i=1;i<len;i++)
 	{
@@ -16,6 +16,7 @@
 		GA.setWidth(left,10*(i+1));
 		GA.setHeight(left,15);
 
+		GA.setNodeColor(left,new Module.Color(Module.Name.Blue));
 		var bottom = G.newNode();
 		GA.setX(bottom,20*(len-i));
 		GA.setY(bottom,5*(len+1-i));
@@ -24,8 +25,11 @@
 
 		GA.setNodeColor(bottom,new Module.Color(Module.Name.Red));
 		var e = G.newEdge(left,bottom);
-		GA.setEdgeColor(e,new Module.Color(Module.Name.Blue));
-		//var dpl = GA.bends(e);
+		var st = Module.StrokeType.stSolid;
+		GA.setStrokeType(e,st);
+		GA.setStrokeWidth(e,1);
+		GA.setEdgeColor(e,new Module.Color(Module.Name.Green));
+		var dpl = GA.bends(e);
 	}
 
 	var svg = Module.GraphIO.getSVG(GA);

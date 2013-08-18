@@ -161,7 +161,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("strokeWidth", select_overload<float&(ogdf::node)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
 		//.function("strokeWidth", select_overload<float(ogdf::edge)>(&ogdf::GraphAttributes::strokeWidth),allow_raw_pointers())
 		.function("setStrokeType", select_overload<void(ogdf::edge,ogdf::StrokeType)>(&ogdf::GraphAttributes::setStrokeType),allow_raw_pointers())
-		.function("setStrokeType", select_overload<void(ogdf::node,ogdf::StrokeType)>(&ogdf::GraphAttributes::setStrokeType),allow_raw_pointers())
+		//.function("setStrokeType", select_overload<void(ogdf::node,ogdf::StrokeType)>(&ogdf::GraphAttributes::setStrokeType),allow_raw_pointers())
 		//.function("strokeType", select_overload<ogdf::StrokeType (ogdf::edge)>(const &ogdf::GraphAttributes::strokeType ))
 		//.function("strokeType", select_overload<ogdf::StrokeType (ogdf::edge)>(const &ogdf::GraphAttributes::strokeType ))
 		.function("setX",&ogdf::setX,allow_raw_pointers())
@@ -176,7 +176,9 @@ EMSCRIPTEN_BINDINGS(graph) {
 		constant("edgeGraphics",0x00002);
 		constant("nodeStyle",0x00800);
 		constant("edgeStyle",0x00400);
-
+		constant("edgeType",0x00040);
+		constant("nodeType",0x00080);
+		
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::edge>::size)

@@ -6,7 +6,7 @@
   <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
   <script>
     var G = new Module.Graph();
-	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle|0x00040|0x00080|0x02000);
+	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
 	console.log("isEmpty " + G.empty())
 	//Module.randomGraph(G,4,4);
 	console.log("randomGraph method is called on G with 10 nodes and 20 edges")
@@ -47,10 +47,10 @@
 	GA.setHeight(b,1);
 	GA.setWidth(b,1);
 	var edge = G.newEdge(a,b);
-	GA.setStrokeWidth(edge,10);
+	
 	var st = Module.StrokeType.stSolid;
-	GA.setStrokeType(a,st);
-	//GA.setStrokeType(edge,st);error line..............
+	GA.setStrokeType(edge,st);
+	GA.setStrokeWidth(edge,1);
 	console.log("edge color is = " + GA.strokeColor(edge).toString());
 	GA.setEdgeColor(edge,color);
 	console.log("Caling GA.setEdgeColor(edge,color)");
