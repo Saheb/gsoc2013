@@ -60,6 +60,19 @@
 #include <ogdf/graphalg/MinCostFlowReinelt.h>
 #include <ogdf/basic/GraphCopy.h>
 
+#include <ogdf/tree/TreeLayout.h>
+#include <ogdf/basic/List.h>
+#include <ogdf/basic/Math.h>
+
+
+#include <ogdf/basic/AdjEntryArray.h>
+#include <math.h>
+
+
+#include <ogdf/basic/simple_graph_alg.h>
+#include <ogdf/basic/Stack.h>
+
+
 #include <emscripten/bind.h>
 
 namespace ogdf{
@@ -224,7 +237,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor()
 		.function("pushBack",&ogdf::List<ogdf::DPoint>::pushBack);
 		;
-	class_<ogdf::DPolyline,base<ogdf::List<ogdf::DPoint>>("DPolyline")
+	class_<ogdf::DPolyline/*,base<ogdf::List<ogdf::DPoint>*/>("DPolyline")
 		.smart_ptr<std::shared_ptr<ogdf::DPolyline>>()
 		.constructor()
 		//.function("pushBack",&ogdf::List<DPoint>::pushBack)
@@ -260,9 +273,11 @@ EMSCRIPTEN_BINDINGS(graph) {
 		//.function("setRanking",&ogdf::SugiyamaLayout::setRanking)
 		//.function("setCrossMin",&ogdf::SugiyamaLayout::setCrossMin)
 		;
-
-
-
+	class_<ogdf::TreeLayout>("TreeLayout")
+		.constructor()
+		.function("call",&ogdf::TreeLayout::call)
+		.function("callSortByPositions",&ogdf::TreeLayout::callSortByPositions)
+		;	
 	
 	class_<ogdf::GraphIO>("GraphIO")
         .constructor()

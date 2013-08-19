@@ -32,6 +32,8 @@
 		var dpl = GA.bends(e);
 	}
 
+	var tl = new Module.TreeLayout();
+	tl.call(GA);
 	var svg = Module.GraphIO.getSVG(GA);
 	console.log("SVG for GA method drawSVG is = " + svg);
   </script>
