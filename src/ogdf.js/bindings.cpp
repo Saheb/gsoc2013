@@ -72,6 +72,18 @@
 #include <ogdf/basic/simple_graph_alg.h>
 #include <ogdf/basic/Stack.h>
 
+#include <ogdf/energybased/FMMMLayout.h>
+#include <ogdf/basic/Math.h>
+#include "numexcept.h"
+#include "MAARPacking.h"
+#include "Multilevel.h"
+#include "Edge.h"
+#include <ogdf/basic/simple_graph_alg.h>
+#include <ogdf/basic/basic.h>
+
+#include <ogdf/internal/energybased/NodeAttributes.h>
+#include <ogdf/internal/energybased/EdgeAttributes.h>
+#include "Rectangle.h"
 
 #include <emscripten/bind.h>
 
@@ -279,6 +291,11 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("callSortByPositions",&ogdf::TreeLayout::callSortByPositions)
 		;	
 	
+	class_<ogdf::FMMMLayout>("FMMMLayout")
+		.constructor()
+		.function("call",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::FMMMLayout::call))
+		;
+
 	class_<ogdf::GraphIO>("GraphIO")
         .constructor()
 		.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
