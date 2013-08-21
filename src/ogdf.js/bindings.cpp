@@ -85,6 +85,7 @@
 #include <ogdf/internal/energybased/EdgeAttributes.h>
 #include "Rectangle.h"
 
+#include <ogdf/basic/System.h>
 #include <emscripten/bind.h>
 
 namespace ogdf{
@@ -245,14 +246,18 @@ EMSCRIPTEN_BINDINGS(graph) {
 		;
 
 	class_<ogdf::List<ogdf::DPoint>>("List<DPoint>")
-		.smart_ptr<std::shared_ptr<ogdf::List<ogdf::DPoint>>>()
 		.constructor()
 		.function("pushBack",&ogdf::List<ogdf::DPoint>::pushBack);
 		;
-	class_<ogdf::DPolyline/*,base<ogdf::List<ogdf::DPoint>*/>("DPolyline")
-		.smart_ptr<std::shared_ptr<ogdf::DPolyline>>()
+		
+	class_<ogdf::ListIterator<ogdf::DPoint>>("ListIterator<DPoint>")
 		.constructor()
-		//.function("pushBack",&ogdf::List<DPoint>::pushBack)
+		.constructor<ogdf::ListElement<ogdf::DPoint>*>()
+		;
+
+	class_<ogdf::DPolyline,base<ogdf::List<ogdf::DPoint>>>("DPolyline")
+		.constructor()
+		.function("length",&ogdf::DPolyline::length)
 		;
 
 	function("randomGraph", &ogdf::randomGraph);
