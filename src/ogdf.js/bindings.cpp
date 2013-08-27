@@ -86,7 +86,9 @@
 #include "Rectangle.h"
 
 #include <ogdf/basic/System.h>
+#include <ogdf/module/LayoutModule.h>
 #include <emscripten/bind.h>
+using namespace emscripten;
 
 namespace ogdf{
 //--------------------------Functions only for JS--------------------------//
@@ -131,13 +133,44 @@ std::string getSVG(const GraphAttributes &A)
 	str = os.str();
 	return str;
 }
-//--------------------------------------------------------------//
+
+class LayoutModuleWrapper:public wrapper<LayoutModule>{
+
+	EMSCRIPTEN_WRAPPER(LayoutModuleWrapper);
+
+	void call(GraphAttributes &GA){
+		return wrapper<LayoutModule>::call<void>("call", GA);
+		}
+};//--------------------------------------------------------------//
 
 }
-using namespace emscripten;
+
+struct Interface {
+    virtual void invoke(const std::string& str) = 0;
+};
+
+struct InterfaceWrapper : public wrapper<Interface> {
+    EMSCRIPTEN_WRAPPER(InterfaceWrapper);
+    void invoke(const std::string& str) {
+        return call<void>("invoke", str);
+    }
+};
+
+EMSCRIPTEN_BINDINGS(interface) {
+    class_<Interface>("Interface")
+        .function("invoke", &Interface::invoke)
+        .allow_subclass<InterfaceWrapper>()
+        ;
+}
 
 
 EMSCRIPTEN_BINDINGS(graph) {
+    
+    class_<ogdf::LayoutModule>("LayoutModule")
+        .function("call", wrapper<ogdf::LayoutModule>::call)
+        .allow_subclass<ogdf::LayoutModuleWrapper>()
+        ;
+		
     class_<ogdf::Graph>("Graph")
 		.constructor()		
 		.function("numberOfNodes",&ogdf::Graph::numberOfNodes)
@@ -284,7 +317,10 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor()
 		;
 
-	class_<ogdf::SugiyamaLayout>("SugiyamaLayout")
+	//class_<ogdf::LayoutModule>("LayoutModule")
+	//	;
+
+	class_<ogdf::SugiyamaLayout,base<ogdf::LayoutModule>>("SugiyamaLayout")
 		.constructor()
 		.function("call",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::SugiyamaLayout::call))
 		//.function("setRanking",&ogdf::SugiyamaLayout::setRanking)
