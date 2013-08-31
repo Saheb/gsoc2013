@@ -85,6 +85,8 @@
 #include <ogdf/internal/energybased/EdgeAttributes.h>
 #include "Rectangle.h"
 
+#include "FastUtils.h"
+
 #include <ogdf/basic/System.h>
 #include <ogdf/module/LayoutModule.h>
 #include <emscripten/bind.h>
@@ -134,14 +136,14 @@ std::string getSVG(const GraphAttributes &A)
 	return str;
 }
 
-class LayoutModuleWrapper:public wrapper<LayoutModule>{
+/*class LayoutModuleWrapper:public wrapper<LayoutModule>{
 
 	EMSCRIPTEN_WRAPPER(LayoutModuleWrapper);
 
 	void call(GraphAttributes &GA){
 		return wrapper<LayoutModule>::call<void>("call", GA);
 		}
-};//--------------------------------------------------------------//
+};*///--------------------------------------------------------------//
 
 }
 
@@ -166,11 +168,11 @@ EMSCRIPTEN_BINDINGS(interface) {
 
 EMSCRIPTEN_BINDINGS(graph) {
     
-    class_<ogdf::LayoutModule>("LayoutModule")
+    /*class_<ogdf::LayoutModule>("LayoutModule")
         .function("call", wrapper<ogdf::LayoutModule>::call)
         .allow_subclass<ogdf::LayoutModuleWrapper>()
         ;
-		
+	*/	
     class_<ogdf::Graph>("Graph")
 		.constructor()		
 		.function("numberOfNodes",&ogdf::Graph::numberOfNodes)
@@ -317,12 +319,12 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.constructor()
 		;
 
-	//class_<ogdf::LayoutModule>("LayoutModule")
-	//	;
+	class_<ogdf::LayoutModule>("LayoutModule")
+		;
 
 	class_<ogdf::SugiyamaLayout,base<ogdf::LayoutModule>>("SugiyamaLayout")
 		.constructor()
-		.function("call",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::SugiyamaLayout::call))
+		.function("callLayout",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::SugiyamaLayout::call))
 		//.function("setRanking",&ogdf::SugiyamaLayout::setRanking)
 		//.function("setCrossMin",&ogdf::SugiyamaLayout::setCrossMin)
 		;
@@ -335,6 +337,10 @@ EMSCRIPTEN_BINDINGS(graph) {
 	class_<ogdf::FMMMLayout>("FMMMLayout")
 		.constructor()
 		.function("call",select_overload<void(ogdf::GraphAttributes&)>(&ogdf::FMMMLayout::call))
+		.function("useHighLevelOptions",select_overload<void(bool)>(&ogdf::FMMMLayout::useHighLevelOptions))
+		.function("unitEdgeLength",select_overload<void(double)>(&ogdf::FMMMLayout::unitEdgeLength))
+		.function("newInitialPlacement",select_overload<void(bool)>(&ogdf::FMMMLayout::newInitialPlacement))
+		//.function("qualityVersusSpeed",&ogdf::FMMMLayout::qualityVersusSpeed)
 		;
 
 	class_<ogdf::GraphIO>("GraphIO")
