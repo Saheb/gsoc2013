@@ -127,6 +127,10 @@ void setStrokeWidth(GraphAttributes &GA,edge e, float f)
 	GA.strokeWidth(e) = f;
 }
 
+void setBend(GraphAttributes &GA, edge e, DPolyline dpl)
+{
+	GA.bends(e) = dpl;
+}
 std::string getSVG(const GraphAttributes &A)
 {
 	std::stringstream os;
@@ -232,6 +236,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("setEdgeColor",&ogdf::setEdgeColor,allow_raw_pointers())
 		.function("setNodeColor",&ogdf::setNodeColor,allow_raw_pointers())	
 		.function("setStrokeWidth",&ogdf::setStrokeWidth,allow_raw_pointers())
+		.function("setBend",&ogdf::setBend,allow_raw_pointers())
 		;
 		constant("nodeGraphics",0x00001);
 		constant("edgeGraphics",0x00002);
