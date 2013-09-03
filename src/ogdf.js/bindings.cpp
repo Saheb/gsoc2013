@@ -353,8 +353,8 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
 		.class_function("readGML", select_overload<bool(ogdf::Graph&,const string&)>(&ogdf::GraphIO::readGML))
 		//.function("readGML", select_overload<bool(ogdf::Graph&,std::istream)>(&ogdf::GraphIO::readGML))
-		.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
-		.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
+		//.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
+		//.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
 		.class_function("getSVG",(&ogdf::getSVG))
 		;	
 }		
