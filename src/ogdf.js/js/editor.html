@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ACE in Action</title>
+<title>OGDF.js Test Version</title>
 <style type="text/css" media="screen">
     #editor { 
         position: absolute;
@@ -18,7 +19,7 @@
         left: 700px;
     }	
 </style>
-<script src="../ogdf.js"></script>
+  <script src="../ogdf.js"></script>
   <script>
     var G = new Module.Graph();
 	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
@@ -54,16 +55,19 @@
 	//tl.call(GA);
 	var svg = Module.GraphIO.getSVG(GA);
 	console.log("SVG for GA method drawSVG is = " + svg);
+	var c =  document.getElementById('canvas');
+    c.innerHTML = svg;
   </script>
 </head>
 
 <body>
 
 <div id="editor">
-function foo(items) {
-    var x = "All this is syntax highlighted";
-    return x;
-}
+//You can type your JS code here
+
+// The following lines are mandatory if you want to render svg images to the right
+var cvs =  document.getElementById('canvas');
+cvs.innerHTML = svg;
 </div>
 
 <div id="canvas">
@@ -75,11 +79,15 @@ hello
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
-    var ogdf_code = editor.getValue();
+    var button = document.getElementById("run");
+    function svg_render()
+    {
+    	var ogdf_code = editor.getValue();
+    	eval(ogdf_code);
+    };
+   	
 </script>
-<script>
-    var c = document.getElementById('canvas');
-    c.innerHTML = svg;
-</script>
+
+<button onclick = "svg_render()"> Run </button>
 </body>
 </html>
