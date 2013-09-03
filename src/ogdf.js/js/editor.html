@@ -6,62 +6,43 @@
 <style type="text/css" media="screen">
     #editor { 
         position: absolute;
-        top: 0;
+        top: 43px;
         right: 700px;
         bottom: 0;
-        left: 100px;
+        left: 120px;
     }
    #canvas { 
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 43px;
+        right: 80px;
         bottom: 0;
-        left: 700px;
+        left: 750px;
+        background-color:#A8A8A8 ;
     }	
+    #render { 
+        position: absolute;
+        top: 243px;
+        right: 750px;
+        bottom: 300px;
+        left: 670px;
+    }
 </style>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="../ogdf.js"></script>
-  <script>
-    var G = new Module.Graph();
-	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
-	var len = 11;
-	for(var i=1;i<len;i++)
-	{
-		var left = G.newNode();
-		GA.setX(left,-5*(i+1));
-		GA.setY(left,-20*i);
-		GA.setWidth(left,10*(i+1));
-		GA.setHeight(left,15);
-
-		GA.setNodeColor(left,new Module.Color(Module.Name.Blue));
-		var bottom = G.newNode();
-		GA.setX(bottom,20*(len-i));
-		GA.setY(bottom,5*(len+1-i));
-		GA.setWidth(bottom,15);
-		GA.setHeight(bottom,10*(len+1-i));
-
-		GA.setNodeColor(bottom,new Module.Color(Module.Name.Red));
-		
-		var e = G.newEdge(left,bottom);
-		var st = Module.StrokeType.stSolid;
-		var dpl = GA.bends(e);
-		dpl.pushBack(new Module.DPoint(10,-20*i));
-		dpl.pushBack(new Module.DPoint(20*(len-i),-10));
-		GA.setStrokeType(e,st);
-		GA.setStrokeWidth(e,1);
-		GA.setEdgeColor(e,new Module.Color(Module.Name.Green));
-	}
-
-	var tl = new Module.TreeLayout();
-	//tl.call(GA);
-	var svg = Module.GraphIO.getSVG(GA);
-	console.log("SVG for GA method drawSVG is = " + svg);
-	var c =  document.getElementById('canvas');
-    c.innerHTML = svg;
-  </script>
 </head>
 
 <body>
-
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">OGDF.js</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+  </div>
+</div>
 <div id="editor">
 //You can type your JS code here
 
@@ -71,10 +52,11 @@ cvs.innerHTML = svg;
 </div>
 
 <div id="canvas">
-hello
+
 </div>
     
 <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
@@ -88,6 +70,8 @@ hello
    	
 </script>
 
-<button onclick = "svg_render()"> Run </button>
+<button id = "render" onclick = "svg_render()"> Render </button>
+
 </body>
+
 </html>
