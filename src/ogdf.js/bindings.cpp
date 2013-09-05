@@ -151,32 +151,8 @@ std::string getSVG(const GraphAttributes &A)
 
 }
 
-struct Interface {
-    virtual void invoke(const std::string& str) = 0;
-};
-
-struct InterfaceWrapper : public wrapper<Interface> {
-    EMSCRIPTEN_WRAPPER(InterfaceWrapper);
-    void invoke(const std::string& str) {
-        return call<void>("invoke", str);
-    }
-};
-
-EMSCRIPTEN_BINDINGS(interface) {
-    class_<Interface>("Interface")
-        .function("invoke", &Interface::invoke)
-        .allow_subclass<InterfaceWrapper>()
-        ;
-}
-
-
-EMSCRIPTEN_BINDINGS(graph) {
-    
-    /*class_<ogdf::LayoutModule>("LayoutModule")
-        .function("call", wrapper<ogdf::LayoutModule>::call)
-        .allow_subclass<ogdf::LayoutModuleWrapper>()
-        ;
-	*/	
+EMSCRIPTEN_BINDINGS(OGDF) {
+    	
     class_<ogdf::Graph>("Graph")
 		.constructor()		
 		.function("numberOfNodes",&ogdf::Graph::numberOfNodes)
@@ -193,16 +169,14 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("newNode", select_overload<ogdf::node()>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newNode",select_overload<ogdf::node(int)>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		//.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node,int)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		//.function("newEdge", select_overload<ogdf::edge(ogdf::node)>(&ogdf::Graph::newNode),allow_raw_pointers())
-		//.function("newEdge", select_overload<ogdf::edge()>(&ogdf::Graph::newNode),allow_raw_pointers())
 		;
+	
 	class_<ogdf::NodeElement>("NodeElement")
 		;
+	
 	class_<ogdf::EdgeElement>("EdgeElement")
 		;
-	//register_vector<std::shared_ptr<ogdf::NodeElement>>("NodeElement");
-	//register_vector<std::shared_ptr<ogdf::EdgeElement>>("EdgeElement");
+	
 	class_<ogdf::GraphAttributes>("GraphAttributes")
         .constructor()
 		.constructor<ogdf::Graph&,long>()
@@ -250,36 +224,43 @@ EMSCRIPTEN_BINDINGS(graph) {
 		.function("size",&ogdf::List<ogdf::edge>::size)
 		.function("empty",&ogdf::List<ogdf::edge>::empty)
 		;
+	
 	class_<ogdf::List<ogdf::node>>("List<node>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::node>::size)
 		.function("empty",&ogdf::List<ogdf::node>::empty)
 		;
+	
 	class_<ogdf::GraphList<ogdf::EdgeElement>>("GraphList<edge>")
 		.constructor()
 		.function("size",&ogdf::GraphList<ogdf::EdgeElement>::size)
 		.function("empty",&ogdf::GraphList<ogdf::EdgeElement>::empty)
 		;
+	
 	class_<ogdf::GraphList<ogdf::NodeElement>>("GraphList<node>")
 		.constructor()
 		.function("size",&ogdf::GraphList<ogdf::NodeElement>::size)
 		.function("empty",&ogdf::GraphList<ogdf::NodeElement>::empty)
 		;
+	
 	class_<ogdf::Color>("Color")
 		.constructor()
 		.constructor<ogdf::Color::Name>()
 		.function("toString",&ogdf::Color::toString)
 		;
+	
 	enum_<ogdf::StrokeType>("StrokeType")
 		.value("stNone",ogdf::StrokeType::stNone)
 		.value("stSolid",ogdf::StrokeType::stSolid)
 		.value("stDash",ogdf::StrokeType::stDash)
 		;
+	
 	enum_<ogdf::Color::Name>("Name")
 		.value("Red",ogdf::Color::Name::Red)
 		.value("Blue",ogdf::Color::Name::Blue)
 		.value("Green",ogdf::Color::Name::Green)
 		;
+	
 	class_<ogdf::DPoint>("DPoint")
 		.constructor()
 		.constructor<double,double>()
@@ -306,7 +287,7 @@ EMSCRIPTEN_BINDINGS(graph) {
 	function("completeBipartiteGraph", &ogdf::completeBipartiteGraph);
 	function("planarConnectedGraph",&ogdf::planarConnectedGraph);
 
-	class_<ogdf::DfsAcyclicSubgraph/*, base<ogdf::AcyclicSubgraphModule>*/>("DfsAcyclicSubgraph")
+	class_<ogdf::DfsAcyclicSubgraph>("DfsAcyclicSubgraph")
 		.smart_ptr<std::shared_ptr<ogdf::DfsAcyclicSubgraph>>()
 		.constructor()
 		.function("call",&ogdf::DfsAcyclicSubgraph::call)

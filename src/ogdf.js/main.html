@@ -1,14 +1,11 @@
 <html>
 <meta charset="UTF-8"> 
   <script src="ogdf.js"></script>
-  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
-  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
-  <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
   <script>
     var G = new Module.Graph();
 	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
 	console.log("isEmpty " + G.empty())
-	//Module.randomGraph(G,4,4);
+	Module.randomGraph(G,10,10);
 	console.log("randomGraph method is called on G with 10 nodes and 20 edges")
 	console.log("Nodes in G = " + G.numberOfNodes());
 	console.log("Edges in G = " + G.numberOfEdges());
@@ -23,7 +20,7 @@
 	GA.setY(node,2.5);
 	GA.setHeight(node,1);
 	GA.setWidth(node,1);
-	//GA.setNodeColor(node,Module.Name.Red);
+	GA.setNodeColor(node,Module.Name.Red);
 	console.log("Calling GA.setY(node,2.5) to set the y co-ordinate");
 	console.log("Attribute y of node = " + GA.y(node));
 	var DAS = new Module.DfsAcyclicSubgraph();
@@ -47,7 +44,6 @@
 	GA.setHeight(b,1);
 	GA.setWidth(b,1);
 	var edge = G.newEdge(a,b);
-	
 	var st = Module.StrokeType.stSolid;
 	GA.setStrokeType(edge,st);
 	GA.setStrokeWidth(edge,1);
