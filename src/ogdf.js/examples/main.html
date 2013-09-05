@@ -1,0 +1,65 @@
+<html>
+<meta charset="UTF-8"> 
+  <script src="../ogdf.js"></script>
+  <script>
+    var G = new Module.Graph();
+	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
+	console.log("isEmpty " + G.empty())
+	Module.randomGraph(G,10,10);
+	console.log("randomGraph method is called on G with 10 nodes and 20 edges")
+	console.log("Nodes in G = " + G.numberOfNodes());
+	console.log("Edges in G = " + G.numberOfEdges());
+	console.log("isEmpty " + G.empty());
+	var node = G.newNode();
+	var node_index = G.newNode(12);
+	console.log("Nodes in G = " + G.numberOfNodes());
+	console.log("Attribute x of node = " + GA.x(node));	
+	GA.setX(node,4.5);
+	console.log("Calling GA.setX(node,4.5) to set the x co-ordinate");
+	console.log("Attribute x of node = " + GA.x(node));
+	GA.setY(node,2.5);
+	GA.setHeight(node,1);
+	GA.setWidth(node,1);
+	//GA.setNodeColor(node,Module.Name.Red);
+	console.log("Calling GA.setY(node,2.5) to set the y co-ordinate");
+	console.log("Attribute y of node = " + GA.y(node));
+	var DAS = new Module.DfsAcyclicSubgraph();
+	var edges = new Module.List$edge$;
+	console.log("edges list isEmpty = " + edges.empty());
+	DAS.call(G,edges);
+	console.log("Calling DAS.call(G,edges)");
+	console.log("edges list isEmpty = " + edges.empty());
+	console.log("Size of edges list = " + edges.size());
+	console.log("Now lets us check the Color class by coloring edges")
+	var color = new Module.Color(Module.Name.Blue);
+	console.log("color var is = " + color.toString());
+	var a = G.newNode();
+	var b = G.newNode();
+	GA.setX(a,10);
+	GA.setY(a,10);
+	GA.setHeight(a,1);
+	GA.setWidth(a,1);
+	GA.setX(b,15);
+	GA.setY(b,15);
+	GA.setHeight(b,1);
+	GA.setWidth(b,1);
+	var edge = G.newEdge(a,b);
+	var st = Module.StrokeType.stSolid;
+	GA.setStrokeType(edge,st);
+	GA.setStrokeWidth(edge,1);
+	console.log("edge color is = " + GA.strokeColor(edge).toString());
+	GA.setEdgeColor(edge,color);
+	console.log("Caling GA.setEdgeColor(edge,color)");
+	console.log("edge color is = " + GA.strokeColor(edge).toString());
+	console.log("Which is same as the color we set in above call to setEdgeColor");
+	var svg = Module.GraphIO.getSVG(GA);
+	console.log("SVG for GA method drawSVG is = " + svg);
+  </script>
+  <body>
+  	<canvas id="canvas" width="1000px" height="600px"></canvas>
+  </body>
+  <script>
+  	var c = document.getElementById('canvas');
+  	document.write(svg);
+	</script>
+</html>
