@@ -8,6 +8,16 @@
 	var DAS = new Module.DfsAcyclicSubgraph();
 	var edges = new Module.List$edge$;
 	Module.randomGraph(G,20,30);
+	var nodes = new Module.List$node$;
+	G.allNodes(nodes);
+	console.log(nodes.size());
+	for(var i=1;i<20;i++)
+	{
+		GA.setHeight(nodes.get(i),10);
+		GA.setWidth(nodes.get(i),10);
+		GA.setX(nodes.get(i),100*i);
+		GA.setY(nodes.get(i),100*i);
+	}
 	DAS.call(G,edges);
 	var tl = new Module.TreeLayout();
 	//tl.call(GA);

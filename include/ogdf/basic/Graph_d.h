@@ -529,6 +529,11 @@ public:
 			nodes.pushBack(v);
 	}
 
+	void getallNodes(List<node> &nodes) const {
+		nodes.clear();
+		for (node v = m_nodes.begin(); v; v = v->succ())
+			nodes.pushBack(v);
+	}
 	//! Returns a list with all edges of the graph.
 	/**
 	 * @tparam EDGELIST is the type of edge list, which is returned.
@@ -541,6 +546,11 @@ public:
 			edges.pushBack(e);
 	}
 
+	void getallEdges(List<edge> &edges) const {
+		edges.clear();
+		for (edge e = m_edges.begin(); e; e = e->succ())
+			edges.pushBack(e);
+	}
 	//! Returns a list with all edges adjacent to node \a v.
 	/**
 	 * @tparam EDGELIST is the type of edge list, which is returned.

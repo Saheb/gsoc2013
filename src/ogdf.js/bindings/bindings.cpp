@@ -142,6 +142,15 @@ std::string getSVG(const GraphAttributes &A)
 	return str;
 }
 
+node getNode(List<node> nodes, int position)
+{
+	return ((nodes.get(position)).operator*());
+}
+
+edge getEdge(List<edge> edges, int position)
+{
+	return ((edges.get(position)).operator*());
+}
 /*class LayoutModuleWrapper:public wrapper<LayoutModule>{
 
 	EMSCRIPTEN_WRAPPER(LayoutModuleWrapper);
@@ -171,8 +180,8 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		.function("newNode", select_overload<ogdf::node()>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newNode",select_overload<ogdf::node(int)>(&ogdf::Graph::newNode),allow_raw_pointers())
 		.function("newEdge", select_overload<ogdf::edge(ogdf::node,ogdf::node)>(&ogdf::Graph::newEdge),allow_raw_pointers())
-		//.function("allNodes",&ogdf::Graph::allNodes)
-		//.function("allEdges",&ogdf::Graph::allEdges)
+		.function("allNodes",&ogdf::Graph::getallNodes)
+		.function("allEdges",&ogdf::Graph::getallEdges)
 		;
 	
 	class_<ogdf::NodeElement>("NodeElement")
@@ -223,15 +232,23 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		constant("edgeType",0x00040);
 		constant("nodeType",0x00080);
 
+	class_<ogdf::DfsAcyclicSubgraph>("DfsAcyclicSubgraph")
+		.smart_ptr<std::shared_ptr<ogdf::DfsAcyclicSubgraph>>()
+		.constructor()
+		.function("call",&ogdf::DfsAcyclicSubgraph::call)
+		;
+
 	class_<ogdf::List<ogdf::edge>>("List<edge>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::edge>::size)
+		.function("get",&ogdf::getEdge,allow_raw_pointers())
 		.function("empty",&ogdf::List<ogdf::edge>::empty)
 		;
 	
 	class_<ogdf::List<ogdf::node>>("List<node>")
 		.constructor()
 		.function("size",&ogdf::List<ogdf::node>::size)
+		.function("get",&ogdf::getNode,allow_raw_pointers())
 		.function("empty",&ogdf::List<ogdf::node>::empty)
 		;
 	
@@ -280,6 +297,13 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		.constructor<ogdf::ListElement<ogdf::DPoint>*>()
 		;
 
+
+	class_<ogdf::ListIterator<ogdf::node>>("ListIterator<node>")
+		.constructor()
+		.constructor<ogdf::ListElement<ogdf::node>*>()
+		;
+
+		
 	class_<ogdf::DPolyline,base<ogdf::List<ogdf::DPoint>>>("DPolyline")
 		.constructor()
 		.function("length",&ogdf::DPolyline::length)
@@ -291,11 +315,7 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 	function("completeBipartiteGraph", &ogdf::completeBipartiteGraph);
 	function("planarConnectedGraph",&ogdf::planarConnectedGraph);
 
-	class_<ogdf::DfsAcyclicSubgraph>("DfsAcyclicSubgraph")
-		.smart_ptr<std::shared_ptr<ogdf::DfsAcyclicSubgraph>>()
-		.constructor()
-		.function("call",&ogdf::DfsAcyclicSubgraph::call)
-		;
+	
 		//class_<ogdf::AcyclicSubgraphModule>("AcyclicSubgraphModule")
 		//.smart_ptr<std::shared_ptr<ogdf::AcyclicSubgraphModule>>()
 		//.function("callAndReverse",select_overload<void(ogdf::Graph&)>(&ogdf::AcyclicSubgraphModule::callAndReverse))
