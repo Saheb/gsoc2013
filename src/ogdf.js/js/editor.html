@@ -9,22 +9,22 @@
         top: 43px;
         right: 700px;
         bottom: 0;
-        left: 120px;
+        left: 0px;
     }
    #canvas { 
         position: absolute;
         top: 43px;
-        right: 80px;
+        right: 0px;
         bottom: 0;
-        left: 750px;
+        left: 666px;
         background-color:#A8A8A8 ;
     }	
     #render { 
         position: absolute;
-        top: 243px;
+        top: 43px;
         right: 750px;
-        bottom: 300px;
-        left: 670px;
+        bottom: 530px;
+        left: 590px;
     }
 </style>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -37,13 +37,15 @@
   <div class="navbar-inner">
     <a class="brand" href="#">OGDF.js</a>
     <ul class="nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
+      <li class="active"><a href="#">Sandbox</a></li>
+      <li><a href="#">Examples</a></li>
       <li><a href="#">Docs</a></li>
     </ul>
   </div>
 </div>
 <div id="editor">
+
+
 //You can type your JS code here
 
 // The following lines are mandatory if you want to render svg images to the right
@@ -61,6 +63,9 @@ cvs.innerHTML = svg;
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
+    editor.gotoLine(5);
+    editor.getSession().setUseWrapMode(true);
+    editor.setShowPrintMargin(false);
     var button = document.getElementById("run");
     function svg_render()
     {
