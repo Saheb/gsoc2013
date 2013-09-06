@@ -142,7 +142,7 @@ std::string getSVG(const GraphAttributes &A)
 	return str;
 }
 
-bool readGML(Graph G,string gml)
+bool readGML(Graph &G,string gml)
 {
 	std::stringstream g(gml);
 	if(ogdf::GraphIO::readGML(G,g))
