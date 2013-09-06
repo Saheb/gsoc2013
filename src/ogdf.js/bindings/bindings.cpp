@@ -142,6 +142,15 @@ std::string getSVG(const GraphAttributes &A)
 	return str;
 }
 
+bool readGML(Graph G,string gml)
+{
+	std::stringstream g(gml);
+	if(ogdf::GraphIO::readGML(G,g))
+		return true;
+	else
+		return false;
+}
+
 node getNode(List<node> nodes, int position)
 {
 	return ((nodes.get(position)).operator*());
@@ -355,11 +364,12 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 
 	class_<ogdf::GraphIO>("GraphIO")
         .constructor()
-		.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
+		//.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
 		.class_function("readGML", select_overload<bool(ogdf::Graph&,const string&)>(&ogdf::GraphIO::readGML))
 		//.function("readGML", select_overload<bool(ogdf::Graph&,std::istream)>(&ogdf::GraphIO::readGML))
 		//.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
 		//.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
 		.class_function("getSVG",(&ogdf::getSVG))
+		.class_function("myreadGML",(&ogdf::readGML))
 		;	
 }		

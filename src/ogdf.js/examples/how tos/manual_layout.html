@@ -46,7 +46,7 @@
 				  node [ id 8 ]\
 				  node [ id 9 ]\
 				]";
-	Module.GraphIO.readGML(G,gml);
+	console.log(Module.GraphIO.myreadGML(G,gml));
 	var fl = new Module.FMMMLayout();
 	fl.useHighLevelOptions(true);
 	fl.unitEdgeLength(15.0);
