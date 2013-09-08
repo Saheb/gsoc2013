@@ -1,1 +1,82 @@
-My GitHub Page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>OGDF.js Test Version</title>
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute;
+        top: 43px;
+        right: 700px;
+        bottom: 0;
+        left: 0px;
+    }
+   #canvas { 
+        position: absolute;
+        top: 43px;
+        right: 0px;
+        bottom: 0;
+        left: 666px;
+        background-color:#A8A8A8 ;
+    }	
+    #render { 
+        position: absolute;
+        top: 43px;
+        right: 750px;
+        bottom: 530px;
+        left: 590px;
+    }
+</style>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="../ogdf.js"></script>
+</head>
+
+<body>
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">OGDF.js</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Sandbox</a></li>
+      <li><a href="#">Examples</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+  </div>
+</div>
+<div id="editor">
+
+
+//You can type your JS code here
+
+// The following lines are mandatory if you want to render svg images to the right
+var cvs =  document.getElementById('canvas');
+cvs.innerHTML = svg;
+</div>
+
+<div id="canvas">
+
+</div>
+    
+<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.gotoLine(5);
+    editor.getSession().setUseWrapMode(true);
+    editor.setShowPrintMargin(false);
+    var button = document.getElementById("run");
+    function svg_render()
+    {
+    	var ogdf_code = editor.getValue();
+    	eval(ogdf_code);
+    };
+   	
+</script>
+
+<button id = "render" onclick = "svg_render()"> Render </button>
+
+</body>
+
+</html>
