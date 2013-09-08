@@ -22,10 +22,8 @@
     }	
     #render { 
         position: absolute;
-        top: 43px;
-        right: 750px;
-        bottom: 530px;
-        left: 590px;
+        top: 13px;
+        right: 300px;
     }
 </style>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -61,10 +59,11 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
-    editor.gotoLine(5);
+    
     editor.getSession().setUseWrapMode(true);
     var code = "\r//Click Render to render the code\r\rvar G = new Module.Graph();\rvar GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);\rvar len = 11;\rfor(var i=1;i<len;i++)\r\t{\r\tvar left = G.newNode();\r\tGA.setX(left,-5*(i+1));\r\tGA.setY(left,-20*i);\r\tGA.setWidth(left,10*(i+1));\r\tGA.setHeight(left,15);\r\tGA.setNodeColor(left,new Module.Color(Module.Name.Blue));\r\t\r\tvar bottom = G.newNode();\r\tGA.setX(bottom,20*(len-i));\r\tGA.setY(bottom,5*(len+1-i));\r\tGA.setWidth(bottom,15);\r\tGA.setHeight(bottom,10*(len+1-i));\r\tGA.setNodeColor(bottom,new Module.Color(Module.Name.Red));\r\t\r\tvar e = G.newEdge(left,bottom);\r\tvar st = Module.StrokeType.stSolid;\r\tvar dpl = GA.bends(e);\r\tdpl.pushBack(new Module.DPoint(10,-20*i));\r\tdpl.pushBack(new Module.DPoint(20*(len-i),-10));\r\tGA.setBend(e,dpl);\r\tGA.setStrokeType(e,st);\r\tGA.setStrokeWidth(e,1);\r\tGA.setEdgeColor(e,new Module.Color(Module.Name.Green));\r\t}\r\tconsole.log(GA.directed())\r\tGA.setDirected(false);\r\tconsole.log(GA.directed())\r\tvar svg = Module.GraphIO.getSVG(GA);\r\tvar cvs =  document.getElementById('canvas');\r\tcvs.innerHTML = svg;";
     editor.setValue(code);
+    editor.gotoLine(0);
     editor.setShowPrintMargin(false);
     editor.setReadOnly(true); 
     editor.resize()
