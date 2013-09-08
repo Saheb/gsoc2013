@@ -233,6 +233,8 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		.function("setNodeColor",&ogdf::setNodeColor,allow_raw_pointers())	
 		.function("setStrokeWidth",&ogdf::setStrokeWidth,allow_raw_pointers())
 		.function("setBend",&ogdf::setBend,allow_raw_pointers())
+		.function("directed",&ogdf::GraphAttributes::directed)
+		.function("setDirected",&ogdf::GraphAttributes::setDirected)
 		;
 		constant("nodeGraphics",0x00001);
 		constant("edgeGraphics",0x00002);
