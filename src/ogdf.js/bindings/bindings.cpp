@@ -92,6 +92,8 @@
 #include <ogdf/basic/System.h>
 #include <ogdf/module/LayoutModule.h>
 #include <emscripten/bind.h>
+
+#include <ogdf/misclayout/BalloonLayout.h>
 using namespace emscripten;
 
 namespace ogdf{
@@ -353,6 +355,11 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		.constructor()
 		.function("call",&ogdf::TreeLayout::call)
 		.function("callSortByPositions",&ogdf::TreeLayout::callSortByPositions)
+		;	
+
+	class_<ogdf::BalloonLayout>("BalloonLayout")
+		.constructor()
+		.function("call",&ogdf::BalloonLayout::call)
 		;	
 	
 	class_<ogdf::FMMMLayout>("FMMMLayout")

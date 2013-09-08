@@ -6,21 +6,31 @@
     var G = new Module.Graph();
 	var GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);
 	var DAS = new Module.DfsAcyclicSubgraph();
+	GA.setDirected(false);
 	var edges = new Module.List$edge$;
-	Module.randomGraph(G,20,30);
+	Module.randomGraph(G,4,3);
 	var nodes = new Module.List$node$;
 	G.allNodes(nodes);
 	console.log(nodes.size());
-	for(var i=1;i<20;i++)
+	for(var i=0;i<G.numberOfNodes();i++)
 	{
 		GA.setHeight(nodes.get(i),10);
 		GA.setWidth(nodes.get(i),10);
 		GA.setX(nodes.get(i),100*i);
 		GA.setY(nodes.get(i),100*i);
 	}
+	G.allEdges(edges);
+	for(var i=0;i<G.numberOfEdges();i++)
+	{
+		var e = edges.get(i);
+		var st = Module.StrokeType.stSolid;
+		GA.setStrokeType(e,st);
+		GA.setStrokeWidth(e,1);
+		GA.setEdgeColor(e,new Module.Color(Module.Name.Green));
+	}
 	DAS.call(G,edges);
-	var tl = new Module.TreeLayout();
-	//tl.call(GA);
+	//var bl = new Module.BalloonLayout();
+	//bl.call(GA)
 	var svg = Module.GraphIO.getSVG(GA);
 	console.log("SVG for GA method drawSVG is = " + svg);
   </script>
