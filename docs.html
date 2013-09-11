@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8"> 
+<head>
+<title>OGDF.js Test Version/Docs</title>
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute;
+        top: 43px;
+        right: 700px;
+        bottom: 0;
+        left: 0px;
+    }
+   #canvas { 
+        position: absolute;
+        top: 43px;
+        right: 0px;
+        bottom: 0;
+        left: 666px;
+        background-color:#A8A8A8 ;
+    }	
+    #render { 
+        position: absolute;
+        top: 13px;
+        right: 300px;
+    }
+</style>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="ogdf.js"></script>
+</head>
+
+<body>
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">OGDF.js</a>
+    <ul class="nav">
+      <li><a href="index.html">Sandbox</a></li>
+      <li><a href="examples.html">Examples</a><l/li>
+      <li class="active"><a href="docs.html">Docs</a></li>
+    </ul>
+  </div>
+</div>
+<table class="table">
+  <caption>OGDF Functions</caption>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <caption>Graph<caption>
+  <tbody>
+    <tr>
+      <td><b>Graph</b></td> <td> Functions of class Graph. </td>
+  </tr>
+    <tr>
+      <td>new Module.Graph()</td> <td> Constructor for a Graph object. </td>
+    </tr>
+    <tr>
+      <td>G.numberOfNodes()</td> <td> Returns the number of nodes in a Graph G. </td>
+    </tr>
+    <tr>
+      <td>G.numberOfEdges()</td> <td> Returns the number of edges in a Graph G. </td>
+  </tr>
+    <tr>
+      <td>G.empty()</td> <td> Returns true if Graph has 0 edges and 0 nodes </td>
+  </tr>
+    <tr>
+      <td>G.newNode()</td> <td> Creates a new Nodea and returns it </td>
+  </tr>
+    <tr>
+      <td>G.newEdge(node a, node b)</td> <td> Creates a new Edge between 2 nodes a and b. </td>
+  </tr>
+    <tr>
+      <td>G.allNodes()</td> <td> Returns a List of Nodes of Graph G. </td>
+  </tr>
+  <tr>
+      <td>G.allEdges()</td> <td> Returns a List of Edges of Graph G. </td>
+  </tr>
+  <tr>
+      <td><b>GraphAttributes</b></td> <td> Functions of class GraphAttributes. </td>
+  </tr>
+    <tr>
+      <td>new Module.GraphAttributes(Graph G, long initAttributes)</td> <td> Constructor for a GraphAttributes Object, intiAttributes can be zero or combination of enums. </td>
+    </tr>
+    <tr>
+      <td>GA.setX(node a, double)</td> <td> sets the x co-ordinate of node a. (Top left corner is the origin) </td>
+    </tr>
+    <tr>
+      <td>GA.x(node a)</td> <td> returns the x-cordinate of node a </td>
+    </tr>
+
+  </tbody>
+</table>
+</body>
+
+</html>
