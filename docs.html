@@ -110,24 +110,53 @@
       <td>GA.setHeight(node a, double)</td> <td> sets the height of node a. </td>
     </tr>
     <tr>
-      <td>GA.height(node a)</td> <td> returns the height of node a </td>
+      <td>GA.height(node a)</td> <td> returns the height of node a. </td>
     </tr>
     
     <tr>
-      <td>GA.setEdgeColor(edge e,Color c)</td> <td> sets the color of edge e to Color c, which is an object of class Color </td>
+      <td>GA.setEdgeColor(edge e,Color c)</td> <td> sets the color of edge e to Color c, which is an object of class Color. </td>
     </tr>
 
     <tr>
-      <td>GA.strokeColor(edge e)</td> <td> returns the Color of edge a </td>
+      <td>GA.strokeColor(edge e)</td> <td> returns the Color of edge a. </td>
     </tr>
 
     <tr>
-      <td>GA.setNodeColor(node a,Color c)</td> <td> sets the color of node a to Color c, which is an object of class Color </td>
+      <td>GA.setNodeColor(node a,Color c)</td> <td> sets the color of node a to Color c, which is an object of class Color. </td>
     </tr>
 
     <tr>
-      <td>GA.fillColor(node a)</td> <td> returns the Color of node a </td>
+      <td>GA.fillColor(node a)</td> <td> returns the Color of node a. </td>
     </tr>
+
+    <tr>
+      <td>GA.setDirected(bool directed)</td> <td> Makes the Graph Directed if directed is true and vice versa. </td>
+    </tr>
+
+    <tr>
+      <td>GA.directed()</td> <td> returns true is G is directed Graph else returns false. </td>
+    </tr>
+
+    <tr>
+      <td>GA.setBend(edge e, DPolyline dpl)</td> <td> sets the bend points of the edge e extracted from dpl. </td>
+    </tr>
+
+    <tr>
+      <td>GA.bends(edge e)</td> <td> returns the DPolyline which contains the bend points. </td>
+    </tr>
+
+    <tr>
+      <td>GA.setStrokeWidth(edge e,double val)</td> <td> sets the StrokeWidth of the edge e to val. </td>
+    </tr>
+
+    <tr>
+      <td>GA.strokeWidth(edge e)</td> <td> returns the StrokeWidth for edge e. </td>
+    </tr>
+
+    <tr>
+      <td>GA.setStrokeType(edge e, StrokeType st)</td> <td> sets the StrokeType of edge e to st(object of StrokeType class). </td>
+    </tr>
+
   </tbody>
 </table>
 </body>
