@@ -45,16 +45,14 @@
 <table class="table">
   <caption>OGDF Functions</caption>
   <thead>
-    <tr>
-      <th>Function</th>
-      <th>Description</th>
-    </tr>
+    
   </thead>
-  <caption>Graph<caption>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_graph.html" target="new">Graph</a></center>
   <tbody>
     <tr>
-      <td><b>Graph</b></td> <td> Functions of class Graph. </td>
-  </tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
     <tr>
       <td>new Module.Graph()</td> <td> Constructor for a Graph object. </td>
     </tr>
@@ -68,7 +66,7 @@
       <td>G.empty()</td> <td> Returns true if Graph has 0 edges and 0 nodes </td>
   </tr>
     <tr>
-      <td>G.newNode()</td> <td> Creates a new Nodea and returns it </td>
+      <td>G.newNode()</td> <td> Creates a new Node and returns it </td>
   </tr>
     <tr>
       <td>G.newEdge(node a, node b)</td> <td> Creates a new Edge between 2 nodes a and b. </td>
@@ -79,19 +77,57 @@
   <tr>
       <td>G.allEdges()</td> <td> Returns a List of Edges of Graph G. </td>
   </tr>
-  <tr>
-      <td><b>GraphAttributes</b></td> <td> Functions of class GraphAttributes. </td>
-  </tr>
+</tbody>
+  
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_graph_attributes.html" target="new">GraphAttributes</a></center>
+   <tbody>   
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
     <tr>
       <td>new Module.GraphAttributes(Graph G, long initAttributes)</td> <td> Constructor for a GraphAttributes Object, intiAttributes can be zero or combination of enums. </td>
     </tr>
     <tr>
-      <td>GA.setX(node a, double)</td> <td> sets the x co-ordinate of node a. (Top left corner is the origin) </td>
+      <td>GA.setX(node a, double val)</td> <td> sets the x co-ordinate of node a. (Top left corner is the origin) </td>
     </tr>
     <tr>
       <td>GA.x(node a)</td> <td> returns the x-cordinate of node a </td>
     </tr>
+    <tr>
+      <td>GA.setY(node a, double val)</td> <td> sets the y co-ordinate of node a. (Top left corner is the origin) </td>
+    </tr>
+    <tr>
+      <td>GA.y(node a)</td> <td> returns the y-cordinate of node a </td>
+    </tr>
+    <tr>
+      <td>GA.setWidth(node a, double val)</td> <td> sets the width of node a. </td>
+    </tr>
+    <tr>
+      <td>GA.width(node a)</td> <td> returns the width of node a </td>
+    </tr>
+    <tr>
+      <td>GA.setHeight(node a, double)</td> <td> sets the height of node a. </td>
+    </tr>
+    <tr>
+      <td>GA.height(node a)</td> <td> returns the height of node a </td>
+    </tr>
+    
+    <tr>
+      <td>GA.setEdgeColor(edge e,Color c)</td> <td> sets the color of edge e to Color c, which is an object of class Color </td>
+    </tr>
 
+    <tr>
+      <td>GA.strokeColor(edge e)</td> <td> returns the Color of edge a </td>
+    </tr>
+
+    <tr>
+      <td>GA.setNodeColor(node a,Color c)</td> <td> sets the color of node a to Color c, which is an object of class Color </td>
+    </tr>
+
+    <tr>
+      <td>GA.fillColor(node a)</td> <td> returns the Color of node a </td>
+    </tr>
   </tbody>
 </table>
 </body>
