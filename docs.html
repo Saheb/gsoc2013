@@ -158,6 +158,158 @@
     </tr>
 
   </tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_graph_i_o.html" target="new">GraphIO</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> Module.GraphIO().getSVG(GraphAttributes GA)</td> <td> returns the rendered svg in a string. </td>
+    </tr>
+    <tr>
+      <td> Module.GraphIO().myreadGML(Graph G,string gml)</td> <td> reads the GML from gml string and updates Graph G accordingly. </td>
+    </tr>
+</tbody>
+    <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/cla" target="new">TreeLayout</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.TreeLayout()</td> <td> Constructor for a TreeLayout object. </td>
+    </tr>
+    <tr>
+      <td> tl.call(GraphAttributes GA)</td> <td> Calls TreeLayout on Graph G, GraphAttributes will be updated. </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_f_m_m_m_layout.html" target="new">FMMMLayout</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.FMMMLayout()</td> <td> Constructor for a TreeLayout object. </td>
+    </tr>
+    <tr>
+      <td> fl.call(GraphAttributes GA)</td> <td> Calls FMMMLayout on Graph G, GraphAttributes will be updated. </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_f_m_m_m_layout.html" target="new">BalloonLayout</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.BalloonLayout()</td> <td> Constructor for a TreeLayout object. </td>
+    </tr>
+    <tr>
+      <td> bl.call(GraphAttributes GA)</td> <td> Calls BalloonLayout on Graph G, GraphAttributes will be updated. </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_dfs_acyclic_subgraph.html" target="new">DfsAcyclicSubgraph</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.DfsAcylicSubgraph()</td> <td> Constructor for a DfsAcyclicSubgraph object. </td>
+    </tr>
+    <tr>
+      <td> das.call(Graph G, List<edges> arcSet)</td> <td> Computes the set of edges arcSet, which have to be deleted in the acyclic subgraph and append it to arcSet. </td>
+    </tr>
+</tbody>
+    <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_list.html" target="new">List$edge$</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.List$edge$</td> <td> Constructor for an empty list of edges. </td>
+    </tr>
+    <tr>
+      <td> edges.size()</td> <td> returns the number of edges in the list edges </td>
+    </tr>
+    <tr>
+      <td> edges.get(int index)</td> <td> returns the edge at postion index in the list edges </td>
+    </tr>
+    <tr>
+      <td> edges.empty()</td> <td> returns true if the list edges has no edges </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_list.html" target="new">List$node$</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.List$node$</td> <td> Constructor for an empty list of nodes. </td>
+    </tr>
+    <tr>
+      <td> nodes.size()</td> <td> returns the number of nodes in the list nodes </td>
+    </tr>
+    <tr>
+      <td> nodes.get(int index)</td> <td> returns the node at postion index in the list nodes </td>
+    </tr>
+    <tr>
+      <td> nodes.empty()</td> <td> returns true if the list nodes has no nodes </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_color.html" target="new">Color</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.Color(Module.Name.colorname)</td> <td> Constructor for a Color object with color as colorname. </td>
+    </tr>
+    <tr>
+      <td> color.toString()</td> <td> returns the hex code of color in form of a string. </td>
+    </tr>
+</tbody>
+  <td colspan="2"><center><b><a href="http://www.ogdf.net/doc-ogdf-dev/classogdf_1_1_d_polyline.html" target="new">DPolyline</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> new Module.DPolyline()</td> <td> Constructor for a DPolyline object. </td>
+    </tr>
+    <tr>
+      <td> dpl.length()</td> <td> returns the number of points in DPloyline. </td>
+    </tr>
+</tbody>
+    <td colspan="2"><center><b><a href="#" target="new">Graph Generators</a></center>
+  <tbody>
+    <tr>
+      <th><b>Function</th>
+      <th><b>Description</th>
+    </tr>
+    <tr>
+      <td> Module.randomGraph(Graph G, nodes n, edges e)</td> <td> Constructs a random Graph with n nodes and e edges. </td>
+    </tr>
+    <tr>
+      <td> Module.randomSimpleGraph(Graph G, nodes n, edges e)</td> <td> Constructs a random Simple Graph with n nodes and e edges. </td>
+    </tr>
+    <tr>
+      <td> Module.completeGraph(Graph G, nodes n, edges e)</td> <td> Constructs a complete Graph with n nodes and e edges. </td>
+    </tr>
+    <tr>
+      <td> Module.completeBipartiteGraph(Graph G, nodes n, edges e)</td> <td> Constructs a complete Bipartite Graph with n nodes and e edges. </td>
+    </tr>
+    <tr>
+      <td> Module.planarConnectedGraph(Graph G, nodes n, edges e)</td> <td> Constructs a planar Connected Graph with n nodes and e edges. </td>
+    </tr>
+</tbody>
+
 </table>
 </body>
 
