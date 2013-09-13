@@ -92,16 +92,19 @@
   $(document).ready(function(){
   $("#manual").click(function(){
     editor.setValue(manual_code);
+    editor.gotoLine(0);
   });
 });
   $(document).ready(function(){
   $("#tree").click(function(){
     editor.setValue(tree_code);
+    editor.gotoLine(0);
   });
 });
   $(document).ready(function(){
   $("#acylic").click(function(){
     editor.setValue(acyclic_code);
+    editor.gotoLine(0);
   });
 });
   </script>
