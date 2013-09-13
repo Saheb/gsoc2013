@@ -7,7 +7,7 @@
 <style type="text/css" media="screen">
     #editor { 
         position: absolute;
-        top: 43px;
+        top: 73px;
         right: 700px;
         bottom: 0;
         left: 0px;
@@ -28,21 +28,27 @@
 </style>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
   <script src="ogdf.js"></script>
+  
 </head>
 
 <body>
 <div class="navbar">
   <div class="navbar-inner">
-    <a class="brand" href="#">OGDF.js</a>
+    <a class="brand" href="http://ogdf.net/doku.php" target="new">OGDF.js</a>
     <ul class="nav">
       <li><a href="index.html">Sandbox</a></li>
       <li class="active"><a href="examples.html">Examples</a></li>
       <li><a href="docs.html">Docs</a></li>
     </ul>
   </div>
+<div>
+  <button class="btn" id="manual">Manual</button>
+  <button class="btn" id="tree">Tree</button>
+  <button class="btn" id="acylic">Acylic</button>
 </div>
-
+</div>
 <div id="editor">
 
 
@@ -61,15 +67,16 @@
     editor.getSession().setMode("ace/mode/javascript");
     
     editor.getSession().setUseWrapMode(true);
-    var example_number = 2;
+
+
+    
     var manual_code = "\r//Click Render to render the code\r\rvar G = new Module.Graph();\rvar GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);\rvar len = 11;\rfor(var i=1;i<len;i++)\r\t{\r\tvar left = G.newNode();\r\tGA.setX(left,-5*(i+1));\r\tGA.setY(left,-20*i);\r\tGA.setWidth(left,10*(i+1));\r\tGA.setHeight(left,15);\r\tGA.setNodeColor(left,new Module.Color(Module.Name.Blue));\r\t\r\tvar bottom = G.newNode();\r\tGA.setX(bottom,20*(len-i));\r\tGA.setY(bottom,5*(len+1-i));\r\tGA.setWidth(bottom,15);\r\tGA.setHeight(bottom,10*(len+1-i));\r\tGA.setNodeColor(bottom,new Module.Color(Module.Name.Red));\r\t\r\tvar e = G.newEdge(left,bottom);\r\tvar st = Module.StrokeType.stSolid;\r\tvar dpl = GA.bends(e);\r\tdpl.pushBack(new Module.DPoint(10,-20*i));\r\tdpl.pushBack(new Module.DPoint(20*(len-i),-10));\r\tGA.setBend(e,dpl);\r\tGA.setStrokeType(e,st);\r\tGA.setStrokeWidth(e,1);\r\tGA.setEdgeColor(e,new Module.Color(Module.Name.Green));\r\t}\r\tconsole.log(GA.directed())\r\tGA.setDirected(false);\r\tconsole.log(GA.directed())\r\tvar svg = Module.GraphIO.getSVG(GA);\r\tvar cvs =  document.getElementById('canvas');\r\tcvs.innerHTML = svg;";
     
     var tree_code =  "\r//Click Render to render the code\r\rvar G = new Module.Graph();\rvar GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);\rvar len = 11;\rfor(var i=1;i<len;i++)\r\t{\r\tvar left = G.newNode();\r\tGA.setX(left,-5*(i+1));\r\tGA.setY(left,-20*i);\r\tGA.setWidth(left,10*(i+1));\r\tGA.setHeight(left,15);\r\tGA.setNodeColor(left,new Module.Color(Module.Name.Blue));\r\t\r\tvar bottom = G.newNode();\r\tGA.setX(bottom,20*(len-i));\r\tGA.setY(bottom,5*(len+1-i));\r\tGA.setWidth(bottom,15);\r\tGA.setHeight(bottom,10*(len+1-i));\r\tGA.setNodeColor(bottom,new Module.Color(Module.Name.Red));\r\t\r\tvar e = G.newEdge(left,bottom);\r\tvar st = Module.StrokeType.stSolid;\r\tvar dpl = GA.bends(e);\r\tdpl.pushBack(new Module.DPoint(10,-20*i));\r\tdpl.pushBack(new Module.DPoint(20*(len-i),-10));\r\tGA.setBend(e,dpl);\r\tGA.setStrokeType(e,st);\r\tGA.setStrokeWidth(e,1);\r\tGA.setEdgeColor(e,new Module.Color(Module.Name.Green));\r\t}\r\tvar tl = new Module.TreeLayout();\r\ttl.call(GA);\r\tconsole.log(GA.directed());\r\tGA.setDirected(false);\r\tvar svg = Module.GraphIO.getSVG(GA);\r\tvar cvs =  document.getElementById('canvas');\r\tcvs.innerHTML = svg;";
 
-    if(example_number==1)
-        editor.setValue(manual_code);
-    else
-        editor.setValue(tree_code);
+    var acyclic_code = "\r//Click Render to render the code\r\rvar G = new Module.Graph();\rvar GA = new Module.GraphAttributes(G,Module.nodeGraphics|Module.edgeGraphics|Module.nodeStyle|Module.edgeStyle);\rvar DAS = new Module.DfsAcyclicSubgraph();\rvar edges = new Module.List$edge$;\rModule.randomGraph(G,20,30);\rvar nodes = new Module.List$node$;\rG.allNodes(nodes);\rconsole.log(nodes.size());\rfor(var i=1;i<20;i++)\r\t{\r\tGA.setHeight(nodes.get(i),10);\r\tGA.setWidth(nodes.get(i),10);\r\tGA.setX(nodes.get(i),100*i);\r\tGA.setY(nodes.get(i),100*i);\r\t}\r\tDAS.call(G,edges);\r\tvar bl = new Module.BalloonLayout();\r\t//bl.call(GA);\r\tvar svg = Module.GraphIO.getSVG(GA);\r\t";
+    
+    editor.setValue(manual_code);
     editor.gotoLine(0);
     editor.setShowPrintMargin(false);
     editor.setReadOnly(true); 
@@ -81,6 +88,23 @@
     };
    	
 </script>
+<script>
+  $(document).ready(function(){
+  $("#manual").click(function(){
+    editor.setValue(manual_code);
+  });
+});
+  $(document).ready(function(){
+  $("#tree").click(function(){
+    editor.setValue(tree_code);
+  });
+});
+  $(document).ready(function(){
+  $("#acylic").click(function(){
+    editor.setValue(acyclic_code);
+  });
+});
+  </script>
 
 <button id = "render" onclick = "svg_render()"> Render </button>
 
