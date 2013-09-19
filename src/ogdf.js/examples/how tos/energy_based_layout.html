@@ -21,6 +21,8 @@
 				  edge [ source 5 target 7]\
 				]';
 	console.log(Module.GraphIO.myreadGML(G,gml));
+	console.log(G.numberOfNodes());
+	console.log(G.numberOfEdges());
 	var fl = new Module.FMMMLayout();
 	fl.useHighLevelOptions(true);
 	fl.unitEdgeLength(15.0);

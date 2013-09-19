@@ -171,6 +171,18 @@ edge getEdge(List<edge> edges, int position)
 		}
 };*///--------------------------------------------------------------//
 
+void randomLayout(GraphAttributes &GA)
+{
+	const Graph &G = GA.constGraph();
+	int max_x = (int)(10.0f * sqrt((float)G.numberOfNodes()));
+	int max_y = max_x;
+
+	node v;
+	forall_nodes(v,G) {
+		GA.x(v) = 10*randomNumber(0,max_x);
+		GA.y(v) = 10*randomNumber(0,max_y);
+	}
+}
 }
 
 EMSCRIPTEN_BINDINGS(OGDF) {
@@ -237,6 +249,7 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 		.function("setBend",&ogdf::setBend,allow_raw_pointers())
 		.function("directed",&ogdf::GraphAttributes::directed)
 		.function("setDirected",&ogdf::GraphAttributes::setDirected)
+		.function("randomLayout",&ogdf::randomLayout)
 		;
 		constant("nodeGraphics",0x00001);
 		constant("edgeGraphics",0x00002);
@@ -374,7 +387,7 @@ EMSCRIPTEN_BINDINGS(OGDF) {
 	class_<ogdf::GraphIO>("GraphIO")
         .constructor()
 		//.class_function("readGML", select_overload<bool(ogdf::Graph&,const char*)>(&ogdf::GraphIO::readGML),allow_raw_pointers())
-		.class_function("readGML", select_overload<bool(ogdf::Graph&,const string&)>(&ogdf::GraphIO::readGML))
+		.class_function("readGML", select_overload<bool(ogdf::Graph&,istream&)>(&ogdf::GraphIO::readGML))
 		//.function("readGML", select_overload<bool(ogdf::Graph&,std::istream)>(&ogdf::GraphIO::readGML))
 		//.class_function("writeGML", select_overload<bool(const ogdf::Graph&,const char*)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
 		//.class_function("writeGML", select_overload<char*(const ogdf::Graph&,const string&)>(&ogdf::GraphIO::writeGML),allow_raw_pointers())
